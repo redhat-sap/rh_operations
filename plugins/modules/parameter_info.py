@@ -61,18 +61,18 @@ requirements:
 
 EXAMPLES = r"""
 - name: Use module with local socket on target machine
-  redhat.sap_operations.parameter_info:
+  sap.operations.parameter_info:
     instance_number: "0"
 
 - name: Fetch values of all parameters
-  redhat.sap_operations.parameter_info:
+  sap.operations.parameter_info:
     username: "npladm"
     password: "secret123!"
     hostname: "sap.system.example.com"
     instance_number: "0"
 
 - name: Fetch values of DIR_CT_RUN parameter
-  redhat.sap_operations.parameter_info:
+  sap.operations.parameter_info:
     username: "npladm"
     password: "secret123!"
     hostname: "sap.system.example.com"
@@ -92,7 +92,7 @@ parameter_value:
 
 
 from ansible.module_utils.basic import AnsibleModule
-from ansible_collections.redhat.sap_operations.plugins.module_utils import soap
+from ansible_collections.sap.operations.plugins.module_utils import soap
 
 
 def soap_client(hostname, username, password, ca_file, secure, instance):
