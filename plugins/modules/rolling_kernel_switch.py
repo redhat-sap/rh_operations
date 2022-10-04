@@ -77,7 +77,7 @@ options:
 
 EXAMPLES = r"""
 - name: Run the system update
-  redhat.sap_operations.rolling_kernel_switch:
+  sap.operations.rolling_kernel_switch:
     username: "npladm"
     password: "secret123!"
     hostname: "sap.system.example.com"
@@ -88,7 +88,7 @@ RETURN = r""" # """
 
 
 from ansible.module_utils.basic import AnsibleModule
-from ansible_collections.redhat.sap_operations.plugins.module_utils import soap
+from ansible_collections.sap.operations.plugins.module_utils import soap
 
 
 def soap_client(
