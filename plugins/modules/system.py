@@ -88,11 +88,11 @@ requirements:
 
 EXAMPLES = r"""
 - name: Use module with local socket on target machine
-  sap.operations.system:
+  sap.sap_operations.system:
     instance_number: "0"
 
 - name: Start system
-  sap.operations.system:
+  sap.sap_operations.system:
     username: "npladm"
     password: "secret123!"
     hostname: "sap.system.example.com"
@@ -100,7 +100,7 @@ EXAMPLES = r"""
     state: started
 
 - name: Stop system
-  sap.operations.system:
+  sap.sap_operations.system:
     username: "npladm"
     password: "secret123!"
     hostname: "sap.system.example.com"
@@ -127,7 +127,7 @@ system:
 
 
 from ansible.module_utils.basic import AnsibleModule
-from ansible_collections.sap.operations.plugins.module_utils import soap
+from ansible_collections.sap.sap_operations.plugins.module_utils import soap
 
 
 def soap_client(

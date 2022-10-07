@@ -5,7 +5,7 @@
 namespace: sap
 
 # The name of the collection. Has the same character restrictions as 'namespace'
-name: operations
+name: sap_operations
 
 # The version of the collection. Must be compatible with semantic versioning
 version: 1.0.0

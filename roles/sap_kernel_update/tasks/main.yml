@@ -4,7 +4,7 @@
   when: sap_kernel_update_kernel_path is not defined
 
 - name: Fetch the ABAP instances
-  sap.operations.system_info:
+  sap.sap_operations.system_info:
     instance_number: "{{ sap_kernel_update_instance }}"
     feature: "ABAP"
   register: __sap_kernel_update_apab_systems

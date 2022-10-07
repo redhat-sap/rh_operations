@@ -23,5 +23,5 @@
   when: sap_kernel_updated_result is changed
 
 - name: Update SAP system
-  sap.operations.rolling_kernel_switch:
+  sap.sap_operations.rolling_kernel_switch:
     instance_number: "{{ sap_kernel_update_instance }}"
