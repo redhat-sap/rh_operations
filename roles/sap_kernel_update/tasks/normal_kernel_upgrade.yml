@@ -1,5 +1,5 @@
 - name: Stop SAP system
-  sap.operations.system:
+  sap.sap_operations.system:
     state: stopped
     instance_number: "{{ sap_kernel_update_instance }}"
 
@@ -28,6 +28,6 @@
   when: sap_kernel_updated_result is changed
 
 - name: Start SAP system
-  sap.operations.system:
+  sap.sap_operations.system:
     state: started
     instance_number: "{{ sap_kernel_update_instance }}"

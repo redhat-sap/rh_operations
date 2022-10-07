@@ -66,7 +66,7 @@ requirements:
 
 EXAMPLES = r"""
 - name: Fetch system info
-  sap.operations.system_info:
+  sap.sap_operations.system_info:
     username: "npladm"
     password: "secret123!"
     hostname: "sap.system.example.com"
@@ -92,7 +92,7 @@ system_info:
 
 
 from ansible.module_utils.basic import AnsibleModule
-from ansible_collections.sap.operations.plugins.module_utils import soap
+from ansible_collections.sap.sap_operations.plugins.module_utils import soap
 
 
 def soap_client(hostname, username, password, ca_file, secure, instance):

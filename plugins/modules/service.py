@@ -76,17 +76,17 @@ requirements:
 
 EXAMPLES = r"""
 - name: Start the service and wait for service to be available using unix socket
-  sap.operations.service:
+  sap.sap_operations.service:
     instance_number: "0"
 
 - name: Start the service and wait for service to be available using username/password
-  sap.operations.service:
+  sap.sap_operations.service:
     username: "npladm"
     password: "secret123!"
     hostname: "sap.system.example.com"
 
 - name: Start the service and do not wait for service to be up and running
-  sap.operations.service:
+  sap.sap_operations.service:
     username: "npladm"
     password: "secret123!"
     hostname: "sap.system.example.com"
@@ -95,14 +95,14 @@ EXAMPLES = r"""
     wait: false
 
 - name: Stop the service and wait for termination
-  sap.operations.service:
+  sap.sap_operations.service:
     username: "npladm"
     password: "secret123!"
     hostname: "sap.system.example.com"
     state: stopped
 
 - name: Stop the service and do not wait
-  sap.operations.service:
+  sap.sap_operations.service:
     username: "npladm"
     password: "secret123!"
     hostname: "sap.system.example.com"
@@ -128,7 +128,7 @@ instances:
 
 
 from ansible.module_utils.basic import AnsibleModule
-from ansible_collections.sap.operations.plugins.module_utils import soap
+from ansible_collections.sap.sap_operations.plugins.module_utils import soap
 
 
 def soap_client(

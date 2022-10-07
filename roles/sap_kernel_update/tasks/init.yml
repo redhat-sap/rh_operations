@@ -1,6 +1,6 @@
 ---
 - name: Fetch kernel path
-  sap.operations.parameter_info:
+  sap.sap_operations.parameter_info:
     name: "DIR_CT_RUN"
     instance_number: "{{ sap_kernel_update_instance }}"
   register: __sap_kernel_update_sapexedb_sar_file
