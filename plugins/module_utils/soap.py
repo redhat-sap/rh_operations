@@ -9,7 +9,6 @@ from __future__ import absolute_import, division, print_function
 
 __metaclass__ = type
 
-import http.client
 import socket
 import ssl
 import time
@@ -18,6 +17,10 @@ import urllib.request
 
 from ansible.module_utils.basic import missing_required_lib
 
+try:
+    from http.client import HTTPConnection
+except ImportError:
+    from httplib import HTTPConnection
 
 try:
     from suds.client import Client
@@ -29,7 +32,9 @@ except (ImportError, NameError):
     HAS_SUDS_LIBRARY = False
     SUDS_LIBRARY_IMPORT_ERROR = traceback.format_exc()
 else:
+    SUDS_LIBRARY_IMPORT_ERROR = None
     HAS_SUDS_LIBRARY = True
+    SUDS_LIBRARY_IMPORT_ERROR = None
 
 
 YELLOW = "SAPControl-YELLOW"  # In transition
@@ -45,7 +50,7 @@ def check_sdk(module):
         )
 
 
-class LocalSocketHttpConnection(http.client.HTTPConnection):
+class LocalSocketHttpConnection(HTTPConnection):
     def __init__(
         self,
         host,
