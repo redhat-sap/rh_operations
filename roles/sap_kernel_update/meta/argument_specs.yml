@@ -13,6 +13,7 @@ argument_specs:
           Update the system if rolling updgrade can't be used. Stop and start the system, so there is downtime.
         type: str
         default: false
+        required: false
       sap_kernel_update_sid:
         description: |
           SAP System ID.
@@ -22,6 +23,7 @@ argument_specs:
         description: |
           Path to directory with installed SAP kernel.
         type: str
+        required: true
       sap_kernel_update_new_kernel_path:
         description: |
           Path to new kernel.
@@ -32,3 +34,4 @@ argument_specs:
             Backup previous kernel.
         type: str
         default: true
+        required: false
