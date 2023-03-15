@@ -1,0 +1,33 @@
+#
+# Copyright 2023 Red Hat, Project Atmosphere
+#
+# This program is free software: you can redistribute it and/or modify it under the terms of the GNU
+# General Public License as published by the Free Software Foundation, version 3 of the License.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+# even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along with this program.
+# If not, see <https://www.gnu.org/licenses/>.
+
+- name: Validate password parameters
+  ansible.builtin.assert:
+    that:
+      - >
+        (hana_update_master_password is defined)
+        or
+        (
+          (hana_update_master_password is not defined)
+          and
+          (
+          (hana_update_password is defined) and
+          (hana_update_sapadm_password is defined) and
+          (hana_update_system_user_password is defined) and
+          (hana_update_root_password is defined)
+          )
+        )
+    fail_msg: |
+      Please make sure that `hana_update_master_password` and other passwords are defined properly.
+      All required passwords should be defined.
+    success_msg: "Variables validation successfull"

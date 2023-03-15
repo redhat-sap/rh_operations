@@ -162,7 +162,6 @@ class SAPClient(object):
 
 
 class SystemClient(SAPClient):
-
     # TODO(kirill): What should we wait for in case of specific system definition?
     # features = 'MESSAGESERVER|ENQUE|ABAP|GATEWAY|ICMAN|IGS'
     instance_map = {

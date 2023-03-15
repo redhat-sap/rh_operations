@@ -71,7 +71,7 @@ EXAMPLES = r"""
     password: "secret123!"
     hostname: "sap.system.example.com"
     instance_number: "0"
-    state: started
+    status: started
 """
 
 RETURN = r"""

@@ -1,0 +1,48 @@
+---
+#
+# Copyright 2023 Red Hat, Project Atmosphere
+#
+# This program is free software: you can redistribute it and/or modify it under the terms of the GNU
+# General Public License as published by the Free Software Foundation, version 3 of the License.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+# even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along with this program.
+# If not, see <https://www.gnu.org/licenses/>.
+
+# yamllint disable rule:line-length
+
+- name: Get SAP HANA versions vector (medium)
+  ansible.builtin.command:
+    cmd: "{{ hana_update_component_medium }}/DATA_UNITS/HDB_SERVER_LINUX_X86_64/hdblcm --action=print_detected_components --component_medium={{ hana_update_component_medium }}"
+  become: true
+  become_user: root
+  changed_when: false
+  register: hana_update_hdb_versions_vector_medium
+
+
+- name: Parse HDB versions (medium)
+  ansible.utils.cli_parse:
+    text: "{{ hana_update_hdb_versions_vector_medium.stdout }}"
+    parser:
+      name: ansible.utils.ttp
+      template_path: templates/hdb_versions.ttp
+  register: hana_update_hdb_versions_vector_medium_register
+
+- name: Get SAP HANA versions vector (resident)
+  ansible.builtin.command:
+    cmd: "/hana/shared/HAN/hdblcm/hdblcm --action=print_component_list"
+  become: true
+  become_user: root
+  changed_when: false
+  register: hana_update_hdb_versions_vector_resident
+
+- name: Parse HDB versions (resident)
+  ansible.utils.cli_parse:
+    text: "{{ hana_update_hdb_versions_vector_resident.stdout | replace('\n', '') }}"
+    parser:
+      name: ansible.utils.xml
+      # template_path: templates/hdb_versions.ttp
+  register: hana_update_hdb_versions_vector_resident_register

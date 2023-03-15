@@ -1,0 +1,20 @@
+---
+# defaults file for hana_update
+hana_update_cleanup: true
+hdb_installer_trace_file_default: /tmp/hdb_installer_trace_file.trc
+
+hana_update_password: "{{ hana_update_master_password }}"
+hana_update_sapadm_password: "{{ hana_update_master_password }}"
+hana_update_system_user_password: "{{ hana_update_master_password }}"
+hana_update_root_password: "{{ hana_update_master_password }}"
+
+hana_update_mapping:
+  "73554900104900002967": "afl"
+  # "73554900104900003009": "SAP HANA smart data access"
+  "73554900104900002961": "server"
+  "73554900104900002962": "client"
+  # "73554900104900003163": "SAP HANA Cockpit"
+  "73554900104900002985": "xs"
+  "73555000104900004131": "epmmds"
+  "73555000104900007541": "lss"
+  "73554900104900002963": "studio"

@@ -1,0 +1,26 @@
+---
+#
+# Copyright 2023 Red Hat, Project Atmosphere
+#
+# This program is free software: you can redistribute it and/or modify it under the terms of the GNU
+# General Public License as published by the Free Software Foundation, version 3 of the License.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+# even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along with this program.
+# If not, see <https://www.gnu.org/licenses/>.
+
+- name: Collect package facts
+  ansible.builtin.package_facts:
+    manager: rpm
+
+- name: Assert that required packages are installed
+  ansible.builtin.assert:
+    that: "{{ ansible_facts.packages[name] is defined }}"
+    fail_msg: "Package {{ name }} absent, but required."
+    success_msg: "Package {{ name }} present."
+  loop: "{{ __prepare_packages }}"
+  loop_control:
+    loop_var: name
