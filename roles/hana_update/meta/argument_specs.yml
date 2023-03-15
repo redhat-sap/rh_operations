@@ -1,0 +1,176 @@
+---
+# see documentation https://docs.ansible.com/ansible/latest/dev_guide/developing_program_flow_modules.html#argument-spec
+# https://docs.ansible.com/ansible/latest/collections/ansible/builtin/validate_argument_spec_module.html
+argument_specs:
+  main:
+    short_description: |
+      Role updates a SAP HANA system or instance on a given host.
+
+      A path to new HANA version installation is required.
+      It can be specified by variable hana_update_component_medium
+
+      Limitations:
+        - Role was tested only on single host.
+        - During upgrade hdblcm is configured to use SSH (not saphostagent) to connect to the host.
+    options:
+      hana_update_sid:
+        description: |
+          SAP HANA System ID.
+        type: str
+        required: true
+      hana_update_component_medium:
+        description: |
+          Location of Installation Medium
+        type: str
+        required: true
+      hana_update_master_password:
+        description: |
+          SAP HANA update master password.
+          Master password is not required when all other passwords are set.
+          If any other password is not set it will default to master password.
+        type: str
+        required: false
+        no_log: true
+      hana_update_password:
+        description: |
+          System Administrator Password (<sid>adm). If not set will default to hana_update_master_password variable.
+        type: str
+        required: false
+        no_log: true
+      hana_update_sapadm_password:
+        description: |
+          SAP Host Agent User (sapadm) password. If not set will default to hana_update_master_password variable.
+        type: str
+        required: false
+        no_log: true
+      hana_update_system_user_password:
+        description: |
+          Database User Password. If not set will default to hana_update_master_password variable.
+        type: str
+        required: false
+        no_log: true
+      hana_update_root_password:
+        description: |
+          Root User Password For Remote Hosts. If not set will default to hana_update_master_password variable.
+        type: str
+        required: false
+        no_log: true
+      hana_update_cleanup:
+        description: |
+          If set to true xml file with passwords will be removed after installation (failed or successfull).
+          Recommendation is always keep default value for this parameter (true) to avoid having passwords in plain text.
+        type: bool
+        required: false
+        default: true
+      hana_update_options:
+        description: |
+          Optional arguments for SAP HANA update
+        type: dict
+        required: false
+        options:
+          prepare_update:
+            description: |
+              Stop update before software version switch, resumable ( Default: n=false )
+            type: bool
+            required: false
+          components:
+            description: >
+              Components ( Valid values: all | client | es | ets |
+              lcapps | server | smartda | streaming | rdsync | xs |
+              studio | afl | sca | sop | eml | rme | rtl | trp )
+            type: str
+            # TODO: components should be a list, not a str, during install one can select several components to update separated by comma
+            required: false
+            choices:
+              - "all"
+              - "client"
+              - "es"
+              - "ets"
+              - "lcapps"
+              - "server"
+              - "smartda"
+              - "streaming"
+              - "rdsync"
+              - "xs"
+              - "studio"
+              - "afl"
+              - "sca"
+              - "sop"
+              - "eml"
+              - "rme"
+              - "rtl"
+              - "trp"
+          install_hostagent:
+            description: |
+              Enable the installation or upgrade of the SAP Host Agent ( Default: y = true)
+            type: bool
+            required: false
+          check_only:
+            description: |
+              Execute checks, do not update SAP HANA System ( Default: n = false)
+            type: bool
+            required: false
+          verify_signature:
+            description: |
+              Verify the authenticity of SAP HANA components ( Default: n = false)
+            type: bool
+            required: false
+          update_execution_mode:
+            description: |
+              Update Execution Mode ( Default: standard; Valid values: standard | optimized )
+            type: str
+            required: false
+            choices:
+              - "standard"
+              - "optimized"
+          configure_python:
+            description: |
+              Configure Python version ( Default: python2; Valid values: python2 | python3 )
+            type: str
+            required: false
+            choices:
+              - "python2"
+              - "python3"
+          scope:
+            description: |
+              Execution Scope ( Default: system; Valid values: instance | system )
+            type: str
+            required: false
+            choices:
+              - "instance"
+              - "system"
+          hdb_installer_trace_file:
+            description: |
+              Sets environment variable HDB_INSTALLER_TRACE_FILE to enable SAP HANA hdblcm trace.
+              The environment variable 'HDB_INSTALLER_TRACE_FILE=<file>' enables the trace.
+            type: path
+            default: ''
+            required: false
+          hdblcm_logdir_copy:
+            description: |
+              Sets environment variable HDBLCM_LOGDIR_COPY to enable SAP HANA logs copy.
+              The environment variable HDBLCM_LOGDIR_COPY=<target directory> creates a copy of the log directory.
+            type: path
+            default: ''
+            required: false
+          component_dirs:
+            description: |
+              List of component directories
+            type: list
+            required: false
+          ignore:
+            description: |
+              Specifies failing prerequisite checks that the SAP HANA platform lifecycle management tools should ignore.
+            type: list
+            required: false
+            choices:
+              - 'check_busy_files'
+              - 'check_component_dependencies'
+              - 'check_diskspace'
+              - 'check_min_mem'
+              - 'check_pending_upgrade'
+              - 'check_platform'
+              - 'check_resume_hostname'
+              - 'check_signature_file'
+              - 'check_version'
+              - 'verify_signature'

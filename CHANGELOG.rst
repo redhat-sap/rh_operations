@@ -4,38 +4,74 @@ SAP Operations Collection Release Notes
 
 .. contents:: Topics
 
-v1.0.2
+
+v1.0.4
 ======
 
-Minor Changes
--------------
+Release Summary
+---------------
 
-- Add usage documentation.
+Two roles are added `hana_update` and `prepare`
 
-v1.0.1
-======
 
 Major Changes
 -------------
 
-- HANA backup module - Create SAP HANA database file backup
-- hdbuserstore module - Manage the HANA user store (HANA command hdbuserstore).
-- hdbuserstore info module - Get information from HANA user store (HANA command hdbsuserstore).
-- Unpack role - Unpack SAP binaries from \*.zip and \*.sar archives.
+- Role hana_update - update SAP HANA system
+- Role prepare - prepare RHEL hosts to run collection content
 
 Minor Changes
 -------------
 
-- Compatibility with Python 2.
+- GitHub action to publish collection
+
+v1.0.3
+======
+
+Release Summary
+---------------
+
+Using changelog fragments to build collection changelog.
+
+
+Minor Changes
+-------------
+
+- Improvements in the collection build and publish process.
+- Now using automatic generation of collection changelogs with fragments.
+
+v1.0.2
+======
+
+Release Summary
+---------------
+
+First release of SAP Operations collection.
+
+
+Major Changes
+-------------
+
+- parameter_info - module to fetch parameter information.
+- sap_kernel_update - SAP kernel update role.
+- service - module to manage SAP HANA services.
+- system  - module to manage SAP system.
+- system_info - module to fetch SAP system information.
 
 v1.0.0
 ======
 
+Release Summary
+---------------
+
+First release of SAP Operations collection.
+
+
 Major Changes
 -------------
 
-- SAP kernel update role.
 - parameter_info - module to fetch parameter information.
+- sap_kernel_update - SAP kernel update role.
 - service - module to manage SAP HANA services.
-- system_info module - module to fetch SAP system information.
-- system module - module to manage SAP system.
+- system  - module to manage SAP system.
+- system_info - module to fetch SAP system information.

@@ -21,6 +21,7 @@
     cmd: ./saproot.sh {{ sap_kernel_update_sid }}
     chdir: "{{ sap_kernel_update_kernel_path }}"
   when: sap_kernel_updated_result is changed
+  changed_when: true
 
 - name: Update SAP system
   sap.sap_operations.rolling_kernel_switch:

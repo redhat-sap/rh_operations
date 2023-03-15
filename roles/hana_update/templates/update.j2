@@ -1,0 +1,112 @@
+[General]
+
+# Location of Installation Medium
+component_medium={{ hana_update_component_medium }}
+
+# Stop update before software version switch, resumable ( Default: n )
+prepare_update={{ hana_update_options.prepare_update | default('n') }}
+
+# # Comma separated list of component directories
+component_dirs={{ ( hana_update_options.component_dirs | default([]) | join(',') )  }}
+
+# # Directory root to search for components
+# component_root=
+
+# Execute checks, do not update SAP HANA System ( Default: n )
+check_only={% if hana_update_options.check_only | default(false) -%}y{% else -%}n{% endif %}
+
+
+# # Remote Execution ( Default: ssh; Valid values: ssh | saphostagent )
+# remote_execution=ssh
+
+# Verify the authenticity of SAP HANA components ( Default: n )
+verify_signature={% if hana_update_options.verify_signature | default(false) -%}y{% else -%}n{% endif %}
+
+# Components ( Valid values: all | client | es | ets | lcapps | server | smartda | streaming | rdsync | xs | studio | afl | sca | sop | eml | rme | rtl | trp )
+components={{ hana_update_options.components | default('server') }}
+
+# Update Execution Mode ( Default: standard; Valid values: standard | optimized )
+update_execution_mode={{ hana_update_options.update_execution_mode | default('standard') }}
+
+
+# # Ignore failing prerequisite checks
+# TODO: actually intersting parameter, see https://help.sap.com/docs/SAP_HANA_PLATFORM/2c1988d620e04368aa4103bf26f17727/f277a52885e846849e4e3d0ff7f4de89.html?locale=en-US&q=property_file
+ignore={{ ( hana_update_options.ignore | default([]) | join(',') ) }}
+
+# # Do not Modify '/etc/sudoers' File ( Default: n )
+# skip_modify_sudoers=n
+
+# # Tenant Database User Name ( Default: SYSTEM )
+# tenantdb_user=SYSTEM
+
+# # Tenant Database User Password
+# tenantdb_user_password=
+
+[Server]
+
+# SAP HANA System ID
+sid={{ hana_update_sid | upper }}
+
+# Do you want to continue using these parameters? If you choose not to continue, you will be asked for all update parameters again. (y/n) ( Default: y )
+# https://help.sap.com/docs/SAP_HANA_PLATFORM/2c1988d620e04368aa4103bf26f17727/346e3c2baec74898901dba906b03835b.html?locale=en-US&q=property_file
+continue_update=y
+
+# Enable the installation or upgrade of the SAP Host Agent ( Default: y )
+install_hostagent={% if (hana_update_options.install_hostagent | default(true)) -%}y{% else -%}n{% endif %}
+
+# Execution Scope ( Default: system; Valid values: instance | system )
+scope={{ hana_update_options.scope | default('system') }}
+
+# # Use single DB user password for system database user ( Default: n )
+# systemdb_use_singledb_user_password=n
+
+# Configure Python version ( Default: python2; Valid values: python2 | python3 )
+configure_python={{ hana_update_options.configure_python | default('python2') }}
+
+# # Instruct the Local Secure Store (LSS) to trust an unsigned SAP HANA Database ( Default: n )
+# lss_trust_unsigned_server=n
+
+# # Local Host Name ( Default: hana1 )
+# hostname=
+
+# # SAP HANA Database secure store ( Default: ssfs; Valid values: ssfs | localsecurestore )
+# secure_store=ssfs
+
+# # Install SSH Key ( Default: y )
+# install_ssh_key=y
+
+# # Root User Name For Remote Hosts ( Default: root )
+# root_user=root
+
+# # Root User Password For Remote Hosts
+# root_password=
+
+# # SAP Host Agent User (sapadm) Password
+# sapadm_password=
+
+# # System Administrator Password
+# password=
+
+# # Database User Name ( Default: SYSTEM )
+# system_user=SYSTEM
+
+# # Database User Password
+# system_user_password=
+
+# # System database user (SYSTEM) password
+# systemdb_system_user_password=
+
+# # Inter Service Communication Mode ( Valid values: standard | ssl )
+# isc_mode=
+
+# # Apply System Size Dependent Resource Limits? (SAP Note 3014176) ( Default: y )
+# apply_system_size_dependent_parameters=y
+
+# # Certificate Host Names
+# certificates_hostmap=
+
+[Action]
+
+# Action ( Default: exit; Valid values: install | update | extract_components )
+action=update
+

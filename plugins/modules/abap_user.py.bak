@@ -1,0 +1,194 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+# Copyright 2023 Red Hat, Project Atmosphere
+# GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
+#
+# Copyright 2023 Red Hat, Project Atmosphere
+#
+# This program is free software: you can redistribute it and/or modify it under the terms of the GNU
+# General Public License as published by the Free Software Foundation, version 3 of the License.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+# even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along with this program.
+# If not, see <https://www.gnu.org/licenses/>.
+
+
+from __future__ import absolute_import, division, print_function
+from ansible_collections.sap.sap_operations.plugins.module_utils.abap import (
+    AnsibleModuleABAP,
+    AnsibleModuleABAPExitException,
+    AnsibleModuleABAPFailException,
+)
+
+__metaclass__ = type
+
+DOCUMENTATION = r"""
+---
+module: abap_user
+extends_documentation_fragment:
+  - sap.sap_operations.abap_rfc_doc
+
+author:
+  - https://github.com/kksat
+
+short_description: Manage SAP ABAP user records.
+
+version_added: 1.1.0
+
+description:
+  - Manage SAP ABAP user records.
+
+options:
+  USERNAME:
+    description:
+      - "SAP ABAP system parameter name"
+    type: str
+    required: True
+  FIRSTNAME:
+    description:
+      - "SAP ABAP user first name"
+    type: str
+    required: False
+  LASTNAME:
+    description:
+      - "SAP ABAP user last name"
+    type: str
+    required: False
+  E_MAIL:
+    description:
+      - "SAP ABAP user email"
+    type: str
+    required: False
+  USERALIAS
+  E_MAIL:
+    description:
+      - "SAP ABAP user alias"
+    type: str
+    required: False
+  USTYP:
+    description:
+      - "SAP ABAP user type"
+      - 'A' - dialog user
+    type: str
+    required: False
+    choices:
+      - A
+      - B
+      - C
+      - S
+      - L
+  GLTGV:
+    description:
+      - "SAP ABAP user validity date from"
+      - Default = today in the form YYYYMMDD
+    type: str
+    required: False
+
+  GLTGB:
+    description:
+      - "SAP ABAP user validity date to"
+      - default 99991231
+    type: str
+    required: False
+
+  ACTIVITYGROUPS:
+    description:
+      - List of roles for the user
+    type: list
+    elements: dict
+    required: False
+    options:
+      AGR_NAME:
+        description:
+          - "SAP ABAP user pfcg role"
+        type: str
+        required: False
+      FROM_DAT:
+      TO_DAT:
+      assignment:
+        assigned
+        removed
+  PROFILES:
+      description:
+      - List of profiles to be assigned to the user
+    type: list
+    elements: str
+    required: False
+
+
+  state:
+    description:
+      - "SAP ABAP system parameter value"
+    type: str
+    required: False
+    default: present
+    choice:
+      - present
+      - absent
+      - locked
+      - unlocked
+"""
+
+EXAMPLES = r"""
+sap.sap_operations.abap_user:
+  name: 
+  value: 
+  rfc_connection:
+    ashost: hostname
+    client: '000'
+    user: DDIC
+    passwd: "pa$$w0rd"
+    sysnr: '00'
+"""
+
+RETURN = r"""
+PARAMETER_VALUE:
+    description: Value of requested parameter
+    type: str
+    returned: always
+    sample: /usr/sap/NPL/D00/work
+RC:
+    description: |
+      Return code of RFC TH_GET_PARAMETER.
+      If not zero, means something went wrong. Module will fail in that case.
+    type: str
+    returned: always
+    sample: 0
+"""
+
+
+def main():
+    argument_spec = dict(
+        NAME=dict(type="str", required=True),
+        VALUE=dict(type="str", required=True),
+    )
+    module = AnsibleModuleABAP(argument_spec=argument_spec, supports_check_mode=True)
+    name = module.params.get("NAME")
+    value = module.params.get("VALUE")
+
+    with module as abap:
+        current_value = abap("SPFL_PARAMETER_GET_VALUE", NAME=name)
+        if current_value["RC"]:
+            raise AnsibleModuleABAPFailException(
+                msg="Functional module SPFL_PARAMETER_GET_VALUE - return code is not zero",
+                **current_value
+            )
+        elif current_value["VALUE"] == value:
+            raise AnsibleModuleABAPExitException(changed=False, NAME=name, VALUE=value)
+        result = abap("SPFL_PARAMETER_CHANGE_VALUE", NAME=name, VALUE=value)
+        if result["RC"]:
+            raise AnsibleModuleABAPFailException(
+                changed=False,
+                msg="Functional module SPFL_PARAMETER_CHANGE_VALUE - return code is not zero",
+                **result
+            )
+
+    module.exit_json(changed=True, **result)
+
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,34 @@
+{
+ "collection_info": {
+  "namespace": "sap",
+  "name": "sap_operations",
+  "version": "1.0.4",
+  "authors": [
+   "Ondra Machacek <omachace@redhat.com>",
+   "<https://github.com/kksat>"
+  ],
+  "readme": "README.md",
+  "tags": [
+   "linux",
+   "sap"
+  ],
+  "description": "Ansible collection to handle day 2 operational SAP administration tasks.",
+  "license": [
+   "GPL-2.0-or-later"
+  ],
+  "license_file": null,
+  "dependencies": {},
+  "repository": "https://github.com/redhat-sap/rh_operations",
+  "documentation": "https://github.com/redhat-sap/rh_operations",
+  "homepage": "https://github.com/redhat-sap/rh_operations",
+  "issues": "https://github.com/redhat-sap/rh_operations/issues"
+ },
+ "file_manifest_file": {
+  "name": "FILES.json",
+  "ftype": "file",
+  "chksum_type": "sha256",
+  "chksum_sha256": "498ccac225f6b88f76212501a324b262290d6214bc271930ee237d7a7f68c2ff",
+  "format": 1
+ },
+ "format": 1
+}

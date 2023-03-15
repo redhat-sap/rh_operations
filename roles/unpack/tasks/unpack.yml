@@ -29,7 +29,7 @@
 
 - name: "Unpack files in path {{ source }}"
   ansible.builtin.include_tasks:
-    file: "unpack-{{ item.path[-3:] }}.yml"
+    file: "unpack-{{ item.path[-3:] | lower }}.yml"
   when:
     - ( item.path[-3:] | lower == unpack_zip_extension ) or ( item.path[-3:] | lower == unpack_sapcar_extension )
     - unpack_source_stat.stat.exists

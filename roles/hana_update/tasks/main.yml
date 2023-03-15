@@ -1,0 +1,27 @@
+---
+#
+# Copyright 2023 Red Hat, Project Atmosphere
+#
+# This program is free software: you can redistribute it and/or modify it under the terms of the GNU
+# General Public License as published by the Free Software Foundation, version 3 of the License.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+# even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along with this program.
+# If not, see <https://www.gnu.org/licenses/>.
+
+- name: Validate role variables
+  ansible.builtin.include_tasks: argument_validate.yml
+
+- name: Check that necessary host prerequisites are met
+  ansible.builtin.include_tasks: requirements_validate.yml
+
+- name: Get resident and medium HDB server versions
+  ansible.builtin.include_tasks: hdb_version.yml
+
+- name: Run HANA update if HDB server version on medium is strictly higher that HDB server resident version
+  ansible.builtin.include_tasks: hdb_update.yml
+  when:
+    - hana_update_hdb_version_medium_str is ansible.builtin.version(hana_update_hdb_version_resident_str,'>')

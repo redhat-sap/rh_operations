@@ -1,0 +1,80 @@
+---
+#
+# Copyright 2023 Red Hat, Project Atmosphere
+#
+# This program is free software: you can redistribute it and/or modify it under the terms of the GNU
+# General Public License as published by the Free Software Foundation, version 3 of the License.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+# even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along with this program.
+# If not, see <https://www.gnu.org/licenses/>.
+
+- name: Prepare necessary files for SAP HANA update
+  vars:
+    random_code: "{{ lookup('ansible.builtin.password', '/dev/null chars=ascii_lowercase,digits length=8') }}"
+  block:
+    - name: Create HANA update configuration file from template
+      ansible.builtin.template:
+        src: update.j2
+        dest: "~/update.{{ hana_update_sid }}.{{ random_code }}.cfg"
+        owner: root
+        group: root
+        mode: '0400'
+      become: true
+      become_user: root
+      register: hana_update_update_cfg
+
+    - name: Prepare hdb_passwords.xml from template
+      ansible.builtin.template:
+        src: hdb_passwords.j2
+        dest: "~/hdb_passwords.{{ hana_update_sid }}.{{ random_code }}.xml"
+        owner: root
+        group: root
+        mode: '0400'
+      become: true
+      become_user: root
+      register: hana_update_hdb_passwords
+      no_log: true
+# TODO: More passwords required?
+# See https://github.com/Azure/sap-automation/blob/experimental/deploy/ansible/
+# roles-db/4.0.0-hdb-install/templates/HANA_2_00_055_v1_install.rsp.xml.j2
+
+- name: Run actual SAP HANA update
+  block:
+    - name: Start HANA update
+      ansible.builtin.shell:
+        cmd: >
+          cat {{ hana_update_hdb_passwords.dest }} | (
+          {% if (hana_update_options.hdb_installer_trace_file is defined) -%}
+          HDB_INSTALLER_TRACE_FILE={{ hana_update_options.hdb_installer_trace_file }}
+          {% endif %}
+          {% if (hana_update_options.hdblcm_logdir_copy is defined) -%}
+          HDBLCM_LOGDIR_COPY={{ hana_update_options.hdblcm_logdir_copy }}
+          {% endif %}
+          {{ hana_update_component_medium }}/DATA_UNITS/HDB_SERVER_LINUX_X86_64/hdblcm
+          --configfile={{ hana_update_update_cfg.dest }}
+          --read_password_from_stdin=xml --batch )
+      become: true
+      become_user: root
+      register: hana_update_run
+      failed_when: hana_update_run.rc > 0
+      changed_when: true
+
+  rescue:
+    - name: Rescue SAP HANA update if it fails
+      ansible.builtin.include_tasks: hdb_update_rescue.yml
+
+  always:
+    - name: Cleanup hdb_passwords.xml file
+      ansible.builtin.file:
+        path: "{{ hana_update_hdb_passwords.dest }}"
+        state: absent
+      when: hana_update_cleanup
+      become: true
+      become_user: root
+# TODO remove
+    - name: Rescue SAP HANA update if it fails
+      ansible.builtin.include_tasks: hdb_update_rescue.yml
