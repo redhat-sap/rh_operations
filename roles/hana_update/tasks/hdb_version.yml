@@ -24,7 +24,7 @@
 - name: Get version data (resident)
   vars:
     version: "{{ item | regex_replace('^(.+?)version:(.+?)$', '\\2') | trim }}"
-  ansible.buitin.set_fact:
+  ansible.builtin.set_fact:
     hana_update_hdb_version_resident_str: "{{ version }}"
     # hana_update_hdb_version_resident_int: "{{ version | regex_replace('\\.','') | int }}"
   with_items: "{{ hana_update_hdb_version_resident.stdout_lines }}"

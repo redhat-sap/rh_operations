@@ -5,6 +5,19 @@ SAP Operations Collection Release Notes
 .. contents:: Topics
 
 
+v1.0.5
+======
+
+Release Summary
+---------------
+
+Bug fix release
+
+Minor Changes
+-------------
+
+- Documentation added for roles `hana_update` and `prepare`
+
 v1.0.4
 ======
 

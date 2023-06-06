@@ -2,10 +2,10 @@
  "collection_info": {
   "namespace": "sap",
   "name": "sap_operations",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "authors": [
    "Ondra Machacek <omachace@redhat.com>",
-   "<https://github.com/kksat>"
+   "Kirill Satarin (@kksat)"
   ],
   "readme": "README.md",
   "tags": [
@@ -27,7 +27,7 @@
   "name": "FILES.json",
   "ftype": "file",
   "chksum_type": "sha256",
-  "chksum_sha256": "498ccac225f6b88f76212501a324b262290d6214bc271930ee237d7a7f68c2ff",
+  "chksum_sha256": "d8844f43abb853b289e1475dd72e19800f63b65a4dc36d0b523d0d6a060e442c",
   "format": 1
  },
  "format": 1
