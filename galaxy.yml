@@ -1,0 +1,51 @@
+---
+namespace: sap
+
+name: sap_operations
+
+version: 1.0.5
+
+readme: README.md
+
+authors:
+- Ondra Machacek <omachace@redhat.com>
+- Kirill Satarin (@kksat)
+
+description: Ansible collection to handle day 2 operational SAP administration tasks.
+
+license:
+- GPL-2.0-or-later
+
+license_file: ''
+
+tags:
+  - linux
+  - sap
+
+dependencies: {}
+
+repository: https://github.com/redhat-sap/rh_operations
+
+documentation: https://github.com/redhat-sap/rh_operations
+
+homepage: https://github.com/redhat-sap/rh_operations
+
+issues: https://github.com/redhat-sap/rh_operations/issues
+
+build_ignore:
+  - hack
+  - tests
+  - .github
+  - .gitignore
+  - .config
+  - roles/*/molecule
+  - Makefile
+  - README-COLLECTION.md
+  - webdocs
+  - docs
+  - importer_result.json
+  - .DS_Store
+  - requirements-dev.txt
+  - changelogs
+  - .vscode
+  - .ansible-lint-ignore

@@ -47,7 +47,7 @@
     - name: Start HANA update
       ansible.builtin.shell:
         cmd: >
-          cat {{ hana_update_hdb_passwords.dest }} | (
+          set -o pipefail; cat {{ hana_update_hdb_passwords.dest }} | (
           {% if (hana_update_options.hdb_installer_trace_file is defined) -%}
           HDB_INSTALLER_TRACE_FILE={{ hana_update_options.hdb_installer_trace_file }}
           {% endif %}

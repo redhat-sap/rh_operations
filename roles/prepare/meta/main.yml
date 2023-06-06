@@ -14,9 +14,8 @@
 
 galaxy_info:
 
-  author: https://github.com/kksat
+  author: Kirill Satarin (@kksat)
   description: Prepare RHEL managed host to run content from sap.sap_operations
-  company: Red Hat
 
   license: GPL-3.0-only
 
