@@ -294,7 +294,7 @@ class InstanceClient(SAPClient):
         for inst in instance_list:
             if (
                 inst["hostname"] == instance_host
-                and inst["instanceNr"] == instance_number
+                and inst["instanceNr"] == instance_number  # noqa: W503
             ):
                 return inst
         return dict()

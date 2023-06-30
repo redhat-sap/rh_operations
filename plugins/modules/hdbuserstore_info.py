@@ -33,6 +33,7 @@ options:
       - "Custom path of the I(hdbuserstore) binary."
     type: str
     required: false
+    default: ''
   key:
     description:
       - "Get info about the I(key)."

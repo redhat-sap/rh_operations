@@ -3,18 +3,18 @@ namespace: sap
 
 name: sap_operations
 
-version: 1.0.5
+version: 1.1.0
 
 readme: README.md
 
 authors:
-- Ondra Machacek <omachace@redhat.com>
-- Kirill Satarin (@kksat)
+  - Ondra Machacek <omachace@redhat.com>
+  - Kirill Satarin (@kksat)
 
 description: Ansible collection to handle day 2 operational SAP administration tasks.
 
 license:
-- GPL-2.0-or-later
+  - GPL-2.0-or-later
 
 license_file: ''
 
@@ -48,4 +48,4 @@ build_ignore:
   - requirements-dev.txt
   - changelogs
   - .vscode
-  - .ansible-lint-ignore
+  - venv

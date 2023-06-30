@@ -14,7 +14,7 @@
 
 - name: Prepare necessary files for SAP HANA update
   vars:
-    random_code: "{{ lookup('ansible.builtin.password', '/dev/null chars=ascii_lowercase,digits length=8') }}"
+    random_code: "{{ lookup('ansible.builtin.password', '/dev/null chars=ascii_lowercase,digits length=8') }}"  # noqa: var-naming[no-role-prefix]
   block:
     - name: Create HANA update configuration file from template
       ansible.builtin.template:
@@ -38,9 +38,9 @@
       become_user: root
       register: hana_update_hdb_passwords
       no_log: true
-# TODO: More passwords required?
-# See https://github.com/Azure/sap-automation/blob/experimental/deploy/ansible/
-# roles-db/4.0.0-hdb-install/templates/HANA_2_00_055_v1_install.rsp.xml.j2
+      # TODO: More passwords required?
+      # See https://github.com/Azure/sap-automation/blob/experimental/deploy/ansible/
+      # roles-db/4.0.0-hdb-install/templates/HANA_2_00_055_v1_install.rsp.xml.j2
 
 - name: Run actual SAP HANA update
   block:
@@ -75,6 +75,6 @@
       when: hana_update_cleanup
       become: true
       become_user: root
-# TODO remove
+    # TODO remove
     - name: Rescue SAP HANA update if it fails
       ansible.builtin.include_tasks: hdb_update_rescue.yml
