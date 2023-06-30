@@ -51,7 +51,7 @@ def check_sdk(module):
 
 
 class LocalSocketHttpConnection(HTTPConnection):
-    def __init__(
+    def __init__(  # noqa: D107
         self,
         host,
         port=None,
@@ -65,7 +65,7 @@ class LocalSocketHttpConnection(HTTPConnection):
 
 
 class LocalSocketHandler(urllib.request.HTTPHandler):
-    def __init__(
+    def __init__(  # noqa: D107
         self,
         debuglevel=0,
         socketpath=None,
@@ -78,7 +78,7 @@ class LocalSocketHandler(urllib.request.HTTPHandler):
 
 
 class LocalSocketHttpAuthenticated(HttpAuthenticated):
-    def __init__(self, socketpath, **kwargs):
+    def __init__(self, socketpath, **kwargs):  # noqa: D107
         HttpAuthenticated.__init__(self, **kwargs)
         self._socketpath = socketpath
 
@@ -91,7 +91,7 @@ class LocalSocketHttpAuthenticated(HttpAuthenticated):
 class SAPClient(object):
     poll_interval = 3
 
-    def __init__(
+    def __init__(  # noqa: D107
         self,
         hostname,
         username,

@@ -5,6 +5,19 @@ SAP Operations Collection Release Notes
 .. contents:: Topics
 
 
+v1.1.2
+======
+
+Release Summary
+---------------
+
+Bug Fix Release
+
+Minor Changes
+-------------
+
+- Fix issue with role prepare
+
 v1.1.1
 ======
 
