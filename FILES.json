@@ -158,7 +158,7 @@
    "name": "plugins/modules/host_info.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "4533b76c205c5543dc932dd6d9d34147874e94b1e14c61a23c2bc0e0e5c511df",
+   "chksum_sha256": "0542d4c8a174ed0f7dc8e554a18c29f186f474e6f136e91711f187f16cf6a5d1",
    "format": 1
   },
   {
@@ -466,7 +466,7 @@
    "name": "roles/prepare/tasks/main.yml",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "64f54df845e4d06756ecb9f84129aeb0bb70ecd1e5e5f14a2ed5cc258c298110",
+   "chksum_sha256": "16dab0d66c85f3ffa671662fb2be3f2fd30ed1ecfe3a497cacdee945349b7579",
    "format": 1
   },
   {
@@ -487,7 +487,7 @@
    "name": "roles/prepare/meta/argument_specs.yml",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "38ae4017c9208977c4dc6a8dfd5fc3461cffc43384957c4446c81d16c00619a6",
+   "chksum_sha256": "b004a589f02a3a8d0f7e74ee128286987b06f1f0b124e7f7100c447986fe2e31",
    "format": 1
   },
   {
@@ -501,7 +501,7 @@
    "name": "roles/prepare/README.md",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "41cf23cf4af2e0d51999c0c2ce787439d77b809169629791725872caf5d8ab8a",
+   "chksum_sha256": "6faa27be90fb93418527934a6071234285448db5682434c1995ac522414e09d2",
    "format": 1
   },
   {
@@ -858,14 +858,21 @@
    "name": "README.md",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "9dc4b0f8c2f6488867366b00c632784655631bc73aed7dcc35f3f783a89c9abc",
+   "chksum_sha256": "88fca6ba135e84c27c7ab3892f2dff8f6a49e7805b9d5f30d9d14711e8d3ef14",
+   "format": 1
+  },
+  {
+   "name": "bindep.txt",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "8ec42287adf8caf405e02ad290ce452962bb43eb5695f8ddb12de844849fc1ab",
    "format": 1
   },
   {
    "name": "CHANGELOG.rst",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "0d920bf67d57a0ffad9f57ab9fd9fda05f6a88c1d9bf9f40621962606da2f4b9",
+   "chksum_sha256": "acf230619d92b266b830405571fcd6f5b68316a7a9b54d5d7be53e3f3d119689",
    "format": 1
   }
  ],
