@@ -28,8 +28,14 @@ Ansible Automation Platform requires at minimum Python 3.8 to function as design
 
 ## LICENSE
 
-GPL2.0
+GNU General Public License v2.0
 
-APACHE-2
+See  <https://www.gnu.org/licenses/old-licenses/gpl-2.0.txt> for details
 
-GPL3.0
+Apache License Version 2.0
+
+See  <https://www.apache.org/licenses/LICENSE-2.0> for details
+
+GNU General Public License v3.0
+
+See <https://www.gnu.org/licenses/gpl-3.0.txt> for details

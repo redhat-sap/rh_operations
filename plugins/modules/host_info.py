@@ -1323,11 +1323,11 @@ def main():
             instance["AccessPointList"] = convert2ansible(
                 instance_sapcontrol.client.service.GetAccessPointList()
             )
+            EnvironmentRaw = convert2ansible(instance_sapcontrol.client.service.GetEnvironment())
+            instance["EnvironmentRaw"] = EnvironmentRaw
             instance["Environment"] = {
                 line.split("=")[0]: line.split("=")[1]
-                for line in convert2ansible(
-                    instance_sapcontrol.client.service.GetEnvironment()
-                )
+                for line in EnvironmentRaw if "=" in line
             }
             instance["StartProfile"] = convert2ansible(
                 instance_sapcontrol.client.service.GetStartProfile()

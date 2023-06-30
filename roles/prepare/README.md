@@ -10,6 +10,8 @@ In normal mode it ensures that all prerequisites to run content from collection 
 
 In assert mode it fails if collection prerequisites are not met on the host.
 
+Role will only collect facts if OS distribution is not RedHat.
+
 ## Requirements
 
 Role requires root access in order to install necessary packages and other sap.sap_operations collection prerequisites (normal mode).

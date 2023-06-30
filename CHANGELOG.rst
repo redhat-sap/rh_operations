@@ -5,6 +5,22 @@ SAP Operations Collection Release Notes
 .. contents:: Topics
 
 
+v1.1.1
+======
+
+Release Summary
+---------------
+
+Bug Fix Release
+
+Minor Changes
+-------------
+
+- Fix issue with module host_info - module failed if SAP HANA databases installed (incorrect indexing)
+- Licensing clarification in the README.md file
+- add bindep.txt to collection
+- role prepare will not fail for non RedHat distributions (role will do nothing)
+
 v1.1.0
 ======
 
@@ -12,12 +28,6 @@ Release Summary
 ---------------
 
 Feature Release
-
-New Modules
------------
-
-- sap.sap_operations.hana_backup - Create SAP HANA database file backup
-- sap.sap_operations.host_info - Collect information about installed SAP instances on the host
 
 v1.0.5
 ======

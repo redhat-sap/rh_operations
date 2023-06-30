@@ -1,0 +1,32 @@
+unzip [platform: redhat]
+
+# RHEL 7
+python-defusedxml [platform:rhel-7]
+python-suds [platform:rhel-7]
+python-lxml [platform:rhel-7]
+python2-urllib3 [platform:rhel-7]
+
+# RHEL 8
+python3-defusedxml [platform:rhel-8]
+python3-suds [platform:rhel-8]
+python3-lxml [platform:rhel-9]
+python3-urllib3 [platform:rhel-9]
+
+# RHEL 9
+python3-defusedxml [platform:rhel-9]
+python3-suds [platform:rhel-9]
+python3-lxml [platform:rhel-9]
+python3-urllib3 [platform:rhel-9]
+
+# Execution Environment dependencies [ee]
+ansible-builder [platform:rhel-8 platform:rhel-9 ee]
+
+# Development dependencies [dev]
+ansible [dev platform:rpm]
+make [dev]
+docker [dev]
+python [dev]
+python3 [dev]
+shellcheck [dev]
+git [dev]
+gh [dev]

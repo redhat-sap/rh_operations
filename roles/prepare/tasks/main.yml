@@ -18,3 +18,4 @@
 
 - name: Include tasks depending on role mode
   ansible.builtin.include_tasks: "{{ prepare_assert | ternary('assert.yml', 'prepare.yml') }}"
+  when: ansible_facts['distribution'] = 'RedHat'
