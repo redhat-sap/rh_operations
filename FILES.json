@@ -67,7 +67,7 @@
    "name": "plugins/module_utils/saphost.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "07025d1cba4dfbdbadd9c2ff6634b398c625774860e2ec2933f1badf3f06bd6f",
+   "chksum_sha256": "a7951178093c1523c099edfb8016131381ef1cac1188c40b66a13047dc999af2",
    "format": 1
   },
   {
@@ -81,7 +81,7 @@
    "name": "plugins/module_utils/soap.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "91368dc14e2336f4d537355fdae8cef71e203098566d342566ef3ff7fc99d61a",
+   "chksum_sha256": "f98f668a7db60d2b877795060119ce8eaacbd4be2818c9f287ece125a3355a92",
    "format": 1
   },
   {
@@ -466,7 +466,7 @@
    "name": "roles/prepare/tasks/main.yml",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "16dab0d66c85f3ffa671662fb2be3f2fd30ed1ecfe3a497cacdee945349b7579",
+   "chksum_sha256": "671b03d494ab3610ea0a62d1e87a32427238c1203a48387a096c7a3e13cf3805",
    "format": 1
   },
   {
@@ -872,7 +872,7 @@
    "name": "CHANGELOG.rst",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "acf230619d92b266b830405571fcd6f5b68316a7a9b54d5d7be53e3f3d119689",
+   "chksum_sha256": "bd6ad9545e0667e41768c0aaf6bd28c8abddea54d48e6b66b4c61ca052a6e2e2",
    "format": 1
   }
  ],

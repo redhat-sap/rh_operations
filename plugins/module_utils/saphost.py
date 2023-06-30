@@ -86,7 +86,7 @@ def convert2ansible(obj):
 
 
 class LocalSocketHttpConnection(HTTPConnection):
-    def __init__(
+    def __init__(  # noqa: D107
         self,
         host,
         port=None,
@@ -100,7 +100,7 @@ class LocalSocketHttpConnection(HTTPConnection):
 
 
 class LocalSocketHandler(urllib.request.HTTPHandler):
-    def __init__(
+    def __init__(  # noqa: D107
         self,
         debuglevel=0,
         socketpath=None,
@@ -113,7 +113,7 @@ class LocalSocketHandler(urllib.request.HTTPHandler):
 
 
 class LocalSocketHttpAuthenticated(HttpAuthenticated):
-    def __init__(self, socketpath, **kwargs):
+    def __init__(self, socketpath, **kwargs):  # noqa: D107
         HttpAuthenticated.__init__(self, **kwargs)
         self._socketpath = socketpath
 
@@ -124,8 +124,9 @@ class LocalSocketHttpAuthenticated(HttpAuthenticated):
 
 
 class SAPHostSOAPClient(object):
-    """
-    Class to call soap methods that are provided by sap host agent binaries, for instance
+    """Class to call soap methods that are provided by sap host agent binaries.
+
+    For instance
         sapcontrol
         saphostctrl
     As there are slighly different approaches how to call methods provided by these binaries,
@@ -138,7 +139,7 @@ class SAPHostSOAPClient(object):
 
     poll_interval = 3
 
-    def __init__(
+    def __init__(  # noqa: D107
         self,
         hostname=None,
         username=None,
@@ -228,7 +229,7 @@ class SAPHostSOAPClient(object):
 
 
 class AnsibleModuleSAPHostAgent(AnsibleModule):
-    def __init__(
+    def __init__(  # noqa: D107
         self,
         argument_spec,
         bypass_checks=False,
