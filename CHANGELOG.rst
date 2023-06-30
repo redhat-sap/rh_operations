@@ -5,6 +5,20 @@ SAP Operations Collection Release Notes
 .. contents:: Topics
 
 
+v1.1.0
+======
+
+Release Summary
+---------------
+
+Feature Release
+
+New Modules
+-----------
+
+- sap.sap_operations.hana_backup - Create SAP HANA database file backup
+- sap.sap_operations.host_info - Collect information about installed SAP instances on the host
+
 v1.0.5
 ======
 

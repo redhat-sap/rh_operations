@@ -35,6 +35,7 @@ options:
     description: |
       Path to hdbsql binary.
     type: str
+    default: ""
   host:
     description:
       - Name of the host on which the database instance is running.
@@ -72,17 +73,20 @@ options:
     description:
       - Comment to be included into backup.
     type: str
+    default: ""
   destination:
     description: |
       Directory where where backup data are stored for file backups.
       <hanasid>adm user should have write permissions to that directory.
     type: str
+    default: ""
   prefix:
     description:
       - The data backup files are prepended with the prefix.
       - Previous backup files will be overwritten if prefix was already
         used before (for file backups).
     type: str
+    default: ""
   wait:
     description:
       - Wait for the operation to complete before returning.

@@ -2,7 +2,7 @@
  "collection_info": {
   "namespace": "sap",
   "name": "sap_operations",
-  "version": "1.0.5",
+  "version": "1.1.0",
   "authors": [
    "Ondra Machacek <omachace@redhat.com>",
    "Kirill Satarin (@kksat)"
@@ -27,7 +27,7 @@
   "name": "FILES.json",
   "ftype": "file",
   "chksum_type": "sha256",
-  "chksum_sha256": "d8844f43abb853b289e1475dd72e19800f63b65a4dc36d0b523d0d6a060e442c",
+  "chksum_sha256": "f1639fe761deff69a6e8317213fd8601a53dfd48bc7c75253ad52289c5764d57",
   "format": 1
  },
  "format": 1

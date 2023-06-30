@@ -65,14 +65,14 @@
 - name: Get version data (medium)
   vars:
     # index:        "{{ item | regex_replace('^(.+?)\\|(.+?)\\|(.+?)\\|(.+?)\\|(.+?)$', '\\1') | trim }}"
-    name: "{{ item | regex_replace('^(.+?)\\|(.+?)\\|(.+?)\\|(.+?)\\|(.+?)$', '\\2') | trim }}"
+    version_name: "{{ item | regex_replace('^(.+?)\\|(.+?)\\|(.+?)\\|(.+?)\\|(.+?)$', '\\2') | trim }}"
     version: "{{ item | regex_replace('^(.+?)\\|(.+?)\\|(.+?)\\|(.+?)\\|(.+?)$', '\\3') | trim }}"
     batch_key: "{{ item | regex_replace('^(.+?)\\|(.+?)\\|(.+?)\\|(.+?)\\|(.+?)$', '\\4') | trim }}"
     location: "{{ item | regex_replace('^(.+?)\\|(.+?)\\|(.+?)\\|(.+?)\\|(.+?)$', '\\5') | trim }}"
   ansible.builtin.set_fact: >
     hana_update_hdb_version_medium_list: "{{ hana_update_hdb_version_medium_list | default([]) +
       [{
-      'name': name,
+      'name': version_name,
       'version': version,
       'batch_key': batch_key,
       'location': location

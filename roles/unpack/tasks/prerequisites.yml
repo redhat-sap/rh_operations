@@ -16,10 +16,10 @@
 #
 
 # yamllint disable rule:command-instead-of-module
-- name: Make sure unzip is installed
+- name: Make sure unzip is installed  # noqa: command-instead-of-module
   ansible.builtin.command:
     cmd: unzip
-  register: _
+  register: _  # noqa: var-naming[no-role-prefix]
   failed_when: _.rc > 0
   changed_when: false
 # yamllint enable rule:command-instead-of-module
@@ -27,6 +27,6 @@
 - name: Make sure sapcar is installed
   ansible.builtin.command:
     cmd: "{{ unpack_sapcar_exe_path }}"
-  register: _
+  register: _  # noqa: var-naming[no-role-prefix]
   failed_when: _.rc > 0
   changed_when: false

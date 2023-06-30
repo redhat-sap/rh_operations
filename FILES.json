@@ -50,6 +50,13 @@
    "format": 1
   },
   {
+   "name": "plugins/doc_fragments/saphost.py",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "2b7347e9931aa033d61647a995bb3e926f8d48e792a2640e69729c73095e304f",
+   "format": 1
+  },
+  {
    "name": "plugins/module_utils",
    "ftype": "dir",
    "chksum_type": null,
@@ -57,17 +64,24 @@
    "format": 1
   },
   {
+   "name": "plugins/module_utils/saphost.py",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "07025d1cba4dfbdbadd9c2ff6634b398c625774860e2ec2933f1badf3f06bd6f",
+   "format": 1
+  },
+  {
    "name": "plugins/module_utils/valid_sid.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "e6ee7270cbffc824123cd76ab76f52ff33cc14a08c4c75d5c66e3bb07723b3ec",
+   "chksum_sha256": "bdb8f346a7215b7fc4c960d054e994d50f5e601f8f4ecc9d7a4c4a4b25f9036f",
    "format": 1
   },
   {
    "name": "plugins/module_utils/soap.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "9836d64990df6a99bf6e648901d7b74e7f6bdcbce97ca9285945945ea23ccd31",
+   "chksum_sha256": "91368dc14e2336f4d537355fdae8cef71e203098566d342566ef3ff7fc99d61a",
    "format": 1
   },
   {
@@ -109,7 +123,7 @@
    "name": "plugins/modules/hana_backup.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "bd78640b5be0cadebdba250331cf3149167011cf80faa75fcabbe2318ea135b3",
+   "chksum_sha256": "050346c44f751e899ff2cccf42942dff5d124561292dfac912a99e85a1526038",
    "format": 1
   },
   {
@@ -130,14 +144,21 @@
    "name": "plugins/modules/hdbuserstore.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "46e1601ceda147dfd5394a72c71c6bf1df5df596cb04c60d4f2aca9f0818220d",
+   "chksum_sha256": "272c81a1ed89c8e957d32ec8183608c2f8593af947868512b504dca12f29a464",
    "format": 1
   },
   {
    "name": "plugins/modules/hdbuserstore_info.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "1c998d026e6cb99840baeb93eeaca7037605e65bbf30a8d2e0cbdc51ca8e0ca5",
+   "chksum_sha256": "4bca7c4124f3abd08c7276028dbb0178856accb8508fb123b225cebac109cdb9",
+   "format": 1
+  },
+  {
+   "name": "plugins/modules/host_info.py",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "4533b76c205c5543dc932dd6d9d34147874e94b1e14c61a23c2bc0e0e5c511df",
    "format": 1
   },
   {
@@ -148,10 +169,227 @@
    "format": 1
   },
   {
-   "name": "include",
+   "name": ".ruff_cache",
    "ftype": "dir",
    "chksum_type": null,
    "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": ".ruff_cache/content",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": ".ruff_cache/content/405b91fdf272c003",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "afe0deb1adc1176fe45b744881dff159a492bc0f3465f9ed1492e67977ab2479",
+   "format": 1
+  },
+  {
+   "name": ".ruff_cache/content/5c82e25e73a09ffe",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "4179854937ab2167995c214f57f6c773fae2e7c499d98817059808090d49f51d",
+   "format": 1
+  },
+  {
+   "name": ".ruff_cache/content/c281055682c176fe",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "9d908ecfb6b256def8b49a7c504e6c889c4b0e41fe6ce3e01863dd7b61a20aa0",
+   "format": 1
+  },
+  {
+   "name": ".ruff_cache/content/a8b25d1e11a904ee",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "e052fe65a2e6a65d340727c3b94adddb63f1054ff3f39142a4a2a80aeb4b0ef3",
+   "format": 1
+  },
+  {
+   "name": ".ruff_cache/content/1627948fdbb1f40f",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "46a894c435a58961a61f0c43baec3447c9c79d0ac829efd47e5b7728a77ec216",
+   "format": 1
+  },
+  {
+   "name": ".ruff_cache/content/4b1df0c087e09d61",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "9a1fe0a829836a29a6779be794d58807ceb54f089b412eac7419902b8a33a973",
+   "format": 1
+  },
+  {
+   "name": ".ruff_cache/content/dc306c5a3b97a24a",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "9d908ecfb6b256def8b49a7c504e6c889c4b0e41fe6ce3e01863dd7b61a20aa0",
+   "format": 1
+  },
+  {
+   "name": ".ruff_cache/content/5383204445361ce3",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "9d908ecfb6b256def8b49a7c504e6c889c4b0e41fe6ce3e01863dd7b61a20aa0",
+   "format": 1
+  },
+  {
+   "name": ".ruff_cache/content/91d019a83c1005ac",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "06bc122910e906a073f7cbd6504b69d8d99377e2e1312263595da3884b1dfd3e",
+   "format": 1
+  },
+  {
+   "name": ".ruff_cache/content/6233b29207d9f4d",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "9d908ecfb6b256def8b49a7c504e6c889c4b0e41fe6ce3e01863dd7b61a20aa0",
+   "format": 1
+  },
+  {
+   "name": ".ruff_cache/content/7c2decd10b03de98",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "5e9c67aeba2deeb6038dcccb693cd5a771b9b6ca49bc4ec5cf39a1283d9577f5",
+   "format": 1
+  },
+  {
+   "name": ".ruff_cache/content/6b4afa56e204248c",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "780b2e1d4b0a54758d682659e5217d2a09b166dfe0ed643fb1fd129097ef696c",
+   "format": 1
+  },
+  {
+   "name": ".ruff_cache/content/49afeb385f405067",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "2a939b324c966fca687926f40d96e6b12c1ebbf78a6e181fbe0e490ee3d32fce",
+   "format": 1
+  },
+  {
+   "name": ".ruff_cache/content/8394bce7fe0c3585",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "c24ad00382cdb67cc0128502aee6b353a6380221e1ec34019d46fbf5bd803d8c",
+   "format": 1
+  },
+  {
+   "name": ".ruff_cache/content/ba2e1b52672339ba",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "9d908ecfb6b256def8b49a7c504e6c889c4b0e41fe6ce3e01863dd7b61a20aa0",
+   "format": 1
+  },
+  {
+   "name": ".ruff_cache/content/2413da0c68e35f3d",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "40fd5fd50dabcfd087d735e25b0b2031d68afb69e9a6278cbb8a002d2dce009f",
+   "format": 1
+  },
+  {
+   "name": ".ruff_cache/content/893c89f60a3185fd",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "63f77c7faf70e6d2c2f2346d41b22a33a5148134cba7b45b8b67830a3ce092b2",
+   "format": 1
+  },
+  {
+   "name": ".ruff_cache/content/8a0059ff6e28ab13",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "6d0518149d22d63fafd56db915a36256cb1af0f6814b0421ed11f2b628e012dc",
+   "format": 1
+  },
+  {
+   "name": ".ruff_cache/content/6f71c92072b9407",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "03dd2fb5ec487b12d7304ae46fb1c1bf9f9e2e90bd889eaaa9119968d805831a",
+   "format": 1
+  },
+  {
+   "name": ".ruff_cache/content/e49005b4a879b445",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "16f1c4c9c0312e7d07a197cda91d41eb9cea1769eca7acfdde2351272b759bca",
+   "format": 1
+  },
+  {
+   "name": ".ruff_cache/content/65422f76766a5d5f",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "9d908ecfb6b256def8b49a7c504e6c889c4b0e41fe6ce3e01863dd7b61a20aa0",
+   "format": 1
+  },
+  {
+   "name": ".ruff_cache/content/5e6de536477949c9",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "43a1447c21885e1a2356856e3a63dd162ee66a001f2bd52005997b05b0ed2ac2",
+   "format": 1
+  },
+  {
+   "name": ".ruff_cache/content/2e317550f6696385",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "c21b7320005fcf0e8e25815870e5fed23899a4e41a52a047a457910525e04f32",
+   "format": 1
+  },
+  {
+   "name": ".ruff_cache/content/fe59baa1ba5a6411",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "cdc46b2b034d829260f7fe346b1c6b78ab71a8f2e037302db42f71daed75a176",
+   "format": 1
+  },
+  {
+   "name": ".ruff_cache/content/5f63f6f7f0fb73bd",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "09ecd748031898bb4b39ea3eaeb3c33dbb14f11b8b87f0300ca95f2f1fa33717",
+   "format": 1
+  },
+  {
+   "name": ".ruff_cache/content/c4bf9614010433d3",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "eddade07361ee21c4867ef104f94f5e129cbf462cb8a36c1d111c64d160d69ab",
+   "format": 1
+  },
+  {
+   "name": ".ruff_cache/content/bc25e680915b5f2b",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "ae0315cb4d0f5e4c867179588e72a981c371ea302222060dd5434cfa7d3b0ac7",
+   "format": 1
+  },
+  {
+   "name": ".ruff_cache/content/d6cd7660728ced6d",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "94347e4fe7befbfebec44f67c31e4ccc04668c333fe08f640c2c999df0a9656a",
+   "format": 1
+  },
+  {
+   "name": ".ruff_cache/CACHEDIR.TAG",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "5953156d7e0c564a427251316eaf26f8870e6483ae2197f916b630e4f93e31ae",
+   "format": 1
+  },
+  {
+   "name": ".ruff_cache/.gitignore",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "684888c0ebb17f374298b65ee2807526c066094c701bcc7ebbe1c1095f494fc1",
    "format": 1
   },
   {
@@ -298,28 +536,28 @@
    "name": "roles/sap_kernel_update/tasks/normal_kernel_upgrade.yml",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "5a625800747676465098896932880b95209a8f7a7711eda797d7b5ebd6cd6d92",
+   "chksum_sha256": "c8679a149d7655072996ee1c353e36e96ba2a6ce7d1cf4e2d51dfb01f3f0748e",
    "format": 1
   },
   {
    "name": "roles/sap_kernel_update/tasks/rolling_kernel_upgrade.yml",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "f4e63e308170a40e43bf4f7c9e866860e8c359381d5f8d5ab19998fb49826e2f",
+   "chksum_sha256": "e7d30cc8866570950f97b817b6ffeef34a8d943207d3c8ab1ee42d494f93a5c4",
    "format": 1
   },
   {
    "name": "roles/sap_kernel_update/tasks/init.yml",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "e4c98deb7be67ee48936bd9ed982d73fe0a9baac46216bfd6222fe824d1a1445",
+   "chksum_sha256": "ff29ba5ad30a4406677b62abf71bd23e6e5fda748cad771cd3cd6a15a72e5beb",
    "format": 1
   },
   {
    "name": "roles/sap_kernel_update/tasks/main.yml",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "8f37cf2bbdaace6614bd61bfd5bd87957fb6a43a384719c17d406bd9d57a3f79",
+   "chksum_sha256": "89add5cc5f91de5e6706005be0c3fbcec28668c3a5122ade5c127b94bb1c75da",
    "format": 1
   },
   {
@@ -333,7 +571,7 @@
    "name": "roles/sap_kernel_update/meta/argument_specs.yml",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "3273084509744802a9080b6082904bf2bd28d5637b563dd45970236110c531ee",
+   "chksum_sha256": "b6afafce9d74876b23277e8205375e3d5b73746cb7d50455219bc15a7f0a6533",
    "format": 1
   },
   {
@@ -389,7 +627,7 @@
    "name": "roles/hana_update/tasks/hdb_version.yml",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "796fdfa165cbb3c4ab456b77cb755bd29c2d6a1fc07d0a52ee148d5688a4fac1",
+   "chksum_sha256": "3a47d03c2deef4c21e70d127720c0dca71cc26b96ebcca5baaca831ff4c24a48",
    "format": 1
   },
   {
@@ -403,14 +641,14 @@
    "name": "roles/hana_update/tasks/hdb_update.yml",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "b2f547485d854a75b824c98c78097e32903ce54133da9de826681fc0de4eab1f",
+   "chksum_sha256": "5f099262102495429a80a9637fe3f41a80a64d7b2dfa09d6d600332b9bab5506",
    "format": 1
   },
   {
    "name": "roles/hana_update/tasks/argument_validate.yml",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "f0ea12ddaec4bb14cce7199e1e64288148eb5896c20c6a4abec3eaa04f8d3851",
+   "chksum_sha256": "f340379388e11cb69b1b3af237fbcf4c3ce81c491757cd116da9e3fe2d42e495",
    "format": 1
   },
   {
@@ -424,7 +662,7 @@
    "name": "roles/hana_update/tasks/requirements_validate.yml",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "3308c0791bab087e7cf808e183d367842c5076ca49e6dd439717742fcc415488",
+   "chksum_sha256": "49ee40e8a0a3840065cdbe444ac0a0cca745503c3bd1f276d2bf67787dc4f406",
    "format": 1
   },
   {
@@ -543,7 +781,7 @@
    "name": "roles/unpack/tasks/prerequisites.yml",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "fff74cac36af574ae0cb55bcbc17036e7bbc1569f3373fcf71e37affea2bcfca",
+   "chksum_sha256": "c69b106f6faf8ac7212eb5245b6d4a7ffc4185b67c58e7f66be3c581d36a1eec",
    "format": 1
   },
   {
@@ -578,7 +816,7 @@
    "name": "roles/unpack/meta/main.yml",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "d839b4038af00e95a4c6e1fbfc0952dd465648ed1a126f87bb0ac48f70f2de28",
+   "chksum_sha256": "ea4f8407f6940f1aea9a1b17b5e979d3f498a46c77328d77e8d53fd425c2d073",
    "format": 1
   },
   {
@@ -620,14 +858,14 @@
    "name": "README.md",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "522b887a467a6158dc8a1a099b20c7acd8b7fc2a9298a1ce56ef7cb7327bf5df",
+   "chksum_sha256": "9dc4b0f8c2f6488867366b00c632784655631bc73aed7dcc35f3f783a89c9abc",
    "format": 1
   },
   {
    "name": "CHANGELOG.rst",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "7973896259b55f317f0eca97c996627d286f7c60a67e1b08b27b475049f7763f",
+   "chksum_sha256": "0d920bf67d57a0ffad9f57ab9fd9fda05f6a88c1d9bf9f40621962606da2f4b9",
    "format": 1
   }
  ],

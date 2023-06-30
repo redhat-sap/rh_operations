@@ -34,7 +34,3 @@ galaxy_info:
   galaxy_tags: []
 
 dependencies: []
-  # - role: sap.sap_operations.application
-  #   vars:
-  #     sap_operations_application: sapcar
-  #     sap_operations_state: present

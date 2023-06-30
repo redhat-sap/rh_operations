@@ -36,6 +36,7 @@ options:
       See examples section to find several ways not to provide value for this variable.
     type: str
     required: false
+    default: ''
   key:
     description:
       - "Manage the I(key)."
