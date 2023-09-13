@@ -57,7 +57,7 @@ argument_specs:
         no_log: true
       hana_update_cleanup:
         description: |
-          If set to true xml file with passwords will be removed after installation (failed or successfull).
+          If set to true xml file with passwords will be removed after installation (failed or successful).
           Recommendation is always keep default value for this parameter (true) to avoid having passwords in plain text.
         type: bool
         required: false

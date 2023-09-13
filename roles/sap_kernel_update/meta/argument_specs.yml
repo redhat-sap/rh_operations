@@ -24,7 +24,7 @@ argument_specs:
         required: true
       sap_force_update:
         description: |
-          Update the system if rolling updgrade can't be used. Stop and start the system, so there is downtime.
+          Update the system if rolling upgrade can't be used. Stop and start the system, so there is downtime.
         type: str
         default: false
         required: false

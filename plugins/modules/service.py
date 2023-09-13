@@ -61,7 +61,7 @@ options:
       - Wait for the operation to complete before returning.
       - If set to C(true), module will wait for service to start/ or stop.
       - If set to C(false), module will schedule the right operation and return
-        immediatelly.
+        immediately.
     type: bool
     default: true
   wait_timeout:

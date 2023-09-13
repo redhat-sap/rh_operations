@@ -18,7 +18,7 @@ author:
 short_description: SAP system information
 
 description:
-  - Fetch the info about SAP systme
+  - Fetch the info about SAP system
 version_added: 1.0.0
 
 options:

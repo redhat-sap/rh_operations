@@ -129,7 +129,7 @@ class SAPHostSOAPClient(object):
     For instance
         sapcontrol
         saphostctrl
-    As there are slighly different approaches how to call methods provided by these binaries,
+    As there are slightly different approaches how to call methods provided by these binaries,
     Two child classes will handle method calls.
     This class should not be used directly, only via child classes.
 

@@ -3,7 +3,7 @@ namespace: sap
 
 name: sap_operations
 
-version: 1.1.2
+version: 1.2.0
 
 readme: README.md
 
@@ -33,19 +33,16 @@ homepage: https://github.com/redhat-sap/rh_operations
 issues: https://github.com/redhat-sap/rh_operations/issues
 
 build_ignore:
-  - hack
-  - tests
-  - .github
-  - .gitignore
-  - .config
   - roles/*/molecule
-  - Makefile
-  - README-COLLECTION.md
   - webdocs
   - docs
-  - importer_result.json
   - .DS_Store
-  - requirements-dev.txt
   - changelogs
-  - .vscode
-  - venv
+  - __init__.py
+  - plugins/__init__.py
+  - plugins/doc_fragments/__init__.py
+  - plugins/filter/__init__.py
+  - plugins/module_utils/__init__.py
+  - plugins/modules/__init__.py
+  - plugins/test/__init__.py
+  - tests

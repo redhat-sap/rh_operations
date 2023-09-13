@@ -91,7 +91,7 @@ EXAMPLES = r"""
 #
 # In that case hdbuserstore command will not be in PATH environment variable for <hanasid>adm user and I(binary_path) has to be provided.
 #
-# There are several workaround around this unplesant situation. One is recommended.
+# There are several workaround around this unpleasant situation. One is recommended.
 #
 # Workaround 1 (recommended)
 #
