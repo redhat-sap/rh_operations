@@ -56,7 +56,7 @@ options:
       - Wait for the operation to complete before returning.
       - If set to C(true), module will wait for system update to finish.
       - If set to C(false), module will not wait for system update to finish.
-        immediatelly.
+        immediately.
     type: bool
     default: true
   wait_timeout:

@@ -10,7 +10,7 @@ It can be specified by variable hana_update_component_medium
 
 Role requires 'unzip' command to be installed. Role uses module 'ansible.builtin.unarchive', see documentation for that module.
 
-SAPCAR should be installed in location 'unpack_sapcar_exe_path' (collection variable 'sap_operations_sapcar_exe_path'). Variable 'unpack_sapcar_exe_path' has precendence over 'sap_operations_sapcar_exe_path', if variable 'unpack_sapcar_exe_path' is set, value of variable 'sap_operations_sapcar_exe_path' is ignored.
+SAPCAR should be installed in location 'unpack_sapcar_exe_path' (collection variable 'sap_operations_sapcar_exe_path'). Variable 'unpack_sapcar_exe_path' has precedence over 'sap_operations_sapcar_exe_path', if variable 'unpack_sapcar_exe_path' is set, value of variable 'sap_operations_sapcar_exe_path' is ignored.
 
 ## Limitations
 
@@ -48,7 +48,7 @@ SAP HANA System ID.
 - _Default:_ `True`
 - _Required:_ `False`
 
-If set to true xml file with passwords will be removed after installation (failed or successfull).
+If set to true xml file with passwords will be removed after installation (failed or successful).
 Recommendation is always keep default value for this parameter (true) to avoid having passwords in plain text.
 
 ### hana_update_master_password

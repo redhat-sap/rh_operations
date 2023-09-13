@@ -26,7 +26,7 @@ argument_specs:
         * 'unzip' is installed (will not be installed by this role), if 'unzip' command is missing, role will fail.
         * SAPCAR should be installed in 'sap_operations_sapcar_exe_path' (default value /usr/sap/sapcar/sapcar).
         If SAPCAR is not installed at 'sap_operations_sapcar_exe_path' role will fail.
-        Ansible user has to have persmissions to execute SAPCAR.
+        Ansible user has to have permissions to execute SAPCAR.
     options:
       unpack_source:
         description: |

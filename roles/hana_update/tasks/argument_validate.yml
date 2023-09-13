@@ -31,4 +31,4 @@
     fail_msg: |
       Please make sure that `hana_update_master_password` and other passwords are defined properly.
       All required passwords should be defined.
-    success_msg: "Variables validation successfull"
+    success_msg: "Variables validation successful"

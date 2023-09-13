@@ -181,10 +181,10 @@ class SystemClient(SAPClient):
         "SCS": ["MESSAGESERVER"],
         "DIALOG": ["ABAP"],
         "ABAP": ["ABAP"],
-        "J2EE": [],  # Nothing is stoppped.
+        "J2EE": [],  # Nothing is stopped.
         "TREX": [],  # Don't work.
-        "ENQREP": [],  # Nothing is stoppped.
-        "HDB": [],  # Nothing is stoppped.
+        "ENQREP": [],  # Nothing is stopped.
+        "HDB": [],  # Nothing is stopped.
         "ALLNOHDB": [],
         "LEVEL": [],
     }
@@ -226,7 +226,7 @@ class SystemClient(SAPClient):
 
     def wait_for_system_status(self, name, status):
         # TODO(kiril): Remove?
-        # No action needed, as nothing happens on our intance?
+        # No action needed, as nothing happens on our instance?
         if not self.features_map.get(name):
             return
 
@@ -300,7 +300,7 @@ class InstanceClient(SAPClient):
         return dict()
 
     def wait_for_instance_status(self, instance_host, instance_number, status):
-        for i in range(0, self._wait_timeout, self.poll_interval):
+        for _i in range(0, self._wait_timeout, self.poll_interval):
             if all(
                 p == status
                 for p in self.system_instance_dispstatus(instance_host, instance_number)
@@ -352,7 +352,7 @@ class ServiceClient(SAPClient):
         return all(p == GRAY for p in self.proccess_dispstatus())
 
     def wait_for_proccesses_status(self, status):
-        for i in range(0, self.wait_timeout, self.poll_interval):
+        for _i in range(0, self.wait_timeout, self.poll_interval):
             if all(p == status for p in self.proccess_dispstatus()):
                 return
             else:

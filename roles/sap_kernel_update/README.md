@@ -66,7 +66,7 @@ SAP System ID.
 - _Default:_ `False`
 - _Required:_ `False`
 
-Update the system if rolling updgrade can't be used. Stop and start the system, so there is downtime.
+Update the system if rolling upgrade can't be used. Stop and start the system, so there is downtime.
 
 ### sap_kernel_update_backup
 

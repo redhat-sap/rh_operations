@@ -30,7 +30,7 @@ update_execution_mode={{ hana_update_options.update_execution_mode | default('st
 
 
 # # Ignore failing prerequisite checks
-# TODO: actually intersting parameter, see https://help.sap.com/docs/SAP_HANA_PLATFORM/2c1988d620e04368aa4103bf26f17727/f277a52885e846849e4e3d0ff7f4de89.html?locale=en-US&q=property_file
+# TODO: actually interesting parameter, see https://help.sap.com/docs/SAP_HANA_PLATFORM/2c1988d620e04368aa4103bf26f17727/f277a52885e846849e4e3d0ff7f4de89.html?locale=en-US&q=property_file
 ignore={{ ( hana_update_options.ignore | default([]) | join(',') ) }}
 
 # # Do not Modify '/etc/sudoers' File ( Default: n )

@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-- name: Check that all prerequisites are fullfilled
+- name: Check that all prerequisites are fulfilled
   ansible.builtin.include_tasks:
     file: prerequisites.yml
 
