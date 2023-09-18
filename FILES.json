@@ -354,7 +354,7 @@
    "name": "roles/sap_kernel_update/meta/argument_specs.yml",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "8333b7216c81ac1172b5a052d8e2b88fc8a02c39a070e15706cf6b54a02331b6",
+   "chksum_sha256": "dadf7026d0aa04daec4b53c12a43bd432f18c4acacef71da74355d4580a53617",
    "format": 1
   },
   {
@@ -459,7 +459,7 @@
    "name": "roles/hana_update/meta/argument_specs.yml",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "05a7535b53a0b269a7243d93fc2d53fd6c9535a5d633af48bed22da5980ea66c",
+   "chksum_sha256": "49ba7a2b87706cc0bfff07dc4b9e0b6c60ecf7d41669a7abaaadd04abb5770bb",
    "format": 1
   },
   {
@@ -592,7 +592,7 @@
    "name": "roles/unpack/meta/argument_specs.yml",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "be68a37fa97e44e0c2935c198b3b48084cb75b8d56f3e1dd32dd9fdd48a96c49",
+   "chksum_sha256": "b37bde1b951e6547a5ed2c9123424e748f102ee5781827d229f3fd960879fae2",
    "format": 1
   },
   {
@@ -634,7 +634,7 @@
    "name": "CHANGELOG.rst",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "7ea7d4021220265b7213637fd219ddeb8ad59c90181a52989c969ff4ac5d80e7",
+   "chksum_sha256": "495131d98fd578cd2aa2046a61746461e86f30203f90efc32ec399777e35d8ff",
    "format": 1
   }
  ],

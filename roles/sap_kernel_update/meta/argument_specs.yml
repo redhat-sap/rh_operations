@@ -14,8 +14,9 @@
 
 argument_specs:
   main:
-    short_description: |
-      Role replaces existing SAP kernel with kernel provided in SAP CAR files.
+    short_description: Role replaces existing SAP kernel with kernel provided in SAP CAR files.
+    description:
+      - Role replaces existing SAP kernel with kernel provided in SAP CAR files.
     options:
       sap_kernel_update_instance:
         description: |
