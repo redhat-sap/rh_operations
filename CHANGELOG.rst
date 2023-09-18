@@ -5,6 +5,19 @@ SAP Operations Collection Release Notes
 .. contents:: Topics
 
 
+v1.2.2
+======
+
+Release Summary
+---------------
+
+Feature release
+
+Minor Changes
+-------------
+
+- Small changes to role argument_specs - fixes documentation linting errors
+
 v1.2.1
 ======
 

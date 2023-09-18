@@ -1,15 +1,16 @@
 ---
 # see documentation https://docs.ansible.com/ansible/latest/dev_guide/developing_program_flow_modules.html#argument-spec
 # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/validate_argument_spec_module.html
+
 argument_specs:
   main:
-    short_description: |
-      Role updates a SAP HANA system or instance on a given host.
-
-      A path to new HANA version installation is required.
-      It can be specified by variable hana_update_component_medium
-
-      Limitations:
+    short_description: Role updates a SAP HANA system or instance on a given host.
+    description:
+      - Role updates a SAP HANA system or instance on a given host.
+      - A path to new HANA version installation is required.
+        It can be specified by variable hana_update_component_medium
+      - |
+        Limitations:
         - Role was tested only on single host.
         - During upgrade hdblcm is configured to use SSH (not saphostagent) to connect to the host.
     options:
@@ -30,31 +31,26 @@ argument_specs:
           If any other password is not set it will default to master password.
         type: str
         required: false
-        no_log: true
       hana_update_password:
         description: |
           System Administrator Password (<sid>adm). If not set will default to hana_update_master_password variable.
         type: str
         required: false
-        no_log: true
       hana_update_sapadm_password:
         description: |
           SAP Host Agent User (sapadm) password. If not set will default to hana_update_master_password variable.
         type: str
         required: false
-        no_log: true
       hana_update_system_user_password:
         description: |
           Database User Password. If not set will default to hana_update_master_password variable.
         type: str
         required: false
-        no_log: true
       hana_update_root_password:
         description: |
           Root User Password For Remote Hosts. If not set will default to hana_update_master_password variable.
         type: str
         required: false
-        no_log: true
       hana_update_cleanup:
         description: |
           If set to true xml file with passwords will be removed after installation (failed or successful).

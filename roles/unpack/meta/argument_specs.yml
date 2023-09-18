@@ -19,14 +19,18 @@ argument_specs:
   main:
     short_description: |
       Role to unpack *.sar and *.zip files.
-      This role is NOT idempotent for *.sar files.
-      Meaning it will unpack all the *.sar files every time role is executed.
-      For unpacking *.zip files Ansible module ansible.builtin.unarchive is used and this module is idempotent.
-      Role prerequisites:
-        * 'unzip' is installed (will not be installed by this role), if 'unzip' command is missing, role will fail.
-        * SAPCAR should be installed in 'sap_operations_sapcar_exe_path' (default value /usr/sap/sapcar/sapcar).
-        If SAPCAR is not installed at 'sap_operations_sapcar_exe_path' role will fail.
-        Ansible user has to have permissions to execute SAPCAR.
+    description:
+      - Role to unpack *.sar and *.zip files.
+      - |
+        This role is NOT idempotent for *.sar files.
+        Meaning it will unpack all the *.sar files every time role is executed.
+      - For unpacking *.zip files Ansible module ansible.builtin.unarchive is used and this module is idempotent.
+      - |
+        Role prerequisites:
+          * 'unzip' is installed (will not be installed by this role), if 'unzip' command is missing, role will fail.
+          * SAPCAR should be installed in 'sap_operations_sapcar_exe_path' (default value /usr/sap/sapcar/sapcar).
+          If SAPCAR is not installed at 'sap_operations_sapcar_exe_path' role will fail.
+          Ansible user has to have permissions to execute SAPCAR.
     options:
       unpack_source:
         description: |
