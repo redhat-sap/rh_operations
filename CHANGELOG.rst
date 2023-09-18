@@ -5,6 +5,19 @@ SAP Operations Collection Release Notes
 .. contents:: Topics
 
 
+v1.2.1
+======
+
+Release Summary
+---------------
+
+Feature release
+
+Minor Changes
+-------------
+
+- Collection automatically uploaded to Ansible Galaxy and AAP
+
 v1.2.0
 ======
 
@@ -17,11 +30,6 @@ Major Changes
 -------------
 
 - Introduction of NW RFC modules to connect to manage SAP ABAP system with Ansible
-
-New Modules
------------
-
-- sap.sap_operations.abap_system_info - Fetch SAP ABAP system information
 
 v1.1.2
 ======
