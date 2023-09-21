@@ -5,8 +5,8 @@ SAP Operations Collection Release Notes
 .. contents:: Topics
 
 
-v1.2.3-galaxy
-=============
+v1.3.0
+======
 
 Release Summary
 ---------------
@@ -17,6 +17,8 @@ Minor Changes
 -------------
 
 - Add functionality to release different content to AAP and Ansible galaxy
+- Clarify collection license
+- Collection license applied is GPL-3.0-only
 
 v1.2.2
 ======
