@@ -3,7 +3,7 @@ namespace: sap
 
 name: sap_operations
 
-version: 1.2.2
+version: 1.2.3-galaxy
 
 readme: README.md
 
@@ -36,8 +36,11 @@ build_ignore:
   - roles/*/molecule
   - webdocs
   - docs
+  - tests/output
   - .DS_Store
   - changelogs
+  - changelogs-aap
+  - changelogs-galaxy
   - __init__.py
   - plugins/__init__.py
   - plugins/doc_fragments/__init__.py
@@ -45,4 +48,5 @@ build_ignore:
   - plugins/module_utils/__init__.py
   - plugins/modules/__init__.py
   - plugins/test/__init__.py
-  - tests
+  - galaxy-aap.yml
+  - galaxy-galaxy.yml
