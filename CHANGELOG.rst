@@ -5,6 +5,20 @@ SAP Operations Collection Release Notes
 .. contents:: Topics
 
 
+v1.3.0
+======
+
+Release Summary
+---------------
+
+Feature release
+
+Minor Changes
+-------------
+
+- Clarify collection license
+- Collection license applied is GPL-3.0-only
+
 v1.2.3
 ======
 
