@@ -29,10 +29,15 @@ __metaclass__ = type
 import socket
 import ssl
 import traceback
-import urllib.request
+try:
+    from urllib.request import HTTPHandler
+except ImportError:
+    from ansible.module_utils.urls import UnixHTTPHandler as HTTPHandler  # recommended replacement for urllib2
+# https://docs.ansible.com/archive/ansible/2.3/dev_guide/developing_modules_checklist.html
 
 from ansible.module_utils.basic import missing_required_lib
 from ansible.module_utils.basic import AnsibleModule
+from ansible_collections.sap.sap_operations.plugins.module_utils.compat import dict_union
 
 try:
     from http.client import HTTPConnection
@@ -104,7 +109,7 @@ class LocalSocketHttpConnection(HTTPConnection):
         self.sock.connect(socketpath)
 
 
-class LocalSocketHandler(urllib.request.HTTPHandler):
+class LocalSocketHandler(HTTPHandler):
     def __init__(  # noqa: D107
         self,
         debuglevel=0,
@@ -166,15 +171,15 @@ class SAPHostSOAPClient(object):
         self.ca_file = ca_file
         self.security = security
         self.secure_port = (
-            "1129" if binary == C.SAPHOSTCTRL else f"5{str(instance).zfill(2)}14"
+            "1129" if binary == C.SAPHOSTCTRL else "5{0}14".format(str(instance).zfill(2))
         )
         self.unsecure_port = (
-            "1128" if binary == C.SAPHOSTCTRL else f"5{str(instance).zfill(2)}13"
+            "1128" if binary == C.SAPHOSTCTRL else "5{0}13".format(str(instance).zfill(2))
         )
         self.unix_socket = (
             "/tmp/.sapstream1128"
             if binary == C.SAPHOSTCTRL
-            else f"/tmp/.sapstream5{str(self.instance).zfill(2)}13"
+            else "/tmp/.sapstream5{0}13".format(str(self.instance).zfill(2))
         )
         self.local = False if self.hostname else True
         self.protocol = "http" if self.security == SAPHostSecurity.NONE else "https"
@@ -185,15 +190,15 @@ class SAPHostSOAPClient(object):
         )
         if self.local:
             if binary == C.SAPHOSTCTRL:
-                self.url = f"http://localhost:{self.port}/SAPHostControl/?wsdl"
+                self.url = "http://localhost:{0}/SAPHostControl/?wsdl".format(self.port)
             else:
                 self.url = "http://localhost/sapcontrol?wsdl"
         else:
             if binary == C.SAPHOSTCTRL:
-                self.url = f"{self.protocol}://{self.hostname}:{self.port}/SAPHostControl/?wsdl"
+                self.url = "{0}://{1}:{2}/SAPHostControl/?wsdl".format(self.protocol, self.hostname, self.port)
             else:
                 self.url = (
-                    f"{self.protocol}://{self.hostname}:{self.port}/sapcontrol?wsdl"
+                    "{0}://{1}:{2}/sapcontrol?wsdl".format(self.protocol, self.hostname, self.port)
                 )
         self.client = None
 
@@ -284,12 +289,12 @@ class AnsibleModuleSAPHostAgent(AnsibleModule):
         else:
             required_if = saphostagent_required_if
         if required_by is not None:
-            required_by = {**required_by, **saphostagent_required_by}
+            required_by = dict_union(required_by, saphostagent_required_by)
         else:
             required_by = saphostagent_required_by
 
-        super().__init__(
-            argument_spec={**argument_spec, **saphostagent_argument_spec},
+        super(AnsibleModuleSAPHostAgent, self).__init__(
+            argument_spec=dict_union(saphostagent_argument_spec, argument_spec),
             bypass_checks=bypass_checks,
             no_log=no_log,
             mutually_exclusive=mutually_exclusive,

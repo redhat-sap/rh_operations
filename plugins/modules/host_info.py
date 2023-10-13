@@ -1286,7 +1286,7 @@ databases:
         ]
 """  # noqa: E501
 
-from ansible_collections.sap.sap_operations.plugins.module_utils.saphost import (  # pyright: ignore[reportMissingImports]
+from ansible_collections.sap.sap_operations.plugins.module_utils.saphost import (
     AnsibleModuleSAPHostAgent,
     saphostctrl,
     sapcontrol,

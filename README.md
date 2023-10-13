@@ -39,15 +39,53 @@ Please see documentation for role `prepare`.
 
 ### Ansible
 
+Ansible collection is designed to work with following Ansible versions (on controller host)
+
+ansible 2.9
+
+ansible-core 2.10
+
+ansible-core 2.11
+
 ansible-core 2.12
 
 ansible-core 2.13
 
 ansible-core 2.14
 
+ansible-core 2.15
+
 ### Python
 
-Ansible Automation Platform requires at minimum Python 3.8 to function as designed.
+Ansible collection is designed to work with following python versions (on both controller and managed host)
+
+python 2.7
+
+python 3.5
+
+python 3.6
+
+python 3.7
+
+python 3.8
+
+python 3.9
+
+python 3.10
+
+python 3.11
+
+With one exception NW RFC modules to not work on python 2.7. This is because SAP PyRFC does not support python 2.7 see <https://github.com/SAP/PyRFC>
+
+If there is a requirement to use NW RFC modules on python 2.7, please use HTTP connection only - this does not required PyRFC and works with python 2.7.
+
+Not all python and ansible version combination are expected to work. Please use python version supported by respective ansible version.
+
+### Supported Ansible and Python version combinations
+
+Collection is supported as part of Red Hat Ansible Automation Platform subscription with limitations described in Ansible Automation support policy.
+
+<https://access.redhat.com/support/policy/updates/ansible-automation-platform>
 
 ## LICENSE
 

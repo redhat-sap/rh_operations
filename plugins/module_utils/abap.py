@@ -30,9 +30,11 @@ from ansible.module_utils.basic import missing_required_lib
 from ansible.module_utils.basic import AnsibleModule
 import decimal
 
-from ansible_collections.sap.sap_operations.plugins.module_utils.suds_helper import (  # pyright: ignore[reportMissingImports]
+from ansible_collections.sap.sap_operations.plugins.module_utils.suds_helper import (
     deep_asdict,
 )
+
+from ansible_collections.sap.sap_operations.plugins.module_utils.compat import dict_union
 
 try:
     from pyrfc import (
@@ -591,13 +593,13 @@ class AnsibleModuleABAPException(Exception):
 
 
 class AnsibleModuleABAPExitException(AnsibleModuleABAPException):
-    def __init__(self, **kwargs) -> None:
+    def __init__(self, **kwargs):
         """Class handle AnsibleModule.exit_json."""
         self.kwargs = kwargs
 
 
 class AnsibleModuleABAPFailException(AnsibleModuleABAPException):
-    def __init__(self, msg, **kwargs) -> None:
+    def __init__(self, msg, **kwargs):
         """Class handle AnsibleModule.fail_json."""
         self.msg = msg
         self.kwargs = kwargs
@@ -728,12 +730,13 @@ class SAPHTTPSOAPClient(object):
     def __call__(self, func_name: str, **kwargs) -> dict:
         escaped_func_name = func_name.replace("/", "_-")
         try:
-            url = f"{self.protocol}{self.hostname}:{self.port}/sap/bc/soap/wsdl?sap-client={self.client}&services={escaped_func_name}"
-            self.soap_client = Client(
-                url, username=self.username, password=self.password
-            )
-            # method = getattr(self.soap_client.service, escaped_func_name)
-            # return Client.dict(getattr(self.soap_client.service, escaped_func_name)(**kwargs))
+            url = "{0}{1}:{2}/sap/bc/soap/wsdl?sap-client={3}&services={4}".format(self.protocol, self.hostname, self.port, self.client, escaped_func_name)
+            try:
+                self.soap_client = Client(
+                    url, username=self.username, password=self.password
+                )
+            except Exception as e:
+                raise e
             return deep_asdict(getattr(self.soap_client.service, escaped_func_name)(**kwargs))
         except Exception as e:
             raise e
@@ -840,7 +843,7 @@ class AnsibleModuleABAP(AnsibleModule):
             rfc_connection=dict(
                 type="dict",
                 aliases=["abap_system"],
-                options=(rfc_config | rfc_params),
+                options=dict_union(rfc_config, rfc_params),
                 mutually_exclusive=rfc_mutually_exclusive,
                 required_together=rfc_required_together,
             ),
@@ -902,7 +905,7 @@ class AnsibleModuleABAP(AnsibleModule):
                     self.exit_json(**exc_value.kwargs)
             else:
                 self.fail_json(
-                    msg=f"Exception {exc_type.__class__.__name__} occurred.",
+                    msg="Exception {0} occurred.".format(exc_type.__class__.__name__),
                     exception=str(exc_value),
                     traceback=traceback.format_tb(exc_tb),
                 )
