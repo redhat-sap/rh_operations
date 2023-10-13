@@ -5,6 +5,19 @@ SAP Operations Collection Release Notes
 .. contents:: Topics
 
 
+v1.3.2
+======
+
+Release Summary
+---------------
+
+Bugfix release
+
+Minor Changes
+-------------
+
+- Resolve sanity errors for python 2.7 and lower versions of python 3
+
 v1.3.1
 ======
 

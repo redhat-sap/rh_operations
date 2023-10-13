@@ -49,8 +49,8 @@ def deep_asdict2(obj):
     This is where decided to return reply or not.
     https://github.com/suds-community/suds/blob/master/suds/bindings/binding.py#L132
     """
-    if obj.get('item', None):
-        return [deep_asdict2(item) for item in obj.get('item')]
+    if getattr(obj, 'item', None):
+        return [deep_asdict2(item) for item in getattr(obj, 'item', None)]
     if isinstance(obj, sudsobject):
         return {k: deep_asdict2(v) for k, v in items(obj)}
     if isinstance(obj, list):
