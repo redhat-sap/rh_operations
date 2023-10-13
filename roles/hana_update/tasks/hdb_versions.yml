@@ -31,7 +31,6 @@
   changed_when: false
   register: hana_update_hdb_versions_vector_medium
 
-
 - name: Parse HDB versions (medium)
   ansible.utils.cli_parse:
     text: "{{ hana_update_hdb_versions_vector_medium.stdout }}"

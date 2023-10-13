@@ -5,7 +5,7 @@ SAP Operations Collection Release Notes
 .. contents:: Topics
 
 
-v1.5.0-galaxy
+v1.6.0-galaxy
 =============
 
 Release Summary
@@ -13,10 +13,30 @@ Release Summary
 
 Feature release (galaxy only)
 
-New Modules
+Major Changes
+-------------
+
+- Add pcs_cluster_property_mapping filter plugin
+- Add pcs_resources filter plugins
+
+New Plugins
 -----------
 
-- sap.sap_operations.azure_imds - Get Azure instance metadata
+Filter
+~~~~~~
+
+- sap.sap_operations.pcs_cluster_property_mapping - Get pcs cluster property from pcs_cib_info result
+- sap.sap_operations.pcs_resources - Get pcs cluster resources lists
+- sap.sap_operations.pcs_resources_from_cib - Get pcs resources list from result of sap.sap_operations.pcs_cib_info module
+- sap.sap_operations.pcs_resources_from_status - Get pcs cluster resources lists
+
+v1.5.0-galaxy
+=============
+
+Release Summary
+---------------
+
+Feature release (galaxy only)
 
 v1.4.0-galaxy
 =============
