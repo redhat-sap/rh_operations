@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 # SPDX-License-Identifier: GPL-3.0-only
 # SPDX-FileCopyrightText: 2023 Red Hat, Project Atmosphere
 #
@@ -23,85 +21,23 @@
 
 from __future__ import absolute_import, division, print_function
 
+
 __metaclass__ = type
 
 
-prohibited = [
-    "ADD",
-    "ADM",
-    "ALL",
-    "AMD",
-    "AND",
-    "ANY",
-    "ARE",
-    "ASC",
-    "AUX",
-    "AVG",
-    "BIN",
-    "BIT",
-    "CDC",
-    "COM",
-    "CON",
-    "DAA",
-    "DBA",
-    "DBM",
-    "DBO",
-    "DTD",
-    "ECO",
-    "END",
-    "EPS",
-    "EXE",
-    "FOR",
-    "GET",
-    "GID",
-    "IBM",
-    "INT",
-    "KEY",
-    "LIB",
-    "LOG",
-    "LPT",
-    "MAP",
-    "MAX",
-    "MEM",
-    "MIG",
-    "MIN",
-    "MON",
-    "NET",
-    "NIX",
-    "NOT",
-    "NUL",
-    "OFF",
-    "OLD",
-    "OMS",
-    "OUT",
-    "PAD",
-    "PRN",
-    "RAW",
-    "REF",
-    "ROW",
-    "SAP",
-    "SET",
-    "SGA",
-    "SHG",
-    "SID",
-    "SQL",
-    "SUM",
-    "SYS",
-    "TMP",
-    "TOP",
-    "TRC",
-    "UID",
-    "USE",
-    "USR",
-    "VAR",
-]
+def dict_union(dict1, dict2):
+    """Returns a new dictionary that is the union of the two input dictionaries.
 
+    This is compartibity function for python 2 and 3.
+    The resulting dictionary contains all the key-value pairs from both input
+    dictionaries. If a key is present in both input dictionaries, the value from
+    the second dictionary (dict2) is used.
 
-def valid_sid(sid):
-    return (
-        (len(sid) == 3)
-        and (sid.upper() not in prohibited)  # noqa: W503
-        and (sid.upper() == sid)  # noqa: W503
-        and (sid[0] not in "0123456789")  # noqa: W503
-        and (sid.isalnum())  # noqa: W503
-    )
+    Args:
+        dict1 (dict): The first dictionary to include in the union.
+        dict2 (dict): The second dictionary to include in the union.
+
+    Returns:
+        dict: A new dictionary that is the union of dict1 and dict2.
+    """
+    return dict(list(dict1.items()) + list(dict2.items()))

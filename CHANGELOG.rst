@@ -5,6 +5,53 @@ SAP Operations Collection Release Notes
 .. contents:: Topics
 
 
+v1.4.0-galaxy
+=============
+
+Release Summary
+---------------
+
+Feature release (galaxy only)
+
+Major Changes
+-------------
+
+- Add ansble modules to get pacemaker status and configuration
+
+New Modules
+-----------
+
+- sap.sap_operations.pcs_capabilities_info - Get pacemaker capabilities
+- sap.sap_operations.pcs_cib_info - Get pacemaker CIB (configuration information base) information
+- sap.sap_operations.pcs_fence_azure_arm_list_info - Get list of hosts from Azure fence ARM
+- sap.sap_operations.pcs_status_info - Get pacemaker status information
+
+v1.3.2
+======
+
+Release Summary
+---------------
+
+Bugfix release
+
+Minor Changes
+-------------
+
+- Resolve sanity errors for python 2.7 and lower versions of python 3
+
+v1.3.1
+======
+
+Release Summary
+---------------
+
+Bugfix release
+
+Minor Changes
+-------------
+
+- Resolve syntax issues with hana_update role
+
 v1.3.0
 ======
 

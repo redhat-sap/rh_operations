@@ -23,6 +23,7 @@
 # If not, see <https://www.gnu.org/licenses/>.
 
 from __future__ import absolute_import, division, print_function
+
 __metaclass__ = type
 
 DOCUMENTATION = r"""
@@ -493,7 +494,7 @@ abap_system_info:
         }
 """
 
-from ansible_collections.sap.sap_operations.plugins.module_utils.abap import (  # pyright: ignore[reportMissingImports]
+from ansible_collections.sap.sap_operations.plugins.module_utils.abap import (
     AnsibleModuleABAP,
 )
 
@@ -504,15 +505,12 @@ def main():
     with module as abap:
         swproducts = abap("OCS_GET_INSTALLED_SWPRODUCTS")
         software_components = abap("OCS_GET_SFW_COMPONENTS")
-        # installed_components_ocs = abap("OCS_GET_INSTALLED_COMPS")
         host_data = abap("TH_GET_VIRT_HOST_DATA")
         installed_components = abap("DELIVERY_GET_INSTALLED_COMPS")
         smlg_groups = abap("SMLG_GET_DEFINED_GROUPS")
         smlg_servers = abap("SMLG_GET_DEFINED_SERVERS")
         smlg_setup = abap("SMLG_GET_SETUP")
         computer_info = abap("SLDAG_GET_COMPUTER_INFO")
-        # /SDF/CMO_BUSINESS_FUNCTION
-        # /SDF/ASR_GET_INFO - Get info for reading ASR data
 
     module.exit_json(
         changed=False,

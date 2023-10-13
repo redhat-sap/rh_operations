@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 # SPDX-License-Identifier: GPL-3.0-only
 # SPDX-FileCopyrightText: 2023 Red Hat, Project Atmosphere
 #
@@ -26,82 +24,14 @@ from __future__ import absolute_import, division, print_function
 __metaclass__ = type
 
 
-prohibited = [
-    "ADD",
-    "ADM",
-    "ALL",
-    "AMD",
-    "AND",
-    "ANY",
-    "ARE",
-    "ASC",
-    "AUX",
-    "AVG",
-    "BIN",
-    "BIT",
-    "CDC",
-    "COM",
-    "CON",
-    "DAA",
-    "DBA",
-    "DBM",
-    "DBO",
-    "DTD",
-    "ECO",
-    "END",
-    "EPS",
-    "EXE",
-    "FOR",
-    "GET",
-    "GID",
-    "IBM",
-    "INT",
-    "KEY",
-    "LIB",
-    "LOG",
-    "LPT",
-    "MAP",
-    "MAX",
-    "MEM",
-    "MIG",
-    "MIN",
-    "MON",
-    "NET",
-    "NIX",
-    "NOT",
-    "NUL",
-    "OFF",
-    "OLD",
-    "OMS",
-    "OUT",
-    "PAD",
-    "PRN",
-    "RAW",
-    "REF",
-    "ROW",
-    "SAP",
-    "SET",
-    "SGA",
-    "SHG",
-    "SID",
-    "SQL",
-    "SUM",
-    "SYS",
-    "TMP",
-    "TOP",
-    "TRC",
-    "UID",
-    "USE",
-    "USR",
-    "VAR",
-]
+class ModuleDocFragment(object):
+    DOCUMENTATION = r"""
+notes:
+  - B(This module is experimental)
+  - Module interface (parameters, output) might change in future releases
+  - Module interface (parameters, output) might change in future patches
+  - Module might be removed in future releases
+  - Module released only on Ansible galaxy and is not yet planned to be released on Ansible Automation Hub
 
-
-def valid_sid(sid):
-    return (
-        (len(sid) == 3)
-        and (sid.upper() not in prohibited)  # noqa: W503
-        and (sid.upper() == sid)  # noqa: W503
-        and (sid[0] not in "0123456789")  # noqa: W503
-        and (sid.isalnum())  # noqa: W503
-    )
+options: {}
+  """
