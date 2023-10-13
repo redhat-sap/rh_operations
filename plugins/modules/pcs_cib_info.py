@@ -987,7 +987,7 @@ def main():
     module.exit_json(
         changed=False,
         pacemaker_cib=pacemaker_cib,
-        xml_string=pcs_cib_query_xml_string,
+        pacemaker_cib_xml=pcs_cib_query_xml_string,
     )
 
 

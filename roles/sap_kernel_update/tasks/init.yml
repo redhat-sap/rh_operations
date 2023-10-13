@@ -20,6 +20,7 @@
 # If not, see <https://www.gnu.org/licenses/>.
 
 ---
+
 - name: Fetch kernel path
   sap.sap_operations.parameter_info:
     name: "DIR_CT_RUN"

@@ -28,6 +28,7 @@
 
 # Seems ansible.builtin.copy backup works with files, but not with directories.
 # Create backup manually.
+
 - name: Backup previous SAP kernel
   ansible.builtin.copy:
     src: "{{ sap_kernel_update_kernel_path }}/"

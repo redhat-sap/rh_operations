@@ -257,18 +257,29 @@ def pcs_resources_by_id_from_status(pcs_status_tree, resource_id=None):
 
     Args:
         pcs_status_tree (ElementTree): The parsed XML tree of the PCS status output.
-        resource_id (str | None): The ID of the resource to search for. If not provided, all resources will be returned.
+        resource_id (str): The ID of the resource to search for. If not provided, all resources will be returned.
 
     Returns:
         List[Element]: A list of XML elements representing resources with the given ID.
     """
     if resource_id is None:
-        return pcs_status_tree.findall(
-            ".//resources/resource"
-        ) + pcs_status_tree.findall(".//resources/clone/resource")
-    return pcs_status_tree.findall(
-        ".//resources/resource[@id='{0}']".format(resource_id)
-    ) + pcs_status_tree.findall(".//resources/clone/resource/[@id='{0}']".format(resource_id))
+        return (
+            pcs_status_tree.findall(".//resources/resource") +
+            pcs_status_tree.findall(".//resources/clone/resource") +
+            pcs_status_tree.findall(".//resources/group/resource") +
+            pcs_status_tree.findall(".//resources/clone/group/resource") +
+            pcs_status_tree.findall(".//resources/group") +
+            pcs_status_tree.findall(".//resources/clone/group")
+
+        )
+    return (
+        pcs_status_tree.findall(".//resources/resource[@id='{0}']".format(resource_id)) +
+        pcs_status_tree.findall(".//resources/clone/resource[@id='{0}']".format(resource_id)) +
+        pcs_status_tree.findall(".//resources/group/resource[@id='{0}']".format(resource_id)) +
+        pcs_status_tree.findall(".//resources/clone/group/resource[@id='{0}']".format(resource_id)) +
+        pcs_status_tree.findall(".//resources/group[@id='{0}']".format(resource_id)) +
+        pcs_status_tree.findall(".//resources/clone/group[@id='{0}']".format(resource_id))
+    )
 
 
 def pcs_resources_by_id_from_cib(pcs_cib_tree, resource_id=None):
@@ -282,12 +293,22 @@ def pcs_resources_by_id_from_cib(pcs_cib_tree, resource_id=None):
         List[Element]: A list of Element objects representing the resources with the given ID.
     """
     if resource_id is None:
-        return pcs_cib_tree.findall(".//resources/primitive") + pcs_cib_tree.findall(
-            ".//resources/clone/primitive"
+        return (
+            pcs_cib_tree.findall(".//resources/primitive") +
+            pcs_cib_tree.findall(".//resources/clone/primitive") +
+            pcs_cib_tree.findall(".//resources/group/primitive") +
+            pcs_cib_tree.findall(".//resources/clone/group/primitive") +
+            pcs_cib_tree.findall(".//resources/group") +
+            pcs_cib_tree.findall(".//resources/clone/group")
         )
-    return pcs_cib_tree.findall(
-        ".//resources/primitive[@id='{0}']".format(resource_id)
-    ) + pcs_cib_tree.findall(".//resources/clone/primitive/[@id='{0}']".format(resource_id))
+    return (
+        pcs_cib_tree.findall(".//resources/primitive[@id='{0}']".format(resource_id)) +
+        pcs_cib_tree.findall(".//resources/clone/primitive[@id='{0}']".format(resource_id)) +
+        pcs_cib_tree.findall(".//resources/group/primitive[@id='{0}']".format(resource_id)) +
+        pcs_cib_tree.findall(".//resources/clone/group/primitive[@id='{0}']".format(resource_id)) +
+        pcs_cib_tree.findall(".//resources/group[@id='{0}']".format(resource_id)) +
+        pcs_cib_tree.findall(".//resources/clone/group[@id='{0}']".format(resource_id))
+    )
 
 
 def pcs_resource_attrib(resource, attrib_name):
@@ -302,3 +323,54 @@ def pcs_resource_attrib(resource, attrib_name):
         None: if resource is empty or the attribute does not exist.
     """
     return resource.get(attrib_name)
+
+
+def pcs_cluster_property_set_from_cib(pcs_cib_tree, cluster_property_set_id=None):
+    """Returns a list of Element objects representing the cluster property set with the given ID in the given PCS CIB tree.
+
+    Args:
+        pcs_cib_tree (ElementTree): The PCS CIB tree to search for cluster property sets.
+        cluster_property_set_id (str): The ID of the cluster property set(s) to find. If not specified, all cluster property sets will be returned.
+
+    Returns:
+        List[Element]: A list of Element objects representing the cluster property set with the given ID.
+    """
+    if cluster_property_set_id is None:
+        return pcs_cib_tree.findall(".//cluster_property_set/nvpair")
+    return pcs_cib_tree.findall(
+        ".//cluster_property_set[@id='{0}']/nvpair".format(
+            cluster_property_set_id
+        ))
+
+
+def get_pcs_resource_agent_provider_from_status(pcs_resource):
+    if pcs_resource.get('resource_agent'):
+        return pcs_resource.get('resource_agent').split(':')[2]
+    else:
+        return None
+
+
+def get_pcs_resource_agent_type_from_status(pcs_resource):
+    if pcs_resource.get('resource_agent'):
+        return pcs_resource.get('resource_agent').split(':')[3]
+    else:
+        return None
+
+
+def get_pcs_resource_agent_class_from_status(pcs_resource):
+    if pcs_resource.get('resource_agent'):
+        return pcs_resource.get('resource_agent').split(':')[0]
+    else:
+        return None
+
+
+def get_pcs_resource_agent_class_from_cib(pcs_resource):
+    return pcs_resource.get('class')
+
+
+def get_pcs_resource_agent_provider_from_cib(pcs_resource):
+    return pcs_resource.get('provider')
+
+
+def get_pcs_resource_agent_type_from_cib(pcs_resource):
+    return pcs_resource.get('type')
