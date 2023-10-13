@@ -58,8 +58,7 @@
 
 - name: Get SAP HANA version (medium)
   ansible.builtin.command:
-    cmd: >
-      "{{ hana_update_component_medium }}/DATA_UNITS/HDB_SERVER_LINUX_X86_64/hdblcm
+    cmd: "{{ hana_update_component_medium }}/DATA_UNITS/HDB_SERVER_LINUX_X86_64/hdblcm
       --action=print_detected_components
       --component_medium={{ hana_update_component_medium }}"
   become: true

@@ -5,6 +5,19 @@ SAP Operations Collection Release Notes
 .. contents:: Topics
 
 
+v1.3.1
+======
+
+Release Summary
+---------------
+
+Bugfix release
+
+Minor Changes
+-------------
+
+- Resolve syntax issues with hana_update role
+
 v1.3.0
 ======
 
@@ -16,21 +29,9 @@ Feature release
 Minor Changes
 -------------
 
+- Add functionality to release different content to AAP and Ansible galaxy
 - Clarify collection license
 - Collection license applied is GPL-3.0-only
-
-v1.2.3
-======
-
-Release Summary
----------------
-
-Feature release
-
-Minor Changes
--------------
-
-- Add functionality to release different content to AAP and Ansible galaxy
 
 v1.2.2
 ======
