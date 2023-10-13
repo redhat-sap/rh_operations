@@ -40,7 +40,7 @@ name: pcs_cluster_property_mapping
 
 author: Kirill Satarin (@kksat)
 
-extends: sap.sap_operations.experimental
+extends_documentation_fragment: sap.sap_operations.experimental
 
 version_added: 1.6.0-galaxy
 
@@ -48,7 +48,7 @@ short_description: Get pcs cluster property from pcs_cib_info result
 
 description:
   - Get pcs cluster property from pcs_cib_info result
-  - This module expects result of M(pcs_cib_info) module as input value
+  - This module expects result of M(sap.sap_operations.pcs_cib_info) module as input value
   - If property does not exists, empty dictionary will be returned
   - By default this filter will return only cluster properties from 'cib-bootstrap-options' cluster property set
 

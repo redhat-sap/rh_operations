@@ -46,7 +46,7 @@ name: pcs_resources_from_cib
 
 author: Kirill Satarin (@kksat)
 
-extends: sap.sap_operations.experimental
+extends_documentation_fragment: sap.sap_operations.experimental
 
 version_added: 1.6.0-galaxy
 
@@ -58,10 +58,8 @@ description:
   - Primitive, clone and group resources are supported
   - |
     Several parameters can be provided to filter pcs resources at once, for instance:
-      - name: Print all pcs resources with id that contains 'HANA'
-        ansible.builtin.debug:
-          msg:
-            - "{{ pcs_cib_info | sap.sap_operations.pcs_resources_from_cib(id_contains='HANA', resource_agent_class='ocf') }}"
+    List all pcs resources with id that contains 'HANA'
+    sap.sap_operations.pcs_resources(id_contains='HANA', resource_agent_class='ocf')
 
 options:
   value:

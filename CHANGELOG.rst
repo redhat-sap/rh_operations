@@ -5,6 +5,34 @@ SAP Operations Collection Release Notes
 .. contents:: Topics
 
 
+v1.7.0-galaxy
+=============
+
+Release Summary
+---------------
+
+Feature release (galaxy only)
+
+Major Changes
+-------------
+
+- Add 'all' and 'any' filter and test plugins
+
+New Plugins
+-----------
+
+Filter
+~~~~~~
+
+- sap.sap_operations.all - Return true if all elements in the iterable are truthy.
+- sap.sap_operations.any - Return true if any element in the iterable is truthy.
+
+Test
+~~~~
+
+- sap.sap_operations.all - Return true if all elements in the iterable are truthy.
+- sap.sap_operations.any - Return true if any element in the iterable is truthy.
+
 v1.6.0-galaxy
 =============
 
@@ -18,17 +46,6 @@ Major Changes
 
 - Add pcs_cluster_property_mapping filter plugin
 - Add pcs_resources filter plugins
-
-New Plugins
------------
-
-Filter
-~~~~~~
-
-- sap.sap_operations.pcs_cluster_property_mapping - Get pcs cluster property from pcs_cib_info result
-- sap.sap_operations.pcs_resources - Get pcs cluster resources lists
-- sap.sap_operations.pcs_resources_from_cib - Get pcs resources list from result of sap.sap_operations.pcs_cib_info module
-- sap.sap_operations.pcs_resources_from_status - Get pcs cluster resources lists
 
 v1.5.0-galaxy
 =============
