@@ -1,5 +1,3 @@
----
-
 # SPDX-License-Identifier: GPL-3.0-only
 # SPDX-FileCopyrightText: 2023 Red Hat, Project Atmosphere
 #
@@ -21,29 +19,12 @@
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>.
 
-__prepare_packages_mapping:
-  "7":
-    - python-lxml
-    - python-suds
-    - unzip
-    - python-requests
-  "8":
-    - python3-lxml
-    - python3-urllib3
-    - python3-suds
-    - unzip
-    - python3-requests
-  "9":
-    - python3-lxml
-    - python3-urllib3
-    - python3-suds
-    - unzip
-    - python3-requests
+from __future__ import absolute_import, division, print_function
 
-__prepare_packages:
-  "{{
-  __prepare_packages_mapping[ansible_facts['distribution_major_version']]
-  }}"
 
-__prepare_setup_gather_subset:
-  - min
+__metaclass__ = type
+
+
+AZURE_METADATA_URL = "http://169.254.169.254/metadata"
+AZURE_METADATA_VERSION = "2021-12-13"
+AZURE_METADATA_HEADERS = {"Metadata": "true"}

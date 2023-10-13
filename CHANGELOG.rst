@@ -5,6 +5,19 @@ SAP Operations Collection Release Notes
 .. contents:: Topics
 
 
+v1.5.0-galaxy
+=============
+
+Release Summary
+---------------
+
+Feature release (galaxy only)
+
+New Modules
+-----------
+
+- sap.sap_operations.azure_imds - Get Azure instance metadata
+
 v1.4.0-galaxy
 =============
 
@@ -17,14 +30,6 @@ Major Changes
 -------------
 
 - Add ansble modules to get pacemaker status and configuration
-
-New Modules
------------
-
-- sap.sap_operations.pcs_capabilities_info - Get pacemaker capabilities
-- sap.sap_operations.pcs_cib_info - Get pacemaker CIB (configuration information base) information
-- sap.sap_operations.pcs_fence_azure_arm_list_info - Get list of hosts from Azure fence ARM
-- sap.sap_operations.pcs_status_info - Get pacemaker status information
 
 v1.3.2
 ======

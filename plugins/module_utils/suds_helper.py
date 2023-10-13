@@ -41,7 +41,7 @@ else:
 def deep_asdict2(obj):
     """Function to convert sudsobject.reply to dict/list structure.
 
-    This is to return data to Ansible, otherwise Ansible doest not know how to work with returned classes
+    This is to return data to Ansible, otherwise Ansible does not know how to work with returned classes
     Due to how sudsobjects are structured, we skip 'item' attribute, and return list of items instead.
 
     There is a strange thing about suds module, if reply contains only one type, it is not returned as reply object,
