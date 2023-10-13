@@ -30,7 +30,14 @@ import socket
 import ssl
 import time
 import traceback
-import urllib.request
+
+try:
+    from urllib.request import HTTPHandler
+except ImportError:
+    from ansible.module_utils.urls import (
+        UnixHTTPHandler as HTTPHandler,
+    )  # recommended replacement for urllib2
+# https://docs.ansible.com/archive/ansible/2.3/dev_guide/developing_modules_checklist.html
 
 from ansible.module_utils.basic import missing_required_lib
 
@@ -81,7 +88,7 @@ class LocalSocketHttpConnection(HTTPConnection):
         self.sock.connect(socketpath)
 
 
-class LocalSocketHandler(urllib.request.HTTPHandler):
+class LocalSocketHandler(HTTPHandler):
     def __init__(  # noqa: D107
         self,
         debuglevel=0,
