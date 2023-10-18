@@ -5,6 +5,34 @@ SAP Operations Collection Release Notes
 .. contents:: Topics
 
 
+v1.8.0-galaxy
+=============
+
+Release Summary
+---------------
+
+Feature release (galaxy only)
+
+Major Changes
+-------------
+
+- Add plugins to manage SAP licenses with saplikey program.
+
+New Plugins
+-----------
+
+Filter
+~~~~~~
+
+- sap.sap_operations.license_content - Get sap license attributes from sap license file
+
+New Modules
+-----------
+
+- sap.sap_operations.saplikey - Manage sap license keys for SAP application instance with saplikey program.
+- sap.sap_operations.saplikey_get_info - Get host hardware key information and other useful information with saplikey program.
+- sap.sap_operations.saplikey_show_info - Get information about SAP license keys with saplikey program.
+
 v1.7.0-galaxy
 =============
 
@@ -17,21 +45,6 @@ Major Changes
 -------------
 
 - Add 'all' and 'any' filter and test plugins
-
-New Plugins
------------
-
-Filter
-~~~~~~
-
-- sap.sap_operations.all - Return true if all elements in the iterable are truthy.
-- sap.sap_operations.any - Return true if any element in the iterable is truthy.
-
-Test
-~~~~
-
-- sap.sap_operations.all - Return true if all elements in the iterable are truthy.
-- sap.sap_operations.any - Return true if any element in the iterable is truthy.
 
 v1.6.0-galaxy
 =============
