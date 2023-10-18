@@ -34,4 +34,5 @@ notes:
   - Module released only on Ansible galaxy and is not yet planned to be released on Ansible Automation Hub
 
 options: {}
-  """
+
+"""
