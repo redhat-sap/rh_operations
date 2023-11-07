@@ -40,3 +40,5 @@ galaxy_info:
     - hana
     - rhel
     - sap
+
+dependencies: []

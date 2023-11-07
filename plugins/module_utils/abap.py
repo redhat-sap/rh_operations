@@ -34,7 +34,9 @@ from ansible_collections.sap.sap_operations.plugins.module_utils.suds_helper imp
     deep_asdict,
 )
 
-from ansible_collections.sap.sap_operations.plugins.module_utils.compat import dict_union
+from ansible_collections.sap.sap_operations.plugins.module_utils.compat import (
+    dict_union,
+)
 
 try:
     from pyrfc import (
@@ -134,97 +136,97 @@ Example
  See table T002 in SAP system
 """
 ABAP_LANG2SPRAS = {
-    'SR': '0',
-    'ZH': '1',
-    'TH': '2',
-    'KO': '3',
-    'RO': '4',
-    'SL': '5',
-    'HR': '6',
-    'MS': '7',
-    'UK': '8',
-    'ET': '9',
-    'AR': 'A',
-    'HE': 'B',
-    'CS': 'C',
-    'DE': 'D',
-    'EN': 'E',
-    'FR': 'F',
-    'EL': 'G',
-    'HU': 'H',
-    'IT': 'I',
-    'JA': 'J',
-    'DA': 'K',
-    'PL': 'L',
-    'ZF': 'M',
-    'NL': 'N',
-    'NO': 'O',
-    'PT': 'P',
-    'SK': 'Q',
-    'RU': 'R',
-    'ES': 'S',
-    'TR': 'T',
-    'FI': 'U',
-    'SV': 'V',
-    'BG': 'W',
-    'LT': 'X',
-    'LV': 'Y',
-    'Z1': 'Z',
-    'AF': 'a',
-    'IS': 'b',
-    'CA': 'c',
-    'SH': 'd',
-    'ID': 'i',
-    'HI': '묩',
-    'KK': '뱋',
-    'VI': '쁩',
+    "SR": "0",
+    "ZH": "1",
+    "TH": "2",
+    "KO": "3",
+    "RO": "4",
+    "SL": "5",
+    "HR": "6",
+    "MS": "7",
+    "UK": "8",
+    "ET": "9",
+    "AR": "A",
+    "HE": "B",
+    "CS": "C",
+    "DE": "D",
+    "EN": "E",
+    "FR": "F",
+    "EL": "G",
+    "HU": "H",
+    "IT": "I",
+    "JA": "J",
+    "DA": "K",
+    "PL": "L",
+    "ZF": "M",
+    "NL": "N",
+    "NO": "O",
+    "PT": "P",
+    "SK": "Q",
+    "RU": "R",
+    "ES": "S",
+    "TR": "T",
+    "FI": "U",
+    "SV": "V",
+    "BG": "W",
+    "LT": "X",
+    "LV": "Y",
+    "Z1": "Z",
+    "AF": "a",
+    "IS": "b",
+    "CA": "c",
+    "SH": "d",
+    "ID": "i",
+    "HI": "묩",
+    "KK": "뱋",
+    "VI": "쁩",
 }
 
 ABAP_SPRAS2LANG = {
-    '0': 'SR',
-    '1': 'ZH',
-    '2': 'TH',
-    '3': 'KO',
-    '4': 'RO',
-    '5': 'SL',
-    '6': 'HR',
-    '7': 'MS',
-    '8': 'UK',
-    '9': 'ET',
-    'A': 'AR',
-    'B': 'HE',
-    'C': 'CS',
-    'D': 'DE',
-    'E': 'EN',
-    'F': 'FR',
-    'G': 'EL',
-    'H': 'HU',
-    'I': 'IT',
-    'J': 'JA',
-    'K': 'DA',
-    'L': 'PL',
-    'M': 'ZF',
-    'N': 'NL',
-    'O': 'NO',
-    'P': 'PT',
-    'Q': 'SK',
-    'R': 'RU',
-    'S': 'ES',
-    'T': 'TR',
-    'U': 'FI',
-    'V': 'SV',
-    'W': 'BG',
-    'X': 'LT',
-    'Y': 'LV',
-    'Z': 'Z1',
-    'a': 'AF',
-    'b': 'IS',
-    'c': 'CA',
-    'd': 'SH',
-    'i': 'ID',
-    '묩': 'HI',
-    '뱋': 'KK',
-    '쁩': 'VI',
+    "0": "SR",
+    "1": "ZH",
+    "2": "TH",
+    "3": "KO",
+    "4": "RO",
+    "5": "SL",
+    "6": "HR",
+    "7": "MS",
+    "8": "UK",
+    "9": "ET",
+    "A": "AR",
+    "B": "HE",
+    "C": "CS",
+    "D": "DE",
+    "E": "EN",
+    "F": "FR",
+    "G": "EL",
+    "H": "HU",
+    "I": "IT",
+    "J": "JA",
+    "K": "DA",
+    "L": "PL",
+    "M": "ZF",
+    "N": "NL",
+    "O": "NO",
+    "P": "PT",
+    "Q": "SK",
+    "R": "RU",
+    "S": "ES",
+    "T": "TR",
+    "U": "FI",
+    "V": "SV",
+    "W": "BG",
+    "X": "LT",
+    "Y": "LV",
+    "Z": "Z1",
+    "a": "AF",
+    "b": "IS",
+    "c": "CA",
+    "d": "SH",
+    "i": "ID",
+    "묩": "HI",
+    "뱋": "KK",
+    "쁩": "VI",
 }
 
 ABAP_TIME_ZONE_CHOICES = [
@@ -730,14 +732,18 @@ class SAPHTTPSOAPClient(object):
     def __call__(self, func_name: str, **kwargs) -> dict:
         escaped_func_name = func_name.replace("/", "_-")
         try:
-            url = "{0}{1}:{2}/sap/bc/soap/wsdl?sap-client={3}&services={4}".format(self.protocol, self.hostname, self.port, self.client, escaped_func_name)
+            url = "{0}{1}:{2}/sap/bc/soap/wsdl?sap-client={3}&services={4}".format(
+                self.protocol, self.hostname, self.port, self.client, escaped_func_name
+            )
             try:
                 self.soap_client = Client(
                     url, username=self.username, password=self.password
                 )
             except Exception as e:
                 raise e
-            return deep_asdict(getattr(self.soap_client.service, escaped_func_name)(**kwargs))
+            return deep_asdict(
+                getattr(self.soap_client.service, escaped_func_name)(**kwargs)
+            )
         except Exception as e:
             raise e
 
@@ -769,7 +775,9 @@ class AnsibleModuleABAP(AnsibleModule):
             client=dict(type="str", required=False, default="000"),
             user=dict(type="str", required=False),
             passwd=dict(type="str", required=False, no_log=True),
-            lang=dict(type="str", required=False, default="EN", choices=ABAP_LANGU_CHOICES),
+            lang=dict(
+                type="str", required=False, default="EN", choices=ABAP_LANGU_CHOICES
+            ),
             trace=dict(
                 type="str", required=False, default="0", choices=["0", "1", "2", "3"]
             ),
@@ -826,7 +834,9 @@ class AnsibleModuleABAP(AnsibleModule):
             client=dict(type="str", required=False, default="000"),
             port=dict(type="int", required=False, default=443),
             security=dict(type="bool", required=False, default=True),
-            language=dict(type="str", required=False, default="EN", choices=ABAP_LANGU_CHOICES),
+            language=dict(
+                type="str", required=False, default="EN", choices=ABAP_LANGU_CHOICES
+            ),
         )
         http_required_together = [
             ("hostname", "username", "password"),
@@ -856,11 +866,27 @@ class AnsibleModuleABAP(AnsibleModule):
             ),
         )
 
-        mutually_exclusive = mutually_exclusive + abap_mutually_exclusive if mutually_exclusive else abap_mutually_exclusive
-        required_together = required_together + abap_required_together if required_together else abap_required_together
-        required_one_of = required_one_of + abap_required_one_of if required_one_of else abap_required_one_of
-        required_if = required_if + abap_required_if if required_if else abap_required_if
-        required_by = required_by | abap_required_by if required_by else abap_required_by
+        mutually_exclusive = (
+            mutually_exclusive + abap_mutually_exclusive
+            if mutually_exclusive
+            else abap_mutually_exclusive
+        )
+        required_together = (
+            required_together + abap_required_together
+            if required_together
+            else abap_required_together
+        )
+        required_one_of = (
+            required_one_of + abap_required_one_of
+            if required_one_of
+            else abap_required_one_of
+        )
+        required_if = (
+            required_if + abap_required_if if required_if else abap_required_if
+        )
+        required_by = (
+            required_by | abap_required_by if required_by else abap_required_by
+        )
 
         super().__init__(
             argument_spec={**argument_spec, **abap_argument_spec},

@@ -32,7 +32,6 @@
   register: unpack_sapcar_file
   changed_when: unpack_sapcar_file.changed | default(true)
 
-
 - name: Register output variable
   ansible.builtin.set_fact:
     unpack_register: |

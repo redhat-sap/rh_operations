@@ -100,8 +100,8 @@ prohibited = [
 def valid_sid(sid):
     return (
         (len(sid) == 3)
-        and (sid.upper() not in prohibited)   # noqa: W503
-        and (sid.upper() == sid)   # noqa: W503
-        and (sid[0] not in "0123456789")   # noqa: W503
-        and (sid.isalnum())   # noqa: W503
+        and (sid.upper() not in prohibited)  # noqa: W503
+        and (sid.upper() == sid)  # noqa: W503
+        and (sid[0] not in "0123456789")  # noqa: W503
+        and (sid.isalnum())  # noqa: W503
     )

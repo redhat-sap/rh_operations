@@ -41,7 +41,7 @@ else:
 def deep_asdict2(obj):
     """Function to convert sudsobject.reply to dict/list structure.
 
-    This is to return data to Ansible, otherwise Ansible doest not know how to work with returned classes
+    This is to return data to Ansible, otherwise Ansible does not know how to work with returned classes
     Due to how sudsobjects are structured, we skip 'item' attribute, and return list of items instead.
 
     There is a strange thing about suds module, if reply contains only one type, it is not returned as reply object,
@@ -49,16 +49,20 @@ def deep_asdict2(obj):
     This is where decided to return reply or not.
     https://github.com/suds-community/suds/blob/master/suds/bindings/binding.py#L132
     """
-    if getattr(obj, 'item', None):
-        return [deep_asdict2(item) for item in getattr(obj, 'item', None)]
+    if getattr(obj, "item", None):
+        return [deep_asdict2(item) for item in getattr(obj, "item", None)]
     if isinstance(obj, sudsobject):
         return {k: deep_asdict2(v) for k, v in items(obj)}
     if isinstance(obj, list):
         return [deep_asdict2(elem) for elem in obj]
-    return obj if (obj is not None) else ""  # return empty string if obj is None, this is because in RFC processing None is returned as empty string
+    return (
+        obj if (obj is not None) else ""
+    )  # return empty string if obj is None, this is because in RFC processing None is returned as empty string
 
 
 def deep_asdict(obj):
-    if obj.__class__.__name__ == 'reply':  # This has to be done once only for highest level object
+    if (
+        obj.__class__.__name__ == "reply"
+    ):  # This has to be done once only for highest level object
         return deep_asdict2(obj)
     return {obj.__class__.__name__: deep_asdict2(obj)}

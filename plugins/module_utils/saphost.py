@@ -29,15 +29,20 @@ __metaclass__ = type
 import socket
 import ssl
 import traceback
+
 try:
     from urllib.request import HTTPHandler
 except ImportError:
-    from ansible.module_utils.urls import UnixHTTPHandler as HTTPHandler  # recommended replacement for urllib2
+    from ansible.module_utils.urls import (
+        UnixHTTPHandler as HTTPHandler,
+    )  # recommended replacement for urllib2
 # https://docs.ansible.com/archive/ansible/2.3/dev_guide/developing_modules_checklist.html
 
 from ansible.module_utils.basic import missing_required_lib
 from ansible.module_utils.basic import AnsibleModule
-from ansible_collections.sap.sap_operations.plugins.module_utils.compat import dict_union
+from ansible_collections.sap.sap_operations.plugins.module_utils.compat import (
+    dict_union,
+)
 
 try:
     from http.client import HTTPConnection
@@ -171,10 +176,14 @@ class SAPHostSOAPClient(object):
         self.ca_file = ca_file
         self.security = security
         self.secure_port = (
-            "1129" if binary == C.SAPHOSTCTRL else "5{0}14".format(str(instance).zfill(2))
+            "1129"
+            if binary == C.SAPHOSTCTRL
+            else "5{0}14".format(str(instance).zfill(2))
         )
         self.unsecure_port = (
-            "1128" if binary == C.SAPHOSTCTRL else "5{0}13".format(str(instance).zfill(2))
+            "1128"
+            if binary == C.SAPHOSTCTRL
+            else "5{0}13".format(str(instance).zfill(2))
         )
         self.unix_socket = (
             "/tmp/.sapstream1128"
@@ -195,10 +204,12 @@ class SAPHostSOAPClient(object):
                 self.url = "http://localhost/sapcontrol?wsdl"
         else:
             if binary == C.SAPHOSTCTRL:
-                self.url = "{0}://{1}:{2}/SAPHostControl/?wsdl".format(self.protocol, self.hostname, self.port)
+                self.url = "{0}://{1}:{2}/SAPHostControl/?wsdl".format(
+                    self.protocol, self.hostname, self.port
+                )
             else:
-                self.url = (
-                    "{0}://{1}:{2}/sapcontrol?wsdl".format(self.protocol, self.hostname, self.port)
+                self.url = "{0}://{1}:{2}/sapcontrol?wsdl".format(
+                    self.protocol, self.hostname, self.port
                 )
         self.client = None
 
