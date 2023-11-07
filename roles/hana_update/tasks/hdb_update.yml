@@ -83,6 +83,3 @@
       when: hana_update_cleanup
       become: true
       become_user: root
-    # TODO remove
-    - name: Rescue SAP HANA update if it fails
-      ansible.builtin.include_tasks: hdb_update_rescue.yml

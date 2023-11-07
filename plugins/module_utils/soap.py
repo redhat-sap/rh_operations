@@ -34,7 +34,9 @@ import traceback
 try:
     from urllib.request import HTTPHandler
 except ImportError:
-    from ansible.module_utils.urls import UnixHTTPHandler as HTTPHandler  # recommended replacement for urllib2
+    from ansible.module_utils.urls import (
+        UnixHTTPHandler as HTTPHandler,
+    )  # recommended replacement for urllib2
 # https://docs.ansible.com/archive/ansible/2.3/dev_guide/developing_modules_checklist.html
 
 from ansible.module_utils.basic import missing_required_lib
