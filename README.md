@@ -41,23 +41,25 @@ Please see documentation for role `prepare`.
 
 Ansible collection is designed to work with following Ansible versions (on controller host)
 
-ansible 2.9
-
-ansible-core 2.10
-
-ansible-core 2.11
-
-ansible-core 2.12
-
-ansible-core 2.13
-
 ansible-core 2.14
 
 ansible-core 2.15
 
 ### Python
 
-Ansible collection is designed to work with following python versions (on both controller and managed host)
+Ansible collection is designed to work with following python versions on controller host
+
+python 3.8
+
+python 3.9
+
+python 3.10
+
+python 3.11
+
+python 3.12
+
+Ansible collection is designed to work with following python versions on managed host
 
 python 2.7
 
@@ -74,6 +76,8 @@ python 3.9
 python 3.10
 
 python 3.11
+
+python 3.12
 
 With one exception NW RFC modules to not work on python 2.7. This is because SAP PyRFC does not support python 2.7 see <https://github.com/SAP/PyRFC>
 
