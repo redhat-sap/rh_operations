@@ -48,7 +48,7 @@ options:
     type: str
   password:
     description:
-      - "I(password) of the OS user that will connect to SAP host agent web services (sapadm, or <sid>adm, or any other user with necessary permissio"
+      - "I(password) of the OS user that will connect to SAP host agent web services (sapadm, or <sid>adm, or any other user with necessary permissions"
       - Parameters I(username) I(password) and I(hostname) should be provided together.
     type: str
   hostname:

@@ -164,11 +164,6 @@ class SAPHostSOAPClient(object):
         instance=None,
         binary=C.SAPHOSTCTRL,
     ):
-        if not HAS_SUDS_LIBRARY:
-            self.fail_json(
-                msg=missing_required_lib("suds"),
-                exception=SUDS_LIBRARY_IMPORT_ERROR,
-            )
         self.hostname = hostname
         self.username = username
         self.password = password
@@ -186,9 +181,9 @@ class SAPHostSOAPClient(object):
             else "5{0}13".format(str(instance).zfill(2))
         )
         self.unix_socket = (
-            "/tmp/.sapstream1128"
+            "/tmp/.sapstream1128"  # nosec B108
             if binary == C.SAPHOSTCTRL
-            else "/tmp/.sapstream5{0}13".format(str(self.instance).zfill(2))
+            else "/tmp/.sapstream5{0}13".format(str(self.instance).zfill(2))  # nosec B108
         )
         self.local = False if self.hostname else True
         self.protocol = "http" if self.security == SAPHostSecurity.NONE else "https"
@@ -239,7 +234,7 @@ class SAPHostSOAPClient(object):
         elif self.security == SAPHostSecurity.CUSTOM:
             if self.ca_file is not None:
                 ssl._create_default_https_context = (
-                    lambda: ssl._create_unverified_context(cafile=self.ca_file)
+                    lambda: ssl._create_unverified_context(cafile=self.ca_file)  # nosec B323
                 )
         try:
             client = Client(self.url, username=self.username, password=self.password)
@@ -263,6 +258,7 @@ class AnsibleModuleSAPHostAgent(AnsibleModule):
         required_if=None,
         required_by=None,
     ):
+
         saphostagent_argument_spec = dict(
             hostname=dict(type="str", required=False),
             username=dict(type="str", required=False),
@@ -316,7 +312,11 @@ class AnsibleModuleSAPHostAgent(AnsibleModule):
             required_if=required_if,
             required_by=required_by,
         )
-        # self.p = AnsibleParameters(self.params)
+        if not HAS_SUDS_LIBRARY:
+            self.fail_json(
+                msg=missing_required_lib("suds"),
+                exception=SUDS_LIBRARY_IMPORT_ERROR,
+            )
 
 
 def saphostctrl(

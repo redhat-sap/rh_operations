@@ -1,5 +1,3 @@
----
-
 # SPDX-License-Identifier: GPL-3.0-only
 # SPDX-FileCopyrightText: 2023 Red Hat, Project Atmosphere
 #
@@ -21,11 +19,18 @@
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>.
 
-- name: Validate role variables
-  ansible.builtin.include_tasks: argument_validate.yml
+from __future__ import absolute_import, division, print_function
 
-- name: Check that necessary host prerequisites are met
-  ansible.builtin.include_tasks: requirements_validate.yml
+__metaclass__ = type
 
-- name: Run HANA update if HDB server version on medium is strictly higher that HDB server resident version
-  ansible.builtin.include_tasks: hdb_update.yml
+
+class ModuleDocFragment(object):
+    DOCUMENTATION = r"""
+notes:
+  - B(This module is community supported)
+  - Module interface (parameters, output) expected to be stable but not guaranteed
+  - Module planned to be released on Ansible Automation Hub after collecting some feedback
+  - There is no guarantee that this module will be officially supported by Red Hat
+
+options: {}
+  """
