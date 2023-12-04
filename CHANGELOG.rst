@@ -5,6 +5,20 @@ SAP Operations Collection Release Notes
 .. contents:: Topics
 
 
+v1.9.1
+======
+
+Release Summary
+---------------
+
+Bug fix release
+
+Minor Changes
+-------------
+
+- Fix bug with hana_update role
+- Remove version checks for hana_update role
+
 v1.9.0
 ======
 
@@ -16,6 +30,11 @@ Lifecycle release
 Major Changes
 -------------
 
+- Add 'all' and 'any' filter and test plugins
+- Add ansble modules to get pacemaker status and configuration
+- Add pcs_cluster_property_mapping filter plugin
+- Add pcs_resources filter plugins
+- Add plugins to manage SAP licenses with saplikey program.
 - Clarify ansible-core versions supported by the collection
 
 v1.3.2
@@ -55,21 +74,9 @@ Feature release
 Minor Changes
 -------------
 
+- Add functionality to release different content to AAP and Ansible galaxy
 - Clarify collection license
 - Collection license applied is GPL-3.0-only
-
-v1.2.3
-======
-
-Release Summary
----------------
-
-Feature release
-
-Minor Changes
--------------
-
-- Add functionality to release different content to AAP and Ansible galaxy
 
 v1.2.2
 ======

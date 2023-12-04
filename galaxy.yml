@@ -24,7 +24,7 @@ namespace: sap
 
 name: sap_operations
 
-version: 1.3.1
+version: 1.9.1
 
 readme: README.md
 
@@ -34,8 +34,9 @@ authors:
 
 description: Ansible collection to handle day 2 operational SAP administration tasks.
 
-license:
-  - GPL-3.0-only
+license: GPL-3.0-only
+
+license_file: ''
 
 tags:
   - linux
@@ -53,6 +54,7 @@ issues: https://github.com/redhat-sap/rh_operations/issues
 
 build_ignore:
   - roles/*/molecule
+  - roles/*/tests
   - webdocs
   - docs
   - tests/output

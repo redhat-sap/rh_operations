@@ -1,5 +1,3 @@
----
-
 # SPDX-License-Identifier: GPL-3.0-only
 # SPDX-FileCopyrightText: 2023 Red Hat, Project Atmosphere
 #
@@ -21,11 +19,12 @@
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>.
 
-- name: Validate role variables
-  ansible.builtin.include_tasks: argument_validate.yml
+from __future__ import absolute_import, division, print_function
 
-- name: Check that necessary host prerequisites are met
-  ansible.builtin.include_tasks: requirements_validate.yml
 
-- name: Run HANA update if HDB server version on medium is strictly higher that HDB server resident version
-  ansible.builtin.include_tasks: hdb_update.yml
+__metaclass__ = type
+
+
+AZURE_METADATA_URL = "http://169.254.169.254/metadata"
+AZURE_METADATA_VERSION = "2021-12-13"
+AZURE_METADATA_HEADERS = {"Metadata": "true"}
