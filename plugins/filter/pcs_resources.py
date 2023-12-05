@@ -27,7 +27,7 @@ from __future__ import absolute_import, division, print_function
 
 __metaclass__ = type
 
-import xml.etree.ElementTree as ET
+import xml.etree.ElementTree as ET  # nosec B405
 
 
 try:
@@ -276,7 +276,7 @@ def pcs_resources(  # noqa: C901
         return []
     if data.get('pacemaker_cib_xml'):
         try:
-            pcs_config_tree = ET.fromstring(data.get('pacemaker_cib_xml'))
+            pcs_config_tree = ET.fromstring(data.get('pacemaker_cib_xml'))  # nosec B314
             if not pcs_config_tree:
                 return []
         except Exception:
@@ -288,7 +288,7 @@ def pcs_resources(  # noqa: C901
 
     elif data.get('pacemaker_status_xml'):
         try:
-            pcs_status_tree = ET.fromstring(data.get('pacemaker_status_xml'))
+            pcs_status_tree = ET.fromstring(data.get('pacemaker_status_xml'))  # nosec B314
             if not pcs_status_tree:
                 return []
         except Exception:

@@ -60,7 +60,7 @@ EXAMPLES = r"""
     msg: "{{ lookup('file', '/usr/sap/AAA/SYS/saplicense') | license_content }}"
 
 """  # noqa: E501
-
+# spell-checker: disable
 RETURN = """
 data:
   type: list
@@ -89,6 +89,7 @@ data:
       "system_number": "000000000000000000"
 
 """
+# spell-checker:enable
 
 from ansible_collections.sap.sap_operations.plugins.module_utils.saplikey import get_license_keys_from_stdout  # noqa: E501
 

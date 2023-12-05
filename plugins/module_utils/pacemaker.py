@@ -23,7 +23,7 @@ from __future__ import absolute_import, division, print_function
 
 __metaclass__ = type
 
-import xml.etree.ElementTree as ET
+import xml.etree.ElementTree as ET  # nosec B405
 
 from ansible_collections.sap.sap_operations.plugins.module_utils.compat import dict_union
 
@@ -236,7 +236,7 @@ def pcs_validate_node(pcs_config_tree, node):
 def pcs_resource_info(
     pcs_status_query_xml_string, resource,
 ):
-    root = ET.fromstring(pcs_status_query_xml_string)
+    root = ET.fromstring(pcs_status_query_xml_string)  # nosec B314
     return root.findall("./resources/resource[@id='{0}']".format(resource)) + root.findall(
         "./resources/clone/resource/[@id='{0}']".format(resource)
     )

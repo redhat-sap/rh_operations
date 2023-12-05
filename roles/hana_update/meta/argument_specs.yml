@@ -34,6 +34,10 @@ argument_specs:
         Limitations:
         - Role was tested only on single host.
         - During upgrade hdblcm is configured to use SSH (not saphostagent) to connect to the host.
+        - Role only works on X86_64
+        - Role is not idempotent. It will always try to update SAP HANA system.
+        - Expected that hdblcm tool will take care of any issues (like updating to previous version)
+
     options:
       hana_update_sid:
         description: |
@@ -96,7 +100,6 @@ argument_specs:
               lcapps | server | smartda | streaming | rdsync | xs |
               studio | afl | sca | sop | eml | rme | rtl | trp )
             type: str
-            # TODO: components should be a list, not a str, during install one can select several components to update separated by comma
             required: false
             choices:
               - "all"

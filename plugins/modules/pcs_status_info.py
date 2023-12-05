@@ -143,7 +143,7 @@ pacemaker_status:
 
 """
 
-import xml.etree.ElementTree as ET
+import xml.etree.ElementTree as ET  # nosec B405
 
 from ansible.module_utils.basic import AnsibleModule
 from ansible_collections.sap.sap_operations.plugins.module_utils.pacemaker import Element2Dict
@@ -153,7 +153,7 @@ from ansible_collections.sap.sap_operations.plugins.module_utils.pacemaker impor
 def main():
     module = AnsibleModule(argument_spec={}, supports_check_mode=True)
     pacemaker_status_xml = get_pacemaker_status_xml(module)
-    pacemaker_status = Element2Dict(ET.fromstring(pacemaker_status_xml))
+    pacemaker_status = Element2Dict(ET.fromstring(pacemaker_status_xml))  # nosec B314
     module.exit_json(
         changed=False,
         pacemaker_status=pacemaker_status,

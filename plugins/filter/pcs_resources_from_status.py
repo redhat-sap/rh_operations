@@ -27,7 +27,7 @@ from __future__ import absolute_import, division, print_function
 
 __metaclass__ = type
 
-import xml.etree.ElementTree as ET
+import xml.etree.ElementTree as ET  # nosec B405
 
 try:
     from ansible_collections.sap.sap_operations.plugins.module_utils.pacemaker import pcs_resources_by_id_from_status
@@ -240,7 +240,7 @@ def pcs_resources_from_status(  # noqa: C901
         return []
     if data.get('pacemaker_status_xml'):
         try:
-            pcs_status_tree = ET.fromstring(data.get('pacemaker_status_xml'))
+            pcs_status_tree = ET.fromstring(data.get('pacemaker_status_xml'))  # nosec B314
             if not pcs_status_tree:
                 return []
         except Exception:

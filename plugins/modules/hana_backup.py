@@ -83,7 +83,7 @@ options:
   database_name:
     description: |
       SAP HANA system tenant or SYSTEMDB to backup. If not provided SYSTEMDB is default value.
-      From SYSTEMDB other tenatns can be backed up. From tenant only itself can be backed up.
+      From SYSTEMDB other tenants can be backed up. From tenant only itself can be backed up.
     type: str
     default: "SYSTEMDB"
   comment:
