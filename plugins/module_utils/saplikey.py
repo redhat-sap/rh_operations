@@ -119,7 +119,7 @@ class AnsibleModule_saplikey(AnsibleModule):
             )
         profile = self.params.get("profile")
         if not os.path.isfile("/sapmnt/{0}/profile/{1}".format(SAPSYSTEMNAME, profile)):  # noqa: E501
-            self.fail_ason(
+            self.fail_json(
                 msg="Profile does not exist.",
                 profile=profile,
             )

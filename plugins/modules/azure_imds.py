@@ -295,6 +295,8 @@ else:
     HAS_REQUESTS_LIBRARY = True
     REQUESTS_LIBRARY_IMPORT_ERROR = None
 
+azure_imds_timeout = 5
+
 
 def main():
     module = AnsibleModule(
@@ -316,28 +318,28 @@ def main():
     headers = AZURE_METADATA_HEADERS
 
     try:
-        response = requests.get(compute_endpoint, headers=headers)
+        response = requests.get(compute_endpoint, headers=headers, timeout=azure_imds_timeout)
         response.raise_for_status()
         instance = response.json()
 
-        response = requests.get(network_endpoint, headers=headers)
+        response = requests.get(network_endpoint, headers=headers, timeout=azure_imds_timeout)
         response.raise_for_status()
         network = response.json()
 
         # identity, loadbalancer and scheduled events information is optional
-        response = requests.get(identity_endpoint, headers=headers)
+        response = requests.get(identity_endpoint, headers=headers, timeout=azure_imds_timeout)
         identity = response.json()
 
-        response = requests.get(loadbalancer_endpoint, headers=headers)
+        response = requests.get(loadbalancer_endpoint, headers=headers, timeout=azure_imds_timeout)
         loadbalancer = response.json()
 
-        response = requests.get(scheduledevents_endpoint, headers=headers)
+        response = requests.get(scheduledevents_endpoint, headers=headers, timeout=azure_imds_timeout)
         scheduledevents = response.json()
 
-        response = requests.get(scheduledevents_endpoint, headers=headers)
+        response = requests.get(scheduledevents_endpoint, headers=headers, timeout=azure_imds_timeout)
         scheduledevents = response.json()
 
-        response = requests.get(attest_endpoint, headers=headers)
+        response = requests.get(attest_endpoint, headers=headers, timeout=azure_imds_timeout)
         response.raise_for_status()
         attest = response.json()
 

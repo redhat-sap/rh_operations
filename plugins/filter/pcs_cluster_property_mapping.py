@@ -25,7 +25,7 @@ from __future__ import absolute_import, division, print_function
 
 __metaclass__ = type
 
-import xml.etree.ElementTree as ET
+import xml.etree.ElementTree as ET  # nosec B405
 
 try:
     from ansible_collections.sap.sap_operations.plugins.module_utils.pacemaker import pcs_cluster_property_set_from_cib
@@ -54,7 +54,7 @@ description:
 
 options:
   value:
-    description: Result of sap.sap_operatons.pcs_cib_info module execution
+    description: Result of sap.sap_operations.pcs_cib_info module execution
     type: dict
     required: true
 
@@ -83,7 +83,7 @@ EXAMPLES = r"""
   register: pcs_cib_info
 
 - name: Get cluster name from pcs_cib_info several ways
-  ansible.builitin.debug:
+  ansible.builtin.debug:
     msg:
       - "Cluster name - {{ ( pcs_cib_info | sap.sap_operations.pcs_cluster_property_mapping(name='cluster-name') )['cluster-name'] }}"
       - "Cluster name - {{ ( pcs_cib_info | sap.sap_operations.pcs_cluster_property_mapping(id='cib-bootstrap-options-cluster-name') )['cluster-name'] }}"
@@ -133,7 +133,7 @@ def pcs_cluster_property_mapping(data, cluster_property_set_id: str = 'cib-boots
     if data.get('pacemaker_cib_xml') is None:
         return dict()
     try:
-        pcs_config_tree = ET.fromstring(data.get('pacemaker_cib_xml'))
+        pcs_config_tree = ET.fromstring(data.get('pacemaker_cib_xml'))  # nosec B314
         if not pcs_config_tree:
             return dict()
 
