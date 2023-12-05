@@ -41,6 +41,11 @@ Role was tested only on single host.
 
 During upgrade hdblcm is configured to use SSH (not saphostagent) to connect to the host.
 
+Role only works on X86_64
+
+Role is not idempotent. It will always try to update SAP HANA system.
+Expected that hdblcm tool will take care of any issues (like updating to previous version)
+
 <!-- BEGIN: Role Input Parameters -->
 
 ## Role Variables
