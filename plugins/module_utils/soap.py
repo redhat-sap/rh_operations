@@ -145,7 +145,7 @@ class SAPClient(object):
     def _connect_local(self):
         try:
             localsocket = LocalSocketHttpAuthenticated(
-                "/tmp/.sapstream5{0}13".format(str(self.instance).zfill(2))
+                "/tmp/.sapstream5{0}13".format(str(self.instance).zfill(2))  # nosec B108
             )
             client = Client("http://localhost/sapcontrol?wsdl", transport=localsocket)
         except Exception as e:
@@ -168,7 +168,7 @@ class SAPClient(object):
         elif self.secure == "insecure":
             if self.ca_file is not None:
                 ssl._create_default_https_context = (
-                    lambda: ssl._create_unverified_context(cafile=self.ca_file)
+                    lambda: ssl._create_unverified_context(cafile=self.ca_file)  # nosec B323
                 )
 
         try:
@@ -249,7 +249,7 @@ class SystemClient(SAPClient):
             return True
 
     def wait_for_system_status(self, name, status):
-        # TODO(kiril): Remove?
+        # TODO(Kirill): Remove?
         # No action needed, as nothing happens on our instance?
         if not self.features_map.get(name):
             return
@@ -350,7 +350,7 @@ class InstanceClient(SAPClient):
                 break
         else:
             raise Exception(
-                "Timeout: instance host '{0}' / numbver {1} is still not started or stopped".format(
+                "Timeout: instance host '{0}' / number {1} is still not started or stopped".format(
                     instance_host, instance_number
                 )
             )

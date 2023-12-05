@@ -5,6 +5,20 @@ SAP Operations Collection Release Notes
 .. contents:: Topics
 
 
+v1.9.1
+======
+
+Release Summary
+---------------
+
+Bug fix release
+
+Minor Changes
+-------------
+
+- Fix bug with hana_update role
+- Remove version checks for hana_update role
+
 v1.9.0
 ======
 

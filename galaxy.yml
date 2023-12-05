@@ -24,7 +24,7 @@ namespace: sap
 
 name: sap_operations
 
-version: 1.3.1
+version: 1.9.1
 
 readme: README.md
 
@@ -34,8 +34,7 @@ authors:
 
 description: Ansible collection to handle day 2 operational SAP administration tasks.
 
-license:
-  - GPL-3.0-only
+license: GPL-3.0-only
 
 tags:
   - linux
@@ -53,6 +52,7 @@ issues: https://github.com/redhat-sap/rh_operations/issues
 
 build_ignore:
   - roles/*/molecule
+  - roles/*/tests
   - webdocs
   - docs
   - tests/output
@@ -69,3 +69,31 @@ build_ignore:
   - plugins/test/__init__.py
   - galaxy-aap.yml
   - galaxy-galaxy.yml
+
+  - plugins/module_utils/azure.py
+  - plugins/modules/azure_imds.py
+
+  - plugins/doc_fragments/community.py
+  - plugins/doc_fragments/experimental.py
+
+  - plugins/module_utils/pacemaker.py
+
+  - plugins/modules/pcs_capabilities_info.py
+  - plugins/modules/pcs_status_info.py
+  - plugins/modules/pcs_cib_info.py
+  - plugins/modules/pcs_fence_azure_arm_list_info.py
+  - plugins/filter/pcs_cluster_property_mapping.py
+  - plugins/filter/pcs_resources.py
+  - plugins/filter/pcs_resources_from_cib.py
+  - plugins/filter/pcs_resources_from_status.py
+  - plugins/filter/all.py
+  - plugins/filter/any.py
+  - plugins/test/all.py
+  - plugins/test/any.py
+
+  - plugins/filter/license_content.py
+  - plugins/modules/saplikey_get_info.py
+  - plugins/modules/saplikey.py
+  - plugins/modules/saplikey_show_info.py
+  - plugins/module_utils/saplikey.py
+  - plugins/doc_fragments/saplikey_common.py
