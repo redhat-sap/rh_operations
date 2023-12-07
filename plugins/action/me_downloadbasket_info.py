@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+#
 # SPDX-License-Identifier: GPL-3.0-only
 # SPDX-FileCopyrightText: 2023 Red Hat, Project Atmosphere
 #
@@ -19,55 +21,19 @@
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>.
 
----
-namespace: sap
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
-name: sap_operations
+from ansible.plugins.action import ActionBase
 
-version: 1.10.0
 
-readme: README.md
+class ActionModule(ActionBase):
+    def run(self, tmp=None, task_vars=None):
+        super(ActionModule, self).run(tmp, task_vars)
+        module_args = self._task.args.copy()
 
-authors:
-  - Ondra Machacek <omachace@redhat.com>
-  - Kirill Satarin (@kksat)
-
-description: Ansible collection to handle day 2 operational SAP administration tasks.
-
-license: GPL-3.0-only
-
-license_file: ''
-
-tags:
-  - linux
-  - sap
-
-dependencies: {}
-
-repository: https://github.com/redhat-sap/rh_operations
-
-documentation: https://github.com/redhat-sap/rh_operations
-
-homepage: https://github.com/redhat-sap/rh_operations
-
-issues: https://github.com/redhat-sap/rh_operations/issues
-
-build_ignore:
-  - roles/*/molecule
-  - roles/*/tests
-  - webdocs
-  - docs
-  - tests/output
-  - .DS_Store
-  - changelogs
-  - changelogs-aap
-  - changelogs-galaxy
-  - __init__.py
-  - plugins/__init__.py
-  - plugins/doc_fragments/__init__.py
-  - plugins/filter/__init__.py
-  - plugins/module_utils/__init__.py
-  - plugins/modules/__init__.py
-  - plugins/test/__init__.py
-  - galaxy-aap.yml
-  - galaxy-galaxy.yml
+        return self._execute_module(
+            module_name='sap.sap_operations.me_downloadbasket_info',
+            module_args=module_args,
+            task_vars=task_vars, tmp=tmp
+        )

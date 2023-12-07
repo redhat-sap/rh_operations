@@ -5,6 +5,35 @@ SAP Operations Collection Release Notes
 .. contents:: Topics
 
 
+v1.10.0
+=======
+
+Release Summary
+---------------
+
+Feature release
+
+New Plugins
+-----------
+
+Filter
+~~~~~~
+
+- sap.sap_operations.me_enr_from_alias - Return the ENR from alias.
+- sap.sap_operations.mount_path - Return the mount path of the filepath.
+
+Test
+~~~~
+
+- sap.sap_operations.me_valid_alias - Return true if string provided is valid software alias.
+
+New Modules
+-----------
+
+- sap.sap_operations.me_downloadbasket_info - Fetch information from SAP software center download basket
+- sap.sap_operations.me_downloaditemset_info - Fetch information from SAP software download center
+- sap.sap_operations.me_file_info - File information
+
 v1.9.1
 ======
 
