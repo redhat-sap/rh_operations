@@ -1,0 +1,112 @@
+# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-FileCopyrightText: 2023 Red Hat, Project Atmosphere
+#
+# Copyright 2023 Red Hat, Project Atmosphere
+#
+# This program is free software: you can redistribute it and/or modify it under the terms of the GNU
+# General Public License as published by the Free Software Foundation, version 3 of the License.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+# even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU General Public License for more details.
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+# You should have received a copy of the GNU General Public License along with this program.
+# If not, see <https://www.gnu.org/licenses/>.
+
+---
+
+pcs_config_checks_platform_mapping:
+  'RedHat': 'EL'
+  'CentOS': 'EL'
+
+pcs_config_checks_loop_display: name
+
+
+pcs_config_checks_loop_label: "[{{ ansible_loop.index }} out of {{ ansible_loop.length }}] - {{ check[pcs_config_checks_loop_display] }}"
+
+
+pcs_config_checks_default_check:
+  condition: true
+  name: Default check
+  documentation: ""
+  remediation: ""
+  fail_msg: "FAILED"
+  success_msg: "PASSED"
+  priority: medium
+  severity: warning
+  when: true
+  quiet: true
+  tags:
+    - cluster
+    - pcs
+  platforms:
+    - name: EL
+      version: "7"
+    - name: EL
+      version: "8"
+    - name: EL
+      version: "9"
+  cloud_providers:
+    - azure
+    - aws
+    - gcp
+  architectures:
+    - x86_64
+    - ppc64le
+  ignore_errors: false
+
+
+pcs_config_checks_preconfigured:
+
+  - name: Should always fail
+    condition: false
+    priority: high
+    when: false
+    platforms:
+      - name: EL
+        version: 7
+
+  - name: Should never fail
+    condition: true
+    priority: high
+    tags:
+      - skip
+
+  - name: Cluster watchdog is disabled
+    condition:
+      - cluster_properties['have-watchdog'] == 'false'
+      - cluster_properties['have-watchdog'] != 'true'
+    priority: high
+
+  - name: Cluster DC version is 2.1.0 or higher
+    condition:
+      - cluster_properties['dc-version'] is ansible.builtin.version('2.1.0','>=')
+
+  - name: Cluster maintenance mode is not defined or 'false'
+    condition: >
+      ( cluster_properties['maintenance-mode'] is not defined ) or ( cluster_properties['maintenance-mode']=='false' )
+
+  - name: "'PREFER_SITE_TAKEOVER=true' if it is set"
+    condition: >
+      ( cluster_properties['PREFER_SITE_TAKEOVER'] is defined ) and ( cluster_properties['PREFER_SITE_TAKEOVER']=='true' ) or
+      ( cluster_properties['PREFER_SITE_TAKEOVER'] is not defined )
+
+  - name: "'AUTOMATED_REGISTER=true' if it is set"
+    condition: >
+      ( cluster_properties['AUTOMATED_REGISTER'] is defined ) and ( cluster_properties['AUTOMATED_REGISTER']=='true' ) or
+      ( cluster_properties['AUTOMATED_REGISTER'] is not defined )
+
+  # - name: STONITH is enabled
+  #   condition: >
+  #     ( cluster_properties['stonith-enabled'] is defined ) and ( cluster_properties['stonith-enabled']=='true' )
+
+  - name: "'concurrent-fencing=true' if it is set"
+    condition: >
+      ( cluster_properties['concurrent-fencing'] is defined ) and ( cluster_properties['concurrent-fencing']=='true' ) or
+      ( cluster_properties['concurrent-fencing'] is not defined )
