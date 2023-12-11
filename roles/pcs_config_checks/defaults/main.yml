@@ -20,55 +20,23 @@
 # If not, see <https://www.gnu.org/licenses/>.
 
 ---
-namespace: sap
 
-name: sap_operations
+pcs_config_checks_custom: []
 
-version: 1.11.0
+pcs_config_checks_tags_exclude: []
 
-readme: README.md
+pcs_config_checks_verbose: false
 
-authors:
-  - Ondra Machacek <omachace@redhat.com>
-  - Kirill Satarin (@kksat)
+pcs_config_checks_mode: assert
 
-description: Ansible collection to handle day 2 operational SAP administration tasks.
+pcs_config_checks_custom_only: false
 
-license: GPL-3.0-only
+pcs_config_checks_priority:
+  - low
+  - medium
+  - high
 
-license_file: ''
-
-tags:
-  - linux
-  - sap
-
-dependencies: {}
-
-repository: https://github.com/redhat-sap/rh_operations
-
-documentation: https://github.com/redhat-sap/rh_operations
-
-homepage: https://github.com/redhat-sap/rh_operations
-
-issues: https://github.com/redhat-sap/rh_operations/issues
-
-build_ignore:
-  - roles/*/molecule
-  - roles/*/tests
-  - webdocs
-  - docs
-  - tests/output
-  - .DS_Store
-  - changelogs
-  - changelogs-aap
-  - changelogs-galaxy
-  - __init__.py
-  - plugins/__init__.py
-  - plugins/doc_fragments/__init__.py
-  - plugins/filter/__init__.py
-  - plugins/module_utils/__init__.py
-  - plugins/modules/__init__.py
-  - plugins/test/__init__.py
-  - galaxy-aap.yml
-  - galaxy-galaxy.yml
-  - roles/pcs_group_check
+pcs_config_checks_severity:
+  - error
+  - warning
+  - info

@@ -1,0 +1,71 @@
+# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-FileCopyrightText: 2023 Red Hat, Project Atmosphere
+#
+# Copyright 2023 Red Hat, Project Atmosphere
+#
+# This program is free software: you can redistribute it and/or modify it under the terms of the GNU
+# General Public License as published by the Free Software Foundation, version 3 of the License.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+# even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU General Public License for more details.
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+# You should have received a copy of the GNU General Public License along with this program.
+# If not, see <https://www.gnu.org/licenses/>.
+
+---
+
+- name: Get pacemaker CIB
+  sap.sap_operations.pcs_cib_info:
+  register: pcs_config_quality_pcs_cib_info
+  when: pcs_cib_xml_filename is not defined
+
+- name: Get pcs_config_quality_pcs_cib_info
+  ansible.builtin.set_fact:
+    pcs_config_quality_pcs_cib_info:
+      pacemaker_cib_xml: "{{ lookup('ansible.builtin.file', pcs_cib_xml_filename) | default(pcs_cib_xml_contents) }}"
+  when: pcs_cib_xml_filename is defined
+
+# - name: Debug pcs preconfigured checks
+#   ansible.builtin.debug:
+#     msg: "{{ pcs_config_checks_checks }}"
+#   vars:
+#     pcs_config_checks_checks: "{{ ( pcs_config_checks_preconfigured + pcs_config_checks_custom ) | map('sap.sap_operations.combine_default', default=pcs_config_checks_default_check)  }}"
+    # pcs_config_checks_checks: "{{ range(0, checks | length) | list | map('extract', checks ) | map('map',default=pcs_config_checks_default_check)  }}"
+
+
+- name: Gather ansible facts
+  ansible.builtin.setup:
+
+# - name: Run pcs configuration checks
+#   ansible.builtin.include_tasks:
+#     file: "{{ pcs_config_checks_mode }}.yml"
+#   vars:
+#     cluster_properties: "{{ pcs_config_quality_pcs_cib_info | sap.sap_operations.pcs_cluster_property_mapping }}"
+#     cluster_resources: "{{ pcs_config_quality_pcs_cib_info | sap.sap_operations.pcs_resources_from_cib }}"
+#     failed_resources: "{{ pcs_config_quality_pcs_cib_info | sap.sap_operations.pcs_resources_from_cib(failed=True) }}"
+#     cloned_resources: "{{ pcs_config_quality_pcs_cib_info | sap.sap_operations.pcs_resources_from_cib(cloned=True) }}"
+#     platform: "{{ pcs_config_checks_platform.name | default(pcs_config_checks_platform_mapping[ansible_facts['os_family']]) | default('') }}"
+#     version: "{{ pcs_config_checks_platform.version | default(ansible_facts['distribution_major_version']) | default('') }}"
+#     architecture: "{{ pcs_config_checks_architecture | default(ansible_facts['architecture']) }}"
+#     checks: "{{ ( pcs_config_checks_custom_only | ternary ( pcs_config_checks_custom, pcs_config_checks_preconfigured + pcs_config_checks_custom ) ) | map('sap.sap_operations.combine_default', default=pcs_config_checks_default_check)  }}"
+#     cloud_provider: Null
+
+
+- name: Run pcs configuration checks
+  ansible.builtin.include_role:
+    name: "{{ role_name }}"
+    tasks_from: "{{ pcs_config_checks_mode }}.yml"
+  vars:
+    cluster_properties: "{{ pcs_config_quality_pcs_cib_info | sap.sap_operations.pcs_cluster_property_mapping }}"
+    cluster_resources: "{{ pcs_config_quality_pcs_cib_info | sap.sap_operations.pcs_resources_from_cib }}"
+    platform: "{{ pcs_config_checks_platform.name | default(pcs_config_checks_platform_mapping[ansible_facts['os_family']]) | default('') }}"
+    version: "{{ pcs_config_checks_platform.version | default(ansible_facts['distribution_major_version']) | default('') }}"
+    architecture: "{{ pcs_config_checks_architecture | default(ansible_facts['architecture']) }}"
+    checks: "{{ ( pcs_config_checks_custom_only | ternary ( pcs_config_checks_custom, pcs_config_checks_preconfigured + pcs_config_checks_custom ) ) | map('sap.sap_operations.combine_default', default=pcs_config_checks_default_check)  }}"

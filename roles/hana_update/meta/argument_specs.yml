@@ -40,58 +40,58 @@ argument_specs:
 
     options:
       hana_update_sid:
-        description: |
-          SAP HANA System ID.
+        description:
+          - SAP HANA System ID.
         type: str
         required: true
       hana_update_component_medium:
-        description: |
-          Location of Installation Medium
+        description:
+          - Location of Installation Medium
         type: str
         required: true
       hana_update_master_password:
-        description: |
-          SAP HANA update master password.
-          Master password is not required when all other passwords are set.
-          If any other password is not set it will default to master password.
+        description:
+          - SAP HANA update master password.
+          - Master password is not required when all other passwords are set.
+          - If any other password is not set it will default to master password.
         type: str
         required: false
       hana_update_password:
-        description: |
-          System Administrator Password (<sid>adm). If not set will default to hana_update_master_password variable.
+        description:
+          - System Administrator Password (<sid>adm). If not set will default to hana_update_master_password variable.
         type: str
         required: false
       hana_update_sapadm_password:
-        description: |
-          SAP Host Agent User (sapadm) password. If not set will default to hana_update_master_password variable.
+        description:
+          - SAP Host Agent User (sapadm) password. If not set will default to hana_update_master_password variable.
         type: str
         required: false
       hana_update_system_user_password:
-        description: |
-          Database User Password. If not set will default to hana_update_master_password variable.
+        description:
+          - Database User Password. If not set will default to hana_update_master_password variable.
         type: str
         required: false
       hana_update_root_password:
-        description: |
-          Root User Password For Remote Hosts. If not set will default to hana_update_master_password variable.
+        description:
+          - Root User Password For Remote Hosts. If not set will default to hana_update_master_password variable.
         type: str
         required: false
       hana_update_cleanup:
-        description: |
-          If set to true xml file with passwords will be removed after installation (failed or successful).
-          Recommendation is always keep default value for this parameter (true) to avoid having passwords in plain text.
+        description:
+          - If set to C(true) xml file with passwords will be removed after installation (failed or successful).
+          - Recommendation is always keep default value for this parameter C(true) to avoid having passwords in plain text.
         type: bool
         required: false
         default: true
       hana_update_options:
-        description: |
-          Optional arguments for SAP HANA update
+        description:
+          - Optional arguments for SAP HANA update
         type: dict
         required: false
         options:
           prepare_update:
-            description: |
-              Stop update before software version switch, resumable ( Default: n=false )
+            description:
+              - Stop update before software version switch, resumable ( Default n=false )
             type: bool
             required: false
           components:
@@ -121,13 +121,13 @@ argument_specs:
               - "rtl"
               - "trp"
           install_hostagent:
-            description: |
-              Enable the installation or upgrade of the SAP Host Agent ( Default: y = true)
+            description:
+              - Enable the installation or upgrade of the SAP Host Agent ( Default y = true)
             type: bool
             required: false
           check_only:
-            description: |
-              Execute checks, do not update SAP HANA System ( Default: n = false)
+            description:
+              - Execute checks, do not update SAP HANA System ( Default n = false)
             type: bool
             required: false
           verify_signature:
@@ -194,3 +194,53 @@ argument_specs:
               - 'check_signature_file'
               - 'check_version'
               - 'verify_signature'
+
+
+  limitations:
+    short_description: Limitations
+    description:
+      - Role was tested only on single host.
+      - During upgrade hdblcm is configured to use SSH (not saphostagent) to connect to the host.
+
+  dependencies:
+    short_description: Dependencies
+    description:
+      - Role has no dependencies to other roles.
+
+  examples:
+    short_description: Example Playbooks
+    description:
+      - ""
+      - "```ansible"
+      - "- hosts: all"
+      - '  tasks:'
+      - "    - name: Update SAP HANA"
+      - "      ansible.builtin.include_role:"
+      - "        name: sap.sap_operations.hana_update"
+      - "      vars:"
+      - "        hana_update_sid: HAN"
+      - '        hana_update_password: "SecurePa$$word"'
+      - '        hana_update_sapadm_password: "SecurePa$$word"'
+      - '        hana_update_system_user_password: "SecurePa$$word"'
+      - '        hana_update_root_password: "SecurePa$$word"'
+      - '        hana_update_component_medium: /hana/software/HANAsp06'
+      - '        hana_update_options:'
+      - '          prepare_update: false'
+      - '          components: server'
+      - '          install_hostagent: false'
+      - '          check_only: false'
+      - '          verify_signature: true'
+      - '          update_execution_mode: standard'
+      - '          configure_python: python3'
+      - '          scope: system'
+      - '```'
+
+  license:
+    short_description: License
+    description:
+      - GPL-3.0-only
+
+  author:
+    short_description: Author Information
+    description:
+      - Kirill Satarin (@kksat)
