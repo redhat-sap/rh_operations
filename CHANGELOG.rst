@@ -5,6 +5,19 @@ SAP Operations Collection Release Notes
 .. contents:: Topics
 
 
+v1.12.0
+=======
+
+Release Summary
+---------------
+
+Feature release
+
+New Modules
+-----------
+
+- sap.sap_operations.hana_restore - Restore SAP HANA database backup
+
 v1.11.0
 =======
 
@@ -17,14 +30,6 @@ Minor Changes
 -------------
 
 - Add role pcs_config_checks
-
-New Plugins
------------
-
-Filter
-~~~~~~
-
-- sap.sap_operations.combine_default - Combine two dictionaries, second dictionary will be used as default.
 
 v1.10.0
 =======
