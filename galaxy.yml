@@ -24,7 +24,7 @@ namespace: sap
 
 name: sap_operations
 
-version: 1.12.0
+version: 1.13.0
 
 readme: README.md
 
@@ -72,3 +72,6 @@ build_ignore:
   - galaxy-aap.yml
   - galaxy-galaxy.yml
   - roles/pcs_group_check
+
+  - tests/sanity-ignore-galaxy
+  - tests/sanity-ignore-aap
