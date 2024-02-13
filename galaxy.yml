@@ -24,7 +24,7 @@ namespace: sap
 
 name: sap_operations
 
-version: 1.9.1
+version: 1.14.0
 
 readme: README.md
 
@@ -97,3 +97,30 @@ build_ignore:
   - plugins/modules/saplikey_show_info.py
   - plugins/module_utils/saplikey.py
   - plugins/doc_fragments/saplikey_common.py
+
+  - plugins/action/me_downloadbasket_info.py
+  - plugins/action/me_downloaditemset_info.py
+  - plugins/action/me_file_info.py
+  - plugins/filter/me_enr_from_alias.py
+  - plugins/filter/mount_path.py
+  - plugins/module_utils/me_auth.py
+  - plugins/module_utils/me_constants.py
+  - plugins/module_utils/me_helpers.py
+  - plugins/modules/me_downloadbasket_info.py
+  - plugins/modules/me_downloaditemset_info.py
+  - plugins/modules/me_file_info.py
+  - plugins/test/me_valid_alias.py
+
+  - roles/pcs_config_checks
+  - roles/pcs_group_check
+  - plugins/filter/combine_default.py
+
+  - plugins/modules/hana_restore.py
+
+  - tests/sanity-ignore-galaxy
+  - tests/sanity-ignore-aap
+
+  - plugins/modules/abap_transport_create.py
+  - plugins/modules/abap_transport_info.py
+  - plugins/modules/abap_transport_import.py
+  - plugins/modules/abap_transports_info.py
