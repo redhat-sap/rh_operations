@@ -5,6 +5,14 @@ SAP Operations Collection Release Notes
 .. contents:: Topics
 
 
+v1.14.0
+=======
+
+New Modules
+-----------
+
+- sap.sap_operations.ha_check_config_info - Run sap host agent function HACheckConfig
+
 v1.9.1
 ======
 

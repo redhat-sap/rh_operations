@@ -28,7 +28,7 @@ __metaclass__ = type
 def dict_union(dict1, dict2):
     """Returns a new dictionary that is the union of the two input dictionaries.
 
-    This is compartibity function for python 2 and 3.
+    This is compatibility function for python 2 and 3.
     The resulting dictionary contains all the key-value pairs from both input
     dictionaries. If a key is present in both input dictionaries, the value from
     the second dictionary (dict2) is used.
