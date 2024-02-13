@@ -5,6 +5,14 @@ SAP Operations Collection Release Notes
 .. contents:: Topics
 
 
+v1.14.0
+=======
+
+New Modules
+-----------
+
+- sap.sap_operations.ha_check_config_info - Run sap host agent function HACheckConfig
+
 v1.13.0
 =======
 
@@ -17,14 +25,6 @@ Major Changes
 -------------
 
 - Add ABAP transport management modules
-
-New Modules
------------
-
-- sap.sap_operations.abap_transport_create - Create transport request in SAP ABAP system
-- sap.sap_operations.abap_transport_import - Import transport request
-- sap.sap_operations.abap_transport_info - Fetch information about transport request from SAP ABAP system
-- sap.sap_operations.abap_transports_info - Fetch transport requests from SAP ABAP system based on search criteria
 
 v1.12.0
 =======
