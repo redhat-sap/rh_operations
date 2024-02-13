@@ -88,7 +88,7 @@ EXAMPLES = r"""
       - "Cluster name - {{ ( pcs_cib_info | sap.sap_operations.pcs_cluster_property_mapping(name='cluster-name') )['cluster-name'] }}"
       - "Cluster name - {{ ( pcs_cib_info | sap.sap_operations.pcs_cluster_property_mapping(id='cib-bootstrap-options-cluster-name') )['cluster-name'] }}"
       - "Cluster name - {{ ( pcs_cib_info | sap.sap_operations.pcs_cluster_property_mapping )['cluster-name'] }}"
-      - "{{ When you provide some different input result will be empty dictionary. See ( 'not pcs_cib output' | sap.sap_operations.pcs_cluster_property_mapping is mapping) == true ) }}"
+      - "When you provide some different input result will be empty dictionary. See {{ ( 'not pcs_cib output' | sap.sap_operations.pcs_cluster_property_mapping is mapping ) == true }}"
 
 """  # noqa: E501
 
