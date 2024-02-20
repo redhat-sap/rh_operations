@@ -1,5 +1,4 @@
 ---
-
 # SPDX-License-Identifier: GPL-3.0-only
 # SPDX-FileCopyrightText: 2023 Red Hat, Project Atmosphere
 #
@@ -37,9 +36,9 @@
     dest: "{{ sap_kernel_update_kernel_path }}"
     remote_src: true
     mode: preserve
-  register: sap_kernel_updated_result  # noqa: var-naming[no-role-prefix]
+  register: sap_kernel_updated_result # noqa: var-naming[no-role-prefix]
 
-- name: Run saproot.sh fixup script  # noqa: no-handler
+- name: Run saproot.sh fixup script # noqa: no-handler
   ansible.builtin.command:
     cmd: ./saproot.sh {{ sap_kernel_update_sid }}
     chdir: "{{ sap_kernel_update_kernel_path }}"

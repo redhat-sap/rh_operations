@@ -54,7 +54,6 @@ EXAMPLES = r"""
 - name: Get Azure instance metadata
   sap.sap_operations.azure_imds:
   register: result
-
 """
 
 RETURN = r"""
@@ -299,47 +298,71 @@ azure_imds_timeout = 5
 
 
 def main():
-    module = AnsibleModule(
-        argument_spec=dict(),
-        supports_check_mode=True
-    )
+    module = AnsibleModule(argument_spec=dict(), supports_check_mode=True)
 
     if not HAS_REQUESTS_LIBRARY:
         module.fail_json(
-            msg=missing_required_lib('requests'),
-            exception=REQUESTS_LIBRARY_IMPORT_ERROR)
+            msg=missing_required_lib("requests"),
+            exception=REQUESTS_LIBRARY_IMPORT_ERROR,
+        )
 
-    compute_endpoint = "{0}/instance/compute?api-version={1}".format(AZURE_METADATA_URL, AZURE_METADATA_VERSION)
-    network_endpoint = "{0}/instance/network?api-version={1}".format(AZURE_METADATA_URL, AZURE_METADATA_VERSION)
-    identity_endpoint = "{0}/identity?api-version={1}".format(AZURE_METADATA_URL, AZURE_METADATA_VERSION)
-    loadbalancer_endpoint = "{0}/loadbalancer?api-version={1}".format(AZURE_METADATA_URL, AZURE_METADATA_VERSION)
-    scheduledevents_endpoint = "{0}/scheduledevents?api-version={1}".format(AZURE_METADATA_URL, AZURE_METADATA_VERSION)
-    attest_endpoint = "{0}/attested/document?api-version={1}".format(AZURE_METADATA_URL, AZURE_METADATA_VERSION)
+    compute_endpoint = "{0}/instance/compute?api-version={1}".format(
+        AZURE_METADATA_URL, AZURE_METADATA_VERSION
+    )
+    network_endpoint = "{0}/instance/network?api-version={1}".format(
+        AZURE_METADATA_URL, AZURE_METADATA_VERSION
+    )
+    identity_endpoint = "{0}/identity?api-version={1}".format(
+        AZURE_METADATA_URL, AZURE_METADATA_VERSION
+    )
+    loadbalancer_endpoint = "{0}/loadbalancer?api-version={1}".format(
+        AZURE_METADATA_URL, AZURE_METADATA_VERSION
+    )
+    scheduledevents_endpoint = "{0}/scheduledevents?api-version={1}".format(
+        AZURE_METADATA_URL, AZURE_METADATA_VERSION
+    )
+    attest_endpoint = "{0}/attested/document?api-version={1}".format(
+        AZURE_METADATA_URL, AZURE_METADATA_VERSION
+    )
     headers = AZURE_METADATA_HEADERS
 
     try:
-        response = requests.get(compute_endpoint, headers=headers, timeout=azure_imds_timeout)
+        response = requests.get(
+            compute_endpoint, headers=headers, timeout=azure_imds_timeout
+        )
         response.raise_for_status()
         instance = response.json()
 
-        response = requests.get(network_endpoint, headers=headers, timeout=azure_imds_timeout)
+        response = requests.get(
+            network_endpoint, headers=headers, timeout=azure_imds_timeout
+        )
         response.raise_for_status()
         network = response.json()
 
         # identity, loadbalancer and scheduled events information is optional
-        response = requests.get(identity_endpoint, headers=headers, timeout=azure_imds_timeout)
+        response = requests.get(
+            identity_endpoint, headers=headers, timeout=azure_imds_timeout
+        )
         identity = response.json()
 
-        response = requests.get(loadbalancer_endpoint, headers=headers, timeout=azure_imds_timeout)
+        response = requests.get(
+            loadbalancer_endpoint, headers=headers, timeout=azure_imds_timeout
+        )
         loadbalancer = response.json()
 
-        response = requests.get(scheduledevents_endpoint, headers=headers, timeout=azure_imds_timeout)
+        response = requests.get(
+            scheduledevents_endpoint, headers=headers, timeout=azure_imds_timeout
+        )
         scheduledevents = response.json()
 
-        response = requests.get(scheduledevents_endpoint, headers=headers, timeout=azure_imds_timeout)
+        response = requests.get(
+            scheduledevents_endpoint, headers=headers, timeout=azure_imds_timeout
+        )
         scheduledevents = response.json()
 
-        response = requests.get(attest_endpoint, headers=headers, timeout=azure_imds_timeout)
+        response = requests.get(
+            attest_endpoint, headers=headers, timeout=azure_imds_timeout
+        )
         response.raise_for_status()
         attest = response.json()
 
@@ -352,7 +375,7 @@ def main():
                 loadbalancer=loadbalancer,
                 scheduledevents=scheduledevents,
                 attest=attest,
-            )
+            ),
         )
     except requests.exceptions.RequestException as e:
         module.fail_json(msg=str(e))

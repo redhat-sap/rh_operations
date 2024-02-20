@@ -50,7 +50,6 @@ options:
     description: Content of the sap license file
     type: dict
     required: true
-
 """  # noqa: E501
 
 EXAMPLES = r"""
@@ -58,7 +57,6 @@ EXAMPLES = r"""
 - name: Get sap license attributes from sap license file
   ansible.builtin.debug:
     msg: "{{ lookup('file', '/usr/sap/AAA/SYS/saplicense') | license_content }}"
-
 """  # noqa: E501
 # spell-checker: disable
 RETURN = """
@@ -87,11 +85,12 @@ data:
       "software_product_limit": "2000000000"
       "system_id": "AAA"
       "system_number": "000000000000000000"
-
 """
 # spell-checker:enable
 
-from ansible_collections.sap.sap_operations.plugins.module_utils.saplikey import get_license_keys_from_stdout  # noqa: E501
+from ansible_collections.sap.sap_operations.plugins.module_utils.saplikey import (
+    get_license_keys_from_stdout,
+)  # noqa: E501
 
 
 def license_content(text):

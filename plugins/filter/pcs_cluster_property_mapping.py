@@ -28,7 +28,9 @@ __metaclass__ = type
 import xml.etree.ElementTree as ET  # nosec B405
 
 try:
-    from ansible_collections.sap.sap_operations.plugins.module_utils.pacemaker import pcs_cluster_property_set_from_cib
+    from ansible_collections.sap.sap_operations.plugins.module_utils.pacemaker import (
+        pcs_cluster_property_set_from_cib,
+    )
 except ImportError as import_exception:
     SAP_OPERATIONS_MODULE_UTILS_PACEMAKER_LIBRARY_IMPORT_ERROR = import_exception
 else:
@@ -88,8 +90,9 @@ EXAMPLES = r"""
       - "Cluster name - {{ ( pcs_cib_info | sap.sap_operations.pcs_cluster_property_mapping(name='cluster-name') )['cluster-name'] }}"
       - "Cluster name - {{ ( pcs_cib_info | sap.sap_operations.pcs_cluster_property_mapping(id='cib-bootstrap-options-cluster-name') )['cluster-name'] }}"
       - "Cluster name - {{ ( pcs_cib_info | sap.sap_operations.pcs_cluster_property_mapping )['cluster-name'] }}"
-      - "When you provide some different input result will be empty dictionary. See {{ ( 'not pcs_cib output' | sap.sap_operations.pcs_cluster_property_mapping is mapping ) == true }}"
-
+      - >
+        When you provide some different input result will be empty dictionary.
+        See {{ ('not pcs_cib output' | sap.sap_operations.pcs_cluster_property_mapping is mapping) == true }}"
 """  # noqa: E501
 
 RETURN = """
@@ -110,7 +113,14 @@ data:
 """
 
 
-def pcs_cluster_property_mapping(data, cluster_property_set_id: str = 'cib-bootstrap-options', name=None, id=None, name_contains=None, id_contains=None):  # noqa: C901
+def pcs_cluster_property_mapping(  # noqa: C901
+    data,
+    cluster_property_set_id: str = "cib-bootstrap-options",
+    name=None,
+    id=None,
+    name_contains=None,
+    id_contains=None,
+):  # noqa: C901
     """This function filters a cluster property set based on the given parameters.
 
     Args:
@@ -127,36 +137,57 @@ def pcs_cluster_property_mapping(data, cluster_property_set_id: str = 'cib-boots
     if SAP_OPERATIONS_MODULE_UTILS_PACEMAKER_LIBRARY_IMPORT_ERROR:
         return []
 
-    if not data.__dir__().__contains__('get'):
+    if not data.__dir__().__contains__("get"):
         return dict()
 
-    if data.get('pacemaker_cib_xml') is None:
+    if data.get("pacemaker_cib_xml") is None:
         return dict()
     try:
-        pcs_config_tree = ET.fromstring(data.get('pacemaker_cib_xml'))  # nosec B314
+        pcs_config_tree = ET.fromstring(data.get("pacemaker_cib_xml"))  # nosec B314
         if not pcs_config_tree:
             return dict()
 
     except Exception:
         return dict()
 
-    pcs_cluster_property_set_all = pcs_cluster_property_set_from_cib(pcs_config_tree, cluster_property_set_id=cluster_property_set_id)
+    pcs_cluster_property_set_all = pcs_cluster_property_set_from_cib(
+        pcs_config_tree, cluster_property_set_id=cluster_property_set_id
+    )
     pcs_cluster_property_set_filtered = pcs_cluster_property_set_all
 
     if id is not None:
-        pcs_cluster_property_set_filtered = [pcs_property for pcs_property in pcs_cluster_property_set_filtered if pcs_property.get('id') == id]
+        pcs_cluster_property_set_filtered = [
+            pcs_property
+            for pcs_property in pcs_cluster_property_set_filtered
+            if pcs_property.get("id") == id
+        ]
 
     if name is not None:
-        pcs_cluster_property_set_filtered = [pcs_property for pcs_property in pcs_cluster_property_set_filtered if pcs_property.get('name') == name]
+        pcs_cluster_property_set_filtered = [
+            pcs_property
+            for pcs_property in pcs_cluster_property_set_filtered
+            if pcs_property.get("name") == name
+        ]
 
     if name_contains is not None:
-        pcs_cluster_property_set_filtered = [pcs_property for pcs_property in pcs_cluster_property_set_filtered if name_contains in pcs_property.get('name')]
+        pcs_cluster_property_set_filtered = [
+            pcs_property
+            for pcs_property in pcs_cluster_property_set_filtered
+            if name_contains in pcs_property.get("name")
+        ]
 
     if id_contains is not None:
-        pcs_cluster_property_set_filtered = [pcs_property for pcs_property in pcs_cluster_property_set_filtered if id_contains in pcs_property.get('id')]
+        pcs_cluster_property_set_filtered = [
+            pcs_property
+            for pcs_property in pcs_cluster_property_set_filtered
+            if id_contains in pcs_property.get("id")
+        ]
 
     if pcs_cluster_property_set_filtered:
-        return {pcs_property.get('name'): pcs_property.get('value') for pcs_property in pcs_cluster_property_set_filtered}
+        return {
+            pcs_property.get("name"): pcs_property.get("value")
+            for pcs_property in pcs_cluster_property_set_filtered
+        }
     else:
         return dict()
 

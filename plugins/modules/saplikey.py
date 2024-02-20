@@ -146,7 +146,6 @@ EXAMPLES = r"""
   become: true
   become_user: <sid>adm
   become_flags: '-i'
-
 """
 
 RETURN = r"""
@@ -236,9 +235,9 @@ def main():
         ["state", "present", ["filename", "license_content"], True],
     )
     required_by = {
-        'system': ('hardware_key', 'product'),
-        'hardware_key': ('system', 'product'),
-        'product': ('system', 'hardware_key'),
+        "system": ("hardware_key", "product"),
+        "hardware_key": ("system", "product"),
+        "product": ("system", "hardware_key"),
     }
 
     module = AnsibleModule_saplikey(
@@ -249,7 +248,9 @@ def main():
         required_by=required_by,
         supports_check_mode=False,
     )
-    _ignore, stdout_show, _ignore = module.run_saplikey_command(["-show"], check_rc=True)
+    _ignore, stdout_show, _ignore = module.run_saplikey_command(
+        ["-show"], check_rc=True
+    )
     license_keys_before = get_license_keys_from_stdout(stdout_show)
 
     if module.params["state"] == "absent":
@@ -288,7 +289,9 @@ def main():
                 ["-install", temp_file.name]
             )
 
-    _ignore, stdout_show, _ignore = module.run_saplikey_command(["-show"], check_rc=True)
+    _ignore, stdout_show, _ignore = module.run_saplikey_command(
+        ["-show"], check_rc=True
+    )
     license_keys_after = get_license_keys_from_stdout(stdout_show)
     changed = len(license_keys_after) != len(license_keys_before)
 

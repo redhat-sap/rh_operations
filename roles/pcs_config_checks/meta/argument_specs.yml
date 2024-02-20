@@ -20,13 +20,11 @@
 # If not, see <https://www.gnu.org/licenses/>.
 
 ---
-
 argument_specs:
   main:
     short_description: Run pcs cluster checks
     description: []
     options:
-
       pcs_config_checks_custom: &pcs_config_checks_argument_spec
         description: List of custom checks
         type: list
@@ -39,16 +37,24 @@ argument_specs:
               - Condition to run check
               - Conditions should use only variables that are provided in checks execution context.
               - ansible_facts and cluster_properties variables are provided in checks execution context.
-              - ansible_facts are collected for the host where role is executed, so if you are analyzing local xml export of the cluster CIB, ansible_facts will be collected for the host where you are running the role (for instance localhost).
+              - |
+                ansible_facts are collected for the host where role is executed,
+                so if you are analyzing local xml export of the cluster CIB,
+                ansible_facts will be collected for the host where you are
+                running the role (for instance localhost).
               - More variables will be provided in checks execution context.
-              - Checks are automatically filtered based on the following criteria
-                - 'architecture' variable - either provided as role parameter, or collected from ansible_facts
-                - 'platform' and 'version' variables - either provided as role parameters, or collected from ansible_facts
-                - 'cloud_provider' - not yet supported
-                - Checks filtered out this way will not be even in the main check loop.
+              - |
+                Checks are automatically filtered based on the following criteria
+                'architecture' variable - either provided as role parameter, or collected from
+                ansible_facts
+                'platform' and 'version' variables - either provided as role parameters,
+                or collected from ansible_facts
+                'cloud_provider' - not yet supported.
+                Checks filtered out this way will not be even in the main check loop.
               - Another way to filter checks is to use tags. See I(pcs_config_checks_tags_exclude) parameter.
               - |
-                If there is a more complex condition when to execute check and when not, this condition should be provided individually for each check in parameter I(when).
+                If there is a more complex condition when to execute check and when not,
+                this condition should be provided individually for each check in parameter I(when).
                 For instance, this is how to ignore checks on an odd numbered day.
                 {% raw %}
                 name: This check will be executed only on even numbered days and will fail.

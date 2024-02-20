@@ -20,12 +20,11 @@
 # If not, see <https://www.gnu.org/licenses/>.
 
 ---
-
 - name: Fetch kernel path
   sap.sap_operations.parameter_info:
-    name: "DIR_CT_RUN"
+    name: DIR_CT_RUN
     instance_number: "{{ sap_kernel_update_instance }}"
-  register: __sap_kernel_update_sapexedb_sar_file  # noqa: var-naming[no-role-prefix]
+  register: __sap_kernel_update_sapexedb_sar_file # noqa: var-naming[no-role-prefix]
 
 - name: Set kernel path
   ansible.builtin.set_fact:

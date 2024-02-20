@@ -108,7 +108,6 @@ options:
     type: bool
     required: false
     default: false
-
 """
 
 EXAMPLES = r"""
@@ -130,7 +129,6 @@ EXAMPLES = r"""
       user: DDIC
       passwd: "SecretPa$$word"
       sysnr: '00'
-
 """
 
 RETURN = r"""
@@ -181,7 +179,6 @@ abap_transports_info:
             TRFUNCTION: Q
             TRKORR: NPLK900063
             TRSTATUS: D
-
 """
 
 from ansible_collections.sap.sap_operations.plugins.module_utils.abap import (
@@ -193,16 +190,15 @@ def main():
     argument_spec = dict(
         category=dict(type="str", required=False, choices=["K", "W", "*"], default="*"),
         transport_status=dict(
-            type="str",
-            required=False,
-            default="D",
-            choices=["R", "D", "*"]
+            type="str", required=False, default="D", choices=["R", "D", "*"]
         ),
         target_system=dict(type="str", required=False, default="*"),
         owner=dict(type="str", required=False),
         client=dict(type="str", required=False, aliases=["mandant"]),
         read_attributes=dict(type="bool", required=False, default=False),
-        attributes_keys=dict(type="list", required=False, default=[], elements="str", no_log=False),
+        attributes_keys=dict(
+            type="list", required=False, default=[], elements="str", no_log=False
+        ),
         read_task_headers=dict(type="bool", required=False, default=False),
     )
 
@@ -212,9 +208,9 @@ def main():
     target_system = module.params["target_system"]
     owner = module.params["owner"]
     client = module.params["client"]
-    read_attributes = 'X' if module.params["read_attributes"] else " "
+    read_attributes = "X" if module.params["read_attributes"] else " "
     attributes_keys = module.params["attributes_keys"]
-    read_task_headers = 'X' if module.params["read_task_headers"] else " "
+    read_task_headers = "X" if module.params["read_task_headers"] else " "
 
     params = dict(
         TRFUNCTION=category,

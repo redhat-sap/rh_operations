@@ -53,7 +53,6 @@ EXAMPLES = r"""
   become: true
   become_user: <sid>adm
   become_flags: '-i'
-
 """
 
 RETURN = r"""
@@ -119,7 +118,6 @@ saplikey_get_info:
       returned: success
       type: str
       sample: 000000000000000000
-
 """
 
 

@@ -141,7 +141,7 @@ EXAMPLES = r"""
     hana_db_system_password: CHANGEME
     database_name: SYSTEMDB
     instance_directory: "{{ dir_instance.parameter_value | first }}"
-  become: yes
+  become: true
   become_user: rheadm
 
 - name: Restore HANA for RHE tenant to specific timestamp
@@ -176,11 +176,10 @@ EXAMPLES = r"""
     timestamp_backup: '2022-01-17 23:59:59'
     using:
       catalog_path: /hana/PR1/backup/catalog
-      data_path: [ /hana/PR1/backup/data ]
-      log_path: [ /hana/PR1/backup/log ]
+      data_path: [/hana/PR1/backup/data]
+      log_path: [/hana/PR1/backup/log]
   become: true
   become_user: rheadm
-
 """
 
 RETURN = r""" # """

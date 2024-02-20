@@ -100,7 +100,7 @@ options:
 EXAMPLES = r"""
 - name: Download item set information
   sap.sap_operations.me_downloaditemset_info:
-    username:  username
+    username: username
     password: pa$$word
     alias: saphostagent
     architecture: x86_64
@@ -623,7 +623,9 @@ me_downloaditemset_info:
 """  # noqa: E501
 
 
-from ansible_collections.sap.sap_operations.plugins.module_utils.me_auth import me_AnsibleModule  # noqa: E501
+from ansible_collections.sap.sap_operations.plugins.module_utils.me_auth import (
+    me_AnsibleModule,
+)  # noqa: E501
 from ansible_collections.sap.sap_operations.plugins.module_utils.me_helpers import (  # noqa: E501
     me_download_item_set_url,
     PECGRSC1_from_architecture_and_os_family,
@@ -636,11 +638,7 @@ def main():
         enr=dict(type="str"),
         alias=dict(type="str", required=True, choices=list(enr_from_alias.keys())),
         architecture=dict(type="str", default="x86_64", choices=["x86_64"]),
-        os_family=dict(
-            type="str",
-            default="Linux",
-            choices=["Linux", "Darwin"]
-        ),
+        os_family=dict(type="str", default="Linux", choices=["Linux", "Darwin"]),
     )
     required_one_of = [
         ("enr", "alias"),
@@ -665,7 +663,9 @@ def main():
 
     url = me_download_item_set_url(
         ENR=enr,
-        PECGRSC1=PECGRSC1_from_architecture_and_os_family[architecture][os_family],  # noqa: E501
+        PECGRSC1=PECGRSC1_from_architecture_and_os_family[architecture][
+            os_family
+        ],  # noqa: E501
     )
 
     response = module(url=url)

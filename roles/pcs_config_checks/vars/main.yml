@@ -22,22 +22,20 @@
 ---
 
 pcs_config_checks_platform_mapping:
-  'RedHat': 'EL'
-  'CentOS': 'EL'
+  RedHat: EL
+  CentOS: EL
 
 pcs_config_checks_loop_display: name
 
-
 pcs_config_checks_loop_label: "[{{ ansible_loop.index }} out of {{ ansible_loop.length }}] - {{ check[pcs_config_checks_loop_display] }}"
-
 
 pcs_config_checks_default_check:
   condition: true
   name: Default check
   documentation: ""
   remediation: ""
-  fail_msg: "FAILED"
-  success_msg: "PASSED"
+  fail_msg: FAILED
+  success_msg: PASSED
   priority: medium
   severity: warning
   when: true
@@ -61,9 +59,7 @@ pcs_config_checks_default_check:
     - ppc64le
   ignore_errors: false
 
-
 pcs_config_checks_preconfigured:
-
   - name: Should always fail
     condition: false
     priority: high

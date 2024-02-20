@@ -45,7 +45,9 @@ DOCUMENTATION = r"""
 """  # noqa: E501
 
 EXAMPLES = r"""
-  "{{ ansible_facts['mounts'] | sap.sap_operations.mount_path(filepath='/file/path') }}"
+- name: Example how to use mount_path filter
+  debug:
+    msg: "{{ ansible_facts['mounts'] | sap.sap_operations.mount_path(filepath='/') }}"
 """  # noqa: E501
 
 RETURN = r"""

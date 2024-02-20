@@ -76,10 +76,11 @@ ha_check_config_info:
 """
 
 EXAMPLES = """
-  - name: Run ha_check_config_info
-    sap.sap_operations.ha_check_config_info:
-      instance_number: "00"
+- name: Run ha_check_config_info
+  sap.sap_operations.ha_check_config_info:
+    instance_number: "00"
 """
+
 
 from ansible_collections.sap.sap_operations.plugins.module_utils.saphost import (
     AnsibleModuleSAPHostAgent,

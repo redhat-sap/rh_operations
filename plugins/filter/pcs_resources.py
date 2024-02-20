@@ -31,15 +31,33 @@ import xml.etree.ElementTree as ET  # nosec B405
 
 
 try:
-    from ansible_collections.sap.sap_operations.plugins.module_utils.pacemaker import pcs_resources_by_id_from_cib
-    from ansible_collections.sap.sap_operations.plugins.module_utils.pacemaker import pcs_resources_by_id_from_status
-    from ansible_collections.sap.sap_operations.plugins.module_utils.pacemaker import Element2Dict
-    from ansible_collections.sap.sap_operations.plugins.module_utils.pacemaker import get_pcs_resource_agent_provider_from_status
-    from ansible_collections.sap.sap_operations.plugins.module_utils.pacemaker import get_pcs_resource_agent_type_from_status
-    from ansible_collections.sap.sap_operations.plugins.module_utils.pacemaker import get_pcs_resource_agent_class_from_status
-    from ansible_collections.sap.sap_operations.plugins.module_utils.pacemaker import get_pcs_resource_agent_class_from_cib
-    from ansible_collections.sap.sap_operations.plugins.module_utils.pacemaker import get_pcs_resource_agent_provider_from_cib
-    from ansible_collections.sap.sap_operations.plugins.module_utils.pacemaker import get_pcs_resource_agent_type_from_cib
+    from ansible_collections.sap.sap_operations.plugins.module_utils.pacemaker import (
+        pcs_resources_by_id_from_cib,
+    )
+    from ansible_collections.sap.sap_operations.plugins.module_utils.pacemaker import (
+        pcs_resources_by_id_from_status,
+    )
+    from ansible_collections.sap.sap_operations.plugins.module_utils.pacemaker import (
+        Element2Dict,
+    )
+    from ansible_collections.sap.sap_operations.plugins.module_utils.pacemaker import (
+        get_pcs_resource_agent_provider_from_status,
+    )
+    from ansible_collections.sap.sap_operations.plugins.module_utils.pacemaker import (
+        get_pcs_resource_agent_type_from_status,
+    )
+    from ansible_collections.sap.sap_operations.plugins.module_utils.pacemaker import (
+        get_pcs_resource_agent_class_from_status,
+    )
+    from ansible_collections.sap.sap_operations.plugins.module_utils.pacemaker import (
+        get_pcs_resource_agent_class_from_cib,
+    )
+    from ansible_collections.sap.sap_operations.plugins.module_utils.pacemaker import (
+        get_pcs_resource_agent_provider_from_cib,
+    )
+    from ansible_collections.sap.sap_operations.plugins.module_utils.pacemaker import (
+        get_pcs_resource_agent_type_from_cib,
+    )
 except ImportError as import_exception:
     SAP_OPERATIONS_MODULE_UTILS_PACEMAKER_LIBRARY_IMPORT_ERROR = import_exception
 else:
@@ -128,7 +146,6 @@ EXAMPLES = r"""
       - "{{ pcs_cib_info | sap.sap_operations.pcs_resources(id='dummy') }}"
       - "{{ pcs_status_info | sap.sap_operations.pcs_resources }}"
       - "{{ pcs_status_info | sap.sap_operations.pcs_resources(id_contains='dummy') }}"
-
 """
 
 RETURN = """
@@ -257,7 +274,6 @@ data2:
               "interval": "0s"
               "name": "reload"
               "timeout": "20s"
-
 """
 
 
@@ -272,11 +288,11 @@ def pcs_resources(  # noqa: C901
     if SAP_OPERATIONS_MODULE_UTILS_PACEMAKER_LIBRARY_IMPORT_ERROR:
         return []
 
-    if not data.__dir__().__contains__('get'):
+    if not data.__dir__().__contains__("get"):
         return []
-    if data.get('pacemaker_cib_xml'):
+    if data.get("pacemaker_cib_xml"):
         try:
-            pcs_config_tree = ET.fromstring(data.get('pacemaker_cib_xml'))  # nosec B314
+            pcs_config_tree = ET.fromstring(data.get("pacemaker_cib_xml"))  # nosec B314
             if not pcs_config_tree:
                 return []
         except Exception:
@@ -286,9 +302,11 @@ def pcs_resources(  # noqa: C901
         get_pcs_resource_agent_provider = get_pcs_resource_agent_provider_from_cib
         get_pcs_resource_agent_type = get_pcs_resource_agent_type_from_cib
 
-    elif data.get('pacemaker_status_xml'):
+    elif data.get("pacemaker_status_xml"):
         try:
-            pcs_status_tree = ET.fromstring(data.get('pacemaker_status_xml'))  # nosec B314
+            pcs_status_tree = ET.fromstring(
+                data.get("pacemaker_status_xml")
+            )  # nosec B314
             if not pcs_status_tree:
                 return []
         except Exception:
@@ -301,19 +319,39 @@ def pcs_resources(  # noqa: C901
         return []
 
     if id:
-        filtered_resources = [pcs_resource for pcs_resource in filtered_resources if id == pcs_resource.get('id')]
+        filtered_resources = [
+            pcs_resource
+            for pcs_resource in filtered_resources
+            if id == pcs_resource.get("id")
+        ]
 
     if id_contains:
-        filtered_resources = [pcs_resource for pcs_resource in filtered_resources if id_contains in pcs_resource.get('id')]
+        filtered_resources = [
+            pcs_resource
+            for pcs_resource in filtered_resources
+            if id_contains in pcs_resource.get("id")
+        ]
 
     if resource_agent_class:
-        filtered_resources = [pcs_resource for pcs_resource in filtered_resources if get_pcs_resource_agent_class(pcs_resource) == resource_agent_class]
+        filtered_resources = [
+            pcs_resource
+            for pcs_resource in filtered_resources
+            if get_pcs_resource_agent_class(pcs_resource) == resource_agent_class
+        ]
 
     if resource_agent_provider:
-        filtered_resources = [pcs_resource for pcs_resource in filtered_resources if get_pcs_resource_agent_provider(pcs_resource) == resource_agent_provider]
+        filtered_resources = [
+            pcs_resource
+            for pcs_resource in filtered_resources
+            if get_pcs_resource_agent_provider(pcs_resource) == resource_agent_provider
+        ]
 
     if resource_agent_type:
-        filtered_resources = [pcs_resource for pcs_resource in filtered_resources if get_pcs_resource_agent_type(pcs_resource) == resource_agent_type]
+        filtered_resources = [
+            pcs_resource
+            for pcs_resource in filtered_resources
+            if get_pcs_resource_agent_type(pcs_resource) == resource_agent_type
+        ]
 
     return [Element2Dict(pcs_resource) for pcs_resource in filtered_resources]
 

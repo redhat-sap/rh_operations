@@ -48,7 +48,6 @@ description:
 version_added: 1.13.0
 
 options:
-
   description:
     description: Transport request description
     type: str
@@ -68,7 +67,7 @@ options:
     description: Transport request category
     type: str
     required: true
-    choices: ['K', 'W']
+    choices: ["K", "W"]
 """
 
 EXAMPLES = r"""
@@ -76,18 +75,17 @@ EXAMPLES = r"""
   sap.sap_operations.abap_transport_create:
     description: Transport request description
     owner: DDIC
-    client: '000'
+    client: "000"
     category: K
     rfc_connection:
-        ashost: application-instance-hostname
-        client: '000'
-        user: DDIC
-        passwd: "SecretPa$$word"
-        sysnr: '00'
+      ashost: application-instance-hostname
+      client: "000"
+      user: DDIC
+      passwd: "SecretPa$$word"
+      sysnr: "00"
 """
 
 RETURN = r"""
-
 REQUEST:
   description: ABAP transport request id of created transport request
   type: str
@@ -100,7 +98,7 @@ RETCODE:
     '000' - success, all other codes are errors
   type: str
   returned: success
-  sample: '000'
+  sample: "000"
 
 abap_transport_info:
   description: ABAP transport info for created transport request
@@ -108,14 +106,13 @@ abap_transport_info:
   returned: success
   sample:
     CATEGORY: K
-    CLIENT: '000'
+    CLIENT: "000"
     DESCRIPTION: Transport request description
     MESSAGE: Request NPLK900034 read
     OBJECTS: []
     OWNER: DDIC
-    RETCODE: '000'
+    RETCODE: "000"
     STATUS: D
-
 """
 
 from ansible_collections.sap.sap_operations.plugins.module_utils.abap import (
@@ -148,10 +145,11 @@ def main():
         )
         if abap_transport_create.get("RETCODE") != "000":
             raise AnsibleModuleABAPFailException(
-                msg="Failed to create transport request",
-                **abap_transport_create
+                msg="Failed to create transport request", **abap_transport_create
             )
-        abap_transport_info = abap("CTS_API_READ_CHANGE_REQUEST", REQUEST=abap_transport_create["REQUEST"])
+        abap_transport_info = abap(
+            "CTS_API_READ_CHANGE_REQUEST", REQUEST=abap_transport_create["REQUEST"]
+        )
 
     module.exit_json(
         changed=True,

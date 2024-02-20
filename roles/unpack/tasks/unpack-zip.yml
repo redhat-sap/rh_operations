@@ -1,5 +1,4 @@
 ---
-
 # SPDX-License-Identifier: GPL-3.0-only
 # SPDX-FileCopyrightText: 2023 Red Hat, Project Atmosphere
 #
@@ -21,7 +20,7 @@
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>.
 
-- name: "Unpack *.zip file {{ item.path }}"
+- name: Unpack *.zip file {{ item.path }}
   ansible.builtin.unarchive:
     src: "{{ item.path }}"
     remote_src: true

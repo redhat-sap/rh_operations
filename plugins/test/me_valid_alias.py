@@ -54,7 +54,6 @@ EXAMPLES = r"""
 - name: Test 'me_valid_alias' test plugin, this assertion is True
   ansible.builtin.assert:
     that: "{{ 'does_not_exist' is not sap.sap_operations.me_valid_alias }}"
-
 """
 
 RETURN = """
@@ -65,7 +64,9 @@ _value:
 """
 
 
-from ansible_collections.sap.sap_operations.plugins.module_utils.me_helpers import enr_from_alias  # noqa: E501
+from ansible_collections.sap.sap_operations.plugins.module_utils.me_helpers import (
+    enr_from_alias,
+)  # noqa: E501
 
 
 def me_valid_alias(value):
