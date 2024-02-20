@@ -1,0 +1,92 @@
+# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-FileCopyrightText: 2023 Red Hat, Project Atmosphere
+#
+# Copyright 2023 Red Hat, Project Atmosphere
+#
+# This program is free software: you can redistribute it and/or modify it under the terms of the GNU
+# General Public License as published by the Free Software Foundation, version 3 of the License.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+# even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU General Public License for more details.
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+# You should have received a copy of the GNU General Public License along with this program.
+# If not, see <https://www.gnu.org/licenses/>.
+
+---
+- name: Validate password parameters
+  ansible.builtin.assert:
+    that:
+      - >
+        (hana_master_password is defined)
+        or
+        (
+          (hana_master_password is not defined)
+          and
+          (
+          (hana_password is defined) and
+          (hana_sapadm_password is defined) and
+          (hana_system_user_password is defined)
+          )
+        )
+    fail_msg: |
+      Please make sure that `hana_master_password` and other passwords are defined properly.
+      All required passwords should be defined.
+    success_msg: Variables validation successful
+
+- name: Get installed SAP instances
+  sap.sap_operations.host_info:
+  register: __hana_host_info
+  become: true
+  become_user: root
+
+- name: End execution if SAP instance with the same SID is already installed
+  ansible.builtin.meta: end_host
+  when: __hana_host_info.instances | selectattr('mSid', 'in', hana_sid)
+
+- name: End execution if hana_instance_number is already occupied
+  ansible.builtin.meta: end_host
+  when: __hana_host_info.instances | selectattr('mSystemNumber', 'in', hana_instance_number)
+
+- name: Create HANA install configuration file from template
+  ansible.builtin.template:
+    src: hdblcm.cfg.j2
+    dest: "~/hdblcm.cfg"
+    owner: root
+    group: root
+    mode: "0400"
+  become: true
+  become_user: root
+  register: __hana_install_cfg
+
+- name: Prepare hdblcm.cfg.xml from template
+  ansible.builtin.template:
+    src: hdblcm.cfg.xml.j2
+    dest: "~/hdblcm.cfg.xml"
+    owner: root
+    group: root
+    mode: "0400"
+  become: true
+  become_user: root
+  register: __hana_install_hdb_passwords
+
+- name: Start HANA installation
+  ansible.builtin.shell:
+    cmd: >
+      set -o pipefail;
+      cat {{ __hana_install_hdb_passwords.dest }} |
+      {{ hana_medium }}/DATA_UNITS/HDB_SERVER_LINUX_X86_64/hdblcm
+      --configfile={{ __hana_install_cfg.dest }}
+      --read_password_from_stdin=xml
+      --batch
+  register: __hana_installation_run
+  changed_when: __hana_installation_run.rc == 0
+  failed_when: __hana_installation_run.rc != 0
+  become: true
+  become_user: root

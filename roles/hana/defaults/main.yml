@@ -20,58 +20,10 @@
 # If not, see <https://www.gnu.org/licenses/>.
 
 ---
-namespace: sap
+hana_state: present
 
-name: sap_operations
+hana_instance_number: "00"
 
-version: 1.15.0
-
-readme: README.md
-
-authors:
-  - Ondra Machacek <omachace@redhat.com>
-  - Kirill Satarin (@kksat)
-
-description: Ansible collection to handle day 2 operational SAP administration tasks.
-
-license:
-  - GPL-3.0-only
-
-license_file: ""
-
-tags:
-  - linux
-  - sap
-
-dependencies: {}
-repository: https://github.com/redhat-sap/rh_operations
-
-documentation: https://github.com/redhat-sap/rh_operations
-
-homepage: https://github.com/redhat-sap/rh_operations
-
-issues: https://github.com/redhat-sap/rh_operations/issues
-
-build_ignore:
-  - roles/*/molecule
-  - roles/*/tests
-  - webdocs
-  - docs
-  - tests/output
-  - .DS_Store
-  - changelogs
-  - changelogs-aap
-  - changelogs-galaxy
-  - __init__.py
-  - plugins/__init__.py
-  - plugins/doc_fragments/__init__.py
-  - plugins/filter/__init__.py
-  - plugins/module_utils/__init__.py
-  - plugins/modules/__init__.py
-  - plugins/test/__init__.py
-  - galaxy-aap.yml
-  - galaxy-galaxy.yml
-  - roles/pcs_group_check
-
-  - tests/sanity-ignore-galaxy
-  - tests/sanity-ignore-aap
+hana_password: "{{ hana_master_password }}"
+hana_sapadm_password: "{{ hana_master_password }}"
+hana_system_user_password: "{{ hana_master_password }}"
