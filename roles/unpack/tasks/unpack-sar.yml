@@ -1,5 +1,4 @@
 ---
-
 # SPDX-License-Identifier: GPL-3.0-only
 # SPDX-FileCopyrightText: 2023 Red Hat, Project Atmosphere
 #
@@ -25,7 +24,7 @@
 # SAPCAR -tvf <your-SAR-file>
 # process with TTP resulting list
 
-- name: "Unpack *.sar file {{ item.path }}"
+- name: Unpack *.sar file {{ item.path }}
   ansible.builtin.command:
     cmd: "{{ unpack_sapcar_exe_path }} -xvf {{ item.path }} {% if unpack_manifest %} -manifest SIGNATURE.SMF {% endif %}"
     chdir: "{{ unpack_destination }}"

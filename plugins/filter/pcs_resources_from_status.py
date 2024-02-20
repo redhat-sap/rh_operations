@@ -30,11 +30,21 @@ __metaclass__ = type
 import xml.etree.ElementTree as ET  # nosec B405
 
 try:
-    from ansible_collections.sap.sap_operations.plugins.module_utils.pacemaker import pcs_resources_by_id_from_status
-    from ansible_collections.sap.sap_operations.plugins.module_utils.pacemaker import Element2Dict
-    from ansible_collections.sap.sap_operations.plugins.module_utils.pacemaker import get_pcs_resource_agent_provider_from_status
-    from ansible_collections.sap.sap_operations.plugins.module_utils.pacemaker import get_pcs_resource_agent_type_from_status
-    from ansible_collections.sap.sap_operations.plugins.module_utils.pacemaker import get_pcs_resource_agent_class_from_status
+    from ansible_collections.sap.sap_operations.plugins.module_utils.pacemaker import (
+        pcs_resources_by_id_from_status,
+    )
+    from ansible_collections.sap.sap_operations.plugins.module_utils.pacemaker import (
+        Element2Dict,
+    )
+    from ansible_collections.sap.sap_operations.plugins.module_utils.pacemaker import (
+        get_pcs_resource_agent_provider_from_status,
+    )
+    from ansible_collections.sap.sap_operations.plugins.module_utils.pacemaker import (
+        get_pcs_resource_agent_type_from_status,
+    )
+    from ansible_collections.sap.sap_operations.plugins.module_utils.pacemaker import (
+        get_pcs_resource_agent_class_from_status,
+    )
 except ImportError as import_exception:
     SAP_OPERATIONS_MODULE_UTILS_PACEMAKER_LIBRARY_IMPORT_ERROR = import_exception
 else:
@@ -171,7 +181,6 @@ EXAMPLES = r"""
       - "{{ pcs_status_info | sap.sap_operations.pcs_resources_from_status(failed=true) }}"
       - "{{ pcs_status_info | sap.sap_operations.pcs_resources_from_status(managed=true) }}"
       - "{{ pcs_status_info | sap.sap_operations.pcs_resources_from_status(maintenance=true) }}"
-
 """
 
 RETURN = """
@@ -236,11 +245,13 @@ def pcs_resources_from_status(  # noqa: C901
     if SAP_OPERATIONS_MODULE_UTILS_PACEMAKER_LIBRARY_IMPORT_ERROR:
         return []
 
-    if not data.__dir__().__contains__('get'):
+    if not data.__dir__().__contains__("get"):
         return []
-    if data.get('pacemaker_status_xml'):
+    if data.get("pacemaker_status_xml"):
         try:
-            pcs_status_tree = ET.fromstring(data.get('pacemaker_status_xml'))  # nosec B314
+            pcs_status_tree = ET.fromstring(
+                data.get("pacemaker_status_xml")
+            )  # nosec B314
             if not pcs_status_tree:
                 return []
         except Exception:
@@ -250,53 +261,95 @@ def pcs_resources_from_status(  # noqa: C901
         return []
 
     if id:
-        filtered_resources = [pcs_resource for pcs_resource in filtered_resources if id == pcs_resource.get('id')]
+        filtered_resources = [
+            pcs_resource
+            for pcs_resource in filtered_resources
+            if id == pcs_resource.get("id")
+        ]
 
     if id_contains:
-        filtered_resources = [pcs_resource for pcs_resource in filtered_resources if id_contains in pcs_resource.get('id')]
+        filtered_resources = [
+            pcs_resource
+            for pcs_resource in filtered_resources
+            if id_contains in pcs_resource.get("id")
+        ]
 
     if resource_agent:
-        filtered_resources = [pcs_resource for pcs_resource in filtered_resources if pcs_resource.get('resource_agent') == resource_agent]
+        filtered_resources = [
+            pcs_resource
+            for pcs_resource in filtered_resources
+            if pcs_resource.get("resource_agent") == resource_agent
+        ]
 
     if resource_agent_provider:
         filtered_resources = [
-            pcs_resource for pcs_resource in filtered_resources if get_pcs_resource_agent_provider_from_status(pcs_resource) == resource_agent_provider]
+            pcs_resource
+            for pcs_resource in filtered_resources
+            if get_pcs_resource_agent_provider_from_status(pcs_resource) == resource_agent_provider
+        ]
 
     if resource_agent_type:
         filtered_resources = [
-            pcs_resource for pcs_resource in filtered_resources if get_pcs_resource_agent_type_from_status(pcs_resource) == resource_agent_type]
+            pcs_resource
+            for pcs_resource in filtered_resources
+            if get_pcs_resource_agent_type_from_status(pcs_resource) == resource_agent_type
+        ]
 
     if resource_agent_class:
         filtered_resources = [
-            pcs_resource for pcs_resource in filtered_resources if get_pcs_resource_agent_class_from_status(pcs_resource) == resource_agent_class]
+            pcs_resource
+            for pcs_resource in filtered_resources
+            if get_pcs_resource_agent_class_from_status(pcs_resource) == resource_agent_class
+        ]
 
     if role:
         filtered_resources = [
-            pcs_resource for pcs_resource in filtered_resources if pcs_resource.get('role') == role]
+            pcs_resource
+            for pcs_resource in filtered_resources
+            if pcs_resource.get("role") == role
+        ]
 
     if target_role:
         filtered_resources = [
-            pcs_resource for pcs_resource in filtered_resources if pcs_resource.get('target_role') == target_role]
+            pcs_resource
+            for pcs_resource in filtered_resources
+            if pcs_resource.get("target_role") == target_role
+        ]
 
     if active:
         filtered_resources = [
-            pcs_resource for pcs_resource in filtered_resources if pcs_resource_convert_attribute_to_bool(pcs_resource, 'active') == active]
+            pcs_resource
+            for pcs_resource in filtered_resources
+            if pcs_resource_convert_attribute_to_bool(pcs_resource, "active") == active
+        ]
 
     if blocked:
         filtered_resources = [
-            pcs_resource for pcs_resource in filtered_resources if pcs_resource_convert_attribute_to_bool(pcs_resource, 'blocked') == blocked]
+            pcs_resource
+            for pcs_resource in filtered_resources
+            if pcs_resource_convert_attribute_to_bool(pcs_resource, "blocked") == blocked
+        ]
 
     if failed:
         filtered_resources = [
-            pcs_resource for pcs_resource in filtered_resources if pcs_resource_convert_attribute_to_bool(pcs_resource, 'failed') == failed]
+            pcs_resource
+            for pcs_resource in filtered_resources
+            if pcs_resource_convert_attribute_to_bool(pcs_resource, "failed") == failed
+        ]
 
     if managed:
         filtered_resources = [
-            pcs_resource for pcs_resource in filtered_resources if pcs_resource_convert_attribute_to_bool(pcs_resource, 'managed') == managed]
+            pcs_resource
+            for pcs_resource in filtered_resources
+            if pcs_resource_convert_attribute_to_bool(pcs_resource, "managed") == managed
+        ]
 
     if maintenance:
         filtered_resources = [
-            pcs_resource for pcs_resource in filtered_resources if pcs_resource_convert_attribute_to_bool(pcs_resource, 'maintenance') == maintenance]
+            pcs_resource
+            for pcs_resource in filtered_resources
+            if pcs_resource_convert_attribute_to_bool(pcs_resource, "maintenance") == maintenance
+        ]
 
     return [Element2Dict(pcs_resource) for pcs_resource in filtered_resources]
 

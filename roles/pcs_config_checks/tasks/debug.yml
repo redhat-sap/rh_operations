@@ -20,13 +20,12 @@
 # If not, see <https://www.gnu.org/licenses/>.
 
 ---
-
 - name: Print out information about context (verbose)
   ansible.builtin.debug:
     msg:
-      - "ansible_facts - {{ ansible_facts }}"
-      - "pcs_config_quality_pcs_cib_info - {{ pcs_config_quality_pcs_cib_info }}"
-      - "cluster_properties - {{ cluster_properties }}"
+      - ansible_facts - {{ ansible_facts }}
+      - pcs_config_quality_pcs_cib_info - {{ pcs_config_quality_pcs_cib_info }}
+      - cluster_properties - {{ cluster_properties }}
       - "cluster_resources: {{ cluster_resources }}"
       - "platform: {{ platform }}"
       - "version: {{ version }}"
@@ -37,25 +36,25 @@
   ansible.builtin.debug:
     msg:
       - "{{ pcs_config_checks_loop_label }}"
-      - "Check name - {{ check.name }}"
-      - "Check condition - {{ check.condition }}"
-      - "Check architectures - {{ check.architectures }}"
-      - "Host architecture - {{ architecture }}"
-      - "Check platforms - {{ check.platforms }}"
+      - Check name - {{ check.name }}
+      - Check condition - {{ check.condition }}
+      - Check architectures - {{ check.architectures }}
+      - Host architecture - {{ architecture }}
+      - Check platforms - {{ check.platforms }}
       - "Host platform - {'name': {{ platform }}, 'version': {{ version }}}"
-      - "Check cloud_providers - {{ check.cloud_providers }}"
-      - "Check tags - {{ check.tags }}"
-      - "Check priority - {{ check.priority }}"
-      - "Check severity - {{ check.severity }}"
-      - "Check when - {{ check.when }}"
-      - "Check quiet - {{ check.quiet }}"
-      - "Check documentation - {{ check.documentation }}"
-      - "Check remediation - {{ check.remediation }}"
-      - "Check fail_msg - {{ check.fail_msg }}"
-      - "Check success_msg - {{ check.success_msg }}"
+      - Check cloud_providers - {{ check.cloud_providers }}
+      - Check tags - {{ check.tags }}
+      - Check priority - {{ check.priority }}
+      - Check severity - {{ check.severity }}
+      - Check when - {{ check.when }}
+      - Check quiet - {{ check.quiet }}
+      - Check documentation - {{ check.documentation }}
+      - Check remediation - {{ check.remediation }}
+      - Check fail_msg - {{ check.fail_msg }}
+      - Check success_msg - {{ check.success_msg }}
   loop: "{{ checks }}"
   loop_control:
-    loop_var: 'check'
+    loop_var: check
     label: "{{ pcs_config_checks_loop_label }}"
     extended: true
   failed_when: not check.condition

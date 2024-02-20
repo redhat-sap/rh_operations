@@ -22,7 +22,9 @@
 # If not, see <https://www.gnu.org/licenses/>.
 
 from __future__ import absolute_import, division, print_function
-from ansible_collections.sap.sap_operations.plugins.module_utils.compat import dict_union
+from ansible_collections.sap.sap_operations.plugins.module_utils.compat import (
+    dict_union,
+)
 
 __metaclass__ = type
 
@@ -33,21 +35,21 @@ author: Kirill Satarin (@kksat)
 version_added: 1.11.0
 short_description: Combine two dictionaries, second dictionary will be used as default.
 description:
-    - Combine two dictionaries, second dictionary will be used as default.
-    - If key is present in both dictionaries, value from first dictionary (not value from default) will be used.
-    - If value is not dictionary, it will be returned as is.
-    - If value is None, default will be returned.
-    - This is expected to work only with one level of nesting for dictionaries.
+  - Combine two dictionaries, second dictionary will be used as default.
+  - If key is present in both dictionaries, value from first dictionary (not value from default) will be used.
+  - If value is not dictionary, it will be returned as is.
+  - If value is None, default will be returned.
+  - This is expected to work only with one level of nesting for dictionaries.
 
 options:
-    value:
-        description: Dictionary to combine with default.
-        type: dict
-        required: True
-    default:
-        description: Dictionary to use as default.
-        type: dict
-        required: False
+  value:
+    description: Dictionary to combine with default.
+    type: dict
+    required: True
+  default:
+    description: Dictionary to use as default.
+    type: dict
+    required: False
 """
 
 EXAMPLES = r"""
@@ -80,8 +82,6 @@ EXAMPLES = r"""
       key1: value1
       key2: new_value2
       key3: value3
-
-
 """
 
 RETURN = """

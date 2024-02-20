@@ -22,9 +22,7 @@
 ---
 
 pcs_config_checks_custom: []
-
 pcs_config_checks_tags_exclude: []
-
 pcs_config_checks_verbose: false
 
 pcs_config_checks_mode: assert

@@ -40,10 +40,7 @@ __prepare_packages_mapping:
     - unzip
     - python3-requests
 
-__prepare_packages:
-  "{{
-  __prepare_packages_mapping[ansible_facts['distribution_major_version']]
-  }}"
+__prepare_packages: "{{ __prepare_packages_mapping[ansible_facts['distribution_major_version']] }}"
 
 __prepare_setup_gather_subset:
   - min

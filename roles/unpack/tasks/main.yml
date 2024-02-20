@@ -1,3 +1,4 @@
+---
 # SPDX-License-Identifier: GPL-3.0-only
 # SPDX-FileCopyrightText: 2023 Red Hat, Project Atmosphere
 #
@@ -27,7 +28,7 @@
   ansible.builtin.file:
     path: "{{ unpack_destination }}"
     state: directory
-    mode: '0755'
+    mode: "0755"
     owner: "{{ omit }}"
     group: "{{ omit }}"
 

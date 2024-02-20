@@ -63,7 +63,6 @@ options:
     type: list
     required: true
     elements: str
-
 """
 
 EXAMPLES = r"""
@@ -71,14 +70,14 @@ EXAMPLES = r"""
   sap.sap_operations.abap_transport_import:
     transport_request_ids:
       - NPLK900002
-    client: '000'
+    client: "000"
     system: NPL
     rfc_connection:
-        ashost: application-instance-hostname
-        client: '000'
-        user: DDIC
-        passwd: "SecretPa$$word"
-        sysnr: '00'
+      ashost: application-instance-hostname
+      client: "000"
+      user: DDIC
+      passwd: "SecretPa$$word"
+      sysnr: "00"
 """
 
 RETURN = r"""
@@ -107,7 +106,6 @@ MESSAGE:
   type: str
   returned: success
   sample: Request NPLK900002 imported
-
 """
 
 from ansible_collections.sap.sap_operations.plugins.module_utils.abap import (
@@ -134,12 +132,11 @@ def main():
             "CTS_API_IMPORT_CHANGE_REQUEST",
             SYSTEM=system,
             CLIENT=client,
-            REQUESTS=[{'REQUEST': request_id} for request_id in transport_request_ids],
+            REQUESTS=[{"REQUEST": request_id} for request_id in transport_request_ids],
         )
         if abap_transport_import.get("RETCODE") != "000":
             raise AnsibleModuleABAPFailException(
-                msg="Failed to import transport request",
-                **abap_transport_import
+                msg="Failed to import transport request", **abap_transport_import
             )
 
     module.exit_json(

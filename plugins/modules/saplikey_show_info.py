@@ -52,7 +52,6 @@ EXAMPLES = r"""
   become: true
   become_user: <sid>adm
   become_flags: '-i'
-
 """  # noqa: E501
 
 RETURN = r"""

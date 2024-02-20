@@ -20,7 +20,6 @@
 # If not, see <https://www.gnu.org/licenses/>.
 
 ---
-
 - name: Run pcs configuration checks (assert mode)
   ansible.builtin.assert:
     that: "{{ check.condition }}"
@@ -28,20 +27,21 @@
     success_msg: "{{ check.success_msg }}"
     quiet: "{{ not pcs_config_checks_verbose and check.quiet }}"
   when: check.when
-  ignore_errors: "{{ check.ignore_errors | default(false) }}"
-  loop: "{{ checks
-    | selectattr('priority', 'in', pcs_config_checks_priority )
-    | selectattr('severity', 'in', pcs_config_checks_severity )
-    | selectattr('architectures', 'contains', architecture )
-    | selectattr('platforms', 'contains', {'name': platform , 'version': version } )
-    | rejectattr('tags', 'contains', pcs_config_checks_tags_exclude[0] | default('skip') )
-    | rejectattr('tags', 'contains', pcs_config_checks_tags_exclude[1] | default('skip') )
-    | rejectattr('tags', 'contains', pcs_config_checks_tags_exclude[2] | default('skip') )
-    | rejectattr('tags', 'contains', pcs_config_checks_tags_exclude[3] | default('skip') )
-    | rejectattr('tags', 'contains', pcs_config_checks_tags_exclude[4] | default('skip') )
-    }}"
+  failed_when: "{{ check.ignore_errors | default(false) }}"
+  loop: >
+    {{ checks
+    | selectattr('priority', 'in', pcs_config_checks_priority)
+    | selectattr('severity', 'in', pcs_config_checks_severity)
+    | selectattr('architectures', 'contains', architecture)
+    | selectattr('platforms', 'contains', {'name': platform, 'version': version})
+    | rejectattr('tags', 'contains', pcs_config_checks_tags_exclude[0] | default('skip'))
+    | rejectattr('tags', 'contains', pcs_config_checks_tags_exclude[1] | default('skip'))
+    | rejectattr('tags', 'contains', pcs_config_checks_tags_exclude[2] | default('skip'))
+    | rejectattr('tags', 'contains', pcs_config_checks_tags_exclude[3] | default('skip'))
+    | rejectattr('tags', 'contains', pcs_config_checks_tags_exclude[4] | default('skip'))
+    }}
   loop_control:
-    loop_var: 'check'
+    loop_var: check
     label: "{{ pcs_config_checks_loop_label }}"
     extended: true
     extended_allitems: false

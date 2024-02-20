@@ -1,5 +1,4 @@
 ---
-
 # SPDX-License-Identifier: GPL-3.0-only
 # SPDX-FileCopyrightText: 2023 Red Hat, Project Atmosphere
 #
@@ -43,14 +42,16 @@ argument_specs:
         required: false
         default: false
 
-  requirements:
+  __requirements__:
+    options: {}
     short_description: Requirements
     description:
       - Role requires root access in order to install necessary packages and other sap.sap_operations collection prerequisites (normal mode).
 
-# yamllint enable rule:line-length
+  # yamllint enable rule:line-length
 
-  examples:
+  __examples__:
+    options: {}
     short_description: Playbook examples
     description:
       - ""
@@ -69,12 +70,14 @@ argument_specs:
       - "```"
       - ""
 
-  license:
+  __license__:
+    options: {}
     short_description: License
     description:
       - GPL-3.0-only
 
-  author:
+  __author__:
+    options: {}
     short_description: Author Information
     description:
       - Kirill Satarin (@kksat)

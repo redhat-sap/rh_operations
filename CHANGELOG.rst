@@ -5,13 +5,22 @@ SAP Operations Collection Release Notes
 .. contents:: Topics
 
 
-v1.14.0
+v1.14.1
 =======
 
-New Modules
------------
+Release Summary
+---------------
 
-- sap.sap_operations.ha_check_config_info - Run sap host agent function HACheckConfig
+Bug fix release
+
+Minor Changes
+-------------
+
+- Fix ansible-lint errors
+- Fix bug with hana_update role
+
+v1.14.0
+=======
 
 v1.13.0
 =======
