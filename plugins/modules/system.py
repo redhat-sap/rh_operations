@@ -124,7 +124,6 @@ EXAMPLES = r"""
     hostname: "sap.system.example.com"
     instance_number: "0"
     state: stopped
-
 """
 
 RETURN = r"""

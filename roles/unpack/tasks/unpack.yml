@@ -1,5 +1,4 @@
 ---
-
 # SPDX-License-Identifier: GPL-3.0-only
 # SPDX-FileCopyrightText: 2023 Red Hat, Project Atmosphere
 #
@@ -21,21 +20,21 @@
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>.
 
-- name: "Get stat on path {{ source }}"
+- name: Get stat on path {{ source }}
   ansible.builtin.stat:
     path: "{{ source }}"
   register: unpack_source_stat
 
-- name: "List all files in path {{ source }}"
+- name: List all files in path {{ source }}
   ansible.builtin.find:
     paths: "{{ source }}"
     recurse: false
   register: unpack_source_files
   when: unpack_source_stat.stat.isdir | default(false)
 
-- name: "Unpack files in path {{ source }}"
+- name: Unpack files in path {{ source }}
   ansible.builtin.include_tasks:
-    file: "unpack-{{ item.path[-3:] | lower }}.yml"
+    file: unpack-{{ item.path[-3:] | lower }}.yml
   when:
     - ( item.path[-3:] | lower == unpack_zip_extension ) or ( item.path[-3:] | lower == unpack_sapcar_extension )
     - unpack_source_stat.stat.exists

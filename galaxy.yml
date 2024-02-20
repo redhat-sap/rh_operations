@@ -24,7 +24,7 @@ namespace: sap
 
 name: sap_operations
 
-version: 1.14.0
+version: 1.14.1
 
 readme: README.md
 
@@ -41,7 +41,6 @@ tags:
   - sap
 
 dependencies: {}
-
 repository: https://github.com/redhat-sap/rh_operations
 
 documentation: https://github.com/redhat-sap/rh_operations

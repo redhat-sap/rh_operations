@@ -20,5 +20,5 @@
 # If not, see <https://www.gnu.org/licenses/>.
 
 ---
-sap_kernel_update_kernel_backup_suffix: "backup-{{ ansible_date_time.iso8601_basic_short }}"
+sap_kernel_update_kernel_backup_suffix: backup-{{ ansible_date_time.iso8601_basic_short }}
 sap_kernel_update_backup: true
