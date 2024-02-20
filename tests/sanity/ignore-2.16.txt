@@ -8,6 +8,7 @@ plugins/test/LICENSE no-smart-quotes!skip
 roles/hana_update/LICENSE no-smart-quotes!skip
 roles/prepare/LICENSE no-smart-quotes!skip
 roles/sap_kernel_update/LICENSE no-smart-quotes!skip
+roles/hana/LICENSE no-smart-quotes!skip
 plugins/module_utils/abap.py compile-2.7!skip # ignore pyrfc sanity errors for pyrfc functionality because pyrfc supports python 3 only
 plugins/module_utils/abap.py import-2.7!skip # ignore pyrfc sanity errors for pyrfc functionality because pyrfc supports python 3 only
 plugins/modules/abap_system_info.py import-2.7!skip # ignore pyrfc sanity errors for pyrfc functionality because pyrfc supports python 3 only

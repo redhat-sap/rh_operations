@@ -1,0 +1,119 @@
+
+[Action]
+
+# Execution scenario
+action=install
+
+[General]
+
+# Use Simplified Installation UI
+simplified_ui=n
+
+# Skip all SAP Host Agent calls
+skip_hostagent_calls=n
+
+# Remote Execution
+remote_execution=ssh
+
+# Use single master password for all users, created during installation
+use_master_password=n
+
+# Verify the authenticity of SAP HANA components
+verify_signature=n
+
+# Components
+components=  server
+
+# Install Execution Mode
+install_execution_mode=standard
+
+# Do not Modify '/etc/sudoers' File
+skip_modify_sudoers=n
+
+[Server]
+
+# Enable usage of persistent memory
+use_pmem=n
+
+# Enable the installation or upgrade of the SAP Host Agent
+install_hostagent=y
+
+# Database Mode
+db_mode=multidb
+
+# Database Isolation
+db_isolation=low
+
+# Create initial tenant database
+create_initial_tenant=y
+
+# Installation Path
+sapmnt=/hana/shared
+
+# Local Host Name
+# hostname=hana-new
+
+# SAP HANA System ID
+sid={{ hana_sid }}
+
+# Instance Number
+number={{ hana_instance_number }}
+
+# Configure Python version
+configure_python=python3
+
+# Local Host Worker Group
+workergroup=default
+
+# System Usage
+system_usage=custom
+
+# Do you want to enable data and log volume encryption?
+volume_encryption=n
+
+# Location of Data Volumes
+datapath=/hana/data/{{ hana_sid }}
+
+# Location of Log Volumes
+logpath=/hana/log/{{ hana_sid }}
+
+# Restrict maximum memory allocation?
+restrict_max_mem=n
+
+# Maximum Memory Allocation in MB
+max_mem=0
+
+# Apply System Size Dependent Resource Limits? (SAP Note 3014176)
+apply_system_size_dependent_parameters=y
+
+# Certificate Host Names
+# certificates_hostmap=hana-new=hana-new
+
+# System Administrator Home Directory
+home=/usr/sap/{{ hana_sid }}/home
+
+# System Administrator Login Shell
+shell=/bin/sh
+
+# ID of User Group (sapsys)
+groupid=79
+
+# Do not start the instance after installation
+nostart=n
+
+# Restart system after machine reboot?
+autostart=n
+
+# Enable HANA repository
+repository=y
+
+# Inter Service Communication Mode
+isc_mode=standard
+
+[AddHosts]
+
+# Auto Initialize Services
+auto_initialize_services=y
+
+# Tenant Database User Name
+tenantdb_user=SYSTEM

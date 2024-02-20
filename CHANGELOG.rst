@@ -5,6 +5,19 @@ SAP Operations Collection Release Notes
 .. contents:: Topics
 
 
+v1.15.0
+=======
+
+Release Summary
+---------------
+
+Feature release
+
+Major Changes
+-------------
+
+- Add role hana
+
 v1.14.1
 =======
 
