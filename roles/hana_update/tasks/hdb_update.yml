@@ -1,5 +1,4 @@
 ---
-
 # SPDX-License-Identifier: GPL-3.0-only
 # SPDX-FileCopyrightText: 2023 Red Hat, Project Atmosphere
 #
@@ -23,15 +22,15 @@
 
 - name: Prepare necessary files for SAP HANA update
   vars:
-    random_code: "{{ lookup('ansible.builtin.password', '/dev/null chars=ascii_lowercase,digits length=8') }}"  # noqa: var-naming[no-role-prefix]
+    random_code: "{{ lookup('ansible.builtin.password', '/dev/null chars=ascii_lowercase,digits length=8') }}" # noqa: var-naming[no-role-prefix]
   block:
     - name: Create HANA update configuration file from template
       ansible.builtin.template:
         src: update.j2
-        dest: "~/update.{{ hana_update_sid }}.{{ random_code }}.cfg"
+        dest: ~/update.{{ hana_update_sid }}.{{ random_code }}.cfg
         owner: root
         group: root
-        mode: '0400'
+        mode: "0400"
       become: true
       become_user: root
       register: hana_update_update_cfg
@@ -39,10 +38,10 @@
     - name: Prepare hdb_passwords.xml from template
       ansible.builtin.template:
         src: hdb_passwords.j2
-        dest: "~/hdb_passwords.{{ hana_update_sid }}.{{ random_code }}.xml"
+        dest: ~/hdb_passwords.{{ hana_update_sid }}.{{ random_code }}.xml
         owner: root
         group: root
-        mode: '0400'
+        mode: "0400"
       become: true
       become_user: root
       register: hana_update_hdb_passwords
@@ -55,16 +54,21 @@
   block:
     - name: Start HANA update
       ansible.builtin.shell:
-        cmd: "set -o pipefail; cat {{ hana_update_hdb_passwords.dest }} | (
-          {% if (hana_update_options.hdb_installer_trace_file is defined) -%}
-          HDB_INSTALLER_TRACE_FILE={{ hana_update_options.hdb_installer_trace_file }}
+        cmd: >
+          set -o pipefail;
+          cat {{ hana_update_hdb_passwords.dest }} |
+          (
+          {% if (hana_update_options.hana_update_hdb_installer_trace_file is defined) -%}
+          HDB_INSTALLER_TRACE_FILE={{ hana_update_options.hana_update_hdb_installer_trace_file }}
           {% endif %}
           {% if (hana_update_options.hdblcm_logdir_copy is defined) -%}
           HDBLCM_LOGDIR_COPY={{ hana_update_options.hdblcm_logdir_copy }}
           {% endif %}
           {{ hana_update_component_medium }}/DATA_UNITS/HDB_SERVER_LINUX_X86_64/hdblcm
           --configfile={{ hana_update_update_cfg.dest }}
-          --read_password_from_stdin=xml --batch )"
+          --read_password_from_stdin=xml
+          --batch
+          )
       become: true
       become_user: root
       register: hana_update_run

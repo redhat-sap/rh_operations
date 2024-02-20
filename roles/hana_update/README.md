@@ -107,7 +107,7 @@ Optional arguments for SAP HANA update
       - **configure_python**<br>
             Configure Python version ( Default: python2; Valid values: python2 | python3 )
 
-      - **hdb_installer_trace_file**<br>
+      - **hana_update_hdb_installer_trace_file**<br>
         _Default:_ ``<br>
             Sets environment variable HDB_INSTALLER_TRACE_FILE to enable SAP HANA hdblcm trace.
 The environment variable 'HDB_INSTALLER_TRACE_FILE=<file>' enables the trace.

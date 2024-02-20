@@ -28,8 +28,7 @@ argument_specs:
     short_description: Role updates a SAP HANA system or instance on a given host.
     description:
       - Role updates a SAP HANA system or instance on a given host.
-      - A path to new HANA version installation is required.
-        It can be specified by variable hana_update_component_medium
+      - A path to new HANA version installation is required. It can be specified by variable hana_update_component_medium
       - |
         Limitations:
         - Role was tested only on single host.
@@ -102,24 +101,24 @@ argument_specs:
             type: str
             required: false
             choices:
-              - "all"
-              - "client"
-              - "es"
-              - "ets"
-              - "lcapps"
-              - "server"
-              - "smartda"
-              - "streaming"
-              - "rdsync"
-              - "xs"
-              - "studio"
-              - "afl"
-              - "sca"
-              - "sop"
-              - "eml"
-              - "rme"
-              - "rtl"
-              - "trp"
+              - all
+              - client
+              - es
+              - ets
+              - lcapps
+              - server
+              - smartda
+              - streaming
+              - rdsync
+              - xs
+              - studio
+              - afl
+              - sca
+              - sop
+              - eml
+              - rme
+              - rtl
+              - trp
           install_hostagent:
             description:
               - Enable the installation or upgrade of the SAP Host Agent ( Default y = true)
@@ -141,37 +140,37 @@ argument_specs:
             type: str
             required: false
             choices:
-              - "standard"
-              - "optimized"
+              - standard
+              - optimized
           configure_python:
             description: |
               Configure Python version ( Default: python2; Valid values: python2 | python3 )
             type: str
             required: false
             choices:
-              - "python2"
-              - "python3"
+              - python2
+              - python3
           scope:
             description: |
               Execution Scope ( Default: system; Valid values: instance | system )
             type: str
             required: false
             choices:
-              - "instance"
-              - "system"
-          hdb_installer_trace_file:
+              - instance
+              - system
+          hana_update_hdb_installer_trace_file:
             description: |
               Sets environment variable HDB_INSTALLER_TRACE_FILE to enable SAP HANA hdblcm trace.
               The environment variable 'HDB_INSTALLER_TRACE_FILE=<file>' enables the trace.
             type: path
-            default: ''
+            default: ""
             required: false
           hdblcm_logdir_copy:
             description: |
               Sets environment variable HDBLCM_LOGDIR_COPY to enable SAP HANA logs copy.
               The environment variable HDBLCM_LOGDIR_COPY=<target directory> creates a copy of the log directory.
             type: path
-            default: ''
+            default: ""
             required: false
           component_dirs:
             description: |
@@ -184,63 +183,67 @@ argument_specs:
             type: list
             required: false
             choices:
-              - 'check_busy_files'
-              - 'check_component_dependencies'
-              - 'check_diskspace'
-              - 'check_min_mem'
-              - 'check_pending_upgrade'
-              - 'check_platform'
-              - 'check_resume_hostname'
-              - 'check_signature_file'
-              - 'check_version'
-              - 'verify_signature'
+              - check_busy_files
+              - check_component_dependencies
+              - check_diskspace
+              - check_min_mem
+              - check_pending_upgrade
+              - check_platform
+              - check_resume_hostname
+              - check_signature_file
+              - check_version
+              - verify_signature
 
-
-  limitations:
+  __limitations__:
+    options: {}
     short_description: Limitations
     description:
       - Role was tested only on single host.
       - During upgrade hdblcm is configured to use SSH (not saphostagent) to connect to the host.
 
-  dependencies:
+  __dependencies__:
+    options: {}
     short_description: Dependencies
     description:
       - Role has no dependencies to other roles.
 
-  examples:
+  __examples__:
+    options: {}
     short_description: Example Playbooks
     description:
-      - ""
+      - q""q
       - "```ansible"
       - "- hosts: all"
-      - '  tasks:'
+      - "  tasks:"
       - "    - name: Update SAP HANA"
       - "      ansible.builtin.include_role:"
       - "        name: sap.sap_operations.hana_update"
       - "      vars:"
       - "        hana_update_sid: HAN"
-      - '        hana_update_password: "SecurePa$$word"'
-      - '        hana_update_sapadm_password: "SecurePa$$word"'
-      - '        hana_update_system_user_password: "SecurePa$$word"'
-      - '        hana_update_root_password: "SecurePa$$word"'
-      - '        hana_update_component_medium: /hana/software/HANAsp06'
-      - '        hana_update_options:'
-      - '          prepare_update: false'
-      - '          components: server'
-      - '          install_hostagent: false'
-      - '          check_only: false'
-      - '          verify_signature: true'
-      - '          update_execution_mode: standard'
-      - '          configure_python: python3'
-      - '          scope: system'
-      - '```'
+      - '        hana_update_password: "SecurePa$$word"' # notsecret
+      - '        hana_update_sapadm_password: "SecurePa$$word"' # notsecret
+      - '        hana_update_system_user_password: "SecurePa$$word"' # notsecret
+      - '        hana_update_root_password: "SecurePa$$word"' # notsecret
+      - "        hana_update_component_medium: /hana/software/HANAsp06" # notsecret
+      - "        hana_update_options:"
+      - "          prepare_update: false"
+      - "          components: server"
+      - "          install_hostagent: false"
+      - "          check_only: false"
+      - "          verify_signature: true"
+      - "          update_execution_mode: standard"
+      - "          configure_python: python3"
+      - "          scope: system"
+      - "```"
 
-  license:
+  __license__:
+    options: {}
     short_description: License
     description:
       - GPL-3.0-only
 
-  author:
+  __author__:
+    options: {}
     short_description: Author Information
     description:
       - Kirill Satarin (@kksat)

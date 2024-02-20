@@ -55,7 +55,7 @@ argument_specs:
         required: true
       sap_kernel_update_backup:
         description: |
-            Backup previous kernel.
+          Backup previous kernel.
         type: str
         default: true
         required: false

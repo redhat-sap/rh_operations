@@ -1,5 +1,4 @@
 ---
-
 # SPDX-License-Identifier: GPL-3.0-only
 # SPDX-FileCopyrightText: 2023 Red Hat, Project Atmosphere
 #
@@ -28,8 +27,8 @@
 - name: Assert that required packages are installed
   ansible.builtin.assert:
     that: "{{ ansible_facts.packages[name] is defined }}"
-    fail_msg: "Package {{ name }} absent, but required."
-    success_msg: "Package {{ name }} present."
+    fail_msg: Package {{ name }} absent, but required.
+    success_msg: Package {{ name }} present.
   loop: "{{ __prepare_packages }}"
   loop_control:
     loop_var: name

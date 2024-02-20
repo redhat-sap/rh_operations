@@ -1,5 +1,4 @@
 ---
-
 # SPDX-License-Identifier: GPL-3.0-only
 # SPDX-FileCopyrightText: 2023 Red Hat, Project Atmosphere
 #
@@ -40,4 +39,4 @@
     fail_msg: |
       Please make sure that `hana_update_master_password` and other passwords are defined properly.
       All required passwords should be defined.
-    success_msg: "Variables validation successful"
+    success_msg: Variables validation successful
