@@ -24,7 +24,7 @@ namespace: sap
 
 name: sap_operations
 
-version: 1.15.0
+version: 1.15.1
 
 readme: README.md
 
@@ -75,3 +75,6 @@ build_ignore:
 
   - tests/sanity-ignore-galaxy
   - tests/sanity-ignore-aap
+
+  - README-galaxy.md
+  - README-aap.md

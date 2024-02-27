@@ -66,16 +66,16 @@ rc:
 stdout:
   description: The standard output of the saplikey program execution.
   returned: always
-  type: str
-  sample: |
-    SAP License Key Administration  -  Copyright (C) 2003 - 2012 SAP AG
-
-    System ID. . . . : AAA
-    Hardware Key . . : D1111111111        (of this computer)
-    Installation No. : 0000000000
-    System No. . . . : 000000000000000000
-    Release. . . . . : 749
-    Software products: NetWeaver_SYB
+  type: list
+  elements: str
+  sample:
+    - SAP License Key Administration  -  Copyright (C) 2003 - 2012 SAP AG
+    - System ID. . . . : AAA
+    - Hardware Key . . : D1111111111        (of this computer)
+    - Installation No. : 0000000000
+    - System No. . . . : 000000000000000000
+    - Release. . . . . : 749
+    - Software products: NetWeaver_SYB
 
 stderr:
   description: The standard error of the saplikey program execution.

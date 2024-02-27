@@ -57,441 +57,413 @@ EXAMPLES = r"""
 - name: Collection information about SAP ABAP system
   sap.sap_operations.abap_system_info:
   rfc_connection:
-      ashost: application-instance-hostname
-      client: '000'
-      user: DDIC
-      passwd: "SecretPa$$word"
-      sysnr: '00'
+    ashost: application-instance-hostname
+    client: '000'
+    user: DDIC
+    passwd: "SecretPa$$word" # notsecret
+    sysnr: '00'
 """
 
 RETURN = r"""
 abap_system_info:
-    description: ABAP system info
-    type: dict
-    returned: success
-    sample: |-
-        {
-            "computer_info": {
-                "IP_ADDRESS": "10.0.0.234",
-                "IP_ADDRESSES": [
-                    {
-                        "VALUE": "127.0.0.1"
-                    },
-                    {
-                        "VALUE": "10.0.0.234"
-                    }
-                ],
-                "LOCALHOST": "vhcalnplci",
-                "LOCALHOSTFULL": "vhcalnplci.dummy.nodomain",
-                "OPSYS": "Linux",
-                "OPSYS_BITS": "",
-                "OPSYS_RELEASE": "4.12.14-197.102-default",
-                "PHYS_RAM": "32161"
-            },
-            "host_data": {
-                "HOSTNAME": "vhcalnplci.dummy.nodomain",
-                "PORT": "8000"
-            },
-            "installed_components": {
-                "TT_COMPTAB": [
-                    {
-                        "COMPONENT": "SAP_ABA",
-                        "COMP_TYPE": "S",
-                        "DESC_TEXT": "Cross-Application Component",
-                        "EXTRELEASE": "0002",
-                        "LANGU": "E",
-                        "RELEASE": "751"
-                    },
-                    {
-                        "COMPONENT": "SAP_BASIS",
-                        "COMP_TYPE": "S",
-                        "DESC_TEXT": "SAP Basis Component",
-                        "EXTRELEASE": "0002",
-                        "LANGU": "E",
-                        "RELEASE": "751"
-                    },
-                    {
-                        "COMPONENT": "SAP_BW",
-                        "COMP_TYPE": "W",
-                        "DESC_TEXT": "SAP Business Warehouse",
-                        "EXTRELEASE": "0002",
-                        "LANGU": "E",
-                        "RELEASE": "751"
-                    },
-                    {
-                        "COMPONENT": "SAP_GWFND",
-                        "COMP_TYPE": "S",
-                        "DESC_TEXT": "SAP Gateway Foundation",
-                        "EXTRELEASE": "0000000002",
-                        "LANGU": "E",
-                        "RELEASE": "751"
-                    },
-                    {
-                        "COMPONENT": "SAP_UI",
-                        "COMP_TYPE": "S",
-                        "DESC_TEXT": "User Interface Technology",
-                        "EXTRELEASE": "0000000002",
-                        "LANGU": "E",
-                        "RELEASE": "751"
-                    },
-                    {
-                        "COMPONENT": "ST-PI",
-                        "COMP_TYPE": "X",
-                        "DESC_TEXT": "SAP Solution Tools Plug-In",
-                        "EXTRELEASE": "0006",
-                        "LANGU": "E",
-                        "RELEASE": "740"
-                    }
-                ]
-            },
-            "installed_components_ocs": {
-                "ET_COMPLAYER": [
-                    {
-                        "COMP_TYPE": "S",
-                        "LAYER_DESC": "NetWeaver Basis Components",
-                        "LAYER_LVL": "01",
-                        "MODEL_ID": "0000000751"
-                    },
-                    {
-                        "COMP_TYPE": "X",
-                        "LAYER_DESC": "NetWeaver PlugIns",
-                        "LAYER_LVL": "02",
-                        "MODEL_ID": "0000000751"
-                    },
-                    {
-                        "COMP_TYPE": "W",
-                        "LAYER_DESC": "NetWeaver Add-Ons",
-                        "LAYER_LVL": "03",
-                        "MODEL_ID": "0000000751"
-                    },
-                    {
-                        "COMP_TYPE": "V",
-                        "LAYER_DESC": "Application Platform Components",
-                        "LAYER_LVL": "04",
-                        "MODEL_ID": "0000000751"
-                    },
-                    {
-                        "COMP_TYPE": "R",
-                        "LAYER_DESC": "Application Components",
-                        "LAYER_LVL": "05",
-                        "MODEL_ID": "0000000751"
-                    },
-                    {
-                        "COMP_TYPE": "P",
-                        "LAYER_DESC": "Application PlugIns",
-                        "LAYER_LVL": "06",
-                        "MODEL_ID": "0000000751"
-                    },
-                    {
-                        "COMP_TYPE": "O",
-                        "LAYER_DESC": "Common Objects f. Application Extensions",
-                        "LAYER_LVL": "07",
-                        "MODEL_ID": "0000000751"
-                    },
-                    {
-                        "COMP_TYPE": "N",
-                        "LAYER_DESC": "Application Extensions",
-                        "LAYER_LVL": "08",
-                        "MODEL_ID": "0000000751"
-                    },
-                    {
-                        "COMP_TYPE": "I",
-                        "LAYER_DESC": "Industry Solutions - Layer 1",
-                        "LAYER_LVL": "09",
-                        "MODEL_ID": "0000000751"
-                    },
-                    {
-                        "COMP_TYPE": "H",
-                        "LAYER_DESC": "Industry Solutions - Layer 2",
-                        "LAYER_LVL": "10",
-                        "MODEL_ID": "0000000751"
-                    },
-                    {
-                        "COMP_TYPE": "G",
-                        "LAYER_DESC": "Industry Solutions - Layer 3",
-                        "LAYER_LVL": "11",
-                        "MODEL_ID": "0000000751"
-                    },
-                    {
-                        "COMP_TYPE": "F",
-                        "LAYER_DESC": "Industry Solutions - Layer 4",
-                        "LAYER_LVL": "12",
-                        "MODEL_ID": "0000000751"
-                    },
-                    {
-                        "COMP_TYPE": "E",
-                        "LAYER_DESC": "Industry Solutions - Layer 5",
-                        "LAYER_LVL": "13",
-                        "MODEL_ID": "0000000751"
-                    },
-                    {
-                        "COMP_TYPE": "C",
-                        "LAYER_DESC": "Projects",
-                        "LAYER_LVL": "14",
-                        "MODEL_ID": "0000000751"
-                    }
-                ],
-                "ET_COMPONENTS": [
-                    {
-                        "ACTIVE": "X",
-                        "COMPONENT": "SAP_BASIS",
-                        "COMP_TYPE": "S",
-                        "DESC_TEXT": "SAP Basis Component",
-                        "INCMPL_STP": "",
-                        "INCMPL_STPLVL": "0000",
-                        "MAINT_TYPE": "S",
-                        "MASTERCOMP": "",
-                        "MASTERREL": "",
-                        "PATCHABLE": "X",
-                        "RELEASE": "751",
-                        "SFW_STATUS": "N",
-                        "SP": "SAPK-75102INSAPBASIS",
-                        "SPP": "",
-                        "SPP_LEVEL": "0000",
-                        "SP_LEVEL": "0002",
-                        "SUBCOMP_STATUS": ""
-                    },
-                    {
-                        "ACTIVE": "X",
-                        "COMPONENT": "SAP_ABA",
-                        "COMP_TYPE": "S",
-                        "DESC_TEXT": "Cross-Application Component",
-                        "INCMPL_STP": "",
-                        "INCMPL_STPLVL": "0000",
-                        "MAINT_TYPE": "S",
-                        "MASTERCOMP": "",
-                        "MASTERREL": "",
-                        "PATCHABLE": "X",
-                        "RELEASE": "751",
-                        "SFW_STATUS": "N",
-                        "SP": "SAPK-75102INSAPABA",
-                        "SPP": "",
-                        "SPP_LEVEL": "0000",
-                        "SP_LEVEL": "0002",
-                        "SUBCOMP_STATUS": ""
-                    },
-                    {
-                        "ACTIVE": "X",
-                        "COMPONENT": "SAP_GWFND",
-                        "COMP_TYPE": "S",
-                        "DESC_TEXT": "SAP Gateway Foundation",
-                        "INCMPL_STP": "",
-                        "INCMPL_STPLVL": "0000",
-                        "MAINT_TYPE": "P",
-                        "MASTERCOMP": "",
-                        "MASTERREL": "",
-                        "PATCHABLE": "X",
-                        "RELEASE": "751",
-                        "SFW_STATUS": "N",
-                        "SP": "SAPK-75102INSAPGWFND",
-                        "SPP": "",
-                        "SPP_LEVEL": "0000",
-                        "SP_LEVEL": "0002",
-                        "SUBCOMP_STATUS": ""
-                    },
-                    {
-                        "ACTIVE": "X",
-                        "COMPONENT": "SAP_UI",
-                        "COMP_TYPE": "S",
-                        "DESC_TEXT": "User Interface Technology",
-                        "INCMPL_STP": "",
-                        "INCMPL_STPLVL": "0000",
-                        "MAINT_TYPE": "P",
-                        "MASTERCOMP": "",
-                        "MASTERREL": "",
-                        "PATCHABLE": "X",
-                        "RELEASE": "751",
-                        "SFW_STATUS": "N",
-                        "SP": "SAPK-75102INSAPUI",
-                        "SPP": "",
-                        "SPP_LEVEL": "0000",
-                        "SP_LEVEL": "0002",
-                        "SUBCOMP_STATUS": ""
-                    },
-                    {
-                        "ACTIVE": "X",
-                        "COMPONENT": "ST-PI",
-                        "COMP_TYPE": "X",
-                        "DESC_TEXT": "SAP Solution Tools Plug-In",
-                        "INCMPL_STP": "",
-                        "INCMPL_STPLVL": "0000",
-                        "MAINT_TYPE": "S",
-                        "MASTERCOMP": "",
-                        "MASTERREL": "",
-                        "PATCHABLE": "X",
-                        "RELEASE": "740",
-                        "SFW_STATUS": "N",
-                        "SP": "SAPK-74006INSTPI",
-                        "SPP": "",
-                        "SPP_LEVEL": "0000",
-                        "SP_LEVEL": "0006",
-                        "SUBCOMP_STATUS": ""
-                    },
-                    {
-                        "ACTIVE": "X",
-                        "COMPONENT": "SAP_BW",
-                        "COMP_TYPE": "W",
-                        "DESC_TEXT": "SAP Business Warehouse",
-                        "INCMPL_STP": "",
-                        "INCMPL_STPLVL": "0000",
-                        "MAINT_TYPE": "S",
-                        "MASTERCOMP": "",
-                        "MASTERREL": "",
-                        "PATCHABLE": "X",
-                        "RELEASE": "751",
-                        "SFW_STATUS": "N",
-                        "SP": "SAPK-75102INSAPBW",
-                        "SPP": "",
-                        "SPP_LEVEL": "0000",
-                        "SP_LEVEL": "0002",
-                        "SUBCOMP_STATUS": ""
-                    }
-                ],
-                "ET_CPK": [],
-                "ET_CVERS_SUB": [],
-                "TT_COMPTAB": [
-                    {
-                        "COMPONENT": "SAP_BASIS",
-                        "COMP_TYPE": "S",
-                        "DESC_TEXT": "SAP Basis Component",
-                        "EXTRELEASE": "0002",
-                        "LANGU": "E",
-                        "RELEASE": "751"
-                    },
-                    {
-                        "COMPONENT": "SAP_ABA",
-                        "COMP_TYPE": "S",
-                        "DESC_TEXT": "Cross-Application Component",
-                        "EXTRELEASE": "0002",
-                        "LANGU": "E",
-                        "RELEASE": "751"
-                    },
-                    {
-                        "COMPONENT": "SAP_GWFND",
-                        "COMP_TYPE": "S",
-                        "DESC_TEXT": "SAP Gateway Foundation",
-                        "EXTRELEASE": "0002",
-                        "LANGU": "E",
-                        "RELEASE": "751"
-                    },
-                    {
-                        "COMPONENT": "SAP_UI",
-                        "COMP_TYPE": "S",
-                        "DESC_TEXT": "User Interface Technology",
-                        "EXTRELEASE": "0002",
-                        "LANGU": "E",
-                        "RELEASE": "751"
-                    },
-                    {
-                        "COMPONENT": "ST-PI",
-                        "COMP_TYPE": "X",
-                        "DESC_TEXT": "SAP Solution Tools Plug-In",
-                        "EXTRELEASE": "0006",
-                        "LANGU": "E",
-                        "RELEASE": "740"
-                    },
-                    {
-                        "COMPONENT": "SAP_BW",
-                        "COMP_TYPE": "W",
-                        "DESC_TEXT": "SAP Business Warehouse",
-                        "EXTRELEASE": "0002",
-                        "LANGU": "E",
-                        "RELEASE": "751"
-                    }
-                ]
-            },
-            "smlg_groups": {
-                "GROUPS": [
-                    {
-                        "GROUPNAME": "PUBLIC"
-                    }
-                ]
-            },
-            "smlg_servers": {
-                "INSTANCES": [
-                    {
-                        "APPLSERVER": "vhcalnplci_NPL_00"
-                    }
-                ]
-            },
-            "smlg_setup": {
-                "ERFC_SETUP": [],
-                "SETUP": [
-                    {
-                        "APPLSERVER": "vhcalnplci_NPL_00",
-                        "CLASSNAME": "PUBLIC",
-                        "GROUPTYPE": "",
-                        "IPV6": "",
-                        "IPV6_ADDRESS": "",
-                        "IPV6_ADDRESS_OLD": "",
-                        "IP_ADDRESS": "",
-                        "IP_ADDRESS_OLD": "",
-                        "OP_MODE": "",
-                        "RESP_TIME": "000000",
-                        "USERS": "0000",
-                        "WP_QUOTA": 0
-                    }
-                ]
-            },
-            "software_components": {
-                "ET_ACTIVE_BFUNCS": [],
-                "ET_BSET_COMP_MAPPING": [],
-                "ET_SFW_COMPS": []
-            },
-            "swproducts": {
-                "ET_INCL_SWFEATURES": [
-                    {
-                        "DESCRIPT": "Application Server ABAP",
-                        "ID": "1",
-                        "MASTER_ID": "2",
-                        "MASTER_PRD": "73555000100900000781",
-                        "NAME": "NW AS ABAP INNOVATION PACKAGE",
-                        "PROD_ID": "73555000100900000781",
-                        "VENDOR": "sap.com",
-                        "VERSION": "7.51"
-                    }
-                ],
-                "ET_SWFEATURES": [
-                    {
-                        "DESCRIPT": "Application Server ABAP",
-                        "ID": "1",
-                        "NAME": "NW AS ABAP INNOVATION PACKAGE",
-                        "PROD_ID": "73555000100900000781",
-                        "VENDOR": "sap.com",
-                        "VERSION": "7.51"
-                    },
-                    {
-                        "DESCRIPT": "Basis Apps",
-                        "ID": "2",
-                        "NAME": "NW AS ABAP INNOVATION PACKAGE",
-                        "PROD_ID": "73555000100900000781",
-                        "VENDOR": "sap.com",
-                        "VERSION": "7.51"
-                    }
-                ],
-                "ET_SWPRODUCTS": [
-                    {
-                        "DESCRIPT": "NW AS ABAP 7.51 INNOVATION PKG",
-                        "ID": "73555000100900000781",
-                        "NAME": "NW AS ABAP INNOVATION PACKAGE",
-                        "VENDOR": "sap.com",
-                        "VERSION": "7.51"
-                    }
-                ],
-                "ET_SWPROD_SPSTACK": [
-                    {
-                        "ID": "73555000103300002362",
-                        "PROD_DESCR": "NW AS ABAP 7.51 INNOVATION PKG",
-                        "PROD_ID": "73555000100900000781",
-                        "PROD_NAME": "NW AS ABAP INNOVATION PACKAGE",
-                        "PROD_VERSION": "7.51",
-                        "STACK_CAPTION": "02 (05/2017)",
-                        "VENDOR": "sap.com"
-                    }
-                ],
-                "ET_TECH_USAGES": []
-            }
-        }
+  description: ABAP system info
+  type: dict
+  returned: success
+  contains:
+    computer_info:
+      description: Computer info
+      type: dict
+      contains:
+        IP_ADDRESS:
+            description: IP address
+            type: str
+            sample: 10.0.0.234
+        IP_ADDRESSES:
+            description: List of IP addresses
+            type: list
+            elements: dict
+            sample:
+                - VALUE: 127.0.0.1
+                - VALUE: 10.0.0.234
+            contains:
+                VALUE:
+                    description: IP address
+                    type: str
+        LOCALHOST:
+            description: Local hostname
+            type: str
+            sample: vhcalnplci
+        LOCALHOSTFULL:
+            description: Local FQDN
+            type: str
+            sample: vhcalnplci.dummy.nodomain
+        OPSYS:
+            description: operating system
+            type: str
+            sample: Linux
+        OPSYS_BITS:
+            description: Operating system bits
+            type: str
+            sample: ""
+        OPSYS_RELEASE:
+            description: Operating system release
+            type: str
+            sample: 4.12.14-197.102-default
+        PHYS_RAM:
+            description: Physical RAM in MB
+            type: str
+            sample: "32161"
+    host_data:
+        description: Host data
+        type: dict
+        contains:
+            HOSTNAME:
+                description: Hostname
+                type: str
+                sample: vhcalnplci.dummy.nodomain
+            PORT:
+                description: Port configured for web services
+                type: str
+                sample: "8000"
+    installed_components:
+        description: Installed components
+        type: dict
+        contains:
+          TT_COMPTAB:
+            description: Installed components
+            type: list
+            elements: dict
+            sample:
+              - COMPONENT: SAP_BASIS
+                COMP_TYPE: S
+                DESC_TEXT: SAP Basis Component
+                EXTRELEASE: "0002"
+                LANGU: E
+                RELEASE: "751"
+              - COMPONENT: SAP_BW
+                COMP_TYPE: W
+                DESC_TEXT: SAP Business Warehouse
+                EXTRELEASE: "0002"
+                LANGU: E
+                RELEASE: "751"
+              - COMPONENT: SAP_GWFND
+                COMP_TYPE: S
+                DESC_TEXT: SAP Gateway Foundation
+                EXTRELEASE: "0000000002"
+                LANGU: E
+                RELEASE: "751"
+            contains:
+                COMPONENT:
+                    description: Component code
+                    type: str
+                    sample: SAP_ABA
+                COMP_TYPE:
+                    description: Component type
+                    type: str
+                    sample: S
+                DESC_TEXT:
+                    description: Component description
+                    type: str
+                    sample: Cross-Application Component
+                EXTRELEASE:
+                    description: Component release SP level
+                    type: str
+                    sample: "0002"
+                LANGU:
+                    description: Language
+                    type: str
+                    sample: E
+                RELEASE:
+                    description: Component release
+                    type: str
+                    sample: "751"
+    installed_components_ocs:
+        description: Installed components
+        type: dict
+        contains:
+            ET_COMPLAYER:
+                description: Component layers
+                type: list
+                elements: dict
+                sample:
+                  - COMP_TYPE: S
+                    LAYER_DESC: NetWeaver Basis Components
+                    LAYER_LVL: "01"
+                    MODEL_ID: "0000000751"
+                  - COMP_TYPE: X
+                    LAYER_DESC: NetWeaver PlugIns
+                    LAYER_LVL: "02"
+                    MODEL_ID: "0000000751"
+                  - COMP_TYPE: W
+                    LAYER_DESC: NetWeaver Add-Ons
+                    LAYER_LVL: "03"
+                    MODEL_ID: "0000000751"
+                contains:
+                    COMP_TYPE:
+                        description: Component type
+                        type: str
+                        sample:
+                            - V
+                            - R
+                            - P
+                            - X
+                            - W
+                    LAYER_DESC:
+                        description: Layer description
+                        type: str
+                        sample: Application Platform Components
+                    LAYER_LVL:
+                        description: Layer level
+                        type: str
+                        sample: "04"
+                    MODEL_ID:
+                        description: Model ID
+                        type: str
+                        sample: "0000000751"
+            ET_COMPONENTS:
+                description: Installed components
+                type: list
+                elements: dict
+                sample:
+                  - ACTIVE: X
+                    COMPONENT: SAP_BASIS
+                    COMP_TYPE: S
+                    DESC_TEXT: SAP Basis Component
+                    INCMPL_STP: ""
+                    INCMPL_STPLVL: "0000"
+                    MAINT_TYPE: S
+                    MASTERCOMP: ""
+                    MASTERREL: ""
+                    PATCHABLE: X
+                    RELEASE: "751"
+                    SFW_STATUS: N
+                    SP: SAPK-75102INSAPBASIS
+                    SPP: ""
+                    SPP_LEVEL: "0000"
+                    SP_LEVEL: "0002"
+                    SUBCOMP_STATUS: ""
+                  - ACTIVE: X
+                    COMPONENT: SAP_ABA
+                    COMP_TYPE: S
+                    DESC_TEXT: Cross-Application Component
+                    INCMPL_STP: ""
+                    INCMPL_STPLVL: "0000"
+                    MAINT_TYPE: S
+                    MASTERCOMP: ""
+                    MASTERREL: ""
+                    PATCHABLE: X
+                    RELEASE: "751"
+                    SFW_STATUS: N
+                    SP: SAPK-75102INSAPABA
+                    SPP: ""
+                    SPP_LEVEL: "0000"
+                    SP_LEVEL: "0002"
+                    SUBCOMP_STATUS: ""
+                contains:
+                    ACTIVE:
+                        description: Active flag
+                        type: str
+                        sample: X
+                    COMPONENT:
+                        description: Component code
+                        type: str
+                        sample: SAP_GWFND
+                    COMP_TYPE:
+                        description: Component type
+                        type: str
+                        sample: S
+                    DESC_TEXT:
+                        description: Component text description
+                        type: str
+                        sample: SAP Gateway Foundation
+                    INCMPL_STP:
+                        description: Service pack text description
+                        type: str
+                        sample: ""
+                    INCMPL_STPLVL:
+                        description: Service pack level
+                        type: str
+                        sample: "0000"
+                    MAINT_TYPE:
+                        description: Maintenance type
+                        type: str
+                        sample: P
+                    MASTERCOMP:
+                        description: Master component
+                        type: str
+                        sample: ""
+                    MASTERREL:
+                        description: Master release
+                        type: str
+                        sample: ""
+                    PATCHABLE:
+                        description: Patchable
+                        type: str
+                        sample: X
+                    RELEASE:
+                        description: Release
+                        type: str
+                        sample: "751"
+                    SFW_STATUS:
+                        description: Software status
+                        type: str
+                        sample: N
+                    SP:
+                        description: Service pack
+                        type: str
+                        sample: SAPK-75102INSAPGWFND
+                    SPP:
+                        description: Software patch
+                        type: str
+                        sample: ""
+                    SPP_LEVEL:
+                        description: Software patch
+                        type: str
+                        sample: "0000"
+                    SP_LEVEL:
+                        description: Software level
+                        type: str
+                        sample: "0002"
+                    SUBCOMP_STATUS:
+                        description: Subcomponent status
+                        type: str
+                        sample: ""
+            ET_CPK:
+                description: Components table
+                type: list
+                elements: dict
+                sample: []
+            ET_CVERS_SUB:
+                description: Versions table
+                type: list
+                elements: dict
+                sample: []
+            TT_COMPTAB:
+                description: List of components
+                type: list
+                elements: dict
+                sample:
+                      - COMPONENT: SAP_BASIS
+                        COMP_TYPE: S
+                        DESC_TEXT: SAP Basis Component
+                        EXTRELEASE: "0002"
+                        LANGU: E
+                        RELEASE: "751"
+                      - COMPONENT: SAP_ABA
+                        COMP_TYPE: S
+                        DESC_TEXT: Cross-Application Component
+                        EXTRELEASE: "0002"
+                        LANGU: E
+                        RELEASE: "751"
+                      - COMPONENT: SAP_GWFND
+                        COMP_TYPE: S
+                        DESC_TEXT: SAP Gateway Foundation
+                        EXTRELEASE: "0002"
+                        LANGU: E
+                        RELEASE: "751"
+                contains:
+                    COMPONENT:
+                        description: Component
+                        type: str
+                        sample: SAP_UI
+                    COMP_TYPE:
+                        description: Component type
+                        type: str
+                        sample: S
+                    DESC_TEXT:
+                        description: Description text
+                        type: str
+                        sample: User Interface Technology
+                    EXTRELEASE:
+                        description: External release
+                        type: str
+                        sample: "0002"
+                    LANGU:
+                        description: Language
+                        type: str
+                        sample: E
+                    RELEASE:
+                        description: Release
+                        type: str
+                        sample: "751"
+    smlg_groups:
+      description: SMLG groups
+      type: dict
+      sample:
+        GROUPS:
+            - GROUPNAME: PUBLIC
+    smlg_servers:
+        description: SMLG servers
+        type: dict
+        sample:
+            INSTANCES:
+                - APPLSERVER: vhcalnplci_NPL_00
+    smlg_setup:
+        description: SMLG setup
+        type: dict
+        sample:
+            ERFC_SETUP: []
+            SETUP:
+                  - APPLSERVER: vhcalnplci_NPL_00
+                    CLASSNAME: PUBLIC
+                    GROUPTYPE: ""
+                    IPV6: ""
+                    IPV6_ADDRESS: ""
+                    IPV6_ADDRESS_OLD: ""
+                    IP_ADDRESS: ""
+                    IP_ADDRESS_OLD: ""
+                    OP_MODE: ""
+                    RESP_TIME: "000000"
+                    USERS: "0000"
+                    WP_QUOTA: 0
+    software_components:
+        description: Software components
+        type: dict
+        sample:
+            ET_ACTIVE_BFUNCS: []
+            ET_BSET_COMP_MAPPING: []
+            ET_SFW_COMPS: []
+    swproducts:
+        description: Software products
+        type: dict
+        sample:
+            ET_INCL_SWFEATURES:
+              - DESCRIPT: Application Server ABAP
+                ID: "1"
+                MASTER_ID: "2"
+                MASTER_PRD: "73555000100900000781"
+                NAME: NW AS ABAP INNOVATION PACKAGE
+                PROD_ID: "73555000100900000781"
+                VENDOR: sap.com
+                VERSION: "7.51"
+            ET_SWFEATURES:
+              - DESCRIPT: Application Server ABAP
+                ID: "1"
+                NAME: NW AS ABAP INNOVATION PACKAGE
+                PROD_ID: "73555000100900000781"
+                VENDOR: sap.com
+                VERSION: "7.51"
+              - DESCRIPT: Basis Apps
+                ID: "2"
+                NAME: NW AS ABAP INNOVATION PACKAGE
+                PROD_ID: "73555000100900000781"
+                VENDOR: sap.com
+                VERSION: "7.51"
+            ET_SWPRODUCTS:
+              - DESCRIPT: NW AS ABAP 7.51 INNOVATION PKG
+                ID: "73555000100900000781"
+                NAME: NW AS ABAP INNOVATION PACKAGE
+                VENDOR: sap.com
+                VERSION: "7.51"
+            ET_SWPROD_SPSTACK:
+                  - ID: "73555000103300002362"
+                    PROD_DESCR: NW AS ABAP 7.51 INNOVATION PKG
+                    PROD_ID: "73555000100900000781"
+                    PROD_NAME: NW AS ABAP INNOVATION PACKAGE
+                    PROD_VERSION: "7.51"
+                    STACK_CAPTION: 02 (05/2017)
+                    VENDOR: sap.com
+            ET_TECH_USAGES: []
 """
 
 from ansible_collections.sap.sap_operations.plugins.module_utils.abap import (
