@@ -94,18 +94,17 @@ EXAMPLES = r"""
 
 RETURN = r"""
 system_info:
-    description: System info
-    type: list
-    returned: always
-    sample: [{
-        'hostname': vhcalnplcs,
-        'instanceNr': 1,
-        'httpPort': 50113,
-        'httpsPort': 50114,
-        'startPriority': 1,
-        'features': MESSAGESERVER|ENQUE,
-        'dispstatus': SAPControl-GREEN
-    }]
+  description: System info
+  type: list
+  returned: always
+  sample:
+    - hostname: vhcalnplcs,
+      instanceN': 1,
+      httpPort: 50113,
+      httpsPort: 50114,
+      startPriority: 1,
+      features: MESSAGESERVER|ENQUE,
+      dispstatus: SAPControl-GREEN
 """
 
 

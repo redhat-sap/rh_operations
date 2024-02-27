@@ -24,7 +24,7 @@ namespace: sap
 
 name: sap_operations
 
-version: 1.14.1
+version: 1.14.2
 
 readme: README.md
 
@@ -34,7 +34,8 @@ authors:
 
 description: Ansible collection to handle day 2 operational SAP administration tasks.
 
-license: GPL-3.0-only
+license:
+  - GPL-3.0-only
 
 tags:
   - linux
@@ -123,3 +124,8 @@ build_ignore:
   - plugins/modules/abap_transport_info.py
   - plugins/modules/abap_transport_import.py
   - plugins/modules/abap_transports_info.py
+
+  - roles/hana/*
+
+  - README-galaxy.md
+  - README-aap.md

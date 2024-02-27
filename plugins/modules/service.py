@@ -127,20 +127,40 @@ EXAMPLES = r"""
     wait: false
 """
 
-RETURN = r"""
+RETURN = """
 instances:
-    description: Instance parameters
-    type: dict
-    returned: always
-    sample: {
-        'hostname': vhcalnplcs,
-        'instanceNr': 1,
-        'httpPort': 50113,
-        'httpsPort': 50114,
-        'startPriority': 1,
-        'features': MESSAGESERVER|ENQUE,
-        'dispstatus': SAPControl-GREEN
-    }
+  description: Instance parameters
+  type: dict
+  returned: always
+  contains:
+    hostname:
+      description: hostname where SAP instance is running
+      type: str
+      sample: vhcalnplcs
+    instanceNr:
+      description: instance number
+      type: str
+      sample: 1
+    httpPort:
+      description: http port of the instance
+      type: str
+      sample: 50113
+    httpsPort:
+      description: https port of the instance
+      type: str
+      sample: 50114
+    startPriority:
+      description: start priority of the instance
+      type: str
+      sample: 1
+    features:
+      description: features of the instance
+      type: str
+      sample: MESSAGESERVER|ENQUE
+    dispstatus:
+      description: status of the instance
+      type: str
+      sample: SAPControl-GREEN
 """
 
 

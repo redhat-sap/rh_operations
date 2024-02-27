@@ -5,6 +5,19 @@ SAP Operations Collection Release Notes
 .. contents:: Topics
 
 
+v1.14.2
+=======
+
+Release Summary
+---------------
+
+Bug fix release
+
+Minor Changes
+-------------
+
+- Fix modules documentation
+
 v1.14.1
 =======
 
