@@ -5,6 +5,15 @@ SAP Operations Collection Release Notes
 .. contents:: Topics
 
 
+v1.16.0
+=======
+
+New Modules
+-----------
+
+- sap.sap_operations.ha_check_failoverconfig_info - Run sap host agent function HACheckFailoverConfig
+- sap.sap_operations.ha_get_failoverconfig_info - Run sap host agent function HAGetFailoverConfig
+
 v1.15.1
 =======
 
