@@ -5,6 +5,14 @@ SAP Operations Collection Release Notes
 .. contents:: Topics
 
 
+v1.18.0
+=======
+
+New Modules
+-----------
+
+- sap.sap_operations.proc_info - Reads content from files in the /proc directory
+
 v1.17.0
 =======
 
