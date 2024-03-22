@@ -24,7 +24,7 @@ namespace: sap
 
 name: sap_operations
 
-version: 1.16.0
+version: 1.16.1
 
 readme: README.md
 
@@ -42,9 +42,10 @@ tags:
   - sap
 
 dependencies: {}
+
 repository: https://github.com/redhat-sap/rh_operations
 
-documentation: https://github.com/redhat-sap/rh_operations
+documentation: https://catalog.redhat.com/software/collection/sap/sap_operations
 
 homepage: https://github.com/redhat-sap/rh_operations
 
@@ -129,3 +130,7 @@ build_ignore:
 
   - README-galaxy.md
   - README-aap.md
+
+  - roles/sapjvm/
+
+  - plugins/modules/proc_info.py

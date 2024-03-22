@@ -21,6 +21,12 @@ You should have received a copy of the GNU General Public License along with thi
 If not, see <https://www.gnu.org/licenses/>.
 -->
 
+# RECENT UPDATES
+
+Added link to collection documentation
+
+<https://catalog.redhat.com/software/collection/sap/sap_operations>
+
 # Ansible Collection - sap.sap_operations
 
 This collection contains modules and plugins to assist in automating SAP day 2 operations with Ansible.
