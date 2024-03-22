@@ -5,6 +5,19 @@ SAP Operations Collection Release Notes
 .. contents:: Topics
 
 
+v1.20.0
+=======
+
+Release Summary
+---------------
+
+Feature release
+
+Major Changes
+-------------
+
+- Add role cf - to manage Cloud Foundry cli
+
 v1.19.0
 =======
 

@@ -23,7 +23,7 @@ If not, see <https://www.gnu.org/licenses/>.
 
 # RECENT UPDATES
 
-Added role to manage SAP JVM and SAP Cloud Connector
+Added roles to manage SAP JVM, SAP Cloud Connector and Cloud Foundry cli
 
 # Ansible Collection - sap.sap_operations
 
