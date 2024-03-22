@@ -5,13 +5,21 @@ SAP Operations Collection Release Notes
 .. contents:: Topics
 
 
-v1.18.0
+v1.19.0
 =======
 
-New Modules
------------
+Release Summary
+---------------
 
-- sap.sap_operations.proc_info - Reads content from files in the /proc directory
+Feature release
+
+Major Changes
+-------------
+
+- Add role cloudconnector
+
+v1.18.0
+=======
 
 v1.17.0
 =======

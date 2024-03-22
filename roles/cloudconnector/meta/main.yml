@@ -1,12 +1,11 @@
-# -*- coding: utf-8 -*-
-#
+---
 # SPDX-License-Identifier: GPL-3.0-only
-# SPDX-FileCopyrightText: 2022 Red Hat, Project Atmosphere
+# SPDX-FileCopyrightText: 2023 Red Hat, Project Atmosphere
 #
-# Copyright 2022 Red Hat, Project Atmosphere
+# Copyright 2023 Red Hat, Project Atmosphere
 #
 # This program is free software: you can redistribute it and/or modify it under the terms of the GNU
-# General Public License as published by the Free Software Foundation, version 2 of the License.
+# General Public License as published by the Free Software Foundation, version 3 of the License.
 #
 # This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
 # even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
@@ -21,21 +20,23 @@
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>.
 
-from __future__ import absolute_import, division, print_function
+galaxy_info:
 
-__metaclass__ = type
+  author: Kirill Satarin (@kksat)
 
-from ansible.plugins.action import ActionBase
+  description: Manage SAP Cloud Connector
 
+  license: GPL-3.0-only
 
-class ActionModule(ActionBase):
-    def run(self, tmp=None, task_vars=None):
-        super(ActionModule, self).run(tmp, task_vars)
-        module_args = self._task.args.copy()
+  min_ansible_version: "2.14"
 
-        return self._execute_module(
-            module_name="sap.sap_operations.me_downloadbasket_info",
-            module_args=module_args,
-            task_vars=task_vars,
-            tmp=tmp,
-        )
+  platforms:
+    - name: EL
+      versions:
+        - "7"
+        - "8"
+        - "9"
+
+  galaxy_tags: []
+
+dependencies: []
