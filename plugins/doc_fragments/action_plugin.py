@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: GPL-3.0-only
-# SPDX-FileCopyrightText: 2023 Red Hat, Project Atmosphere
+# SPDX-FileCopyrightText: 2024 Red Hat, Project Atmosphere
 #
-# Copyright 2023 Red Hat, Project Atmosphere
+# Copyright 2024 Red Hat, Project Atmosphere
 #
 # This program is free software: you can redistribute it and/or modify it under the terms of the GNU
 # General Public License as published by the Free Software Foundation, version 3 of the License.
@@ -19,8 +19,17 @@
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>.
 
+from __future__ import absolute_import, division, print_function
+
+__metaclass__ = type
+
+
+class ModuleDocFragment(object):
+    DOCUMENTATION = r"""
 ---
-requires_ansible: ">=2.14.0"
-action_groups:
-  cf:
-    - sap.sap_operations.cf_marketplace_info
+notes:
+  - B(This is ansible action plugin, not module)
+  - Meaning this plugin will be always executed on ansible controller.
+
+options: {}
+"""
