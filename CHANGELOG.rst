@@ -5,6 +5,14 @@ SAP Operations Collection Release Notes
 .. contents:: Topics
 
 
+v1.21.0
+=======
+
+New Modules
+-----------
+
+- sap.sap_operations.cf_marketplace_info - Fetches Cloud Foundry marketplace service offerings
+
 v1.20.0
 =======
 
