@@ -5,13 +5,25 @@ SAP Operations Collection Release Notes
 .. contents:: Topics
 
 
-v1.21.0
+v1.22.0
 =======
+
+Release Summary
+---------------
+
+Feature release
 
 New Modules
 -----------
 
-- sap.sap_operations.cf_marketplace_info - Fetches Cloud Foundry marketplace service offerings
+- sap.sap_operations.cf_service_instance - Manage Cloud Foundry service instances
+- sap.sap_operations.cf_service_instance_info - Fetch information about Cloud Foundry service instance
+- sap.sap_operations.cf_service_instances_info - Fetch information about Cloud Foundry service instances
+- sap.sap_operations.cf_service_plans_info - Fetch information about Cloud Foundry service plans
+- sap.sap_operations.cf_spaces_info - Fetch information about Cloud Foundry spaces
+
+v1.21.0
+=======
 
 v1.20.0
 =======

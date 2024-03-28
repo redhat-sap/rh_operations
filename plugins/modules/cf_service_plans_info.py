@@ -1,7 +1,10 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
 # SPDX-License-Identifier: GPL-3.0-only
-# SPDX-FileCopyrightText: 2023 Red Hat, Project Atmosphere
+# SPDX-FileCopyrightText: 2024 Red Hat, Project Atmosphere
 #
-# Copyright 2023 Red Hat, Project Atmosphere
+# Copyright 2024 Red Hat, Project Atmosphere
 #
 # This program is free software: you can redistribute it and/or modify it under the terms of the GNU
 # General Public License as published by the Free Software Foundation, version 3 of the License.
@@ -19,13 +22,39 @@
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>.
 
+
+DOCUMENTATION = r"""
 ---
-requires_ansible: ">=2.14.0"
-action_groups:
-  cf:
-    - sap.sap_operations.cf_marketplace_info
-    - sap.sap_operations.cf_service_instance
-    - sap.sap_operations.cf_service_instance_info
-    - sap.sap_operations.cf_service_instances_info
-    - sap.sap_operations.cf_plans_info
-    - sap.sap_operations.cf_spaces_info
+module: cf_service_plans_info
+
+extends_documentation_fragment:
+  - sap.sap_operations.community
+  - sap.sap_operations.action_plugin
+  - sap.sap_operations.cloud_foundry
+
+author:
+  - Kirill Satarin (@kksat)
+
+short_description: Fetch information about Cloud Foundry service plans
+
+description:
+  - Fetch information about Cloud Foundry service plans
+
+version_added: 1.22.0
+
+options: {}
+"""
+
+EXAMPLES = r"""
+---
+- name: Fetch information about service plans
+  sap.sap_operations.cf_service_plans_info:
+    username: user@email.domain
+    password: secret
+    api_endpoint: <cloud foundry api endpoint>
+"""
+
+RETURN = r"""
+---
+# TODO: add documentation
+    """

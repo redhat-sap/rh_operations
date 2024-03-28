@@ -25,6 +25,14 @@ If not, see <https://www.gnu.org/licenses/>.
 
 Added roles to manage SAP JVM, SAP Cloud Connector and Cloud Foundry cli
 
+Added modules to manage SAP BTP Cloud Foundry.
+
+  - sap.sap_operations.cf_service_instance
+  - sap.sap_operations.cf_service_instance_info
+  - sap.sap_operations.cf_service_instances_info
+  - sap.sap_operations.cf_service_plans_info
+  - sap.sap_operations.cf_spaces_info
+
 # Ansible Collection - sap.sap_operations
 
 This collection contains modules and plugins to assist in automating SAP day 2 operations with Ansible.
