@@ -30,6 +30,7 @@ module: cf_marketplace_info
 extends_documentation_fragment:
   - sap.sap_operations.community
   - sap.sap_operations.action_plugin
+  - sap.sap_operations.cloud_foundry
 
 author:
   - Kirill Satarin (@kksat)
@@ -43,27 +44,7 @@ description:
 
 version_added: "1.21.0"
 
-options:
-  username:
-    description:
-      - The username for authentication with the Cloud Foundry API.
-      - This is SAP BTP user email address
-    type: str
-    required: false
-  password:
-    description:
-      - The password for authentication with the Cloud Foundry API.
-    type: str
-    required: false
-  api_endpoint:
-    description:
-      - The endpoint URL of the Cloud Foundry API.
-    type: str
-    required: false
-
-requirements:
-  - "python >= 3.6"
-  - cf CLI should be installed and available in PATH
+options: {}
 
 notes:
   - This module does not modify any data and is safe to run in check mode.
