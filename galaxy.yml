@@ -24,7 +24,7 @@ namespace: sap
 
 name: sap_operations
 
-version: 1.22.0
+version: 1.22.1
 
 readme: README.md
 
@@ -56,7 +56,6 @@ build_ignore:
   - roles/*/molecule
   - roles/*/tests
   - webdocs
-  - docs
   - tests/output
   - .DS_Store
   - changelogs
@@ -78,3 +77,6 @@ build_ignore:
 
   - README-galaxy.md
   - README-aap.md
+
+  - meta/runtime-aap.yml
+  - meta/runtime-galaxy.yml
