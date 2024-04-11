@@ -29,3 +29,4 @@ action_groups:
     - sap.sap_operations.cf_service_instances_info
     - sap.sap_operations.cf_plans_info
     - sap.sap_operations.cf_spaces_info
+    - sap.sap_operations.cf_service_instance_keys_info
