@@ -23,7 +23,7 @@ If not, see <https://www.gnu.org/licenses/>.
 
 # RECENT UPDATES
 
-Minimal version of Ansible is 2.15
+Added documentation website [docs.galaxy.saponrhel.org>](https://docs.galaxy.saponrhel.org/?utm_source=galaxy)
 
 Added roles to manage SAP JVM, SAP Cloud Connector and Cloud Foundry cli
 
