@@ -34,12 +34,12 @@ from ansible_collections.sap.sap_operations.plugins.action.cf_marketplace_info i
 )
 
 
-def run_action(
+def run_action(  # noqa: C901 CCR001  TODO: remove complexity
     client: CFClient,
     service_instance_name: str,
     service_instance_guid: str,
     key_name: str,
-    key_guid: str,
+    state: str,
 ) -> dict:
 
     rc = client.authenticate()
@@ -79,13 +79,15 @@ def run_action(
             "msg": "Service instance not found",
         }
 
-    service_instance_guid = service_instance["guid"]
+    data = dict(
+        service_instance_guid=service_instance["guid"],
+    )
 
     rc, stdout, stderr = client.run_method(
-        path=f"/v2/service_instances/{service_instance_guid}/service_keys",
+        path="/v2/service_keys",
         method="GET",
         headers={},
-        data={},
+        data=data,
     )
 
     if rc or stderr:
@@ -100,26 +102,96 @@ def run_action(
             "errors": service_instance_keys["errors"],
         }
 
+    service_instance_key = None
+
+    for sik in service_instance_keys["resources"]:
+        if key_name and sik["entity"]["name"] == key_name:
+            service_instance_key = sik
+
+    if state == "present" and service_instance_key:
+        return dict(
+            failed=False,
+            changed=False,
+            cf_service_instance_key=service_instance_key,
+        )
+    elif state == "present" and not service_instance_key:
+        data = dict(
+            service_instance_guid=service_instance["guid"],
+            name=key_name,
+        )
+
+        rc, stdout, stderr = client.run_method(
+            path="/v2/service_keys",
+            method="POST",
+            headers={},
+            data=data,
+        )
+
+        if rc or stderr:
+            return {"failed": True, "msg": stdout}
+
+        service_instance_key = json.loads(stdout)
+
+        if "errors" in service_instance_key:
+            return {
+                "failed": True,
+                "msg": "Error retrieving service instance keys",
+                "errors": service_instance_key["errors"],
+            }
+        return {
+            "failed": False,
+            "changed": True,
+            "cf_service_instance_key": service_instance_key,
+        }
+    elif state == "absent" and not service_instance_key:
+        return dict(
+            failed=False,
+            changed=False,
+            cf_service_instance_key=None,
+        )
+    elif state == "absent" and service_instance_key:
+        service_instance_key_guid = service_instance_key["metadata"]["guid"]
+        rc, stdout, stderr = client.run_method(
+            path=f"/v2/service_keys/{service_instance_key_guid}?",
+            method="DELETE",
+            headers={},
+            data={},
+        )
+
+        if rc or stderr:
+            return {"failed": True, "msg": stdout}
+        return {
+            "failed": False,
+            "changed": True,
+            "cf_service_instance_key": None,
+        }
+
     return dict(
-        failed=False,
+        failed=True,
+        msg="Invalid state",
         changed=False,
-        cf_service_instance_keys_info=service_instance_keys["resources"],
     )
 
 
-class CFServiceInstanceKeysInfoModule(ActionBase):
-    _VALID_ARGS = frozenset(["username", "password", "api_endpoint"])
+class CFServiceInstanceKeyModule(ActionBase):
+    _VALID_ARGS = frozenset(
+        [
+            "username",
+            "password",
+            "api_endpoint",
+            "service_instance_name",
+            "service_instance_guid",
+        ]
+    )
     argument_spec = dict(
         username=dict(type="str", required=False),
         password=dict(type="str", required=False),
         api_endpoint=dict(type="str", required=False),
         service_instance_name=dict(type="str", required=False),
         service_instance_guid=dict(type="str", required=False),
-        key_name=dict(
-            type="str", required=False, aliases=["service_instance_key_name"]
-        ),
-        key_guid=dict(
-            type="str", required=False, aliases=["service_instance_key_guid"]
+        key_name=dict(type="str", required=True, aliases=["service_instance_key_name"]),
+        state=dict(
+            type="str", required=False, default="present", choices=["present", "absent"]
         ),
     )
     required_together = [
@@ -131,7 +203,6 @@ class CFServiceInstanceKeysInfoModule(ActionBase):
     ]
     mutually_exclusive = [
         ["service_instance_name", "service_instance_guid"],
-        ["key_name", "key_guid"],
     ]
     required_one_of = [
         [
@@ -170,7 +241,7 @@ class CFServiceInstanceKeysInfoModule(ActionBase):
         service_instance_name = self._task.args.get("service_instance_name")
         service_instance_guid = self._task.args.get("service_instance_guid")
         key_name = self._task.args.get("key_name")
-        key_guid = self._task.args.get("key_guid")
+        state = self._task.args.get("state", "present")
 
         with tempfile.TemporaryDirectory() as cf_home:
             client = CFClient(
@@ -184,9 +255,9 @@ class CFServiceInstanceKeysInfoModule(ActionBase):
                 service_instance_name=service_instance_name,
                 service_instance_guid=service_instance_guid,
                 key_name=key_name,
-                key_guid=key_guid,
+                state=state,
             )
 
 
-class ActionModule(CFServiceInstanceKeysInfoModule):
+class ActionModule(CFServiceInstanceKeyModule):
     pass

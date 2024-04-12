@@ -22,11 +22,13 @@
 ---
 requires_ansible: ">=2.15.0"
 action_groups:
-  cf:
-    - sap.sap_operations.cf_marketplace_info
-    - sap.sap_operations.cf_service_instance
-    - sap.sap_operations.cf_service_instance_info
-    - sap.sap_operations.cf_service_instances_info
-    - sap.sap_operations.cf_plans_info
-    - sap.sap_operations.cf_spaces_info
-    - sap.sap_operations.cf_service_instance_keys_info
+  "sap.sap_operations.cf":
+    # TODO: action groups do not work - reason not clear
+    - cf_marketplace_info
+    - cf_service_instance
+    - cf_service_instance_info
+    - cf_service_instances_info
+    - cf_plans_info
+    - cf_spaces_info
+    - cf_service_instance_keys_info
+    - cf_service_instance_key
