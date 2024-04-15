@@ -25,6 +25,10 @@ If not, see <https://www.gnu.org/licenses/>.
 
 Added documentation website [docs.galaxy.saponrhel.org>](https://docs.galaxy.saponrhel.org/?utm_source=galaxy)
 
+Added modules to manage SAP BTP resources.
+
+- sap.sap operations.btp_global_account_info
+
 Added modules to manage SAP BTP Cloud Foundry.
 
 - sap.sap_operations.cf_marketplace_info

@@ -2,105 +2,107 @@
 
 **Topics**
 
-- <a href="#v1-25-0">v1\.25\.0</a>
+- <a href="#v1-26-0">v1\.26\.0</a>
     - <a href="#release-summary">Release Summary</a>
     - <a href="#new-modules">New Modules</a>
-- <a href="#v1-24-0">v1\.24\.0</a>
+- <a href="#v1-25-0">v1\.25\.0</a>
     - <a href="#release-summary-1">Release Summary</a>
-- <a href="#v1-23-1">v1\.23\.1</a>
+- <a href="#v1-24-0">v1\.24\.0</a>
     - <a href="#release-summary-2">Release Summary</a>
+- <a href="#v1-23-1">v1\.23\.1</a>
+    - <a href="#release-summary-3">Release Summary</a>
     - <a href="#major-changes">Major Changes</a>
 - <a href="#v1-23-0">v1\.23\.0</a>
-    - <a href="#release-summary-3">Release Summary</a>
+    - <a href="#release-summary-4">Release Summary</a>
     - <a href="#major-changes-1">Major Changes</a>
 - <a href="#v1-22-1">v1\.22\.1</a>
-    - <a href="#release-summary-4">Release Summary</a>
+    - <a href="#release-summary-5">Release Summary</a>
     - <a href="#minor-changes">Minor Changes</a>
 - <a href="#v1-22-0">v1\.22\.0</a>
-    - <a href="#release-summary-5">Release Summary</a>
+    - <a href="#release-summary-6">Release Summary</a>
 - <a href="#v1-21-0">v1\.21\.0</a>
 - <a href="#v1-20-0">v1\.20\.0</a>
-    - <a href="#release-summary-6">Release Summary</a>
+    - <a href="#release-summary-7">Release Summary</a>
     - <a href="#major-changes-2">Major Changes</a>
 - <a href="#v1-19-0">v1\.19\.0</a>
-    - <a href="#release-summary-7">Release Summary</a>
+    - <a href="#release-summary-8">Release Summary</a>
     - <a href="#major-changes-3">Major Changes</a>
 - <a href="#v1-18-0">v1\.18\.0</a>
 - <a href="#v1-17-0">v1\.17\.0</a>
-    - <a href="#release-summary-8">Release Summary</a>
+    - <a href="#release-summary-9">Release Summary</a>
     - <a href="#major-changes-4">Major Changes</a>
 - <a href="#v1-16-0">v1\.16\.0</a>
 - <a href="#v1-15-1">v1\.15\.1</a>
-    - <a href="#release-summary-9">Release Summary</a>
+    - <a href="#release-summary-10">Release Summary</a>
     - <a href="#minor-changes-1">Minor Changes</a>
 - <a href="#v1-15-0">v1\.15\.0</a>
-    - <a href="#release-summary-10">Release Summary</a>
+    - <a href="#release-summary-11">Release Summary</a>
     - <a href="#major-changes-5">Major Changes</a>
 - <a href="#v1-14-1">v1\.14\.1</a>
-    - <a href="#release-summary-11">Release Summary</a>
+    - <a href="#release-summary-12">Release Summary</a>
     - <a href="#minor-changes-2">Minor Changes</a>
 - <a href="#v1-14-0">v1\.14\.0</a>
 - <a href="#v1-13-0">v1\.13\.0</a>
-    - <a href="#release-summary-12">Release Summary</a>
+    - <a href="#release-summary-13">Release Summary</a>
     - <a href="#major-changes-6">Major Changes</a>
 - <a href="#v1-12-0">v1\.12\.0</a>
-    - <a href="#release-summary-13">Release Summary</a>
-- <a href="#v1-11-0">v1\.11\.0</a>
     - <a href="#release-summary-14">Release Summary</a>
+- <a href="#v1-11-0">v1\.11\.0</a>
+    - <a href="#release-summary-15">Release Summary</a>
     - <a href="#minor-changes-3">Minor Changes</a>
 - <a href="#v1-10-0">v1\.10\.0</a>
-    - <a href="#release-summary-15">Release Summary</a>
-- <a href="#v1-9-1">v1\.9\.1</a>
     - <a href="#release-summary-16">Release Summary</a>
+- <a href="#v1-9-1">v1\.9\.1</a>
+    - <a href="#release-summary-17">Release Summary</a>
     - <a href="#minor-changes-4">Minor Changes</a>
 - <a href="#v1-9-0">v1\.9\.0</a>
-    - <a href="#release-summary-17">Release Summary</a>
+    - <a href="#release-summary-18">Release Summary</a>
     - <a href="#major-changes-7">Major Changes</a>
 - <a href="#v1-3-2">v1\.3\.2</a>
-    - <a href="#release-summary-18">Release Summary</a>
+    - <a href="#release-summary-19">Release Summary</a>
     - <a href="#minor-changes-5">Minor Changes</a>
 - <a href="#v1-3-1">v1\.3\.1</a>
-    - <a href="#release-summary-19">Release Summary</a>
+    - <a href="#release-summary-20">Release Summary</a>
     - <a href="#minor-changes-6">Minor Changes</a>
 - <a href="#v1-3-0">v1\.3\.0</a>
-    - <a href="#release-summary-20">Release Summary</a>
+    - <a href="#release-summary-21">Release Summary</a>
     - <a href="#minor-changes-7">Minor Changes</a>
 - <a href="#v1-2-2">v1\.2\.2</a>
-    - <a href="#release-summary-21">Release Summary</a>
+    - <a href="#release-summary-22">Release Summary</a>
     - <a href="#minor-changes-8">Minor Changes</a>
 - <a href="#v1-2-1">v1\.2\.1</a>
-    - <a href="#release-summary-22">Release Summary</a>
+    - <a href="#release-summary-23">Release Summary</a>
     - <a href="#minor-changes-9">Minor Changes</a>
 - <a href="#v1-2-0">v1\.2\.0</a>
-    - <a href="#release-summary-23">Release Summary</a>
+    - <a href="#release-summary-24">Release Summary</a>
     - <a href="#major-changes-8">Major Changes</a>
 - <a href="#v1-1-2">v1\.1\.2</a>
-    - <a href="#release-summary-24">Release Summary</a>
+    - <a href="#release-summary-25">Release Summary</a>
     - <a href="#minor-changes-10">Minor Changes</a>
 - <a href="#v1-1-1">v1\.1\.1</a>
-    - <a href="#release-summary-25">Release Summary</a>
+    - <a href="#release-summary-26">Release Summary</a>
     - <a href="#minor-changes-11">Minor Changes</a>
 - <a href="#v1-1-0">v1\.1\.0</a>
-    - <a href="#release-summary-26">Release Summary</a>
-- <a href="#v1-0-5">v1\.0\.5</a>
     - <a href="#release-summary-27">Release Summary</a>
+- <a href="#v1-0-5">v1\.0\.5</a>
+    - <a href="#release-summary-28">Release Summary</a>
     - <a href="#minor-changes-12">Minor Changes</a>
 - <a href="#v1-0-4">v1\.0\.4</a>
-    - <a href="#release-summary-28">Release Summary</a>
+    - <a href="#release-summary-29">Release Summary</a>
     - <a href="#major-changes-9">Major Changes</a>
     - <a href="#minor-changes-13">Minor Changes</a>
 - <a href="#v1-0-3">v1\.0\.3</a>
-    - <a href="#release-summary-29">Release Summary</a>
+    - <a href="#release-summary-30">Release Summary</a>
     - <a href="#minor-changes-14">Minor Changes</a>
 - <a href="#v1-0-2">v1\.0\.2</a>
-    - <a href="#release-summary-30">Release Summary</a>
+    - <a href="#release-summary-31">Release Summary</a>
     - <a href="#major-changes-10">Major Changes</a>
 - <a href="#v1-0-0">v1\.0\.0</a>
-    - <a href="#release-summary-31">Release Summary</a>
+    - <a href="#release-summary-32">Release Summary</a>
     - <a href="#major-changes-11">Major Changes</a>
 
-<a id="v1-25-0"></a>
-## v1\.25\.0
+<a id="v1-26-0"></a>
+## v1\.26\.0
 
 <a id="release-summary"></a>
 ### Release Summary
@@ -110,12 +112,20 @@ Feature release
 <a id="new-modules"></a>
 ### New Modules
 
-* sap\.sap\_operations\.cf\_service\_instance\_key \- Manage Cloud Foundry Service Instance Keys
+* sap\.sap\_operations\.btp\_global\_account\_info \- Get information about a SAP BTP global account\.
+
+<a id="v1-25-0"></a>
+## v1\.25\.0
+
+<a id="release-summary-1"></a>
+### Release Summary
+
+Feature release
 
 <a id="v1-24-0"></a>
 ## v1\.24\.0
 
-<a id="release-summary-1"></a>
+<a id="release-summary-2"></a>
 ### Release Summary
 
 Feature release
@@ -123,7 +133,7 @@ Feature release
 <a id="v1-23-1"></a>
 ## v1\.23\.1
 
-<a id="release-summary-2"></a>
+<a id="release-summary-3"></a>
 ### Release Summary
 
 Documentation release
@@ -136,7 +146,7 @@ Documentation release
 <a id="v1-23-0"></a>
 ## v1\.23\.0
 
-<a id="release-summary-3"></a>
+<a id="release-summary-4"></a>
 ### Release Summary
 
 Maintenance release
@@ -149,7 +159,7 @@ Maintenance release
 <a id="v1-22-1"></a>
 ## v1\.22\.1
 
-<a id="release-summary-4"></a>
+<a id="release-summary-5"></a>
 ### Release Summary
 
 Documentation release
@@ -163,7 +173,7 @@ Documentation release
 <a id="v1-22-0"></a>
 ## v1\.22\.0
 
-<a id="release-summary-5"></a>
+<a id="release-summary-6"></a>
 ### Release Summary
 
 Feature release
@@ -174,7 +184,7 @@ Feature release
 <a id="v1-20-0"></a>
 ## v1\.20\.0
 
-<a id="release-summary-6"></a>
+<a id="release-summary-7"></a>
 ### Release Summary
 
 Feature release
@@ -187,7 +197,7 @@ Feature release
 <a id="v1-19-0"></a>
 ## v1\.19\.0
 
-<a id="release-summary-7"></a>
+<a id="release-summary-8"></a>
 ### Release Summary
 
 Feature release
@@ -203,7 +213,7 @@ Feature release
 <a id="v1-17-0"></a>
 ## v1\.17\.0
 
-<a id="release-summary-8"></a>
+<a id="release-summary-9"></a>
 ### Release Summary
 
 Feature release
@@ -219,7 +229,7 @@ Feature release
 <a id="v1-15-1"></a>
 ## v1\.15\.1
 
-<a id="release-summary-9"></a>
+<a id="release-summary-10"></a>
 ### Release Summary
 
 Bugfix release
@@ -232,7 +242,7 @@ Bugfix release
 <a id="v1-15-0"></a>
 ## v1\.15\.0
 
-<a id="release-summary-10"></a>
+<a id="release-summary-11"></a>
 ### Release Summary
 
 Feature release
@@ -245,7 +255,7 @@ Feature release
 <a id="v1-14-1"></a>
 ## v1\.14\.1
 
-<a id="release-summary-11"></a>
+<a id="release-summary-12"></a>
 ### Release Summary
 
 Bug fix release
@@ -262,7 +272,7 @@ Bug fix release
 <a id="v1-13-0"></a>
 ## v1\.13\.0
 
-<a id="release-summary-12"></a>
+<a id="release-summary-13"></a>
 ### Release Summary
 
 Feature release
@@ -275,7 +285,7 @@ Feature release
 <a id="v1-12-0"></a>
 ## v1\.12\.0
 
-<a id="release-summary-13"></a>
+<a id="release-summary-14"></a>
 ### Release Summary
 
 Feature release
@@ -283,7 +293,7 @@ Feature release
 <a id="v1-11-0"></a>
 ## v1\.11\.0
 
-<a id="release-summary-14"></a>
+<a id="release-summary-15"></a>
 ### Release Summary
 
 Feature release
@@ -296,7 +306,7 @@ Feature release
 <a id="v1-10-0"></a>
 ## v1\.10\.0
 
-<a id="release-summary-15"></a>
+<a id="release-summary-16"></a>
 ### Release Summary
 
 Feature release
@@ -304,7 +314,7 @@ Feature release
 <a id="v1-9-1"></a>
 ## v1\.9\.1
 
-<a id="release-summary-16"></a>
+<a id="release-summary-17"></a>
 ### Release Summary
 
 Bug fix release
@@ -318,7 +328,7 @@ Bug fix release
 <a id="v1-9-0"></a>
 ## v1\.9\.0
 
-<a id="release-summary-17"></a>
+<a id="release-summary-18"></a>
 ### Release Summary
 
 Lifecycle release
@@ -336,7 +346,7 @@ Lifecycle release
 <a id="v1-3-2"></a>
 ## v1\.3\.2
 
-<a id="release-summary-18"></a>
+<a id="release-summary-19"></a>
 ### Release Summary
 
 Bugfix release
@@ -349,7 +359,7 @@ Bugfix release
 <a id="v1-3-1"></a>
 ## v1\.3\.1
 
-<a id="release-summary-19"></a>
+<a id="release-summary-20"></a>
 ### Release Summary
 
 Bugfix release
@@ -362,7 +372,7 @@ Bugfix release
 <a id="v1-3-0"></a>
 ## v1\.3\.0
 
-<a id="release-summary-20"></a>
+<a id="release-summary-21"></a>
 ### Release Summary
 
 Feature release
@@ -377,7 +387,7 @@ Feature release
 <a id="v1-2-2"></a>
 ## v1\.2\.2
 
-<a id="release-summary-21"></a>
+<a id="release-summary-22"></a>
 ### Release Summary
 
 Feature release
@@ -390,7 +400,7 @@ Feature release
 <a id="v1-2-1"></a>
 ## v1\.2\.1
 
-<a id="release-summary-22"></a>
+<a id="release-summary-23"></a>
 ### Release Summary
 
 Feature release
@@ -403,7 +413,7 @@ Feature release
 <a id="v1-2-0"></a>
 ## v1\.2\.0
 
-<a id="release-summary-23"></a>
+<a id="release-summary-24"></a>
 ### Release Summary
 
 Feature release
@@ -416,7 +426,7 @@ Feature release
 <a id="v1-1-2"></a>
 ## v1\.1\.2
 
-<a id="release-summary-24"></a>
+<a id="release-summary-25"></a>
 ### Release Summary
 
 Bug Fix Release
@@ -429,7 +439,7 @@ Bug Fix Release
 <a id="v1-1-1"></a>
 ## v1\.1\.1
 
-<a id="release-summary-25"></a>
+<a id="release-summary-26"></a>
 ### Release Summary
 
 Bug Fix Release
@@ -445,7 +455,7 @@ Bug Fix Release
 <a id="v1-1-0"></a>
 ## v1\.1\.0
 
-<a id="release-summary-26"></a>
+<a id="release-summary-27"></a>
 ### Release Summary
 
 Feature Release
@@ -453,7 +463,7 @@ Feature Release
 <a id="v1-0-5"></a>
 ## v1\.0\.5
 
-<a id="release-summary-27"></a>
+<a id="release-summary-28"></a>
 ### Release Summary
 
 Bug fix release
@@ -466,7 +476,7 @@ Bug fix release
 <a id="v1-0-4"></a>
 ## v1\.0\.4
 
-<a id="release-summary-28"></a>
+<a id="release-summary-29"></a>
 ### Release Summary
 
 Two roles are added <em class="title-reference">hana\_update</em> and <em class="title-reference">prepare</em>
@@ -485,7 +495,7 @@ Two roles are added <em class="title-reference">hana\_update</em> and <em class=
 <a id="v1-0-3"></a>
 ## v1\.0\.3
 
-<a id="release-summary-29"></a>
+<a id="release-summary-30"></a>
 ### Release Summary
 
 Using changelog fragments to build collection changelog\.
@@ -499,7 +509,7 @@ Using changelog fragments to build collection changelog\.
 <a id="v1-0-2"></a>
 ## v1\.0\.2
 
-<a id="release-summary-30"></a>
+<a id="release-summary-31"></a>
 ### Release Summary
 
 First release of SAP Operations collection\.
@@ -516,7 +526,7 @@ First release of SAP Operations collection\.
 <a id="v1-0-0"></a>
 ## v1\.0\.0
 
-<a id="release-summary-31"></a>
+<a id="release-summary-32"></a>
 ### Release Summary
 
 First release of SAP Operations collection\.
