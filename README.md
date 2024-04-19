@@ -27,7 +27,10 @@ Added documentation website [docs.galaxy.saponrhel.org>](https://docs.galaxy.sap
 
 Added modules to manage SAP BTP resources.
 
-- sap.sap operations.btp_global_account_info
+- sap.sap_operations.btp_global_account_info
+- sap.sap_operations.btp_global_account_assignments_info
+- sap.sap_operations.btp_subaccount
+- sap.sap_operations.btp_subaccounts_info
 
 Added modules to manage SAP BTP Cloud Foundry.
 
