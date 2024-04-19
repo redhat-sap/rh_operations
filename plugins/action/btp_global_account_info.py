@@ -116,6 +116,103 @@ class BTPAccountsServiceClient:
             )
         return BTPGlobalAccount(**json.loads(response.text)), None
 
+    def get_global_account_assignments(
+        self,
+        token: str,
+        **kwargs,
+    ):
+        url_params = ""
+        if not HAS_REQUESTS_LIBRARY:
+            return None, BTPAPIError(
+                msg=missing_required_lib("requests"),
+                exception=REQUESTS_LIBRARY_IMPORT_ERROR,
+            )
+        if kwargs.get("include_auto_managed_plans"):
+            url_params += "&includeAutoManagedPlans=true"
+        if kwargs.get("entitled_services_only"):
+            url_params += "&entitledServicesOnly=true"
+        try:
+            response = requests.get(
+                f"{self.url}/entitlements/v1/assignments?directoryGUID=7abf6926-f5da-467e-975a-cf2473680127" + url_params,
+                headers=get_headers(token),
+                timeout=60,
+            )
+            response.raise_for_status()
+        except requests.exceptions.HTTPError:
+            return None, BTPAPIError(
+                response=response.text,
+                status_code=response.status_code,
+            )
+        return BTPGlobalAccount(**json.loads(response.text)), None
+
+    def get_subaccounts(
+        self,
+        token: str,
+    ):
+
+        url_params = ""
+        if not HAS_REQUESTS_LIBRARY:
+            return None, BTPAPIError(
+                msg=missing_required_lib("requests"),
+                exception=REQUESTS_LIBRARY_IMPORT_ERROR,
+            )
+        try:
+            response = requests.get(
+                f"{self.url}/accounts/v1/subaccounts?derivedAuthorizations=any" + url_params,
+                headers=get_headers(token),
+                timeout=60,
+            )
+            response.raise_for_status()
+        except requests.exceptions.HTTPError:
+            return None, BTPAPIError(
+                response=response.text,
+                status_code=response.status_code,
+            )
+        subaccounts = json.loads(response.text)["value"]
+        return subaccounts, None
+
+    def create_subaccount(self, token: str, **kwargs):
+        body = {}
+        if kwargs.get("beta_enabled") is not None:
+            body["betaEnabled"] = kwargs["beta_enabled"]
+
+        if kwargs.get("description") is not None:
+            body["description"] = kwargs["description"]
+
+        if kwargs.get("display_name") is not None:
+            body["displayName"] = kwargs["display_name"]
+
+        if kwargs.get("region") is not None:
+            body["region"] = kwargs["region"]
+
+        if kwargs.get("subdomain") is not None:
+            body["subdomain"] = kwargs["subdomain"]
+
+        if kwargs.get("subaccount_admins") is not None:
+            body["subaccountAdmins"] = kwargs["subaccount_admins"]
+
+        body["usedForProduction"] = "USED_FOR_PRODUCTION"
+
+        if not HAS_REQUESTS_LIBRARY:
+            return None, BTPAPIError(
+                msg=missing_required_lib("requests"),
+                exception=REQUESTS_LIBRARY_IMPORT_ERROR,
+            )
+        try:
+            response = requests.post(
+                f"{self.url}/accounts/v1/subaccounts",
+                headers=get_headers(token),
+                json=body,
+                timeout=60,
+            )
+            response.raise_for_status()
+        except requests.exceptions.HTTPError:
+            return None, BTPAPIError(
+                response=response.text,
+                status_code=response.status_code,
+            )
+        return BTPGlobalAccount(**json.loads(response.text)), None
+
 
 import traceback
 from abc import ABC, abstractmethod

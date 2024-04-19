@@ -1,0 +1,111 @@
+# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-FileCopyrightText: 2024 Red Hat, Project Atmosphere
+#
+# Copyright 2024 Red Hat, Project Atmosphere
+#
+# This program is free software: you can redistribute it and/or modify it under the terms of the GNU
+# General Public License as published by the Free Software Foundation, version 3 of the License.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+# even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU General Public License for more details.
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+# You should have received a copy of the GNU General Public License along with this program.
+# If not, see <https://www.gnu.org/licenses/>.
+
+---
+- name: Test
+  hosts: localhost
+  gather_facts: true
+  environment:
+    OBJC_DISABLE_INITIALIZE_FORK_SAFETY: "YES" # this is required only for macOs to avoid the error
+  vars:
+    random_seed: "{{ lookup('ansible.builtin.env', 'USER') + ansible_hostname }}"
+    max_int: 2147483647
+    random_string: "{{ max_int | ansible.builtin.random(seed=random_seed)}}"
+    cis_service_name: "cis-{{ random_string }}"
+    cis_key_name: "cis-key-{{ random_string }}"
+    subaccount_subdomain: "ansible-subdomain-{{ random_string }}"
+    subaccount_description: "Subaccount managed by ansible"
+    subaccount_display_name: "ansible-subaccount-{{ random_string }}"
+    subaccount_admins: []
+    subaccount_region: us10
+
+  pre_tasks:
+    - name: Make sure cis service instance is present
+      sap.sap_operations.cf_service_instance:
+        username: "{{ lookup('ansible.builtin.env', 'BTP_LOGIN') }}"
+        password: "{{ lookup('ansible.builtin.env', 'BTP_PASSWORD') }}"
+        api_endpoint: "{{ lookup('ansible.builtin.env', 'BTP_API_ENDPOINT') }}"
+        name: "{{ cis_service_name }}"
+        service: cis
+        service_plan: central
+        space: dev
+        parameters:
+          grantType: password
+      register: cis_service
+
+    - name: Make sure cis service instance service key is present
+      sap.sap_operations.cf_service_instance_key:
+        username: "{{ lookup('ansible.builtin.env', 'BTP_LOGIN') }}"
+        password: "{{ lookup('ansible.builtin.env', 'BTP_PASSWORD') }}"
+        api_endpoint: "{{ lookup('ansible.builtin.env', 'BTP_API_ENDPOINT') }}"
+        service_instance_name: "{{ cis_service_name }}"
+        key_name: "{{ cis_key_name }}"
+      register: cis_service_key
+
+  tasks:
+    - name: Test btp_global_account_info action plugin (expand is true)
+      sap.sap_operations.btp_global_account_info:
+        login: "{{ lookup('ansible.builtin.env', 'BTP_LOGIN') }}"
+        password: "{{ lookup('ansible.builtin.env', 'BTP_PASSWORD') }}"
+        api_endpoint: https://accounts-service.cfapps.eu10.hana.ondemand.com
+        authorize_service_url: "https://accounts-service.cfapps.eu10.hana.ondemand.com/oauth/authorize"
+        client_id: "{{ cis_service_key.cf_service_instance_key.entity.credentials.uaa.clientid }}"
+        client_secret: "{{ cis_service_key.cf_service_instance_key.entity.credentials.uaa.clientsecret }}"
+        token_service_url: "{{ cis_service_key.cf_service_instance_key.entity.credentials.uaa.url }}/oauth/token"
+        expand: true
+      register: result_expand_true
+
+    - name: Get SAP BTP global account assignments
+      sap.sap_operations.btp_global_account_assignments_info:
+        login: "{{ lookup('ansible.builtin.env', 'BTP_LOGIN') }}"
+        password: "{{ lookup('ansible.builtin.env', 'BTP_PASSWORD') }}"
+        api_endpoint: https://entitlements-service.cfapps.eu10.hana.ondemand.com
+        authorize_service_url: "https://entitlements-service.cfapps.eu10.hana.ondemand.com/oauth/authorize"
+        client_id: "{{ cis_service_key.cf_service_instance_key.entity.credentials.uaa.clientid }}"
+        client_secret: "{{ cis_service_key.cf_service_instance_key.entity.credentials.uaa.clientsecret }}"
+        token_service_url: "{{ cis_service_key.cf_service_instance_key.entity.credentials.uaa.url }}/oauth/token"
+
+    - name: Get SAP BTP subaccounts
+      sap.sap_operations.btp_subaccounts_info:
+        login: "{{ lookup('ansible.builtin.env', 'BTP_LOGIN') }}"
+        password: "{{ lookup('ansible.builtin.env', 'BTP_PASSWORD') }}"
+        api_endpoint: https://accounts-service.cfapps.eu10.hana.ondemand.com
+        authorize_service_url: "https://accounts-service.cfapps.eu10.hana.ondemand.com/oauth/authorize"
+        client_id: "{{ cis_service_key.cf_service_instance_key.entity.credentials.uaa.clientid }}"
+        client_secret: "{{ cis_service_key.cf_service_instance_key.entity.credentials.uaa.clientsecret }}"
+        token_service_url: "{{ cis_service_key.cf_service_instance_key.entity.credentials.uaa.url }}/oauth/token"
+
+    - name: Create SAP BTP subaccount
+      sap.sap_operations.btp_subaccount:
+        login: "{{ lookup('ansible.builtin.env', 'BTP_LOGIN') }}"
+        password: "{{ lookup('ansible.builtin.env', 'BTP_PASSWORD') }}"
+        api_endpoint: https://accounts-service.cfapps.eu10.hana.ondemand.com
+        authorize_service_url: "https://accounts-service.cfapps.eu10.hana.ondemand.com/oauth/authorize"
+        client_id: "{{ cis_service_key.cf_service_instance_key.entity.credentials.uaa.clientid }}"
+        client_secret: "{{ cis_service_key.cf_service_instance_key.entity.credentials.uaa.clientsecret }}"
+        token_service_url: "{{ cis_service_key.cf_service_instance_key.entity.credentials.uaa.url }}/oauth/token"
+        beta_enabled: true
+        description: "{{ subaccount_description }}"
+        display_name: "{{ subaccount_display_name }}"
+        region: "{{ subaccount_region }}"
+        subaccount_admins: "{{ subaccount_admins }}"
+        subdomain: "{{ subaccount_subdomain }}"
+      register: new_subaccount
