@@ -1,0 +1,88 @@
+# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-FileCopyrightText: 2024 Red Hat, Project Atmosphere
+#
+# Copyright 2024 Red Hat, Project Atmosphere
+#
+# This program is free software: you can redistribute it and/or modify it under the terms of the GNU
+# General Public License as published by the Free Software Foundation, version 3 of the License.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+# even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU General Public License for more details.
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+# You should have received a copy of the GNU General Public License along with this program.
+# If not, see <https://www.gnu.org/licenses/>.
+
+---
+- name: "Run processing command - OS check {{ check.CheckID - check.Description }}"
+  ansible.builtin.shell:
+    cmd: "{{ check.ProcessingCommand }}"
+  become: "{{ check.RootRequired }}"
+  become_user: "{{ check.RootRequired | ternary('root', omit) }}"
+  changed_when: false
+  ignore_errors: true
+  register: _
+
+- name: Print check results and expected output
+  ansible.builtin.debug:
+    verbosity: "{{ quality_verbosity }}"
+    msg:
+      - Check result
+      - "{{ _.stdout }}"
+      - Expected result
+      - "{{ check.ExpectedResult }}"
+
+- name: Process check results
+  block:
+    - name: "Results - OS check {{ check.CheckID - check.Description }}"
+      ansible.builtin.assert:
+        that:
+          - check.ExpectedResult is defined
+          - _.stdout == check.ExpectedResult
+          # TODO: not for all checks there is an expected result - handle that
+        fail_msg: |
+          "
+          {{ check.CheckID }}
+          {{ check.Description }}
+          {{ check.AdditionalInfo | default(omit) }}
+          Result of check {{ check.CheckID }} is not correct.
+          Observed value is {{ _.stdout }}
+          Expected value is {{ check.ExpectedResult }}
+          Status = {{ check.ErrorCategory }}
+          SAP NOTE = {{ check.SAPNote | default(omit) }}
+          Microsoft documentation = {{ check.MicrosoftDocs | default(omit) }}
+          "
+        success_msg: |
+          "
+          {{ check.CheckID }}
+          {{ check.Description }}
+          {{ check.AdditionalInfo | default(omit) }}
+          Result of check {{ check.CheckID }} is not correct.
+          Observed value is {{ _.stdout }}
+          Expected value is {{ check.ExpectedResult }}
+          Status = OK
+          SAP NOTE = {{ check.SAPNote | default(omit) }}
+          Microsoft documentation = {{ check.MicrosoftDocs | default(omit) }}
+          "
+      register: __quality_check_assert
+
+  always:
+    - name: Return quality_results
+      ansible.builtin.set_fact:
+        quality_results: >
+          {{ quality_results | default([]) + [
+                {
+                    'CheckID': check.CheckID,
+                    'Description': check.Description,
+                    'category': check.ErrorCategory,
+                    'Observed_value': _.stdout,
+                    'Expected_value': check.ExpectedResult,
+                    'failed': __quality_check_assert.failed,
+                }
+            ] }}

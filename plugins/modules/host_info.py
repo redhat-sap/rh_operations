@@ -1296,14 +1296,21 @@ from ansible_collections.sap.sap_operations.plugins.module_utils.saphost import 
 
 def main():
     module = AnsibleModuleSAPHostAgent(argument_spec={}, supports_check_mode=True)
+    try:
+        m = saphostctrl(
+            hostname=module.params.get("hostname"),
+            username=module.params.get("username"),
+            password=module.params.get("password"),
+            ca_file=module.params.get("ca_file"),
+            security=module.params.get("security"),
+        )
+    except FileNotFoundError:
+        module.exit_json(
+            msg="No saphost agent installed",
+            instances=[],
+            databases=[],
+        )
 
-    m = saphostctrl(
-        hostname=module.params.get("hostname"),
-        username=module.params.get("username"),
-        password=module.params.get("password"),
-        ca_file=module.params.get("ca_file"),
-        security=module.params.get("security"),
-    )
     try:
         instances = convert2ansible(m.client.service.ListInstances())
         for instance in instances:
