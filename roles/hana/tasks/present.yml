@@ -76,12 +76,24 @@
   become_user: root
   register: __hana_install_hdb_passwords
 
+- name: Find hdblcm executable
+  ansible.builtin.find:
+    file_type: file
+    patterns:
+      - hdblcm
+    paths:
+      - "{{ hana_medium }}"
+    recurse: true
+  register: __hana_install_hbdlcm_find_paths
+  # TODO: add failed_when - fail if hdblcm not found
+  #  or more than one hdblcm is found
+
 - name: Start HANA installation
   ansible.builtin.shell:
     cmd: >
       set -o pipefail;
       cat {{ __hana_install_hdb_passwords.dest }} |
-      {{ hana_medium }}/DATA_UNITS/HDB_SERVER_LINUX_X86_64/hdblcm
+      {{ __hana_install_hbdlcm_find_paths.files[0].path }}
       --configfile={{ __hana_install_cfg.dest }}
       --read_password_from_stdin=xml
       --batch

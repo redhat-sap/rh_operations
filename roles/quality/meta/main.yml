@@ -1,8 +1,7 @@
----
 # SPDX-License-Identifier: GPL-3.0-only
-# SPDX-FileCopyrightText: 2023 Red Hat, Project Atmosphere
+# SPDX-FileCopyrightText: 2024 Red Hat, Project Atmosphere
 #
-# Copyright 2023 Red Hat, Project Atmosphere
+# Copyright 2024 Red Hat, Project Atmosphere
 #
 # This program is free software: you can redistribute it and/or modify it under the terms of the GNU
 # General Public License as published by the Free Software Foundation, version 3 of the License.
@@ -20,25 +19,21 @@
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>.
 
-- name: Check that all prerequisites are fulfilled
-  ansible.builtin.include_tasks:
-    file: prerequisites.yml
+---
+galaxy_info:
+  author: Kirill Satarin (@kksat)
+  description: Run SAP quality checks on host
 
-- name: Make sure destination folder exists
-  ansible.builtin.file:
-    path: "{{ unpack_destination }}"
-    state: directory
-    mode: "0755"
-    owner: "{{ omit }}"
-    group: "{{ omit }}"
+  license: GPL-3.0-only
 
-- name: Unpack
-  ansible.builtin.include_tasks:
-    file: unpack.yml
-  loop: "{{ [unpack_source] | flatten }}"
-  loop_control:
-    loop_var: source
+  min_ansible_version: "2.15"
 
-- name: Print output variable
-  ansible.builtin.debug:
-    msg: "{{ unpack_register | default([]) }}"
+  platforms:
+    - name: EL
+      versions:
+        - "7"
+        - "8"
+
+  galaxy_tags: []
+
+dependencies: []

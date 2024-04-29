@@ -1,0 +1,83 @@
+# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-FileCopyrightText: 2024 Red Hat, Project Atmosphere
+#
+# Copyright 2024 Red Hat, Project Atmosphere
+#
+# This program is free software: you can redistribute it and/or modify it under the terms of the GNU
+# General Public License as published by the Free Software Foundation, version 3 of the License.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+# even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU General Public License for more details.
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+# You should have received a copy of the GNU General Public License along with this program.
+# If not, see <https://www.gnu.org/licenses/>.
+
+---
+# - name: Read QualityCheck.json data
+#   ansible.builtin.debug:
+#     msg: "{{ var.Checks | community.general.json_query(query)  }}"
+#   vars:
+#     var: "{{ lookup('file', '../files/QualityCheck.json') | from_json }}"
+#     query: "[?CheckID=='APP-OS-0001']"
+
+- name: Gather all Ansible facts
+  ansible.builtin.setup:
+
+- name: Get SAP hostagent information
+  sap.sap_operations.host_info:
+  register: __quality_host_info
+  become: true
+  become_user: root
+
+- name: Get Azure instance metadata
+  sap.sap_operations.azure_imds:
+  register: __quality_azure_imds
+
+- name: Run all checks
+  ansible.builtin.include_tasks:
+    file: check.yml
+  loop: "{{ (lookup('file', 'QualityCheck.json') | from_json)['Checks'] }}"
+  loop_control:
+    loop_var: check
+  vars:
+    __quality_role_mapping:
+      db: "{{ (__quality_host_info.databases | length > 0) | bool }}"
+      app: "{{ (__quality_host_info.instances
+        | map(attribute='ProcessList')
+        | flatten | map(attribute='name')
+        | intersect(quality_app_process_list)
+        | length > 0) | bool }}"
+      ascs: >
+        {{ (__quality_host_info.instances
+        | map(attribute='ProcessList')
+        | flatten | map(attribute='name')
+        | intersect(quality_ascs_process_list)
+        | length > 0) | bool }}
+    quality_context:
+      databases: >
+        {{ __quality_host_info.databases
+        | map(attribute='mDatabase')
+        | map(attribute='Database/Vendor')
+        | map('regex_replace', 'HDB', 'HANA')
+        | map('regex_replace', 'SYB', 'ASE') }}
+      highavailability: >-
+        {{ (__quality_host_info.instances | map(attribute='HAFailoverConfig') | selectattr('HAActive', 'equalto', true)) | length > 0 | bool | default(false) }}
+      roles: "{{ __quality_role_mapping | dict2items | selectattr('value', 'equalto', true) | map(attribute='key') }}"
+      storagetype: >-
+        {{ __quality_azure_imds.metadata.instance.storageProfile.dataDisks
+        | map(attribute='managedDisk')
+        | map(attribute='storageAccountType')
+        | unique }}
+      vmsize: "{{ __quality_azure_imds.metadata.instance.vmSize }}"
+      zone: "{{ __quality_azure_imds.metadata.instance.zone }}"
+      subscriptionid: "{{ __quality_azure_imds.metadata.instance.subscriptionId }}"
+      resourcegroupname: "{{ __quality_azure_imds.metadata.instance.resourceGroupName }}"
+      location: "{{ __quality_azure_imds.metadata.instance.location }}"
+      azenvironment: "{{ __quality_azure_imds.metadata.instance.azEnvironment }}"
