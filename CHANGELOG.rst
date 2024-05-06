@@ -4,6 +4,18 @@ SAP Operations Collection Release Notes
 
 .. contents:: Topics
 
+v1.17.0
+=======
+
+Release Summary
+---------------
+
+Lifecycle release
+
+Major Changes
+-------------
+
+- Minimum ansible-core version supported is 2.15
 
 v1.16.1
 =======
@@ -228,7 +240,6 @@ Release Summary
 
 Two roles are added `hana_update` and `prepare`
 
-
 Major Changes
 -------------
 
@@ -248,7 +259,6 @@ Release Summary
 
 Using changelog fragments to build collection changelog.
 
-
 Minor Changes
 -------------
 
@@ -262,7 +272,6 @@ Release Summary
 ---------------
 
 First release of SAP Operations collection.
-
 
 Major Changes
 -------------
@@ -280,7 +289,6 @@ Release Summary
 ---------------
 
 First release of SAP Operations collection.
-
 
 Major Changes
 -------------

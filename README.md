@@ -47,9 +47,9 @@ Please see documentation for role `prepare`.
 
 Ansible collection is designed to work with following Ansible versions (on controller host)
 
-ansible-core 2.14
-
 ansible-core 2.15
+
+ansible-core 2.16
 
 ### Python
 
