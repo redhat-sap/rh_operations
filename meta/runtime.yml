@@ -22,8 +22,7 @@
 ---
 requires_ansible: ">=2.15.0"
 action_groups:
-  "sap.sap_operations.cf":
-    # TODO: action groups do not work - reason not clear
+  cf:
     - cf_marketplace_info
     - cf_service_instance
     - cf_service_instance_info
@@ -32,3 +31,7 @@ action_groups:
     - cf_spaces_info
     - cf_service_instance_keys_info
     - cf_service_instance_key
+  enq_admin:
+    - enq_admin_info
+    - enq_admin_locks_info
+    - enq_admin_lock
