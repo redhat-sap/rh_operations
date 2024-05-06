@@ -24,7 +24,7 @@ namespace: sap
 
 name: sap_operations
 
-version: 1.16.1
+version: 1.17.0
 
 readme: README.md
 
@@ -132,5 +132,50 @@ build_ignore:
   - README-aap.md
 
   - roles/sapjvm/
+  - roles/cloudconnector/*
 
   - plugins/modules/proc_info.py
+  - plugins/action/cf_marketplace_info.py
+  - plugins/modules/cf_marketplace_info.py
+  - plugins/action/cf_service_instance.py
+  - plugins/modules/cf_service_instance.py
+  - plugins/action/cf_service_instance_info.py
+  - plugins/modules/cf_service_instance_info.py
+  - plugins/action/cf_service_instances_info.py
+  - plugins/modules/cf_service_instances_info.py
+  - plugins/action/cf_service_plans_info.py
+  - plugins/modules/cf_service_plans_info.py
+  - plugins/action/cf_spaces_info.py
+  - plugins/modules/cf_spaces_info.py
+
+  - meta/runtime-aap.yml
+  - meta/runtime-galaxy.yml
+
+  - plugins/action/cf_service_instance_keys_info.py
+  - plugins/modules/cf_service_instance_keys_info.py
+
+  - plugins/action/cf_service_instance_key.py
+  - plugins/modules/cf_service_instance_key.py
+
+  - plugins/action/btp_global_account_info.py
+  - plugins/modules/btp_global_account_info.py
+
+  - plugins/action/btp_subaccount.py
+  - plugins/modules/btp_subaccount.py
+  - plugins/action/btp_subaccounts_info.py
+  - plugins/modules/btp_subaccounts_info.py
+  - plugins/action/btp_global_account_assignments_info.py
+  - plugins/modules/btp_global_account_assignments_info.py
+  - plugins/doc_fragments/sap_btp_action_plugin.py
+  - plugins/doc_fragments/cloud_foundry.py
+  - plugins/doc_fragments/action_plugin.py
+  - playbooks/sample_test_sap_btp.yml
+
+  - roles/quality/*
+  - roles/powershell/*
+
+  - plugins/modules/enq_admin_info.py
+  - plugins/modules/enq_admin_locks_info.py
+  - plugins/modules/enq_admin_lock.py
+  - plugins/doc_fragments/enq_admin.py
+  - plugins/module_utils/enq_admin.py
