@@ -1,0 +1,164 @@
+# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-FileCopyrightText: 2024 Red Hat, Project Atmosphere
+#
+# Copyright 2024 Red Hat, Project Atmosphere
+#
+# This program is free software: you can redistribute it and/or modify it under the terms of the GNU
+# General Public License as published by the Free Software Foundation, version 3 of the License.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+# even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU General Public License for more details.
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+# You should have received a copy of the GNU General Public License along with this program.
+# If not, see <https://www.gnu.org/licenses/>.
+
+---
+- name: Ensure ansible_facts used by the role
+  ansible.builtin.setup:
+    gather_subset:
+      - mounts
+
+- name: Get information about what will be downloaded
+  sap.sap_operations.me_downloaditemset_info:
+    username: "{{ download_username }}"
+    password: "{{ download_password }}"
+    alias: "{{ download_alias }}"
+    architecture: "{{ download_architecture }}"
+    os_family: "{{ download_os_family }}"
+  register: download_itemset
+
+- name: Get information for each file that is about to be downloaded
+  sap.sap_operations.me_file_info:
+    username: "{{ download_username }}"
+    password: "{{ download_password }}"
+    file_id: "{{ item.Fastkey }}"
+  loop: "{{ download_itemset_filtered }}"
+  loop_control:
+    label: "{{ item.Description }} - {{ item.Title }}"
+  register: download_files_info
+
+- name: Fail if not enough disk space on destination mount point
+  ansible.builtin.fail:
+    msg: "
+      There are only {{ __mount_point['size_available'] // 1024 }}KB available on the {{ download_destination }},
+      but {{ __size_needed }}KB are required to download."
+  when:
+    - ansible_facts['mounts'] is defined
+    - ansible_facts['mounts'] | length > 0
+    - __mount_point['size_available'] // 1024 <= __size_needed
+  vars:
+    __mount_point: "{{ ansible_facts['mounts'] |
+      sap.sap_operations.mount_path(filepath=download_destination) }}"
+    __size_needed: "{{ download_itemset.me_downloaditemset_info |
+      map(attribute='FileSize') | map('trim') | map('int') | sum }}"
+
+- name: Find all files in download_destination
+  ansible.builtin.find:
+    paths: "{{ download_destination }}"
+    file_type: file
+  register: download_destination_files
+
+- name: Get stats on files in download_destination (only for files that are to be downloaded)
+  ansible.builtin.stat:
+    path: "{{ item.path }}"
+    checksum_algorithm: sha256
+  register: download_destination_stats
+  loop: "{{ download_destination_files.files }}"
+  when: (item.path | basename) in (download_itemset_filtered | map(attribute='Title'))
+  loop_control:
+    label: "{{ item.path }}"
+
+- name: Get swdc_auth_info
+  sap.sap_operations.swdc_auth_info:
+    username: "{{ download_username }}"
+    password: "{{ download_password }}"
+    url: "{{ __download_file_direct_url }}"
+  when: download_files_info.results | length > 0
+  vars:
+    __download_file_direct_url: "{{
+      download_files_info.results[0].item.DirectDownloadUrl |
+      default(download_files_info.results[0].item.DownloadDirectLink)
+      }}"
+  register: download_swdc_auth_info
+
+- name: Download SAP software with get_url
+  ansible.builtin.get_url:
+    dest: "{{ download_destination }}"
+    url: "{{ download_file_url }}"
+    url_username: "{{ download_username }}"
+    url_password: "{{ download_password }}"
+    validate_certs: "{{ download_validate_certs }}"
+    checksum: "sha256:{{ download_file_checksum }}"
+    timeout: "{{ download_timeout }}"
+    mode: "{{ download_mode }}"
+    headers:
+      cookie: "{{ download_swdc_auth_info.swdc_auth_info.Cookie }}"
+  when: download_file_checksum != present_file_checksum
+  vars:
+    download_file_checksum: "{{ item.me_file_info.Checksum }}"
+    download_file_url: "{{
+      item.item.DirectDownloadUrl |
+      default(item.item.DownloadDirectLink)
+      }}"
+    item_filename: "{{ item.me_file_info.FileName }}"
+    present_file_fullpath: "{{ download_destination }}/{{ item_filename }}"
+    present_file_checksum: >-
+      {{ download_destination_stats.results
+      | selectattr('stat', 'defined')
+      | map(attribute='stat')
+      | selectattr('path', 'equalto', present_file_fullpath)
+      | map(attribute='checksum')
+      | first
+      | default("")
+      }}
+  loop: "{{ download_files_info.results }}"
+  loop_control:
+    label: "{{ download_file_url }} - {{ item_filename }}"
+  register: download_get_url
+
+- name: Remove variable download_register_last
+  ansible.builtin.set_fact:
+    download_register_last: {}
+
+- name: Set return variable
+  ansible.builtin.set_fact:
+    download_register_last:
+      changed: "{{ download_get_url.changed }}"
+      failed: "{{ download_get_url.failed | default(false) }}"
+      files: >-
+        {{ download_register_last.files | default([]) + [
+          {
+            'DirectDownloadUrl': download_file_url,
+            'filename': item.item.me_file_info.FileName,
+            'sha256': item.item.me_file_info.Checksum,
+            'changed': item.item.changed,
+            'failed': item.item.failed,
+          }
+        ]
+        }}"
+    download_register:
+      changed: "{{ download_get_url.changed }}"
+      failed: "{{ download_get_url.failed | default(false) }}"
+      files: >-
+        {{ download_register.files | default([]) + [
+          {
+            'DirectDownloadUrl': download_file_url,
+            'filename': item.item.me_file_info.FileName,
+            'sha256': item.item.me_file_info.Checksum,
+            'changed': item.item.changed,
+            'failed': item.item.failed,
+          }
+        ] }}
+  loop: "{{ download_get_url.results }}"
+  vars:
+    download_file_url: "{{ item.item.item.DirectDownloadUrl |
+      default(item.item.item.DownloadDirectLink) }}"
+  loop_control:
+    label: "{{ download_file_url }} -  {{ item.item.me_file_info.FileName }}"
