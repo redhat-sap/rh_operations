@@ -21,7 +21,8 @@
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>.
 
-from __future__ import (absolute_import, division, print_function)
+from __future__ import absolute_import, division, print_function
+
 __metaclass__ = type
 
 import traceback
@@ -29,8 +30,17 @@ import json
 import xml.etree.ElementTree as ET  # nosec B405
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.basic import missing_required_lib
-from ansible_collections.sap.sap_operations.plugins.module_utils.compat import dict_union  # noqa: E501
-from ansible_collections.sap.sap_operations.plugins.module_utils.me_constants import me_timeout  # noqa: E501
+from ansible_collections.sap.sap_operations.plugins.module_utils.compat import (
+    dict_union,
+)
+from ansible_collections.sap.sap_operations.plugins.module_utils.me_constants import (
+    me_timeout,
+)
+
+from ansible_collections.sap.sap_operations.plugins.module_utils.me_constants import (
+    ME_USER_AGENT,
+)
+
 
 try:
     import requests
@@ -189,7 +199,10 @@ class me_AnsibleModule(AnsibleModule):
         try:
             response = requests.get(
                 url,
-                auth=SAPAuth(username=self.params.get('username'), password=self.params.get('password')),  # noqa: E501
+                auth=SAPAuth(
+                    username=self.params.get("username"),
+                    password=self.params.get("password"),
+                ),
                 timeout=me_timeout,
                 headers={"Accept": "application/json"},
             )
@@ -211,6 +224,20 @@ class me_AnsibleModule(AnsibleModule):
                 exception=str(e),
             )
         return result
+
+    def get_swdc_headers(self, url):
+        response = requests.get(
+            url,
+            auth=SWDCAuth(
+                username=self.params.get("username"),
+                password=self.params.get("password"),
+            ),
+            timeout=me_timeout,
+            headers={
+                "User-Agent": ME_USER_AGENT,
+            },
+        )
+        return dict(response.request.headers)
 
 
 class SAPAuth(AuthBase):
@@ -240,7 +267,7 @@ class SAPAuth(AuthBase):
         self._username = username
         self._password = password
 
-    def _next_step(self, response, history, next_url=None, headers=None, **kwargs):  # noqa: E501
+    def _next_step(self, response, history, next_url=None, headers=None, **kwargs):
         if next_url is None:
             next_url = self.get_next_url(response.text)
 
@@ -252,6 +279,14 @@ class SAPAuth(AuthBase):
         cookies = dict()
         for r in history:
             cookies.update(dict(r.cookies.items()))
+        next_url = (
+            next_url
+            if "https://" in next_url
+            else "https://accounts.sap.com{0}".format(next_url)
+        )
+        if headers is None:
+            headers = dict()
+        headers.update({"User-Agent": ME_USER_AGENT})
 
         next_response = requests.post(
             next_url,
@@ -294,7 +329,9 @@ class SAPAuth(AuthBase):
 
         response = requests.get(
             "https://cdc-api.account.sap.com/saml/v2.0/{0}/idp/sso/continue?loginToken={1}&samlContext={2}".format(  # noqa: E501
-                api_key, login_token, saml_context,
+                api_key,
+                login_token,
+                saml_context,
             ),
             timeout=me_timeout,
         )
@@ -303,7 +340,7 @@ class SAPAuth(AuthBase):
 
     def _gigya(self, response, history):
         response = self._next_step(response, history)
-        response = self._next_step(response, history, j_username=self._username)  # noqa: E501
+        response = self._next_step(response, history, j_username=self._username)
         response = self._next_step(response, history)
         response = self._get_saml_response(response, history)
         response = self._next_step(response, history)
@@ -317,7 +354,7 @@ class SAPAuth(AuthBase):
             return self._gigya(response, history)
 
         response = self._next_step(response, history)
-        response = self._next_step(response, history, j_username=self._username)  # noqa: E501
+        response = self._next_step(response, history, j_username=self._username)
         # We need to pass the next_url explicitly, because the response only contains relative URL for some reason:  # noqa: E501
         response = self._next_step(
             response, history, next_url=self.sso_url, j_password=self._password
@@ -329,3 +366,16 @@ class SAPAuth(AuthBase):
         request.register_hook("response", self.handle_response)
         self._headers = request.headers
         return request
+
+
+class SWDCAuth(SAPAuth):
+    """SWDCAuth is class which implements the SAP software download center authentication."""
+
+    def _gigya(self, response, history):
+        response = self._next_step(response, history)
+        response = self._next_step(response, history, j_username=self._username)
+        response = self._next_step(response, history)
+        response = self._get_saml_response(response, history)
+        response = self._next_step(response, history)
+        response = self._next_step(response, history)
+        return response

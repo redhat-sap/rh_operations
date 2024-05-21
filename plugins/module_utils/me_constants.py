@@ -23,4 +23,6 @@
 
 DOWNLOAD_BASKET_SERVICE_URL = "https://launchpad.support.sap.com/services/odata/svt/swdcuisrv/DownloadBasketItemSet?sap-language=en"  # noqa: E501
 
+ME_USER_AGENT = "sap.sap_operations"
+
 me_timeout = 10

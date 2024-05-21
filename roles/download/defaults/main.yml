@@ -1,8 +1,7 @@
----
 # SPDX-License-Identifier: GPL-3.0-only
-# SPDX-FileCopyrightText: 2023 Red Hat, Project Atmosphere
+# SPDX-FileCopyrightText: 2024 Red Hat, Project Atmosphere
 #
-# Copyright 2023 Red Hat, Project Atmosphere
+# Copyright 2024 Red Hat, Project Atmosphere
 #
 # This program is free software: you can redistribute it and/or modify it under the terms of the GNU
 # General Public License as published by the Free Software Foundation, version 3 of the License.
@@ -20,26 +19,17 @@
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>.
 
-__prepare_packages_mapping:
-  "7":
-    - python-lxml
-    - python-suds
-    - unzip
-    - python-requests
-  "8":
-    - python3-lxml
-    - python3-urllib3
-    - python3-suds
-    - unzip
-    - python3-requests
-  "9":
-    - python3-lxml
-    - python3-urllib3
-    - unzip
-    - python3-requests
-    - virt-who
+---
+download_architecture: "{{ ansible_facts['architecture'] | default('x86_64') }}"
+download_os_family: "{{ ansible_facts['os_family'] | default('Linux') }}"
+download_validate_certs: true
+download_timeout: 3600
+download_mode: "0755"
 
-__prepare_packages: "{{ __prepare_packages_mapping[ansible_facts['distribution_major_version']] }}"
-
-__prepare_setup_gather_subset:
-  - min
+download_description: ""
+download_infotype: ""
+download_object_type: ""
+download_patch_level: ""
+download_title: ""
+download_release_date: "0000000000000"
+download_change_date: "0000000000000"

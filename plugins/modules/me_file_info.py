@@ -124,7 +124,9 @@ file_info:
 """  # noqa: E501
 
 
-from ansible_collections.sap.sap_operations.plugins.module_utils.me_auth import me_AnsibleModule  # noqa: E501
+from ansible_collections.sap.sap_operations.plugins.module_utils.me_auth import (
+    me_AnsibleModule,
+)  # noqa: E501
 
 
 def main():
@@ -138,7 +140,9 @@ def main():
     )
     file_id = module.params.get("file_id")
 
-    url = "https://launchpad.support.sap.com/services/odata/svt/swdcuisrv/ObjectSet('{0}')".format(file_id)  # noqa: E501
+    url = "https://launchpad.support.sap.com/services/odata/svt/swdcuisrv/ObjectSet('{0}')".format(
+        file_id
+    )  # noqa: E501
 
     response = module(url=url)
 

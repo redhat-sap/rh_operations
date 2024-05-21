@@ -1,0 +1,136 @@
+# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-FileCopyrightText: 2024 Red Hat, Project Atmosphere
+#
+# Copyright 2024 Red Hat, Project Atmosphere
+#
+# This program is free software: you can redistribute it and/or modify it under the terms of the GNU
+# General Public License as published by the Free Software Foundation, version 3 of the License.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+# even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU General Public License for more details.
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+# You should have received a copy of the GNU General Public License along with this program.
+# If not, see <https://www.gnu.org/licenses/>.
+
+---
+- name: Get download basket contents
+  sap.sap_operations.me_downloadbasket_info:
+    username: "{{ downloadbasket_username }}"
+    password: "{{ downloadbasket_password }}"
+  register: downloadbasket_contents
+
+- name: Get information for each file in download basket
+  sap.sap_operations.me_file_info:
+    username: "{{ downloadbasket_username }}"
+    password: "{{ downloadbasket_password }}"
+    file_id: "{{ item.ObjectKey }}"
+  loop: "{{ downloadbasket_contents.me_downloadbasket_info }}"
+  loop_control:
+    label: "{{ item.ObjectDescription }} - {{ item.ObjectName }}"
+  register: downloadbasket_files_info
+
+- name: Ensure ansible_facts used by the role
+  ansible.builtin.setup:
+    gather_subset: "{{ downloadbasket_required_facts_subset }}"
+
+- name: Fail if not enough disk space on destination mount point
+  ansible.builtin.fail:
+    msg: "
+      There are only {{ __mount_point['size_available'] // 1024 }}KB available on the {{ downloadbasket_destination }},
+      but {{ __size_needed }}KB are required to download."
+  when:
+    - ansible_facts['mounts'] is defined
+    - ansible_facts['mounts'] | length > 0
+    - __mount_point['size_available'] // 1024 <= __size_needed | int
+  vars:
+    __mount_point: "{{ ansible_facts['mounts'] |
+      sap.sap_operations.mount_path(filepath=downloadbasket_destination) }}"
+    __size_needed: "{{ __remote_file_info.results |
+      map(attribute='file_info.FileSize') | map('trim') | map('int') | sum }}"
+
+- name: Find all files in downloadbasket_destination
+  ansible.builtin.find:
+    paths: "{{ downloadbasket_destination }}"
+    file_type: file
+  register: downloadbasket_destination_files
+
+- name: Get stats on files in downloadbasket_destination (only for files that are in download basket)
+  ansible.builtin.stat:
+    path: "{{ item.path }}"
+    checksum_algorithm: sha256
+  register: downloadbasket_destination_stats
+  loop: "{{ downloadbasket_destination_files.files }}"
+  when: (item.path | basename) in (downloadbasket_contents.me_downloadbasket_info | map(attribute='ObjectName'))
+  loop_control:
+    label: "{{ item.path }}"
+
+- name: Get swdc_auth_info
+  sap.sap_operations.swdc_auth_info:
+    username: "{{ downloadbasket_username }}"
+    password: "{{ downloadbasket_password }}"
+    url: "{{ downloadbasket_files_info.results[0].item.DirectDownloadUrl }}"
+  when: downloadbasket_files_info.results | length > 0
+  register: downloadbasket_swdc_auth_info
+
+- name: Download SAP software with get_url
+  ansible.builtin.get_url:
+    dest: "{{ downloadbasket_destination }}"
+    url: "{{ download_file_url }}"
+    url_username: "{{ downloadbasket_username }}"
+    url_password: "{{ downloadbasket_password }}"
+    validate_certs: "{{ downloadbasket_validate_certs }}"
+    checksum: "sha256:{{ download_file_checksum }}"
+    timeout: "{{ downloadbasket_timeout }}"
+    mode: "{{ downloadbasket_mode }}"
+    headers:
+      cookie: "{{ downloadbasket_swdc_auth_info.swdc_auth_info.Cookie }}"
+  when: download_file_checksum != present_file_checksum
+  vars:
+    download_file_checksum: "{{ item.me_file_info.Checksum }}"
+    download_file_url: "{{ item.item.DirectDownloadUrl }}"
+    item_filename: "{{ item.me_file_info.FileName }}"
+    present_file_fullpath: "{{ downloadbasket_destination }}/{{ item_filename }}"
+    present_file_checksum: >-
+      {{ downloadbasket_destination_stats.results
+      | selectattr('stat', 'defined')
+      | map(attribute='stat')
+      | selectattr('path', 'equalto', present_file_fullpath)
+      | map(attribute='checksum')
+      | first
+      | default("")
+      }}
+  loop: "{{ downloadbasket_files_info.results }}"
+  loop_control:
+    label: "{{ download_file_url }} - {{ item_filename }}"
+  register: downloadbasket_get_url
+
+- name: Set return variable
+  ansible.builtin.set_fact:
+    downloadbasket_register:
+      changed: "{{ downloadbasket_get_url.changed }}"
+      failed: "{{ downloadbasket_get_url.failed | default(false) }}"
+      files: >-
+        {{ downloadbasket_register.files | default([]) + [
+          {
+            'DirectDownloadUrl': item.item.item.DirectDownloadUrl,
+            'filename': item.item.me_file_info.FileName,
+            'sha256': item.item.me_file_info.Checksum,
+            'changed': item.item.changed,
+            'failed': item.item.failed,
+          }
+        ] }}
+  loop: "{{ downloadbasket_get_url.results }}"
+  loop_control:
+    label: "{{ item.item.item.DirectDownloadUrl }} -  {{ item.item.me_file_info.FileName }}"
+
+- name: Print downloadbasket_register
+  ansible.builtin.debug:
+    var: downloadbasket_register
+    verbosity: 3
