@@ -35,8 +35,13 @@
     dest: "{{ cloudconnector_download_filepath }}"
     timeout: "{{ cloudconnector_download_timeout_seconds }}"
     headers:
-      Cookie: eula_3_1_agreed=tools.hana.ondemand.com/developer-license-3_1.txt
+      Cookie: "{{ cloudconnector_eula }}"
   register: uri
+  failed_when:
+    - >-
+      uri.url is defined
+      and
+      (uri.url | lower) is contains('eula')
 
 - name: Install SAP Cloud Connector
   ansible.builtin.include_tasks:

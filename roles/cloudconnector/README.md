@@ -83,7 +83,7 @@ _Type:_ `str`
 _Required:_ `False`
 _Description:_
 Filename of downloaded SAP cloud connector binaries,
-By default Filename is sapcc-{{ cloudconnector_version }}-{{ cloudconnector_system }}-{{ cloudconnector_architecture }}.{{ cloudconnector_archive_extension }}
+By default Filename is  sapcc-{{ cloudconnector_version }}-{{ cloudconnector_system }}-{{ cloudconnector_architecture }}.{{ cloudconnector_archive_extension }} 
 See definition of variables in defaults/main.yml and vars/main.yml
 
  
@@ -204,6 +204,19 @@ _Default:_ `False`
 _Required:_ `False`
 _Description:_
 Bool to define if cloud connector should be installed in portable mode
+
+ 
+
+#### cloudconnector_eula
+
+
+_Type:_ `str`
+
+_Default:_ `eula_3_2_agreed=tools.hana.ondemand.com/developer-license-3_2.txt`
+
+_Required:_ `False`
+_Description:_
+Confirms that you are agree to SAP developer license
 
  
  

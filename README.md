@@ -25,23 +25,9 @@ If not, see <https://www.gnu.org/licenses/>.
 
 Added documentation website [docs.galaxy.saponrhel.org>](https://docs.galaxy.saponrhel.org/?utm_source=galaxy)
 
-Added modules to manage SAP BTP resources.
+Added role to download SAP SWDC downloadbasket content.
 
-- sap.sap_operations.btp_global_account_info
-- sap.sap_operations.btp_global_account_assignments_info
-- sap.sap_operations.btp_subaccount
-- sap.sap_operations.btp_subaccounts_info
-
-Added modules to manage SAP BTP Cloud Foundry.
-
-- sap.sap_operations.cf_marketplace_info
-- sap.sap_operations.cf_service_instance
-- sap.sap_operations.cf_service_instance_info
-- sap.sap_operations.cf_service_instance_key
-- sap.sap_operations.cf_service_instance_keys_info
-- sap.sap_operations.cf_service_instances_info
-- sap.sap_operations.cf_service_plans_info
-- sap.sap_operations.cf_spaces_info
+Added role to download SAP software from SWDC.
 
 # Ansible Collection - sap.sap_operations
 

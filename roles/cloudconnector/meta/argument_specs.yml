@@ -125,6 +125,12 @@ argument_specs:
         required: false
         default: false
 
+      cloudconnector_eula:
+        description: Confirms that you are agree to SAP developer license
+        type: str
+        required: false
+        default: eula_3_2_agreed=tools.hana.ondemand.com/developer-license-3_2.txt
+
   __limitations__:
     options: {}
     short_description: Limitations
