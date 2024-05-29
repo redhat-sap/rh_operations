@@ -4,6 +4,21 @@ SAP Operations Collection Release Notes
 
 .. contents:: Topics
 
+v1.17.1
+=======
+
+Release Summary
+---------------
+
+Bugfix release
+
+Minor Changes
+-------------
+
+- add additional checks to roles sapjvm and cloudconnector to detect if download failed
+- add eula parameters to roles sapjvm and cloudconnector
+- replace ansible.builtin.yum with ansible.builtin.dnf
+
 v1.17.0
 =======
 

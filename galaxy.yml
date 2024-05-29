@@ -24,7 +24,7 @@ namespace: sap
 
 name: sap_operations
 
-version: 1.17.0
+version: 1.17.1
 
 readme: README.md
 
@@ -133,6 +133,7 @@ build_ignore:
 
   - roles/sapjvm/
   - roles/cloudconnector/*
+  - roles/cloudconnector
 
   - plugins/modules/proc_info.py
   - plugins/action/cf_marketplace_info.py
@@ -179,3 +180,9 @@ build_ignore:
   - plugins/modules/enq_admin_lock.py
   - plugins/doc_fragments/enq_admin.py
   - plugins/module_utils/enq_admin.py
+
+  - roles/downloadbasket/*
+  - roles/downloadbasket
+  - plugins/modules/swdc_auth_info.py
+  - roles/download/*
+  - roles/download

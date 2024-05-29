@@ -214,6 +214,19 @@ _Description:_
 If portable version of SAP JVM has to be downloaded and installed / removed
 
  
+
+#### sapjvm_eula
+
+
+_Type:_ `str`
+
+_Default:_ `eula_3_2_agreed=tools.hana.ondemand.com/developer-license-3_2.txt`
+
+_Required:_ `False`
+_Description:_
+Confirms that you are agree to SAP developer license
+
+ 
  
 
 ## Limitations

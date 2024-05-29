@@ -31,7 +31,7 @@
   become_user: root
 
 - name: Make sure Cloud Foundry cli installed
-  ansible.builtin.yum:
+  ansible.builtin.dnf:
     name: "{{ cf_package_name }}"
     state: present
   become: true
