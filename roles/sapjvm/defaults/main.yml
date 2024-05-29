@@ -42,4 +42,4 @@ sapjvm_system: "{{ (ansible_system | default('linux')) | lower }}"
 
 sapjvm_architecture: "{{ sapjvm_architecture_mapping[ansible_architecture | default('x86_64')] }}"
 
-sapjvm_portable: false
+sapjvm_eula: eula_3_2_agreed=tools.hana.ondemand.com/developer-license-3_2.txt

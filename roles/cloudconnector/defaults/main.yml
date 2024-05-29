@@ -41,3 +41,5 @@ cloudconnector_system: "{{ (ansible_system | default('linux')) | lower }}"
 cloudconnector_architecture: "{{ cloudconnector_architecture_mapping[ansible_architecture | default('x86_64')] }}"
 
 cloudconnector_portable: false
+
+cloudconnector_eula: eula_3_2_agreed=tools.hana.ondemand.com/developer-license-3_2.txt

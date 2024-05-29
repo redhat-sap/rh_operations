@@ -21,6 +21,6 @@
 # If not, see <https://www.gnu.org/licenses/>.
 
 - name: Remove cloud connector package
-  ansible.builtin.yum:
+  ansible.builtin.dnf:
     name: "{{ cloudconnector_package_name }}"
     state: absent

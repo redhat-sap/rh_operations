@@ -112,6 +112,11 @@ argument_specs:
         type: bool
         required: false
         default: false
+      sapjvm_eula:
+        description: Confirms that you are agree to SAP developer license
+        type: str
+        required: false
+        default: eula_3_2_agreed=tools.hana.ondemand.com/developer-license-3_2.txt
 
   __limitations__:
     options: {}

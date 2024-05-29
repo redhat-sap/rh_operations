@@ -21,7 +21,7 @@
 
 ---
 - name: Install SAP JVM RPM
-  ansible.builtin.yum:
+  ansible.builtin.dnf:
     name: "{{ sapjvm_download_filepath }}"
     state: present
     disable_gpg_check: true

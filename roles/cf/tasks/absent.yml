@@ -21,7 +21,7 @@
 
 ---
 - name: Make sure Cloud Foundry cli absent
-  ansible.builtin.yum:
+  ansible.builtin.dnf:
     name: "{{ cf_package_name }}"
     state: absent
   become: true

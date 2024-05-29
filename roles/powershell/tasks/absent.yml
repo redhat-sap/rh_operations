@@ -21,7 +21,7 @@
 
 ---
 - name: Remove Powershell
-  ansible.builtin.yum:
+  ansible.builtin.dnf:
     name: powershell
     state: absent
   become: true

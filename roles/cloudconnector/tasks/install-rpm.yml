@@ -39,7 +39,7 @@
   failed_when: __cloudconnector_unpack.files | length > 1
 
 - name: Install SAP Cloud Connector RPM
-  ansible.builtin.yum:
+  ansible.builtin.dnf:
     name: "{{ cloudconnector_unpack_destination }}/{{ __cloudconnector_unpack.files | first }}"
     state: present
     disable_gpg_check: true
