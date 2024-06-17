@@ -29,19 +29,87 @@ Added role to download SAP SWDC downloadbasket content.
 
 Added role to download SAP software from SWDC.
 
-# Ansible Collection - sap.sap_operations
+# sap.sap_operations
 
-This collection contains modules and plugins to assist in automating SAP day 2 operations with Ansible.
+Ansible collection to automate SAP operations
 
-## Installation and Usage
+## Description
+
+Ansible roles, modules and plugins to automate SAP operations.
+
+Following use cases are covered in this collection:
+
+- SAP HANA Automation
+
+- SAP Netweaver Automation
+
+- SAP ABAP automation
+
+- SAP Software Download Automation
+
+- SAP host automation (sap host agent related functionality)
+
+- Automation for pacemaker cluster in context of SAP (HANA and NW clusters)
+
+- SAP BTP automation
+
+See playbook examples in playbook folder.
+
+## Installation
 
 ```bash
 ansible-galaxy collection install sap.sap_operations
+
+ansible-galaxy collection install sap.sap_operations --upgrade
 ```
 
 Role `prepare` will make sure that all necessary package dependencies are installed on RHEL host, so content from this collection can be executed.
 
 Please see documentation for role `prepare`.
+
+## Use cases
+
+- SAP HANA update
+
+- SAP NW kernel update
+
+- get information about current SAP landscape
+
+- manage SAP BTP global account and subaccounts
+
+- download SAP software from SWDC
+
+- install SAP cloud connector
+
+- manage SAP license information
+
+- start / stop / restart SAP system
+
+- get status and configuration information about SAP clusters
+
+- manage SAP ASCS and ERS locks
+
+- manage SAP transport requests in ABAP systems
+
+- get configuration information from SAP ABAP system
+
+- run non invasive SAP quality checks and get results
+
+- run non invasive cluster configuration checks
+
+- unpack SAP software from archives
+
+- validate SAP system id (SID)
+
+## Testing
+
+Collection tested automatically using ansible molecule and Azure molecule driver <https://github.com/redhat-sap/molecule.driver>
+
+Ansible plugins and modules are covered with python unit and integration tests.
+
+Test cover RHEL 7, RHEL 8 and RHEL 9 - supported versions.
+
+Supported (and thus tested) ansible-core and python versions on controller and managed hosts see below.
 
 ## Requirements
 
@@ -53,7 +121,41 @@ ansible-core 2.15
 
 ansible-core 2.16
 
-### Python
+ansible-core 2.17
+
+## Contributing
+
+Contributions are accepted at <https://github.com/redhat-sap/rh_operations> - galaxy branch.
+
+See details in that repository.
+
+## Support
+
+This collection is community supported.
+
+If support is needed, please use collection from AAP.
+
+<https://console.redhat.com/ansible/automation-hub/repo/published/sap/sap_operations/>
+
+## Release Notes and Roadmap
+
+## Related Information
+
+Collection documentation located at
+
+<docs.galaxy.saponrhel.org>
+
+## License Information
+
+GPL-3.0-only
+
+GNU General Public License v3.0
+
+See <https://www.gnu.org/licenses/gpl-3.0.txt> for details
+
+2022 - 2024 (c) Project Atmosphere
+
+### Python supported versions
 
 Ansible collection is designed to work with following python versions on controller host
 
@@ -98,9 +200,3 @@ Not all python and ansible version combination are expected to work. Please use 
 Collection is supported as part of Red Hat Ansible Automation Platform subscription with limitations described in Ansible Automation support policy.
 
 <https://access.redhat.com/support/policy/updates/ansible-automation-platform>
-
-## LICENSE
-
-GNU General Public License v3.0
-
-See <https://www.gnu.org/licenses/gpl-3.0.txt> for details
