@@ -4,6 +4,19 @@ SAP Operations Collection Release Notes
 
 .. contents:: Topics
 
+v1.17.2
+=======
+
+Release Summary
+---------------
+
+Lifecycle release
+
+Minor Changes
+-------------
+
+- update collection readme file as per recommendations from Ansible Partners organization
+
 v1.17.1
 =======
 
