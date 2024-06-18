@@ -27,19 +27,63 @@ Added link to collection documentation
 
 <https://catalog.redhat.com/software/collection/sap/sap_operations>
 
-# Ansible Collection - sap.sap_operations
+# sap.sap_operations
 
-This collection contains modules and plugins to assist in automating SAP day 2 operations with Ansible.
+Ansible collection to automate SAP operations
 
-## Installation and Usage
+## Description
+
+Ansible roles, modules and plugins to automate SAP operations.
+
+Following use cases are covered in this collection:
+
+- SAP HANA Automation
+
+- SAP Netweaver Automation
+
+- SAP ABAP automation
+
+- SAP host automation (sap host agent related functionality)
+
+See playbook examples in playbook folder.
+
+## Installation
 
 ```bash
 ansible-galaxy collection install sap.sap_operations
+
+ansible-galaxy collection install sap.sap_operations --upgrade
 ```
 
 Role `prepare` will make sure that all necessary package dependencies are installed on RHEL host, so content from this collection can be executed.
 
 Please see documentation for role `prepare`.
+
+## Use cases
+
+- SAP HANA update
+
+- SAP NW kernel update
+
+- get information about current SAP landscape
+
+- start / stop / restart SAP system
+
+- get status and configuration information about SAP clusters
+
+- get configuration information from SAP ABAP system
+
+- unpack SAP software from archives
+
+## Testing
+
+Collection tested automatically using ansible molecule and Azure molecule driver <https://github.com/redhat-sap/molecule.driver>
+
+Ansible plugins and modules are covered with python unit and integration tests.
+
+Test cover RHEL 7, RHEL 8 and RHEL 9 - supported versions.
+
+Supported (and thus tested) ansible-core and python versions on controller and managed hosts see below.
 
 ## Requirements
 
@@ -50,6 +94,8 @@ Ansible collection is designed to work with following Ansible versions (on contr
 ansible-core 2.15
 
 ansible-core 2.16
+
+ansible-core 2.17
 
 ### Python
 
@@ -97,8 +143,28 @@ Collection is supported as part of Red Hat Ansible Automation Platform subscript
 
 <https://access.redhat.com/support/policy/updates/ansible-automation-platform>
 
-## LICENSE
+## Contributing
+
+Contributions are accepted at <https://github.com/redhat-sap/rh_operations> - main branch.
+
+See details in that repository.
+
+## Support
+
+This collection is supported by Red Hat with limitations described in Ansible Automation Platform Lifecycle.
+
+<https://access.redhat.com/support/policy/updates/ansible-automation-platform>
+
+## Release Notes and Roadmap
+
+## Related Information
+
+## License Information
+
+GPL-3.0-only
 
 GNU General Public License v3.0
 
 See <https://www.gnu.org/licenses/gpl-3.0.txt> for details
+
+2022 - 2024 (c) Project Atmosphere
