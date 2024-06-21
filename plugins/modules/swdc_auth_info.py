@@ -107,11 +107,17 @@ from ansible_collections.sap.sap_operations.plugins.module_utils.me_auth import 
     me_AnsibleModule,
 )
 
+from ansible_collections.sap.sap_operations.plugins.module_utils.me_auth import (
+    get_swdc_headers,
+)
+
 
 def run_module(module):
 
     url = module.params.get("url")
-    swdc_auth_info = module.get_swdc_headers(url=url)
+    password = module.params.get("password")
+    username = module.params.get("username")
+    swdc_auth_info = get_swdc_headers(url=url, username=username, password=password)
     return dict(
         changed=False,
         swdc_auth_info=swdc_auth_info,

@@ -23,7 +23,7 @@ If not, see <https://www.gnu.org/licenses/>.
 
 # RECENT UPDATES
 
-Added documentation website [docs.galaxy.saponrhel.org>](https://docs.galaxy.saponrhel.org/?utm_source=galaxy)
+Added documentation website [docs.galaxy.saponrhel.org](https://docs.galaxy.saponrhel.org/?utm_source=galaxy)
 
 Added role to download SAP SWDC downloadbasket content.
 
