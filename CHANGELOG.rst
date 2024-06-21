@@ -4,6 +4,25 @@ SAP Operations Collection Release Notes
 
 .. contents:: Topics
 
+v1.31.0
+=======
+
+Release Summary
+---------------
+
+Feature release
+
+Major Changes
+-------------
+
+- add 'commands' show_c and show_w as mandated by GPL-3.0 license
+
+New Modules
+-----------
+
+- sap.sap_operations.show_c - Show copyright
+- sap.sap_operations.show_w - Show warranty
+
 v1.17.2
 =======
 
