@@ -225,19 +225,116 @@ class me_AnsibleModule(AnsibleModule):
             )
         return result
 
-    def get_swdc_headers(self, url):
-        response = requests.get(
-            url,
-            auth=SWDCAuth(
-                username=self.params.get("username"),
-                password=self.params.get("password"),
-            ),
-            timeout=me_timeout,
-            headers={
-                "User-Agent": ME_USER_AGENT,
-            },
-        )
-        return dict(response.request.headers)
+
+def get_all_inputs(text):
+    ret = {}
+    for i in ET.fromstring(text, parser=etree.HTMLParser()).xpath(  # nosec B314
+        ".//body//form[@method='post']//input"
+    ):
+        if i.attrib.get("name") and i.attrib.get("value"):
+            ret[i.attrib["name"]] = i.attrib["value"]
+
+    return ret
+
+
+def get_next_url(text):
+    next_url = (
+        ET.fromstring(text, parser=etree.HTMLParser())  # nosec B314
+        .xpath(".//body//form[@method='post']")[0]
+        .attrib["action"]
+    )
+
+    next_url = (
+        next_url
+        if "https://" in next_url
+        else "https://accounts.sap.com{0}".format(next_url)
+    )
+    return next_url
+
+
+def get_gigya_params(response):
+    api_key = None
+    saml_context = None
+    for p in urlparse(response.url).query.split("&"):
+        if p.startswith("samlContext="):
+            saml_context = p[len("samlContext="):]
+        elif p.startswith("apiKey="):
+            api_key = p[len("apiKey="):]
+
+    return saml_context, api_key
+
+
+def get_swdc_headers(url, username, password):
+    session = requests.Session()
+
+    session.headers.update({"User-Agent": ME_USER_AGENT})
+    session.allow_redirects = True
+    session.timeout = me_timeout
+
+    response = session.get(url)
+    next_url = get_next_url(response.text)
+    post_data = get_all_inputs(response.text)
+
+    response = session.post(
+        next_url,
+        data=post_data,
+    )
+
+    next_url = get_next_url(response.text)
+    post_data = get_all_inputs(response.text)
+    post_data.update({"j_username": username})
+
+    response = session.post(
+        next_url,
+        data=post_data,
+    )
+
+    next_url = get_next_url(response.text)
+    post_data = get_all_inputs(response.text)
+    response = session.post(
+        next_url,
+        data=post_data,
+    )
+
+    saml_context, api_key = get_gigya_params(response)
+    response = session.post(
+        "https://core-api.account.sap.com/uid-core/authenticate?reqId=https://hana.ondemand.com/supportportal",  # noqa: E501
+        json={"login": username, "password": password},
+    )
+    data = json.loads(response.text)
+    login_token = data["cookieValue"]
+
+    response = requests.get(
+        "https://cdc-api.account.sap.com/saml/v2.0/{0}/idp/sso/continue?loginToken={1}&samlContext={2}".format(  # noqa: E501
+            api_key,
+            login_token,
+            saml_context,
+        ),
+        timeout=me_timeout,
+    )
+
+    next_url = get_next_url(response.text)
+    post_data = get_all_inputs(response.text)
+    response = session.post(
+        next_url,
+        data=post_data,
+    )
+    next_url = get_next_url(response.text)
+    post_data = get_all_inputs(response.text)
+
+    post_url = post_data["RelayState"]
+    session.headers.update({"Content-Type": "application/x-www-form-urlencoded"})
+    response = session.post(url=post_url, data=post_data, allow_redirects=False)
+
+    while response.status_code == 302:
+        response = session.send(response._next, allow_redirects=False, stream=True)
+
+    ret = {}
+    ret["url"] = response.request.url
+    ret["headers"] = dict(response.request.headers)
+
+    session.close()
+    return ret
 
 
 class SAPAuth(AuthBase):
@@ -377,5 +474,5 @@ class SWDCAuth(SAPAuth):
         response = self._next_step(response, history)
         response = self._get_saml_response(response, history)
         response = self._next_step(response, history)
-        response = self._next_step(response, history)
+        # response = self._next_step(response, history)
         return response

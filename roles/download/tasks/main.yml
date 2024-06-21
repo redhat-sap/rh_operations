@@ -75,38 +75,31 @@
   loop_control:
     label: "{{ item.path }}"
 
-- name: Get swdc_auth_info
-  sap.sap_operations.swdc_auth_info:
-    username: "{{ download_username }}"
-    password: "{{ download_password }}"
-    url: "{{ __download_file_direct_url }}"
-  when: download_files_info.results | length > 0
-  vars:
-    __download_file_direct_url: "{{
-      download_files_info.results[0].item.DirectDownloadUrl |
-      default(download_files_info.results[0].item.DownloadDirectLink)
-      }}"
-  register: download_swdc_auth_info
+- name: Remove variable download_register_last
+  ansible.builtin.set_fact:
+    download_register_last: {}
 
-- name: Download SAP software with get_url
-  ansible.builtin.get_url:
-    dest: "{{ download_destination }}"
-    url: "{{ download_file_url }}"
-    url_username: "{{ download_username }}"
-    url_password: "{{ download_password }}"
-    validate_certs: "{{ download_validate_certs }}"
-    checksum: "sha256:{{ download_file_checksum }}"
-    timeout: "{{ download_timeout }}"
-    mode: "{{ download_mode }}"
-    headers:
-      cookie: "{{ download_swdc_auth_info.swdc_auth_info.Cookie }}"
-  when: download_file_checksum != present_file_checksum
+- name: Process files to be downloaded
+  ansible.builtin.include_tasks:
+    file: process_file.yml
   vars:
     download_file_checksum: "{{ item.me_file_info.Checksum }}"
     download_file_url: "{{
       item.item.DirectDownloadUrl |
       default(item.item.DownloadDirectLink)
       }}"
+    download_file_filename: "{{ item.me_file_info.FileName }}"
+    download_file_filepath: "{{ download_destination }}/{{ item_filename }}"
+    download_file_existing_file_checksum: >-
+      {{ download_destination_stats.results
+      | selectattr('stat', 'defined')
+      | map(attribute='stat')
+      | selectattr('path', 'equalto', present_file_fullpath)
+      | map(attribute='checksum')
+      | first
+      | default("")
+      }}
+    download_file_existing_file_filepath: "{{ download_destination }}/{{ item_filename }}"
     item_filename: "{{ item.me_file_info.FileName }}"
     present_file_fullpath: "{{ download_destination }}/{{ item_filename }}"
     present_file_checksum: >-
@@ -121,44 +114,3 @@
   loop: "{{ download_files_info.results }}"
   loop_control:
     label: "{{ download_file_url }} - {{ item_filename }}"
-  register: download_get_url
-
-- name: Remove variable download_register_last
-  ansible.builtin.set_fact:
-    download_register_last: {}
-
-- name: Set return variable
-  ansible.builtin.set_fact:
-    download_register_last:
-      changed: "{{ download_get_url.changed }}"
-      failed: "{{ download_get_url.failed | default(false) }}"
-      files: >-
-        {{ download_register_last.files | default([]) + [
-          {
-            'DirectDownloadUrl': download_file_url,
-            'filename': item.item.me_file_info.FileName,
-            'sha256': item.item.me_file_info.Checksum,
-            'changed': item.item.changed,
-            'failed': item.item.failed,
-          }
-        ]
-        }}"
-    download_register:
-      changed: "{{ download_get_url.changed }}"
-      failed: "{{ download_get_url.failed | default(false) }}"
-      files: >-
-        {{ download_register.files | default([]) + [
-          {
-            'DirectDownloadUrl': download_file_url,
-            'filename': item.item.me_file_info.FileName,
-            'sha256': item.item.me_file_info.Checksum,
-            'changed': item.item.changed,
-            'failed': item.item.failed,
-          }
-        ] }}
-  loop: "{{ download_get_url.results }}"
-  vars:
-    download_file_url: "{{ item.item.item.DirectDownloadUrl |
-      default(item.item.item.DownloadDirectLink) }}"
-  loop_control:
-    label: "{{ download_file_url }} -  {{ item.item.me_file_info.FileName }}"
