@@ -21,6 +21,13 @@ You should have received a copy of the GNU General Public License along with thi
 If not, see <https://www.gnu.org/licenses/>.
 -->
 
+# FEEDBACK
+
+Development team is open to discuss any feedback from users of the collection.
+
+If you can share how do you use this collection, what can be added, what is missing, please share your contact information in the form below.
+
+<https://forms.gle/PNj4SXP6ifr7svfo6>
 # RECENT UPDATES
 
 Added documentation website [docs.galaxy.saponrhel.org](https://docs.galaxy.saponrhel.org/?utm_source=galaxy)
