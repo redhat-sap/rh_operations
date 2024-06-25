@@ -1,0 +1,277 @@
+# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-FileCopyrightText: 2024 Red Hat, Project Atmosphere
+#
+# Copyright 2024 Red Hat, Project Atmosphere
+#
+# This program is free software: you can redistribute it and/or modify it under the terms of the GNU
+# General Public License as published by the Free Software Foundation, version 3 of the License.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+# even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU General Public License for more details.
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+# You should have received a copy of the GNU General Public License along with this program.
+# If not, see <https://www.gnu.org/licenses/>.
+
+---
+general_preconfigure_major_version: "{{ ansible_facts['distribution_major_version'] }}"
+general_preconfigure_architecture: "{{ ansible_facts['architecture'] }}"
+general_preconfigure_kernel_parameters: "
+  {{
+  general_preconfigure_kernel_parameters_mapping\
+  [ansible_facts['distribution_major_version']]
+  }}"
+
+general_preconfigure_limits:
+  - domain: "@sapsys"
+    type: soft
+    item: nproc
+    value: unlimited
+  - domain: "@sapsys"
+    type: hard
+    item: nproc
+    value: unlimited
+  - domain: "@sapsys"
+    type: soft
+    item: nofile
+    value: 1048576
+  - domain: "@sapsys"
+    type: hard
+    item: nofile
+    value: 1048576
+
+general_preconfigure_services:
+  - name: firewalld
+    state: stopped
+    enabled: false
+  - name: uuidd
+    state: started
+    enabled: true
+  - name: uuidd.socket
+    state: started
+    enabled: true
+
+general_preconfigure_packages: "
+  {{
+  general_preconfigure_packages_mapping\
+  [general_preconfigure_major_version]\
+  [general_preconfigure_architecture]
+  }}"
+
+general_preconfigure_package_groups: "
+  {{
+  general_preconfigure_package_groups_mapping\
+  [general_preconfigure_major_version]\
+  [general_preconfigure_architecture]
+  }}"
+
+general_preconfigure_selinux: "
+  {{
+  general_preconfigure_selinux_mapping\
+  [general_preconfigure_major_version]
+  }}"
+
+general_preconfigure_packages_mapping:
+  "7":
+    x86_64:
+      - uuidd
+      - tcsh
+      - psmisc
+      - compat-sap-c++-5
+      - compat-sap-c++-6
+      - compat-sap-c++-7
+      - compat-sap-c++-9
+      - compat-sap-c++-10
+    ppc64le:
+      - uuidd
+      - tcsh
+      - psmisc
+      - compat-sap-c++-5
+      - compat-sap-c++-6
+      - compat-sap-c++-7
+      - compat-sap-c++-9
+      - compat-sap-c++-10
+      - librtas
+      - src
+      - rsct.core.utils
+      - rsct.core
+      - rsct.basic
+      - rsct.opt.storagerm
+      - devices.chrp.base.ServiceRM
+      - DynamicRM
+      - ncurses-libs
+      - readline
+      - sqlite
+      - sg3_utils
+      - libgcc
+      - libstdc++
+      - zlib
+      - iprutils
+      - lsvpd
+      - libvpd
+      - libservicelog
+      - servicelog
+      - powerpc-utils
+      - powerpc-utils-python
+      - ppc64-diag
+      - IBMinvscout
+    ppc64:
+      - uuidd
+      - tcsh
+      - psmisc
+      - compat-sap-c++-5
+    s390x:
+      - uuidd
+      - tcsh
+      - psmisc
+  "8":
+    x86_64:
+      - uuidd
+      - libnsl
+      - tcsh
+      - psmisc
+      - nfs-utils
+      - bind-utils
+      - compat-sap-c++-9
+      - compat-sap-c++-10
+      - compat-sap-c++-11
+    ppc64le:
+      - uuidd
+      - libnsl
+      - tcsh
+      - psmisc
+      - nfs-utils
+      - bind-utils
+      - compat-sap-c++-9
+      - compat-sap-c++-10
+      - compat-sap-c++-11
+      - ibm-power-managed-rhel8
+    s390x:
+      - uuidd
+      - libnsl
+      - tcsh
+      - psmisc
+      - nfs-utils
+      - bind-utils
+      - compat-sap-c++-10
+  "9":
+    x86_64:
+      - uuidd
+      - libnsl
+      - tcsh
+      - psmisc
+      - nfs-utils
+      - bind-utils
+      - hostname
+      - tuned
+      - libxcrypt-compat
+    ppc64le:
+      - uuidd
+      - libnsl
+      - tcsh
+      - psmisc
+      - nfs-utils
+      - bind-utils
+      - hostname
+      - tuned
+      - libxcrypt-compat
+      - ibm-power-managed-rhel9
+    s390x:
+      - uuidd
+      - libnsl
+      - tcsh
+      - psmisc
+      - nfs-utils
+      - bind-utils
+      - hostname
+      - tuned
+      - libxcrypt-compat
+
+general_preconfigure_package_groups_mapping:
+  default: &default_package_groups
+    x86_64:
+      - "@base"
+      - "@large-systems"
+      - "@network-file-system-client"
+      - "@performance"
+    ppc64le:
+      - "@base"
+      - "@compat-libraries"
+    ppc64:
+      - "@base"
+      - "@compat-libraries"
+    s390x:
+      - "@base"
+      - "@compat-libraries"
+      - "@large-systems"
+      - "@network-file-system-client"
+      - "@performance"
+  "7":
+    <<: *default_package_groups
+    x86_64:
+      - "@base"
+      - "@large-systems"
+      - "@network-file-system-client"
+      - "@performance"
+      - "@compat-libraries"
+  "8":
+    <<: *default_package_groups
+    x86_64:
+      - "@base"
+      - "@large-systems"
+      - "@network-file-system-client"
+      - "@performance"
+      - "@server-product-environment"
+  "9":
+    <<: *default_package_groups
+    x86_64:
+      - "@base"
+      - "@large-systems"
+      - "@network-file-system-client"
+      - "@performance"
+      - "@server-product-environment"
+
+general_preconfigure_selinux_mapping:
+  "7":
+    state: permissive
+    policy: targeted
+  "8":
+    state: permissive
+    policy: targeted
+  "9":
+    state: permissive
+    policy: targeted
+
+general_preconfigure_kernel_parameters_mapping:
+  "7":
+    - name: kernel.sem
+      value: "1250 256000 100 1024"
+    - name: vm.max_map_count
+      value: 2147483647
+  "8":
+    - name: vm.max_map_count
+      value: 2147483647
+  "9":
+    - name: vm.max_map_count
+      value: 2147483647
+
+general_preconfigure_packages_exclude:
+  - kernel
+  - kernel-*
+  - linux-firmware
+  - '*-firmware-*'
+  - dbus
+  - glibc
+  - hal
+  - systemd
+  - udev
+  - gnutls
+  - openssl-libs
+
+general_preconfigure_packages_skip_broken: "{{ general_preconfigure_reboot == 'none' }}"
