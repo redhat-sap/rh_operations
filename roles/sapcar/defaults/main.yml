@@ -20,21 +20,16 @@
 # If not, see <https://www.gnu.org/licenses/>.
 
 ---
-download_itemset_filtered_not_sorted: >-
-  {{ download_itemset.me_downloaditemset_info
-  | selectattr('Title', 'contains', download_title)
-  | selectattr('Description', 'contains', download_description)
-  | selectattr('Infotype', 'contains', download_infotype)
-  | selectattr('ObjectType', 'contains', download_object_type)
-  | selectattr('PatchLevel', 'contains', download_patch_level | string)
-  | sort(attribute=download_sort_attribute)
-  }}
+sap_operations_download_username: "{{ lookup('ansible.builtin.env', 'SAP_OPERATIONS_DOWNLOAD_USERNAME') }}" # noqa var-naming[no-role-prefix]
+sap_operations_download_password: "{{ lookup('ansible.builtin.env', 'SAP_OPERATIONS_DOWNLOAD_PASSWORD') }}" # noqa var-naming[no-role-prefix]
+sapcar_download_username: "{{ sap_operations_download_username }}"
+sapcar_download_password: "{{ sap_operations_download_password }}"
 
-# | selectattr('ReleaseDate', 'ge', download_release_date)
-# | selectattr('ChangeDate', 'ge', download_change_date)
-
-download_itemset_filtered: >
-  {{ download_itemset_filtered_not_sorted if (not download_one_file)
-    else
-    ([download_itemset_filtered_not_sorted | max(attribute=download_sort_attribute)])
-  }}
+sap_operations_sapcar_exe_path: "/usr/sap/sapcar/sapcar" # noqa var-naming[no-role-prefix]
+sapcar_exe_path: "{{ sap_operations_sapcar_exe_path }}"
+sapcar_state: present
+sapcar_download_destination: /tmp/sapcar_download_destination/
+sapcar_patch_level: ""
+sapcar_mode: "0755"
+sapcar_owner: "{{ omit }}"
+sapcar_version: "{{ 'dummy' | sap.sap_operations.me_aliases | select('contains', 'sapcar-') | max | replace('sapcar-', '') }}"

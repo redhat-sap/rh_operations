@@ -1,0 +1,132 @@
+# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-FileCopyrightText: 2024 Red Hat, Project Atmosphere
+#
+# Copyright 2024 Red Hat, Project Atmosphere
+#
+# This program is free software: you can redistribute it and/or modify it under the terms of the GNU
+# General Public License as published by the Free Software Foundation, version 3 of the License.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+# even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU General Public License for more details.
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+# You should have received a copy of the GNU General Public License along with this program.
+# If not, see <https://www.gnu.org/licenses/>.
+
+---
+argument_specs:
+  main:
+    short_description: Role to manage sapcar
+    description:
+      - Role to manage sapcar binary
+    options:
+      sapcar_exe_path:
+        description:
+          - Path to sapcar executable file
+          - Default value is from collection variable sap_operations_sapcar_exe_path
+        type: path
+        required: false
+        default: /usr/sap/sapcar/sapcar
+      sapcar_state:
+        description:
+          - State for sapcar executable
+          - present - role will ensure that executable will downloaded and installed (copied to sapcar_exe_path)
+          - present - will do any changes only if file sapcar_exe_path does not exists
+          - absent - role will ensure that file at sapcar_exe_path is absent, containing directory will not be removed
+        type: str
+        required: false
+        default: present
+        choices:
+          - present
+          - absent
+      sapcar_download_destination:
+        description:
+          - Path there sapcar binary will be downloaded (in case of sapcar_state='present')
+          - Role will ensure that this folder exists
+        type: path
+        required: false
+        default: /tmp/sapcar_download_destination
+      sapcar_patch_level:
+        description:
+          - Patch level that will be downloaded and installed if sapcar_state='present'
+          - sap.sap_operations.download role will be used to download sapcar binaries
+          - |
+            sap.sap_operations.download role by default will download patch level with latest ReleaseDate,
+            see download role documentation
+          - |
+            This makes this role quasi idempotent if sapcar_patch_level is not set explicitly -
+            later version of sapcar might be downloaded and installed if role executed in different times
+          - |
+            Should be exact patch level available for current sapcar_version, see documentation for
+            sap.sap_operations.download role, otherwise nothing will be downloaded and installed.
+          - In case there is no such patch level for selected sapcar version, download list will be empty and role will fail
+        type: str
+        required: false
+        default: ""
+      sapcar_mode:
+        description: |
+          Permissions mode that will be used for all folders that are created by the role
+          (sapcar_download_destination and sapcar_exe_path) and sapcar executable destination sapcar_exe_path
+        type: str
+        required: false
+        default: "0755"
+      sapcar_owner:
+        description:
+          - |
+            Owner that will be used for all folders that are created by the role (sapcar_download_destination and sapcar_exe_path)
+            and sapcar executable destination sapcar_exe_path
+          - By default is set to omit special variable - meaning current ansible_user will be used as owner
+        type: str
+        required: false
+      sapcar_version:
+        description:
+          - Sapcar version that has to be downloaded and installed
+          - By default will be automatically calculated as highest version available among all sapcar versions from sap.sap_operations.me_aliases filter
+        type: str
+        required: false
+      sapcar_download_username:
+        description: |
+          Username (sap support user, suser) that will be used to download software.
+          By default value is from collection variable `sap_operations_download_username`.
+          Collection variable `sap_operations_download_username` default value is set to environment variable SAP_OPERATIONS_DOWNLOAD_USERNAME
+        type: str
+        required: true
+        # collection_variable: sap_operations_download_username
+      sapcar_download_password:
+        description: |
+          Password of provided username that will be used to download software
+          By default value is from collection variable `sap_operations_download_password`.
+          Collection variable `sap_operations_download_password` default value is set to environment variable SAP_OPERATIONS_DOWNLOAD_PASSWORD
+        type: str
+        required: true
+        # collection_variable: sap_operations_download_password
+# yamllint enable rule:line-length
+  __limitations__:
+    options: {}
+    short_description: Limitations
+    description:
+      - Username has to be email of SAP UID with only one Suser assigned. If more than one Suser is assigned to UID download will fail.
+
+  __dependencies__:
+    options: {}
+    short_description: Dependencies
+    description:
+      - Role has no dependencies to other roles.
+
+  __license__:
+    options: {}
+    short_description: License
+    description:
+      - GPL-3.0-only
+
+  __author__:
+    options: {}
+    short_description: Author Information
+    description:
+      - Kirill Satarin (@kksat)

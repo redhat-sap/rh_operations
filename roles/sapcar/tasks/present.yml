@@ -1,0 +1,64 @@
+# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-FileCopyrightText: 2024 Red Hat, Project Atmosphere
+#
+# Copyright 2024 Red Hat, Project Atmosphere
+#
+# This program is free software: you can redistribute it and/or modify it under the terms of the GNU
+# General Public License as published by the Free Software Foundation, version 3 of the License.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+# even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU General Public License for more details.
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+# You should have received a copy of the GNU General Public License along with this program.
+# If not, see <https://www.gnu.org/licenses/>.
+
+---
+- name: Get stat on sapcar_exe_path
+  ansible.builtin.stat:
+    path: "{{ sapcar_exe_path }}"
+  register: sapcar_exe_path_stat
+
+- name: Make sure sapcar present
+  when: not sapcar_exe_path_stat.stat.exists
+  block:
+    - name: Make sure that sapcar_download_destination folder exists
+      ansible.builtin.file:
+        path: "{{ sapcar_download_destination }}"
+        state: directory
+        owner: "{{ sapcar_owner }}"
+        mode: "{{ sapcar_mode }}"
+
+    - name: Download SAPCAR binary from SWDC
+      ansible.builtin.include_role:
+        name: sap.sap_operations.download
+      vars:
+        download_destination: "{{ sapcar_download_destination }}"
+        download_alias: "sapcar-{{ sapcar_version }}"
+        download_patch_level: "{{ sapcar_patch_level }}"
+        download_username: "{{ sapcar_download_username }}"
+        download_password: "{{ sapcar_download_password }}"
+
+    - name: Make sure that sapcar_exe_path folder exists
+      ansible.builtin.file:
+        path: "{{ sapcar_exe_path | ansible.builtin.dirname }}"
+        state: directory
+        owner: "{{ sapcar_owner }}"
+        mode: "{{ sapcar_mode }}"
+
+    - name: Copy SAPCAR executable to final destination
+      ansible.builtin.copy:
+        remote_src: true
+        src: "{{ sapcar_downloaded_filepath }}"
+        dest: "{{ sapcar_exe_path }}"
+        mode: "{{ sapcar_mode }}"
+        owner: "{{ sapcar_owner }}"
+      vars:
+        sapcar_downloaded_filepath: "{{ (download_register_last.files | first)['filepath'] }}"
+      failed_when: download_register_last.files | length != 1

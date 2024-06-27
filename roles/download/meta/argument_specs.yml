@@ -34,6 +34,7 @@ argument_specs:
         For each file downloaded there is SHA256 checksum available on SAP SWDC, this checksum will be validated.
         This is ensure that bits are downloaded correctly and were not tampered with.
         SSL certificate is also checked when bits are downloaded, see download_validate_certs variable below.
+      - By default role will download only one file with latest ReleaseDate, see parameters download_sort_attribute and download_one_file
       - |
         Role return variables
         **download_register_last**
@@ -200,4 +201,17 @@ argument_specs:
         type: str
         required: false
         default: "0755"
+      download_sort_attribute:
+        description: Attribute used to sort list of items to download
+        type: str
+        required: false
+        default: ReleaseDate
+        choices:
+          - ReleaseDate
+          - ChangeDate
+      download_one_file:
+        description: If at most one file has to be downloaded
+        type: bool
+        required: false
+        default: true
 # yamllint enable rule:line-length

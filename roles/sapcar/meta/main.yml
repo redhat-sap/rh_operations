@@ -20,21 +20,22 @@
 # If not, see <https://www.gnu.org/licenses/>.
 
 ---
-download_itemset_filtered_not_sorted: >-
-  {{ download_itemset.me_downloaditemset_info
-  | selectattr('Title', 'contains', download_title)
-  | selectattr('Description', 'contains', download_description)
-  | selectattr('Infotype', 'contains', download_infotype)
-  | selectattr('ObjectType', 'contains', download_object_type)
-  | selectattr('PatchLevel', 'contains', download_patch_level | string)
-  | sort(attribute=download_sort_attribute)
-  }}
+galaxy_info:
+  author: Kirill Satarin (@kksat)
+  namespace: sap
+  description: Manage SAPCAR
 
-# | selectattr('ReleaseDate', 'ge', download_release_date)
-# | selectattr('ChangeDate', 'ge', download_change_date)
+  license: GPL-3.0-only
 
-download_itemset_filtered: >
-  {{ download_itemset_filtered_not_sorted if (not download_one_file)
-    else
-    ([download_itemset_filtered_not_sorted | max(attribute=download_sort_attribute)])
-  }}
+  min_ansible_version: "2.15"
+
+  platforms:
+    - name: EL
+      versions:
+        - "7"
+        - "8"
+        - "9"
+
+  galaxy_tags: []
+
+dependencies: []
