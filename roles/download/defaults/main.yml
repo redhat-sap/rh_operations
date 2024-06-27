@@ -21,7 +21,7 @@
 
 ---
 download_architecture: "{{ ansible_facts['architecture'] | default('x86_64') }}"
-download_os_family: "{{ ansible_facts['os_family'] | default('Linux') }}"
+download_os_family: "{{ ansible_facts['os_system'] | default('Linux') }}"
 download_validate_certs: true
 download_timeout: 3600
 download_mode: "0755"
@@ -33,3 +33,5 @@ download_patch_level: ""
 download_title: ""
 download_release_date: "0000000000000"
 download_change_date: "0000000000000"
+download_sort_attribute: ReleaseDate
+download_one_file: true
