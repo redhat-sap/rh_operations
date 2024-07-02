@@ -1,0 +1,87 @@
+# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-FileCopyrightText: 2024 Red Hat, Project Atmosphere
+#
+# Copyright 2024 Red Hat, Project Atmosphere
+#
+# This program is free software: you can redistribute it and/or modify it under the terms of the GNU
+# General Public License as published by the Free Software Foundation, version 3 of the License.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+# even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU General Public License for more details.
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+# You should have received a copy of the GNU General Public License along with this program.
+# If not, see <https://www.gnu.org/licenses/>.
+
+---
+- name: Ensure required facts are collected
+  ansible.builtin.setup:
+    gather_subset:
+      - min
+
+- name: Ensure required packages are present
+  ansible.builtin.package:
+    state: present
+    name: "{{ hana_preconfigure_packages }}"
+  become: true
+  become_user: root
+
+- name: Ensure tuned profile active
+  ansible.builtin.include_tasks:
+    file: tuned.yml
+
+- name: Make sure ulimits are set for SAP HANA
+  ansible.builtin.lineinfile:
+    path: "{{ __path }}"
+    create: true
+    mode: "0644"
+    regexp: "{{ __regexp }}"
+    line: "{{ __line }}"
+  loop: "{{ hana_preconfigure_limits }}"
+  loop_control:
+    loop_var: limit
+    label: "echo '{{ __line }}' > {{ __path }}"
+  vars:
+    __path: /etc/security/limits.d/99-sap.conf
+    __line: "{{ limit.domain }}\t{{ limit.type }}\t{{ limit.item }}\t{{ limit.value }}"
+    __regexp: "{{ __regexp_not_escaped | ansible.builtin.regex_escape }}"
+    __regexp_not_escaped: '^{{ limit.domain }}\s+{{ limit.type }}\s+{{ limit.item }}\s.*'
+  become: true
+  become_user: root
+
+- name: Make sure services are configured
+  ansible.builtin.systemd:
+    name: "{{ service.name }}"
+    enabled: "{{ service.enabled }}"
+    state: "{{ service.state }}"
+  loop: "{{ hana_preconfigure_services }}"
+  loop_control:
+    loop_var: service
+    label: "Service: {{ service.name }} Enabled: {{ service.enabled }} State: {{ service.state }}"
+  become: true
+  become_user: root
+
+- name: Disable KSM
+  ansible.builtin.include_tasks: disable-ksm.yml
+
+- name: Make sure kernel parameters are set
+  ansible.posix.sysctl:
+    sysctl_file: /etc/sysctl.d/sap_hana.conf
+    name: "{{ parameter.name }}"
+    state: present
+    value: "{{ parameter.value }}"
+  loop: "{{ hana_preconfigure_kernel_parameters }}"
+  loop_control:
+    loop_var: parameter
+  become: true
+  become_user: root
+
+- name: Run configuration steps for each RHEL release
+  ansible.builtin.include_tasks:
+    file: "rhel-{{ ansible_facts['distribution_major_version'] }}.yml"
