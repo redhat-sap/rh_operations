@@ -10,3 +10,4 @@ roles/prepare/LICENSE no-smart-quotes!skip
 roles/sap_kernel_update/LICENSE no-smart-quotes!skip
 roles/hana/LICENSE no-smart-quotes!skip
 roles/general_preconfigure/LICENSE no-smart-quotes!skip
+roles/hana_preconfigure/LICENSE no-smart-quotes!skip
