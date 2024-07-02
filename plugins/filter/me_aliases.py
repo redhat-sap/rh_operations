@@ -32,7 +32,7 @@ DOCUMENTATION = """
 name: me_aliases
 author: Kirill Satarin (@kksat)
 extends_documentation_fragment: sap.sap_operations.community
-version_added: 1.31.0
+version_added: 1.33.0
 short_description: Return all the aliases that are available
 description:
   - Return all the aliases that are available
