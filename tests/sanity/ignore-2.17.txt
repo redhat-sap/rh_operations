@@ -11,3 +11,7 @@ roles/sap_kernel_update/LICENSE no-smart-quotes!skip
 roles/hana/LICENSE no-smart-quotes!skip
 roles/general_preconfigure/LICENSE no-smart-quotes!skip
 roles/hana_preconfigure/LICENSE no-smart-quotes!skip
+plugins/modules/pcs_auth.py import-3.7!skip #
+plugins/modules/pcs_auth.py import-3.8!skip #
+plugins/module_utils/monad.py import-3.7!skip # do not support python 3.7
+plugins/module_utils/monad.py import-3.8!skip # do not support python 3.8
