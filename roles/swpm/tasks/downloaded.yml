@@ -1,8 +1,7 @@
----
 # SPDX-License-Identifier: GPL-3.0-only
-# SPDX-FileCopyrightText: 2023 Red Hat, Project Atmosphere
+# SPDX-FileCopyrightText: 2024 Red Hat, Project Atmosphere
 #
-# Copyright 2023 Red Hat, Project Atmosphere
+# Copyright 2024 Red Hat, Project Atmosphere
 #
 # This program is free software: you can redistribute it and/or modify it under the terms of the GNU
 # General Public License as published by the Free Software Foundation, version 3 of the License.
@@ -20,21 +19,12 @@
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>.
 
-- name: Check that all prerequisites are fulfilled
-  ansible.builtin.include_tasks:
-    file: prerequisites.yml
-
-- name: Make sure destination folder exists
-  ansible.builtin.file:
-    path: "{{ unpack_destination }}"
-    state: directory
-    mode: "0755"
-    owner: "{{ omit }}"
-    group: "{{ omit }}"
-
-- name: Unpack
-  ansible.builtin.include_tasks:
-    file: unpack.yml
-  loop: "{{ [unpack_source] | flatten }}"
-  loop_control:
-    loop_var: source
+---
+- name: Make sure SAP SWPM binaries downloaded
+  ansible.builtin.include_role:
+    name: sap.sap_operations.download
+  vars:
+    download_alias: "swpm-{{ swpm_version }}"
+    download_username: "{{ swpm_download_username }}"
+    download_password: "{{ swpm_download_password }}"
+    download_destination: "{{ swpm_download_destination }}"

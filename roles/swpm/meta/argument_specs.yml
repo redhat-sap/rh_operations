@@ -1,0 +1,118 @@
+---
+# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-FileCopyrightText: 2024 Red Hat, Project Atmosphere
+#
+# Copyright 2024 Red Hat, Project Atmosphere
+#
+# This program is free software: you can redistribute it and/or modify it under the terms of the GNU
+# General Public License as published by the Free Software Foundation, version 3 of the License.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+# even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU General Public License for more details.
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+# You should have received a copy of the GNU General Public License along with this program.
+# If not, see <https://www.gnu.org/licenses/>.
+
+argument_specs:
+  main:
+    short_description: Manage SAP SWPM (download / install / uninstall)
+    description:
+      - Manage SAP SWPM
+      - Role will download SAP SWPM binary from SAP SWDC (software download center)
+      - Role will use ansible_facts to determine current host os system and architecture to download correct binary
+      - |
+        Role will download latest SP available from SAP SWDC web site in that sense role is not idempotent,
+        because next time one will run this role, there might be new SP of SAP SWPM
+      - Role will not do anything if swpm_state='present' and file sapinst exists in swpm_unpack_destination
+    options:
+      swpm_state:
+        description:
+          - State for SAP SWPM
+          - present - role will ensure that executable will downloaded and installed (copied to swpm_unpack_destination)
+          - present - will do any changes only if file sapinst in swpm_unpack_destination does not exists
+          - absent - role will ensure that SAP SWPM is absent, swpm_unpack_destination directory will be removed
+          - downloaded - role will only download SAP SWPM binary archive
+        type: str
+        required: false
+        default: present
+        choices:
+          - present
+          - downloaded
+          - absent
+      swpm_unpack_destination:
+        description:
+          - Path there SAP SWPM binary archive will be unpacked (in case of swpm_state='present')
+          - Role will not create swpm_unpack_destination folder or any folders above it. It has to exists
+        type: path
+        required: false
+        default: /usr/sap/swpm
+      swpm_download_destination:
+        description:
+          - Path there SAP SWPM binary archive will be downloaded (in case of swpm_state='present' or swpm_state='downloaded')
+          - Role will not create swpm_download_destination folder or any folders above it. It has to exists
+        type: path
+        required: false
+        default: /tmp/
+      swpm_version:
+        description:
+          - SAP SWPM version that will be downloaded and / or installed
+          - Role will always download SP version that was changed last on SAP SWDC (software download center)
+        type: str
+        choices:
+          - "2.0"
+          - "1.0"
+        required: false
+        default: "2.0"
+      swpm_download_username:
+        description: |
+          Username (sap support user, suser) that will be used to download software.
+          By default value is from collection variable `sap_operations_download_username`.
+          Collection variable `sap_operations_download_username` default value is set to environment variable SAP_OPERATIONS_DOWNLOAD_USERNAME
+        type: str
+        required: true
+        # collection_variable: sap_operations_download_username
+      swpm_download_password:
+        description: |
+          Password of provided username that will be used to download software
+          By default value is from collection variable `sap_operations_download_password`.
+          Collection variable `sap_operations_download_password` default value is set to environment variable SAP_OPERATIONS_DOWNLOAD_PASSWORD
+        type: str
+        required: true
+
+  __limitations__:
+    options: {}
+    short_description: Limitations
+    description:
+      - Tested only on RHEL 8 and 9
+      - Tested only on x86_64 architecture
+
+  __dependencies__:
+    options: {}
+    short_description: Dependencies
+    description:
+      - Role has no dependencies to other roles.
+
+  __examples__:
+    options: {}
+    short_description: Example Playbooks
+    description:
+      - ""
+
+  __license__:
+    options: {}
+    short_description: License
+    description:
+      - GPL-3.0-only
+
+  __author__:
+    options: {}
+    short_description: Author Information
+    description:
+      - Kirill Satarin (@kksat)
