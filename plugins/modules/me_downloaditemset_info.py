@@ -663,22 +663,25 @@ def main():
 
     url = me_download_item_set_url(
         ENR=enr,
-        PECGRSC1=PECGRSC1_from_architecture_and_os_family[architecture][
-            os_family
-        ],  # noqa: E501
+        PECGRSC1=PECGRSC1_from_architecture_and_os_family[architecture][os_family],
     )
 
     response = module(url=url)
 
     if response.get("d") is None or response.get("d").get("results") is None:
         module.fail_json(
-            msg="Failed to fetch information from SAP software download center",  # noqa: E501
+            msg="Failed to fetch information from SAP software download center",
             response=response,
         )
 
+    me_downloaditemset_info = response["d"]["results"]
+    for itemset in me_downloaditemset_info:
+        if ("FileSize" not in itemset) and ("Filesize" in itemset):
+            itemset["FileSize"] = itemset["Filesize"]
+
     module.exit_json(
         changed=False,
-        me_downloaditemset_info=response["d"]["results"],
+        me_downloaditemset_info=me_downloaditemset_info,
     )
 
 

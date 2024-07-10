@@ -52,7 +52,7 @@
   when:
     - ansible_facts['mounts'] is defined
     - ansible_facts['mounts'] | length > 0
-    - __mount_point['size_available'] // 1024 <= __size_needed
+    - (__mount_point['size_available'] // 1024) | int <= __size_needed | int
   vars:
     __mount_point: "{{ ansible_facts['mounts'] |
       sap.sap_operations.mount_path(filepath=download_destination) }}"
@@ -89,28 +89,18 @@
       default(item.item.DownloadDirectLink)
       }}"
     download_file_filename: "{{ item.me_file_info.FileName }}"
-    download_file_filepath: "{{ download_destination }}/{{ item_filename }}"
+    download_file_filepath: "{{ (download_destination, item_filename) | ansible.builtin.path_join }}"
     download_file_existing_file_checksum: >-
       {{ download_destination_stats.results
       | selectattr('stat', 'defined')
       | map(attribute='stat')
-      | selectattr('path', 'equalto', present_file_fullpath)
+      | selectattr('path', 'equalto', download_file_filepath)
       | map(attribute='checksum')
       | first
       | default("")
       }}
-    download_file_existing_file_filepath: "{{ download_destination }}/{{ item_filename }}"
+    download_file_existing_file_filepath: "{{ (download_destination, item_filename) | ansible.builtin.path_join }}"
     item_filename: "{{ item.me_file_info.FileName }}"
-    present_file_fullpath: "{{ download_destination }}/{{ item_filename }}"
-    present_file_checksum: >-
-      {{ download_destination_stats.results
-      | selectattr('stat', 'defined')
-      | map(attribute='stat')
-      | selectattr('path', 'equalto', present_file_fullpath)
-      | map(attribute='checksum')
-      | first
-      | default("")
-      }}
   loop: "{{ download_files_info.results }}"
   loop_control:
     label: "{{ download_file_url }} - {{ item_filename }}"

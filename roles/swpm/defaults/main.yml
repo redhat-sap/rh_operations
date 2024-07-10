@@ -1,8 +1,7 @@
----
 # SPDX-License-Identifier: GPL-3.0-only
-# SPDX-FileCopyrightText: 2023 Red Hat, Project Atmosphere
+# SPDX-FileCopyrightText: 2024 Red Hat, Project Atmosphere
 #
-# Copyright 2023 Red Hat, Project Atmosphere
+# Copyright 2024 Red Hat, Project Atmosphere
 #
 # This program is free software: you can redistribute it and/or modify it under the terms of the GNU
 # General Public License as published by the Free Software Foundation, version 3 of the License.
@@ -20,21 +19,16 @@
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>.
 
-- name: Check that all prerequisites are fulfilled
-  ansible.builtin.include_tasks:
-    file: prerequisites.yml
+---
+sap_operations_download_username: "{{ lookup('ansible.builtin.env', 'SAP_OPERATIONS_DOWNLOAD_USERNAME') }}" # noqa var-naming[no-role-prefix]
+sap_operations_download_password: "{{ lookup('ansible.builtin.env', 'SAP_OPERATIONS_DOWNLOAD_PASSWORD') }}" # noqa var-naming[no-role-prefix]
 
-- name: Make sure destination folder exists
-  ansible.builtin.file:
-    path: "{{ unpack_destination }}"
-    state: directory
-    mode: "0755"
-    owner: "{{ omit }}"
-    group: "{{ omit }}"
+swpm_download_username: "{{ sap_operations_download_username }}"
+swpm_download_password: "{{ sap_operations_download_password }}"
 
-- name: Unpack
-  ansible.builtin.include_tasks:
-    file: unpack.yml
-  loop: "{{ [unpack_source] | flatten }}"
-  loop_control:
-    loop_var: source
+swpm_version: "2.0"
+swpm_download_destination: /tmp/
+swpm_state: present
+
+sap_operations_swpm_unpack_destination: /usr/sap/swpm # noqa var-naming[no-role-prefix]
+swpm_unpack_destination: "{{ sap_operations_swpm_unpack_destination }}"
