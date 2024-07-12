@@ -103,6 +103,6 @@
   ansible.builtin.include_tasks:
     file: "rhel-{{ ansible_facts['distribution_major_version'] }}.yml"
 
-- name: Reboot (if reboot = now)
-  ansible.builtin.reboot:
+- name: Flush handlers (if reboot = now)
+  ansible.builtin.meta: flush_handlers
   when: general_preconfigure_reboot == 'now'

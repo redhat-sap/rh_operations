@@ -20,7 +20,8 @@
 # If not, see <https://www.gnu.org/licenses/>.
 
 ---
-general_preconfigure_tmpfs_size_gb: "
+general_preconfigure_tmpfs_size_gb: "\
   {{ ((0.75 * (ansible_facts['memtotal_mb'] | default(0) + ansible_facts['swaptotal_mb'] | default(0))) / 1024)
   | round | int }}"
 general_preconfigure_reboot: postpone
+general_preconfigure_reboot_timeout: 3600

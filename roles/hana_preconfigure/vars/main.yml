@@ -21,7 +21,7 @@
 
 ---
 hana_preconfigure_tuned_profile: sap-hana
-hana_preconfigure_packages: "
+hana_preconfigure_packages: "\
   {{
   hana_preconfigure_packages_mapping\
   [ansible_facts['distribution_major_version']]\
@@ -46,7 +46,7 @@ hana_preconfigure_services:
     enabled: false
     state: stopped
 
-hana_preconfigure_kernel_parameters: "
+hana_preconfigure_kernel_parameters: "\
   {{
   hana_preconfigure_kernel_parameters_mapping\
   [ansible_facts['distribution_major_version']]\

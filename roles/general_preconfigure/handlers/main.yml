@@ -20,26 +20,8 @@
 # If not, see <https://www.gnu.org/licenses/>.
 
 ---
-- name: Make sure packages are present
-  vars:
-    __general_preconfigure_exclude: "{{ general_preconfigure_packages_skip_broken | ternary(general_preconfigure_packages_exclude, []) }}"
-  block:
-    - name: Install packages
-      ansible.builtin.dnf:
-        name: "{{ general_preconfigure_packages }}"
-        state: present
-        exclude: "{{ __general_preconfigure_exclude }}"
-        skip_broken: "{{ general_preconfigure_packages_skip_broken }}"
-      become: true
-      become_user: root
-      notify: Reboot
-
-    - name: Install package groups
-      ansible.builtin.dnf:
-        name: "{{ general_preconfigure_package_groups }}"
-        state: present
-        exclude: "{{ __general_preconfigure_exclude }}"
-        skip_broken: "{{ general_preconfigure_packages_skip_broken }}"
-      become: true
-      become_user: root
-      notify: Reboot
+- name: Reboot
+  ansible.builtin.reboot:
+    reboot_timeout: "{{ general_preconfigure_reboot_timeout }}"
+  become: true
+  become_user: root
