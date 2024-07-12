@@ -22,7 +22,7 @@
 ---
 general_preconfigure_major_version: "{{ ansible_facts['distribution_major_version'] }}"
 general_preconfigure_architecture: "{{ ansible_facts['architecture'] }}"
-general_preconfigure_kernel_parameters: "
+general_preconfigure_kernel_parameters: "\
   {{
   general_preconfigure_kernel_parameters_mapping\
   [ansible_facts['distribution_major_version']]
@@ -57,21 +57,21 @@ general_preconfigure_services:
     state: started
     enabled: true
 
-general_preconfigure_packages: "
+general_preconfigure_packages: "\
   {{
   general_preconfigure_packages_mapping\
   [general_preconfigure_major_version]\
   [general_preconfigure_architecture]
   }}"
 
-general_preconfigure_package_groups: "
+general_preconfigure_package_groups: "\
   {{
   general_preconfigure_package_groups_mapping\
   [general_preconfigure_major_version]\
   [general_preconfigure_architecture]
   }}"
 
-general_preconfigure_selinux: "
+general_preconfigure_selinux: "\
   {{
   general_preconfigure_selinux_mapping\
   [general_preconfigure_major_version]
