@@ -4,6 +4,20 @@ SAP Operations Collection Release Notes
 
 .. contents:: Topics
 
+v2.0.0
+======
+
+Release Summary
+---------------
+
+Lifecycle release
+
+Major Changes
+-------------
+
+- clarify what RHEL for SAP versions are supported
+- remove support for RHEL 7
+
 v1.31.0
 =======
 
@@ -16,12 +30,6 @@ Major Changes
 -------------
 
 - add 'commands' show_c and show_w as mandated by GPL-3.0 license
-
-New Modules
------------
-
-- sap.sap_operations.show_c - Show copyright
-- sap.sap_operations.show_w - Show warranty
 
 v1.17.2
 =======

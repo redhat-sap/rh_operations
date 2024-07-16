@@ -24,7 +24,7 @@ namespace: sap
 
 name: sap_operations
 
-version: 1.31.0
+version: 2.0.0
 
 readme: README.md
 
@@ -186,3 +186,20 @@ build_ignore:
   - plugins/modules/swdc_auth_info.py
   - roles/download/*
   - roles/download
+
+  - roles/general_preconfigure
+  - roles/general_preconfigure/*
+
+  - roles/sapcar
+  - roles/sapcar/*
+
+  - plugins/filter/me_aliases.py
+
+  - roles/hana_preconfigure
+  - roles/hana_preconfigure/*
+
+  - plugins/modules/pcs_auth.py
+  - plugins/module_utils/monad.py
+
+  - roles/swpm
+  - roles/swpm/*

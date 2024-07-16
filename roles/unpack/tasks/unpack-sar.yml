@@ -1,8 +1,8 @@
 ---
 # SPDX-License-Identifier: GPL-3.0-only
-# SPDX-FileCopyrightText: 2023 Red Hat, Project Atmosphere
+# SPDX-FileCopyrightText: 2023-2024 Red Hat, Project Atmosphere
 #
-# Copyright 2023 Red Hat, Project Atmosphere
+# Copyright 2023-2024 Red Hat, Project Atmosphere
 #
 # This program is free software: you can redistribute it and/or modify it under the terms of the GNU
 # General Public License as published by the Free Software Foundation, version 3 of the License.
@@ -33,12 +33,15 @@
 
 - name: Register output variable
   ansible.builtin.set_fact:
-    unpack_register: |
-      'results': "{{ unpack_register.results | default([]) +
-        [{
-        'file': item.path,
-        'changed': unpack_sapcar_file.changed,
-        'failed': unpack_sapcar_file.rc > 0
-        }] }}"
-      'changed': "{{ ( unpack_sapcar_file.changed ) or ( unpack_register.changed | default(false) ) }}"
-      'failed': "{{ (unpack_sapcar_file.rc > 0) or ( unpack_register.failed | default(false) ) }}"
+    unpack_register:
+      changed: "{{ unpack_sapcar_file.changed or (unpack_register.changed | default(false)) }}"
+      failed: "{{ (unpack_sapcar_file.rc > 0) or (unpack_register.failed | default(false)) }}"
+      results: >-
+        {{ unpack_register.results | default([]) + [
+          {
+            'file': item.path,
+            'changed': unpack_sapcar_file.changed,
+            'failed': unpack_sapcar_file.rc > 0,
+          }
+        ]
+        }}
