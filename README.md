@@ -28,7 +28,10 @@ Development team is open to discuss any feedback from users of the collection.
 If you can share how do you use this collection, what can be added, what is missing, please share your contact information in the form below.
 
 <https://forms.gle/PNj4SXP6ifr7svfo6>
+
 # RECENT UPDATES
+
+RHEL 7 is no longer supported as managed host.
 
 Added documentation website [docs.galaxy.saponrhel.org](https://docs.galaxy.saponrhel.org/?utm_source=galaxy)
 
@@ -146,6 +149,34 @@ If support is needed, please use collection from AAP.
 
 ## Release Notes and Roadmap
 
+This collection follows Red Hat Ansible Automation Platform Lifecycle policy
+
+<https://access.redhat.com/support/policy/updates/ansible-automation-platform>
+
+This collection aims to provide support for more RHEL version that it is mentioned in AAP support policy.
+
+This collection aims to provide support for RHEL for SAP versions that are currently supported, where it is possible and technically feasible.
+
+See <https://access.redhat.com/support/policy/updates/errata> for RHEL for SAP support policy.
+
+Extract from RHEL for SAP support policy:
+
+For Red Hat Enterprise Linux for SAP Solutions on RHEL 8, Update Services for SAP Solutions is currently available for the following releases:
+
+8.4 (ends May 31, 2025)
+
+8.6 (ends May 31, 2026)
+
+8.8 (ends May 31, 2027)
+
+For Red Hat Enterprise Linux for SAP Solutions on RHEL 9, Update Services for SAP Solutions is currently available for the following releases:
+
+9.0 (ends May 31, 2026)
+
+9.2 (ends May 31, 2027)
+
+9.4 (ends April 30, 2028)
+
 ## Related Information
 
 Collection documentation located at
@@ -162,7 +193,7 @@ See <https://www.gnu.org/licenses/gpl-3.0.txt> for details
 
 2022 - 2024 (c) Project Atmosphere
 
-### Python supported versions
+## Python supported versions
 
 Ansible collection is designed to work with following python versions on controller host
 
@@ -177,14 +208,6 @@ python 3.11
 python 3.12
 
 Ansible collection is designed to work with following python versions on managed host
-
-python 2.7
-
-python 3.5
-
-python 3.6
-
-python 3.7
 
 python 3.8
 
