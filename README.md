@@ -23,6 +23,8 @@ If not, see <https://www.gnu.org/licenses/>.
 
 # RECENT UPDATES
 
+RHEL 7 is no longer supported as managed host.
+
 Added link to collection documentation
 
 <https://catalog.redhat.com/software/collection/sap/sap_operations>
@@ -97,7 +99,7 @@ ansible-core 2.16
 
 ansible-core 2.17
 
-### Python
+## Python
 
 Ansible collection is designed to work with following python versions on controller host
 
@@ -113,14 +115,6 @@ python 3.12
 
 Ansible collection is designed to work with following python versions on managed host
 
-python 2.7
-
-python 3.5
-
-python 3.6
-
-python 3.7
-
 python 3.8
 
 python 3.9
@@ -130,10 +124,6 @@ python 3.10
 python 3.11
 
 python 3.12
-
-With one exception NW RFC modules to not work on python 2.7. This is because SAP PyRFC does not support python 2.7 see <https://github.com/SAP/PyRFC>
-
-If there is a requirement to use NW RFC modules on python 2.7, please use HTTP connection only - this does not required PyRFC and works with python 2.7.
 
 Not all python and ansible version combination are expected to work. Please use python version supported by respective ansible version.
 
@@ -156,6 +146,34 @@ This collection is supported by Red Hat with limitations described in Ansible Au
 <https://access.redhat.com/support/policy/updates/ansible-automation-platform>
 
 ## Release Notes and Roadmap
+
+This collection follows Red Hat Ansible Automation Platform Lifecycle policy
+
+<https://access.redhat.com/support/policy/updates/ansible-automation-platform>
+
+This collection aims to provide support for more RHEL version that it is mentioned in AAP support policy.
+
+This collection aims to provide support for RHEL for SAP versions that are currently supported, where it is possible and technically feasible.
+
+See <https://access.redhat.com/support/policy/updates/errata> for RHEL for SAP support policy.
+
+Extract from RHEL for SAP support policy:
+
+For Red Hat Enterprise Linux for SAP Solutions on RHEL 8, Update Services for SAP Solutions is currently available for the following releases:
+
+8.4 (ends May 31, 2025)
+
+8.6 (ends May 31, 2026)
+
+8.8 (ends May 31, 2027)
+
+For Red Hat Enterprise Linux for SAP Solutions on RHEL 9, Update Services for SAP Solutions is currently available for the following releases:
+
+9.0 (ends May 31, 2026)
+
+9.2 (ends May 31, 2027)
+
+9.4 (ends April 30, 2028)
 
 ## Related Information
 

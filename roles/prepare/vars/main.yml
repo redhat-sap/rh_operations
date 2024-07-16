@@ -38,6 +38,12 @@ __prepare_packages_mapping:
     - unzip
     - python3-requests
     - virt-who
+  "10":
+    - python3-lxml
+    - python3-urllib3
+    - unzip
+    - python3-requests
+    - virt-who
 
 __prepare_packages: "{{ __prepare_packages_mapping[ansible_facts['distribution_major_version']] }}"
 

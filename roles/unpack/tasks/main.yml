@@ -38,7 +38,3 @@
   loop: "{{ [unpack_source] | flatten }}"
   loop_control:
     loop_var: source
-
-- name: Print output variable
-  ansible.builtin.debug:
-    msg: "{{ unpack_register | default([]) }}"
