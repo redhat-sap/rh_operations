@@ -21,10 +21,13 @@
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>.
 
-from __future__ import (absolute_import, division, print_function)
+from __future__ import absolute_import, division, print_function
+
 __metaclass__ = type
 
-ME_DOWNLOAD_ITEM_SET_SERVICE_URL = "https://launchpad.support.sap.com/services/odata/svt/swdcuisrv/DownloadItemSet"  # noqa: E501
+ME_DOWNLOAD_ITEM_SET_SERVICE_URL = (
+    "https://launchpad.support.sap.com/services/odata/svt/swdcuisrv/DownloadItemSet"  # noqa: E501
+)
 
 
 def me_download_item_set_url(
@@ -43,7 +46,6 @@ def me_download_item_set_url(
     inlinecount="allpages",
     sap_language="en-US",
 ):
-
     url = ME_DOWNLOAD_ITEM_SET_SERVICE_URL
     url += "?$skip={}".format(skip)
     url += "&$top={}".format(top)
@@ -64,25 +66,27 @@ def me_download_item_set_url(
 
 
 enr_from_alias = {
-    'sapcar': '73555000100200018637',
-    'sapcar-7.53': '73555000100200018637',
-    'sapcar-7.22': '73555000100200014919',
-    'saphostagent': '73554900100200011934',
-    'saphostagent-7.22': '73554900100200011934',
+    "sapcar": "73555000100200018637",
+    "sapcar-7.53": "73555000100200018637",
+    "sapcar-7.22": "73555000100200014919",
+    "saphostagent": "73554900100200011934",
+    "saphostagent-7.22": "73554900100200011934",
     # 'hana-platform':    'https://launchpad.support.sap.com/services/odata/svt/swdcuisrv/DownloadItemSet?$skip=0&$top=500&_EVENT=LIST&EVENT=LIST&ENR=73554900100900001301&SWTYPSC=N&PECCLSC=NONE&V=INST&TA=ACTUAL&$inlinecount=allpages&sap-language=en-US',  # noqa: E501
-    'hana-server': '73554900100200005327',
-    'hana-client': '73554900100200005390',
-    'hana-cockpit': '73555000100200005745',
-    'swpm-1.0': '67838200100200018544',
-    'swpm-2.0': '73555000100200007684',
+    "hana-server": "73554900100200005327",
+    "hana-client": "73554900100200005390",
+    "hana-cockpit": "73555000100200005745",
+    "swpm-1.0": "67838200100200018544",
+    "swpm-2.0": "73555000100200007684",
 }
 
 PECGRSC1_from_architecture_and_os_family = {
-    'x86_64':
-        {
-            'Linux': 'LINUX_X64',
-            'Darwin': 'MACOSX_64',
-        },
+    "x86_64": {
+        "Linux": "LINUX_X64",
+        "Darwin": "MACOSX_64",
+    },
+    "ppc64le": {
+        "Linux": "LINPPC64LE",
+    },
     # 'AIX_64': 'AIX_64',
     # 'HPIA_64': 'HPIA_64',
     # 'LINUXARM64': 'LINUXARM64',
