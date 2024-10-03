@@ -115,6 +115,11 @@ def convert_string2bool(value):
 
 def get_table_from_csv_data(data):
     data_lines = data.split("\n")
+    if len(data_lines) < 2:
+        return dict(
+            table=[],
+            table_name="",
+        )
     table_name = data_lines[0].strip().strip(":")
     column_names = data_lines[1].split(";")
     column_names = [name.strip() for name in column_names if name != ""]
@@ -152,11 +157,11 @@ long_lock_type = {
 
 def lock_has_same_attributes(lock, lock_type, owner1, owner2, name, argument):
     return (
-        lock["Type"] == long_lock_type[lock_type] and
-        lock["Owner 1"] == owner1 and
-        lock["Owner 2"] == owner2 and
-        lock["Name"] == name and
-        lock["Argument"] == argument
+        lock["Type"] == long_lock_type[lock_type]
+        and lock["Owner 1"] == owner1
+        and lock["Owner 2"] == owner2
+        and lock["Name"] == name
+        and lock["Argument"] == argument
     )
 
 
@@ -164,11 +169,11 @@ def exclusive_lock_with_same_attributes_exists(
     lock, lock_type, owner1, owner2, name, argument
 ):
     return (
-        lock["Type"] == long_lock_type["X"] and
-        lock["Owner 1"] == owner1 and
-        lock["Owner 2"] == owner2 and
-        lock["Name"] == name and
-        lock["Argument"] == argument
+        lock["Type"] == long_lock_type["X"]
+        and lock["Owner 1"] == owner1
+        and lock["Owner 2"] == owner2
+        and lock["Name"] == name
+        and lock["Argument"] == argument
     )
 
 
@@ -176,8 +181,8 @@ def find_locks_in_locks_list(locks, lock_type, owner1, owner2, name, argument):
     return [
         lock
         for lock in locks
-        if lock_has_same_attributes(lock, lock_type, owner1, owner2, name, argument) or
-        exclusive_lock_with_same_attributes_exists(
+        if lock_has_same_attributes(lock, lock_type, owner1, owner2, name, argument)
+        or exclusive_lock_with_same_attributes_exists(
             lock, lock_type, owner1, owner2, name, argument
         )
     ]
@@ -185,7 +190,8 @@ def find_locks_in_locks_list(locks, lock_type, owner1, owner2, name, argument):
 
 def lock_exists_in_locks_list(locks, lock_type, owner1, owner2, name, argument):
     return (
-        len(find_locks_in_locks_list(locks, lock_type, owner1, owner2, name, argument)) > 0
+        len(find_locks_in_locks_list(locks, lock_type, owner1, owner2, name, argument))
+        > 0
     )
 
 

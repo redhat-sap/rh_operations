@@ -84,6 +84,7 @@ options:
     choices:
       - x86_64
       - ppc64le
+      - arm64
     default: x86_64
 
   os_family:
@@ -638,7 +639,9 @@ def main():
     argument_spec = dict(
         enr=dict(type="str"),
         alias=dict(type="str", required=True, choices=list(enr_from_alias.keys())),
-        architecture=dict(type="str", default="x86_64", choices=["x86_64", "ppc64le"]),
+        architecture=dict(
+            type="str", default="x86_64", choices=["x86_64", "ppc64le", "arm64"]
+        ),
         os_family=dict(type="str", default="Linux", choices=["Linux", "Darwin"]),
     )
     required_one_of = [

@@ -30,6 +30,7 @@ argument_specs:
       - Idempotency is working by comparing SHA256 checksum for local files and files to be downloaded.
       - Role is checking if there is sufficient space available in destination folder.
       - Destination folder (variable `download_destination`) should already exist.
+      - If destination folder does not exist, not directory or not writeable role will fail
       - |
         For each file downloaded there is SHA256 checksum available on SAP SWDC, this checksum will be validated.
         This is ensure that bits are downloaded correctly and were not tampered with.
@@ -119,6 +120,12 @@ argument_specs:
           Ansible user should have write permission to this destination folder.
           Role will check if there is sufficient space available on device.
           If not role will fail with information about space requirements.
+          Ansible module ansible.builtin.uri is used to download SAP software from SWDC
+          This module downloads temp files to ansible_remote_tmp folder,
+          this folder has to have space to download largest file, if not - not enough space
+          error will be raised by Ansible.
+          See https://docs.ansible.com/ansible/latest/collections/ansible/builtin/sh_shell.html#parameter-remote_tmp
+          and https://docs.ansible.com/ansible/latest/collections/ansible/builtin/sh_shell.html#parameter-system_tmpdirs
         type: path
         required: true
       download_username:
@@ -172,6 +179,7 @@ argument_specs:
         choices:
           - x86_64
           - ppc64le
+          - arm64
         default: x86_64
       download_system:
         description: |

@@ -30,13 +30,18 @@
         url: "{{ download_file_url }}"
       register: download_file_swdc_auth_info
 
-    - name: Download SAP software with get_url
-      ansible.builtin.get_url:
+    - name: Download SAP software with ansible.builtin.uri
+      ansible.builtin.uri:
+        follow_redirects: all
         dest: "{{ download_destination }}"
         url: "{{ download_file_swdc_auth_info.swdc_auth_info.url }}"
         validate_certs: "{{ download_validate_certs }}"
-        checksum: "sha256:{{ download_file_checksum }}"
+        creates: "{{ (download_destination, item_filename) | ansible.builtin.path_join }}"
+        status_code:
+          - 200
+          - 302
         timeout: "{{ download_timeout }}"
         mode: "{{ download_mode }}"
-        headers: "{{ download_file_swdc_auth_info.swdc_auth_info.headers }}"
+        headers:
+          cookie: "{{ download_file_swdc_auth_info.swdc_auth_info.headers.Cookie }}"
       register: download_file_get_url

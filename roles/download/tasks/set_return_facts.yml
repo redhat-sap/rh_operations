@@ -20,33 +20,33 @@
 # If not, see <https://www.gnu.org/licenses/>.
 
 ---
+- name: Get stats on downloaded/existing file
+  ansible.builtin.stat:
+    path: "{{ download_file_filepath }}"
+    checksum_algorithm: sha256
+  register: download_file_filepath_stat
+
 - name: Set return variables
   ansible.builtin.set_fact:
     download_register_last:
-      changed: "{{ download_file_get_url.changed }}"
-      failed: "{{ download_file_get_url.failed | default(false) }}"
+      changed: "{{ download_register_changed }}"
+      failed: "{{ download_register_failed }}"
       files: >-
-        {{ download_register_last.files | default([]) + [
-          {
-            'DirectDownloadUrl': download_file_url,
-            'filename': download_file_filename,
-            'filepath': download_file_filepath,
-            'sha256': download_file_checksum,
-            'changed': download_file_get_url.changed,
-            'failed': download_file_get_url.failed | default(false),
-          }
-        ] }}
+        {{ download_register_last.files | default([]) + [download_register_file_data] }}
     download_register:
+      changed: "{{ download_register_changed }}"
+      failed: "{{ download_register_failed }}"
+      files: >-
+        {{ download_register.files | default([]) + [download_register_file_data] }}
+  vars:
+    download_register_changed: "{{ download_file_get_url.changed }}"
+    download_register_failed: "{{ download_file_get_url.failed | default(false) }}"
+    download_register_file_data:
+      DirectDownloadUrl: "{{ download_file_url }}"
+      filename: "{{ download_file_filename }}"
+      filepath: "{{ download_file_filepath }}"
+      sha256: "{{ download_file_checksum }}"
+      sha256_file: "{{ download_file_filepath_stat.stat.checksum }}"
       changed: "{{ download_file_get_url.changed }}"
       failed: "{{ download_file_get_url.failed | default(false) }}"
-      files: >-
-        {{ download_register.files | default([]) + [
-          {
-            'DirectDownloadUrl': download_file_url,
-            'filename': download_file_filename,
-            'filepath': download_file_filepath,
-            'sha256': download_file_checksum,
-            'changed': download_file_get_url.changed,
-            'failed': download_file_get_url.failed | default(false),
-          }
-        ] }}
+      failed_checksum: "{{ download_file_checksum != download_file_filepath_stat.stat.checksum }}"

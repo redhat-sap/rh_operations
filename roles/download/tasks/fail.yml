@@ -20,23 +20,11 @@
 # If not, see <https://www.gnu.org/licenses/>.
 
 ---
-sap_operations_download_username: "{{ lookup('ansible.builtin.env', 'SAP_OPERATIONS_DOWNLOAD_USERNAME') }}" # noqa var-naming[no-role-prefix]
-sap_operations_download_password: "{{ lookup('ansible.builtin.env', 'SAP_OPERATIONS_DOWNLOAD_PASSWORD') }}" # noqa var-naming[no-role-prefix]
-download_username: "{{ sap_operations_download_username }}"
-download_password: "{{ sap_operations_download_password }}"
-
-download_architecture: "{{ ansible_facts['architecture'] | default('x86_64') }}"
-download_os_family: "{{ ansible_facts['os_system'] | default('Linux') }}"
-download_validate_certs: true
-download_timeout: 3600
-download_mode: "0755"
-
-download_description: ""
-download_infotype: ""
-download_object_type: ""
-download_patch_level: ""
-download_title: ""
-download_release_date: "0000000000000"
-download_change_date: "0000000000000"
-download_sort_attribute: ReleaseDate
-download_one_file: true
+- name: Fail if any checksums are not the same
+  ansible.builtin.fail:
+    msg: "Checksum for file {{ file_data.filepath }} is not the same as on SAP SWDC"
+  when: file_data.failed_checksum
+  loop: "{{ download_register_last.files }}"
+  loop_control:
+    label: "{{ file_data.filepath }}"
+    loop_var: file_data
