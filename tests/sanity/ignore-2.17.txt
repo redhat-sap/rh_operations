@@ -15,3 +15,13 @@ plugins/modules/pcs_auth.py import-3.7!skip #
 plugins/modules/pcs_auth.py import-3.8!skip #
 plugins/module_utils/monad.py import-3.7!skip # do not support python 3.7
 plugins/module_utils/monad.py import-3.8!skip # do not support python 3.8
+roles/unpack/LICENSE no-smart-quotes!skip
+roles/sapjvm/LICENSE no-smart-quotes!skip
+roles/cf/LICENSE no-smart-quotes!skip
+roles/sapcar/LICENSE no-smart-quotes!skip
+roles/quality/LICENSE no-smart-quotes!skip
+roles/powershell/LICENSE no-smart-quotes!skip
+roles/pcs_config_checks/LICENSE no-smart-quotes!skip
+roles/downloadbasket/LICENSE no-smart-quotes!skip
+roles/download/LICENSE no-smart-quotes!skip
+roles/cloudconnector/LICENSE no-smart-quotes!skip

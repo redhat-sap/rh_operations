@@ -30,6 +30,7 @@
   block:
     - name: Make sure that sapcar_download_destination folder exists
       ansible.builtin.file:
+        recurse: true
         path: "{{ sapcar_download_destination }}"
         state: directory
         owner: "{{ sapcar_owner }}"
@@ -47,6 +48,7 @@
 
     - name: Make sure that sapcar_exe_path folder exists
       ansible.builtin.file:
+        recurse: true
         path: "{{ sapcar_exe_path | ansible.builtin.dirname }}"
         state: directory
         owner: "{{ sapcar_owner }}"

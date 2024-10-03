@@ -25,6 +25,20 @@
     gather_subset:
       - mounts
 
+- name: Get stats for download_destination
+  ansible.builtin.stat:
+    path: "{{ download_destination }}"
+  register: download_destination_stat
+
+- name: Assert if download_destination does exist, it is dir and is writable
+  ansible.builtin.assert:
+    success_msg: Checks are successful
+    fail_msg: Checks failed - download_destination does not exist, not folder or no permissions to write
+    that:
+      - download_destination_stat.stat.exists
+      - download_destination_stat.stat.writeable | default(false)
+      - download_destination_stat.stat.isdir | default(false)
+
 - name: Get information about what will be downloaded
   sap.sap_operations.me_downloaditemset_info:
     username: "{{ download_username }}"
@@ -58,6 +72,10 @@
       sap.sap_operations.mount_path(filepath=download_destination) }}"
     __size_needed: "{{ download_itemset.me_downloaditemset_info |
       map(attribute='FileSize') | map('trim') | map('int') | sum }}"
+    # TODO: add checks for ansible_remote_tmp folder - this folder is used by
+    # ansible.builtin.uri - first files downloaded there
+    # test should be for max filesize not for sum filesize - files are downloaded
+    # one by one
 
 - name: Find all files in download_destination
   ansible.builtin.find:
@@ -104,3 +122,8 @@
   loop: "{{ download_files_info.results }}"
   loop_control:
     label: "{{ download_file_url }} - {{ item_filename }}"
+  register: download_get_url
+
+- name: Fail if any checksums are not the same
+  ansible.builtin.include_tasks:
+    file: fail.yml
