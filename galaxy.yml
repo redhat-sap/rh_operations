@@ -24,7 +24,7 @@ namespace: sap
 
 name: sap_operations
 
-version: 2.3.0
+version: 2.1.0
 
 readme: README.md
 
@@ -53,8 +53,7 @@ tags:
   - cloud
   - pacemaker
 
-dependencies:
-  "community.crypto": ">=2.22.2"
+dependencies: {}
 
 repository: https://github.com/redhat-sap/rh_operations
 
