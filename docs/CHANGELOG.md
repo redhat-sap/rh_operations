@@ -2,167 +2,173 @@
 
 **Topics**
 
-- <a href="#v2-2-0">v2\.2\.0</a>
+- <a href="#v2-4-0">v2\.4\.0</a>
     - <a href="#release-summary">Release Summary</a>
     - <a href="#major-changes">Major Changes</a>
-- <a href="#v2-1-0">v2\.1\.0</a>
+    - <a href="#new-modules">New Modules</a>
+- <a href="#v2-3-0">v2\.3\.0</a>
     - <a href="#release-summary-1">Release Summary</a>
-    - <a href="#major-changes-1">Major Changes</a>
-    - <a href="#minor-changes">Minor Changes</a>
-- <a href="#v2-0-1">v2\.0\.1</a>
+- <a href="#v2-2-0">v2\.2\.0</a>
     - <a href="#release-summary-2">Release Summary</a>
-    - <a href="#minor-changes-1">Minor Changes</a>
-- <a href="#v2-0-0">v2\.0\.0</a>
+    - <a href="#major-changes-1">Major Changes</a>
+- <a href="#v2-1-0">v2\.1\.0</a>
     - <a href="#release-summary-3">Release Summary</a>
     - <a href="#major-changes-2">Major Changes</a>
-- <a href="#v1-36-1">v1\.36\.1</a>
+    - <a href="#minor-changes">Minor Changes</a>
+- <a href="#v2-0-1">v2\.0\.1</a>
     - <a href="#release-summary-4">Release Summary</a>
-    - <a href="#minor-changes-2">Minor Changes</a>
-- <a href="#v1-36-0">v1\.36\.0</a>
+    - <a href="#minor-changes-1">Minor Changes</a>
+- <a href="#v2-0-0">v2\.0\.0</a>
     - <a href="#release-summary-5">Release Summary</a>
     - <a href="#major-changes-3">Major Changes</a>
-- <a href="#v1-35-0">v1\.35\.0</a>
+- <a href="#v1-36-1">v1\.36\.1</a>
     - <a href="#release-summary-6">Release Summary</a>
-- <a href="#v1-34-0">v1\.34\.0</a>
+    - <a href="#minor-changes-2">Minor Changes</a>
+- <a href="#v1-36-0">v1\.36\.0</a>
     - <a href="#release-summary-7">Release Summary</a>
     - <a href="#major-changes-4">Major Changes</a>
-- <a href="#v1-33-1">v1\.33\.1</a>
+- <a href="#v1-35-0">v1\.35\.0</a>
     - <a href="#release-summary-8">Release Summary</a>
-    - <a href="#minor-changes-3">Minor Changes</a>
-- <a href="#v1-33-0">v1\.33\.0</a>
+- <a href="#v1-34-0">v1\.34\.0</a>
     - <a href="#release-summary-9">Release Summary</a>
     - <a href="#major-changes-5">Major Changes</a>
-- <a href="#v1-32-0">v1\.32\.0</a>
+- <a href="#v1-33-1">v1\.33\.1</a>
     - <a href="#release-summary-10">Release Summary</a>
-    - <a href="#major-changes-6">Major Changes</a>
-- <a href="#v1-31-1">v1\.31\.1</a>
+    - <a href="#minor-changes-3">Minor Changes</a>
+- <a href="#v1-33-0">v1\.33\.0</a>
     - <a href="#release-summary-11">Release Summary</a>
-    - <a href="#minor-changes-4">Minor Changes</a>
-- <a href="#v1-31-0">v1\.31\.0</a>
+    - <a href="#major-changes-6">Major Changes</a>
+- <a href="#v1-32-0">v1\.32\.0</a>
     - <a href="#release-summary-12">Release Summary</a>
     - <a href="#major-changes-7">Major Changes</a>
-- <a href="#v1-30-3">v1\.30\.3</a>
+- <a href="#v1-31-1">v1\.31\.1</a>
     - <a href="#release-summary-13">Release Summary</a>
+    - <a href="#minor-changes-4">Minor Changes</a>
+- <a href="#v1-31-0">v1\.31\.0</a>
+    - <a href="#release-summary-14">Release Summary</a>
+    - <a href="#major-changes-8">Major Changes</a>
+- <a href="#v1-30-3">v1\.30\.3</a>
+    - <a href="#release-summary-15">Release Summary</a>
     - <a href="#minor-changes-5">Minor Changes</a>
 - <a href="#v1-30-2">v1\.30\.2</a>
-    - <a href="#release-summary-14">Release Summary</a>
+    - <a href="#release-summary-16">Release Summary</a>
     - <a href="#minor-changes-6">Minor Changes</a>
 - <a href="#v1-30-1">v1\.30\.1</a>
-    - <a href="#release-summary-15">Release Summary</a>
+    - <a href="#release-summary-17">Release Summary</a>
     - <a href="#minor-changes-7">Minor Changes</a>
 - <a href="#v1-30-0">v1\.30\.0</a>
-    - <a href="#release-summary-16">Release Summary</a>
-    - <a href="#major-changes-8">Major Changes</a>
-    - <a href="#minor-changes-8">Minor Changes</a>
-- <a href="#v1-29-0">v1\.29\.0</a>
-    - <a href="#release-summary-17">Release Summary</a>
-- <a href="#v1-28-0">v1\.28\.0</a>
     - <a href="#release-summary-18">Release Summary</a>
     - <a href="#major-changes-9">Major Changes</a>
+    - <a href="#minor-changes-8">Minor Changes</a>
+- <a href="#v1-29-0">v1\.29\.0</a>
+    - <a href="#release-summary-19">Release Summary</a>
+- <a href="#v1-28-0">v1\.28\.0</a>
+    - <a href="#release-summary-20">Release Summary</a>
+    - <a href="#major-changes-10">Major Changes</a>
     - <a href="#minor-changes-9">Minor Changes</a>
 - <a href="#v1-27-0">v1\.27\.0</a>
-    - <a href="#release-summary-19">Release Summary</a>
+    - <a href="#release-summary-21">Release Summary</a>
     - <a href="#minor-changes-10">Minor Changes</a>
 - <a href="#v1-26-0">v1\.26\.0</a>
-    - <a href="#release-summary-20">Release Summary</a>
-- <a href="#v1-25-0">v1\.25\.0</a>
-    - <a href="#release-summary-21">Release Summary</a>
-- <a href="#v1-24-0">v1\.24\.0</a>
     - <a href="#release-summary-22">Release Summary</a>
-- <a href="#v1-23-1">v1\.23\.1</a>
+- <a href="#v1-25-0">v1\.25\.0</a>
     - <a href="#release-summary-23">Release Summary</a>
-    - <a href="#major-changes-10">Major Changes</a>
-- <a href="#v1-23-0">v1\.23\.0</a>
+- <a href="#v1-24-0">v1\.24\.0</a>
     - <a href="#release-summary-24">Release Summary</a>
-    - <a href="#major-changes-11">Major Changes</a>
-- <a href="#v1-22-1">v1\.22\.1</a>
+- <a href="#v1-23-1">v1\.23\.1</a>
     - <a href="#release-summary-25">Release Summary</a>
+    - <a href="#major-changes-11">Major Changes</a>
+- <a href="#v1-23-0">v1\.23\.0</a>
+    - <a href="#release-summary-26">Release Summary</a>
+    - <a href="#major-changes-12">Major Changes</a>
+- <a href="#v1-22-1">v1\.22\.1</a>
+    - <a href="#release-summary-27">Release Summary</a>
     - <a href="#minor-changes-11">Minor Changes</a>
 - <a href="#v1-22-0">v1\.22\.0</a>
-    - <a href="#release-summary-26">Release Summary</a>
+    - <a href="#release-summary-28">Release Summary</a>
 - <a href="#v1-21-0">v1\.21\.0</a>
 - <a href="#v1-20-0">v1\.20\.0</a>
-    - <a href="#release-summary-27">Release Summary</a>
-    - <a href="#major-changes-12">Major Changes</a>
-- <a href="#v1-19-0">v1\.19\.0</a>
-    - <a href="#release-summary-28">Release Summary</a>
+    - <a href="#release-summary-29">Release Summary</a>
     - <a href="#major-changes-13">Major Changes</a>
+- <a href="#v1-19-0">v1\.19\.0</a>
+    - <a href="#release-summary-30">Release Summary</a>
+    - <a href="#major-changes-14">Major Changes</a>
 - <a href="#v1-18-0">v1\.18\.0</a>
 - <a href="#v1-17-0">v1\.17\.0</a>
-    - <a href="#release-summary-29">Release Summary</a>
-    - <a href="#major-changes-14">Major Changes</a>
-- <a href="#v1-16-0">v1\.16\.0</a>
-- <a href="#v1-15-1">v1\.15\.1</a>
-    - <a href="#release-summary-30">Release Summary</a>
-    - <a href="#minor-changes-12">Minor Changes</a>
-- <a href="#v1-15-0">v1\.15\.0</a>
     - <a href="#release-summary-31">Release Summary</a>
     - <a href="#major-changes-15">Major Changes</a>
-- <a href="#v1-14-1">v1\.14\.1</a>
+- <a href="#v1-16-0">v1\.16\.0</a>
+- <a href="#v1-15-1">v1\.15\.1</a>
     - <a href="#release-summary-32">Release Summary</a>
+    - <a href="#minor-changes-12">Minor Changes</a>
+- <a href="#v1-15-0">v1\.15\.0</a>
+    - <a href="#release-summary-33">Release Summary</a>
+    - <a href="#major-changes-16">Major Changes</a>
+- <a href="#v1-14-1">v1\.14\.1</a>
+    - <a href="#release-summary-34">Release Summary</a>
     - <a href="#minor-changes-13">Minor Changes</a>
 - <a href="#v1-14-0">v1\.14\.0</a>
 - <a href="#v1-13-0">v1\.13\.0</a>
-    - <a href="#release-summary-33">Release Summary</a>
-    - <a href="#major-changes-16">Major Changes</a>
-- <a href="#v1-12-0">v1\.12\.0</a>
-    - <a href="#release-summary-34">Release Summary</a>
-- <a href="#v1-11-0">v1\.11\.0</a>
     - <a href="#release-summary-35">Release Summary</a>
+    - <a href="#major-changes-17">Major Changes</a>
+- <a href="#v1-12-0">v1\.12\.0</a>
+    - <a href="#release-summary-36">Release Summary</a>
+- <a href="#v1-11-0">v1\.11\.0</a>
+    - <a href="#release-summary-37">Release Summary</a>
     - <a href="#minor-changes-14">Minor Changes</a>
 - <a href="#v1-10-0">v1\.10\.0</a>
-    - <a href="#release-summary-36">Release Summary</a>
+    - <a href="#release-summary-38">Release Summary</a>
 - <a href="#v1-9-1">v1\.9\.1</a>
-    - <a href="#release-summary-37">Release Summary</a>
+    - <a href="#release-summary-39">Release Summary</a>
     - <a href="#minor-changes-15">Minor Changes</a>
 - <a href="#v1-9-0">v1\.9\.0</a>
-    - <a href="#release-summary-38">Release Summary</a>
-    - <a href="#major-changes-17">Major Changes</a>
+    - <a href="#release-summary-40">Release Summary</a>
+    - <a href="#major-changes-18">Major Changes</a>
 - <a href="#v1-3-2">v1\.3\.2</a>
-    - <a href="#release-summary-39">Release Summary</a>
+    - <a href="#release-summary-41">Release Summary</a>
     - <a href="#minor-changes-16">Minor Changes</a>
 - <a href="#v1-3-1">v1\.3\.1</a>
-    - <a href="#release-summary-40">Release Summary</a>
+    - <a href="#release-summary-42">Release Summary</a>
     - <a href="#minor-changes-17">Minor Changes</a>
 - <a href="#v1-3-0">v1\.3\.0</a>
-    - <a href="#release-summary-41">Release Summary</a>
+    - <a href="#release-summary-43">Release Summary</a>
     - <a href="#minor-changes-18">Minor Changes</a>
 - <a href="#v1-2-2">v1\.2\.2</a>
-    - <a href="#release-summary-42">Release Summary</a>
+    - <a href="#release-summary-44">Release Summary</a>
     - <a href="#minor-changes-19">Minor Changes</a>
 - <a href="#v1-2-1">v1\.2\.1</a>
-    - <a href="#release-summary-43">Release Summary</a>
+    - <a href="#release-summary-45">Release Summary</a>
     - <a href="#minor-changes-20">Minor Changes</a>
 - <a href="#v1-2-0">v1\.2\.0</a>
-    - <a href="#release-summary-44">Release Summary</a>
-    - <a href="#major-changes-18">Major Changes</a>
+    - <a href="#release-summary-46">Release Summary</a>
+    - <a href="#major-changes-19">Major Changes</a>
 - <a href="#v1-1-2">v1\.1\.2</a>
-    - <a href="#release-summary-45">Release Summary</a>
+    - <a href="#release-summary-47">Release Summary</a>
     - <a href="#minor-changes-21">Minor Changes</a>
 - <a href="#v1-1-1">v1\.1\.1</a>
-    - <a href="#release-summary-46">Release Summary</a>
+    - <a href="#release-summary-48">Release Summary</a>
     - <a href="#minor-changes-22">Minor Changes</a>
 - <a href="#v1-1-0">v1\.1\.0</a>
-    - <a href="#release-summary-47">Release Summary</a>
+    - <a href="#release-summary-49">Release Summary</a>
 - <a href="#v1-0-5">v1\.0\.5</a>
-    - <a href="#release-summary-48">Release Summary</a>
+    - <a href="#release-summary-50">Release Summary</a>
     - <a href="#minor-changes-23">Minor Changes</a>
 - <a href="#v1-0-4">v1\.0\.4</a>
-    - <a href="#release-summary-49">Release Summary</a>
-    - <a href="#major-changes-19">Major Changes</a>
-    - <a href="#minor-changes-24">Minor Changes</a>
-- <a href="#v1-0-3">v1\.0\.3</a>
-    - <a href="#release-summary-50">Release Summary</a>
-    - <a href="#minor-changes-25">Minor Changes</a>
-- <a href="#v1-0-2">v1\.0\.2</a>
     - <a href="#release-summary-51">Release Summary</a>
     - <a href="#major-changes-20">Major Changes</a>
-- <a href="#v1-0-0">v1\.0\.0</a>
+    - <a href="#minor-changes-24">Minor Changes</a>
+- <a href="#v1-0-3">v1\.0\.3</a>
     - <a href="#release-summary-52">Release Summary</a>
+    - <a href="#minor-changes-25">Minor Changes</a>
+- <a href="#v1-0-2">v1\.0\.2</a>
+    - <a href="#release-summary-53">Release Summary</a>
     - <a href="#major-changes-21">Major Changes</a>
+- <a href="#v1-0-0">v1\.0\.0</a>
+    - <a href="#release-summary-54">Release Summary</a>
+    - <a href="#major-changes-22">Major Changes</a>
 
-<a id="v2-2-0"></a>
-## v2\.2\.0
+<a id="v2-4-0"></a>
+## v2\.4\.0
 
 <a id="release-summary"></a>
 ### Release Summary
@@ -172,17 +178,43 @@ Feature release
 <a id="major-changes"></a>
 ### Major Changes
 
-* add role ssh\_keys\_distribute
+* add role prepare\_container \- this role is intended to be used internally for testing
 
-<a id="v2-1-0"></a>
-## v2\.1\.0
+<a id="new-modules"></a>
+### New Modules
+
+* sap\.sap\_operations\.is\_container \- Determine if the current host is a container
+
+<a id="v2-3-0"></a>
+## v2\.3\.0
 
 <a id="release-summary-1"></a>
 ### Release Summary
 
 Feature release
 
+<a id="v2-2-0"></a>
+## v2\.2\.0
+
+<a id="release-summary-2"></a>
+### Release Summary
+
+Feature release
+
 <a id="major-changes-1"></a>
+### Major Changes
+
+* add role ssh\_keys\_distribute
+
+<a id="v2-1-0"></a>
+## v2\.1\.0
+
+<a id="release-summary-3"></a>
+### Release Summary
+
+Feature release
+
+<a id="major-changes-2"></a>
 ### Major Changes
 
 * add sample\_hana\_present\_e2e playbook to demonstrate how collection content can be used to manage SAP HANA
@@ -206,7 +238,7 @@ Feature release
 <a id="v2-0-1"></a>
 ## v2\.0\.1
 
-<a id="release-summary-2"></a>
+<a id="release-summary-4"></a>
 ### Release Summary
 
 Minor corrections
@@ -219,12 +251,12 @@ Minor corrections
 <a id="v2-0-0"></a>
 ## v2\.0\.0
 
-<a id="release-summary-3"></a>
+<a id="release-summary-5"></a>
 ### Release Summary
 
 Lifecycle release
 
-<a id="major-changes-2"></a>
+<a id="major-changes-3"></a>
 ### Major Changes
 
 * clarify what RHEL for SAP versions are supported
@@ -233,7 +265,7 @@ Lifecycle release
 <a id="v1-36-1"></a>
 ## v1\.36\.1
 
-<a id="release-summary-4"></a>
+<a id="release-summary-6"></a>
 ### Release Summary
 
 Bugfix release
@@ -248,27 +280,6 @@ Bugfix release
 <a id="v1-36-0"></a>
 ## v1\.36\.0
 
-<a id="release-summary-5"></a>
-### Release Summary
-
-Feature release
-
-<a id="major-changes-3"></a>
-### Major Changes
-
-* add role swmp \- to manage SAP SWPM \(download\, install\, uninstall\)
-
-<a id="v1-35-0"></a>
-## v1\.35\.0
-
-<a id="release-summary-6"></a>
-### Release Summary
-
-Feature release
-
-<a id="v1-34-0"></a>
-## v1\.34\.0
-
 <a id="release-summary-7"></a>
 ### Release Summary
 
@@ -277,12 +288,33 @@ Feature release
 <a id="major-changes-4"></a>
 ### Major Changes
 
+* add role swmp \- to manage SAP SWPM \(download\, install\, uninstall\)
+
+<a id="v1-35-0"></a>
+## v1\.35\.0
+
+<a id="release-summary-8"></a>
+### Release Summary
+
+Feature release
+
+<a id="v1-34-0"></a>
+## v1\.34\.0
+
+<a id="release-summary-9"></a>
+### Release Summary
+
+Feature release
+
+<a id="major-changes-5"></a>
+### Major Changes
+
 * add role hana\_preconfigure
 
 <a id="v1-33-1"></a>
 ## v1\.33\.1
 
-<a id="release-summary-8"></a>
+<a id="release-summary-10"></a>
 ### Release Summary
 
 Documentation fix release
@@ -295,12 +327,12 @@ Documentation fix release
 <a id="v1-33-0"></a>
 ## v1\.33\.0
 
-<a id="release-summary-9"></a>
+<a id="release-summary-11"></a>
 ### Release Summary
 
 Feature release
 
-<a id="major-changes-5"></a>
+<a id="major-changes-6"></a>
 ### Major Changes
 
 * add filter plugin \- me\_aliases
@@ -311,12 +343,12 @@ Feature release
 <a id="v1-32-0"></a>
 ## v1\.32\.0
 
-<a id="release-summary-10"></a>
+<a id="release-summary-12"></a>
 ### Release Summary
 
 Feature release
 
-<a id="major-changes-6"></a>
+<a id="major-changes-7"></a>
 ### Major Changes
 
 * add role general\_preconfigure
@@ -324,7 +356,7 @@ Feature release
 <a id="v1-31-1"></a>
 ## v1\.31\.1
 
-<a id="release-summary-11"></a>
+<a id="release-summary-13"></a>
 ### Release Summary
 
 Feature release
@@ -337,12 +369,12 @@ Feature release
 <a id="v1-31-0"></a>
 ## v1\.31\.0
 
-<a id="release-summary-12"></a>
+<a id="release-summary-14"></a>
 ### Release Summary
 
 Feature release
 
-<a id="major-changes-7"></a>
+<a id="major-changes-8"></a>
 ### Major Changes
 
 * add \'commands\' show\_c and show\_w as mandated by GPL\-3\.0 license
@@ -350,7 +382,7 @@ Feature release
 <a id="v1-30-3"></a>
 ## v1\.30\.3
 
-<a id="release-summary-13"></a>
+<a id="release-summary-15"></a>
 ### Release Summary
 
 Bugfix release
@@ -364,7 +396,7 @@ Bugfix release
 <a id="v1-30-2"></a>
 ## v1\.30\.2
 
-<a id="release-summary-14"></a>
+<a id="release-summary-16"></a>
 ### Release Summary
 
 Lifecycle release
@@ -377,7 +409,7 @@ Lifecycle release
 <a id="v1-30-1"></a>
 ## v1\.30\.1
 
-<a id="release-summary-15"></a>
+<a id="release-summary-17"></a>
 ### Release Summary
 
 Bugfix release
@@ -392,12 +424,12 @@ Bugfix release
 <a id="v1-30-0"></a>
 ## v1\.30\.0
 
-<a id="release-summary-16"></a>
+<a id="release-summary-18"></a>
 ### Release Summary
 
 Feature release
 
-<a id="major-changes-8"></a>
+<a id="major-changes-9"></a>
 ### Major Changes
 
 * role \- download \- download SAP software from SWDC
@@ -411,7 +443,7 @@ Feature release
 <a id="v1-29-0"></a>
 ## v1\.29\.0
 
-<a id="release-summary-17"></a>
+<a id="release-summary-19"></a>
 ### Release Summary
 
 Feature release
@@ -419,12 +451,12 @@ Feature release
 <a id="v1-28-0"></a>
 ## v1\.28\.0
 
-<a id="release-summary-18"></a>
+<a id="release-summary-20"></a>
 ### Release Summary
 
 Feature and bugfix release
 
-<a id="major-changes-9"></a>
+<a id="major-changes-10"></a>
 ### Major Changes
 
 * add role powershell \- to manage powershell installation
@@ -440,7 +472,7 @@ Feature and bugfix release
 <a id="v1-27-0"></a>
 ## v1\.27\.0
 
-<a id="release-summary-19"></a>
+<a id="release-summary-21"></a>
 ### Release Summary
 
 Feature release
@@ -454,7 +486,7 @@ Feature release
 <a id="v1-26-0"></a>
 ## v1\.26\.0
 
-<a id="release-summary-20"></a>
+<a id="release-summary-22"></a>
 ### Release Summary
 
 Feature release
@@ -462,7 +494,7 @@ Feature release
 <a id="v1-25-0"></a>
 ## v1\.25\.0
 
-<a id="release-summary-21"></a>
+<a id="release-summary-23"></a>
 ### Release Summary
 
 Feature release
@@ -470,7 +502,7 @@ Feature release
 <a id="v1-24-0"></a>
 ## v1\.24\.0
 
-<a id="release-summary-22"></a>
+<a id="release-summary-24"></a>
 ### Release Summary
 
 Feature release
@@ -478,12 +510,12 @@ Feature release
 <a id="v1-23-1"></a>
 ## v1\.23\.1
 
-<a id="release-summary-23"></a>
+<a id="release-summary-25"></a>
 ### Release Summary
 
 Documentation release
 
-<a id="major-changes-10"></a>
+<a id="major-changes-11"></a>
 ### Major Changes
 
 * Added documentation website docs\.galaxy\.saponrhel\.org
@@ -491,12 +523,12 @@ Documentation release
 <a id="v1-23-0"></a>
 ## v1\.23\.0
 
-<a id="release-summary-24"></a>
+<a id="release-summary-26"></a>
 ### Release Summary
 
 Maintenance release
 
-<a id="major-changes-11"></a>
+<a id="major-changes-12"></a>
 ### Major Changes
 
 * minimal ansible version supported is 2\.15
@@ -504,7 +536,7 @@ Maintenance release
 <a id="v1-22-1"></a>
 ## v1\.22\.1
 
-<a id="release-summary-25"></a>
+<a id="release-summary-27"></a>
 ### Release Summary
 
 Documentation release
@@ -518,7 +550,7 @@ Documentation release
 <a id="v1-22-0"></a>
 ## v1\.22\.0
 
-<a id="release-summary-26"></a>
+<a id="release-summary-28"></a>
 ### Release Summary
 
 Feature release
@@ -529,12 +561,12 @@ Feature release
 <a id="v1-20-0"></a>
 ## v1\.20\.0
 
-<a id="release-summary-27"></a>
+<a id="release-summary-29"></a>
 ### Release Summary
 
 Feature release
 
-<a id="major-changes-12"></a>
+<a id="major-changes-13"></a>
 ### Major Changes
 
 * Add role cf \- to manage Cloud Foundry cli
@@ -542,12 +574,12 @@ Feature release
 <a id="v1-19-0"></a>
 ## v1\.19\.0
 
-<a id="release-summary-28"></a>
+<a id="release-summary-30"></a>
 ### Release Summary
 
 Feature release
 
-<a id="major-changes-13"></a>
+<a id="major-changes-14"></a>
 ### Major Changes
 
 * Add role cloudconnector
@@ -558,12 +590,12 @@ Feature release
 <a id="v1-17-0"></a>
 ## v1\.17\.0
 
-<a id="release-summary-29"></a>
+<a id="release-summary-31"></a>
 ### Release Summary
 
 Feature release
 
-<a id="major-changes-14"></a>
+<a id="major-changes-15"></a>
 ### Major Changes
 
 * Add role sapjvm
@@ -574,7 +606,7 @@ Feature release
 <a id="v1-15-1"></a>
 ## v1\.15\.1
 
-<a id="release-summary-30"></a>
+<a id="release-summary-32"></a>
 ### Release Summary
 
 Bugfix release
@@ -587,12 +619,12 @@ Bugfix release
 <a id="v1-15-0"></a>
 ## v1\.15\.0
 
-<a id="release-summary-31"></a>
+<a id="release-summary-33"></a>
 ### Release Summary
 
 Feature release
 
-<a id="major-changes-15"></a>
+<a id="major-changes-16"></a>
 ### Major Changes
 
 * Add role hana
@@ -600,7 +632,7 @@ Feature release
 <a id="v1-14-1"></a>
 ## v1\.14\.1
 
-<a id="release-summary-32"></a>
+<a id="release-summary-34"></a>
 ### Release Summary
 
 Bug fix release
@@ -617,12 +649,12 @@ Bug fix release
 <a id="v1-13-0"></a>
 ## v1\.13\.0
 
-<a id="release-summary-33"></a>
+<a id="release-summary-35"></a>
 ### Release Summary
 
 Feature release
 
-<a id="major-changes-16"></a>
+<a id="major-changes-17"></a>
 ### Major Changes
 
 * Add ABAP transport management modules
@@ -630,7 +662,7 @@ Feature release
 <a id="v1-12-0"></a>
 ## v1\.12\.0
 
-<a id="release-summary-34"></a>
+<a id="release-summary-36"></a>
 ### Release Summary
 
 Feature release
@@ -638,7 +670,7 @@ Feature release
 <a id="v1-11-0"></a>
 ## v1\.11\.0
 
-<a id="release-summary-35"></a>
+<a id="release-summary-37"></a>
 ### Release Summary
 
 Feature release
@@ -651,7 +683,7 @@ Feature release
 <a id="v1-10-0"></a>
 ## v1\.10\.0
 
-<a id="release-summary-36"></a>
+<a id="release-summary-38"></a>
 ### Release Summary
 
 Feature release
@@ -659,7 +691,7 @@ Feature release
 <a id="v1-9-1"></a>
 ## v1\.9\.1
 
-<a id="release-summary-37"></a>
+<a id="release-summary-39"></a>
 ### Release Summary
 
 Bug fix release
@@ -673,12 +705,12 @@ Bug fix release
 <a id="v1-9-0"></a>
 ## v1\.9\.0
 
-<a id="release-summary-38"></a>
+<a id="release-summary-40"></a>
 ### Release Summary
 
 Lifecycle release
 
-<a id="major-changes-17"></a>
+<a id="major-changes-18"></a>
 ### Major Changes
 
 * Add \'all\' and \'any\' filter and test plugins
@@ -691,7 +723,7 @@ Lifecycle release
 <a id="v1-3-2"></a>
 ## v1\.3\.2
 
-<a id="release-summary-39"></a>
+<a id="release-summary-41"></a>
 ### Release Summary
 
 Bugfix release
@@ -704,7 +736,7 @@ Bugfix release
 <a id="v1-3-1"></a>
 ## v1\.3\.1
 
-<a id="release-summary-40"></a>
+<a id="release-summary-42"></a>
 ### Release Summary
 
 Bugfix release
@@ -717,7 +749,7 @@ Bugfix release
 <a id="v1-3-0"></a>
 ## v1\.3\.0
 
-<a id="release-summary-41"></a>
+<a id="release-summary-43"></a>
 ### Release Summary
 
 Feature release
@@ -732,7 +764,7 @@ Feature release
 <a id="v1-2-2"></a>
 ## v1\.2\.2
 
-<a id="release-summary-42"></a>
+<a id="release-summary-44"></a>
 ### Release Summary
 
 Feature release
@@ -745,7 +777,7 @@ Feature release
 <a id="v1-2-1"></a>
 ## v1\.2\.1
 
-<a id="release-summary-43"></a>
+<a id="release-summary-45"></a>
 ### Release Summary
 
 Feature release
@@ -758,12 +790,12 @@ Feature release
 <a id="v1-2-0"></a>
 ## v1\.2\.0
 
-<a id="release-summary-44"></a>
+<a id="release-summary-46"></a>
 ### Release Summary
 
 Feature release
 
-<a id="major-changes-18"></a>
+<a id="major-changes-19"></a>
 ### Major Changes
 
 * Introduction of NW RFC modules to connect to manage SAP ABAP system with Ansible
@@ -771,7 +803,7 @@ Feature release
 <a id="v1-1-2"></a>
 ## v1\.1\.2
 
-<a id="release-summary-45"></a>
+<a id="release-summary-47"></a>
 ### Release Summary
 
 Bug Fix Release
@@ -784,7 +816,7 @@ Bug Fix Release
 <a id="v1-1-1"></a>
 ## v1\.1\.1
 
-<a id="release-summary-46"></a>
+<a id="release-summary-48"></a>
 ### Release Summary
 
 Bug Fix Release
@@ -800,7 +832,7 @@ Bug Fix Release
 <a id="v1-1-0"></a>
 ## v1\.1\.0
 
-<a id="release-summary-47"></a>
+<a id="release-summary-49"></a>
 ### Release Summary
 
 Feature Release
@@ -808,7 +840,7 @@ Feature Release
 <a id="v1-0-5"></a>
 ## v1\.0\.5
 
-<a id="release-summary-48"></a>
+<a id="release-summary-50"></a>
 ### Release Summary
 
 Bug fix release
@@ -821,12 +853,12 @@ Bug fix release
 <a id="v1-0-4"></a>
 ## v1\.0\.4
 
-<a id="release-summary-49"></a>
+<a id="release-summary-51"></a>
 ### Release Summary
 
 Two roles are added <em class="title-reference">hana\_update</em> and <em class="title-reference">prepare</em>
 
-<a id="major-changes-19"></a>
+<a id="major-changes-20"></a>
 ### Major Changes
 
 * Role hana\_update \- update SAP HANA system
@@ -840,7 +872,7 @@ Two roles are added <em class="title-reference">hana\_update</em> and <em class=
 <a id="v1-0-3"></a>
 ## v1\.0\.3
 
-<a id="release-summary-50"></a>
+<a id="release-summary-52"></a>
 ### Release Summary
 
 Using changelog fragments to build collection changelog\.
@@ -854,12 +886,12 @@ Using changelog fragments to build collection changelog\.
 <a id="v1-0-2"></a>
 ## v1\.0\.2
 
-<a id="release-summary-51"></a>
+<a id="release-summary-53"></a>
 ### Release Summary
 
 First release of SAP Operations collection\.
 
-<a id="major-changes-20"></a>
+<a id="major-changes-21"></a>
 ### Major Changes
 
 * parameter\_info \- module to fetch parameter information\.
@@ -871,12 +903,12 @@ First release of SAP Operations collection\.
 <a id="v1-0-0"></a>
 ## v1\.0\.0
 
-<a id="release-summary-52"></a>
+<a id="release-summary-54"></a>
 ### Release Summary
 
 First release of SAP Operations collection\.
 
-<a id="major-changes-21"></a>
+<a id="major-changes-22"></a>
 ### Major Changes
 
 * parameter\_info \- module to fetch parameter information\.

@@ -25,3 +25,4 @@ roles/pcs_config_checks/LICENSE no-smart-quotes!skip
 roles/downloadbasket/LICENSE no-smart-quotes!skip
 roles/download/LICENSE no-smart-quotes!skip
 roles/cloudconnector/LICENSE no-smart-quotes!skip
+roles/prepare_container/LICENSE no-smart-quotes!skip

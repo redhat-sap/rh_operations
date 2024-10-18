@@ -1,0 +1,79 @@
+---
+# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-FileCopyrightText: 2024 Red Hat, Project Atmosphere
+#
+# Copyright 2024 Red Hat, Project Atmosphere
+#
+# This program is free software: you can redistribute it and/or modify it under the terms of the GNU
+# General Public License as published by the Free Software Foundation, version 3 of the License.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+# even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU General Public License for more details.
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+# You should have received a copy of the GNU General Public License along with this program.
+# If not, see <https://www.gnu.org/licenses/>.
+
+- name: Collect package facts
+  ansible.builtin.package_facts:
+    manager: rpm
+
+- name: Assertion block present packages
+  block:
+    - name: Assert that required packages are installed
+      ansible.builtin.assert:
+        that: "{{ ansible_facts.packages[name] is defined }}"
+        fail_msg: Package '{{ name }}' absent, but required.
+        success_msg: Package '{{ name }}' present.
+      loop: "{{ prepare_container_packages_present }}"
+      loop_control:
+        loop_var: name
+        label: name
+  rescue:
+    - name: Error happened
+      ansible.builtin.meta: noop
+
+- name: Assertion block removed packages
+  block:
+    - name: Assert that removed packages are absent
+      ansible.builtin.assert:
+        that: "{{ ansible_facts.packages[name] is not defined }}"
+        fail_msg: Package '{{ name }}' is present, but should be removed.
+        success_msg: Package '{{ name }}' is absent.
+      loop: "{{ prepare_container_packages_absent }}"
+      loop_control:
+        loop_var: name
+        label: name
+  rescue:
+    - name: Error happened
+      ansible.builtin.meta: noop
+
+- name: Get list of all enabled repos
+  ansible.builtin.command:
+    cmd: dnf repolist
+  environment:
+    SMDEV_CONTAINER_OFF: "1"
+  register: prepare_container_dnf_repolist
+  changed_when: false
+
+- name: Assert that UBI repos are disabled
+  ansible.builtin.assert:
+    that: true
+  loop: "{{ prepare_container_dnf_repolist.stdout_lines }}"
+  loop_control:
+    loop_var: line
+  vars:
+    repo_id: "{{ line | split(' ') | first }}"
+  when: "'ubi' in repo_id"
+
+- name: Fail if no repos are enabled
+  ansible.builtin.assert:
+    that:
+      - "'repo id' in prepare_container_dnf_repolist.stdout_lines"
+      - "'repo name' in prepare_container_dnf_repolist.stdout_lines"
