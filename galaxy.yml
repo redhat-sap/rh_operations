@@ -24,7 +24,7 @@ namespace: sap
 
 name: sap_operations
 
-version: 2.0.0
+version: 2.0.1
 
 readme: README.md
 
@@ -127,11 +127,11 @@ build_ignore:
   - plugins/modules/abap_transports_info.py
 
   - roles/hana/*
+  - roles/hana
 
   - README-galaxy.md
   - README-aap.md
 
-  - roles/sapjvm/
   - roles/cloudconnector/*
   - roles/cloudconnector
 
@@ -173,7 +173,9 @@ build_ignore:
   - playbooks/sample_test_sap_btp.yml
 
   - roles/quality/*
+  - roles/quality
   - roles/powershell/*
+  - roles/powershell
 
   - plugins/modules/enq_admin_info.py
   - plugins/modules/enq_admin_locks_info.py
@@ -203,3 +205,18 @@ build_ignore:
 
   - roles/swpm
   - roles/swpm/*
+
+  - playbooks/sample_hana_present_e2e.yml
+
+  - roles/ssh_keys_distribute
+  - roles/ssh_keys_distribute/*
+
+  - plugins/test/sap_instances.py
+  - plugins/test/hana_instance.yml
+  - plugins/test/app_instance.yml
+  - plugins/test/ascs_instance.yml
+
+  - plugins/modules/is_container.py
+
+  - roles/prepare_container
+  - roles/prepare_container/*
