@@ -26,3 +26,5 @@ roles/downloadbasket/LICENSE no-smart-quotes!skip
 roles/download/LICENSE no-smart-quotes!skip
 roles/cloudconnector/LICENSE no-smart-quotes!skip
 roles/prepare_container/LICENSE no-smart-quotes!skip
+plugins/modules/host_info.yml validate-modules!skip
+plugins/modules/host_info.py validate-modules!skip

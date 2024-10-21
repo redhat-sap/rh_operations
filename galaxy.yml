@@ -24,7 +24,7 @@ namespace: sap
 
 name: sap_operations
 
-version: 2.4.0
+version: 2.4.1
 
 readme: README.md
 
