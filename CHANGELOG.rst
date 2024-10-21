@@ -4,6 +4,19 @@ SAP Operations Collection Release Notes
 
 .. contents:: Topics
 
+v2.0.1
+======
+
+Release Summary
+---------------
+
+Documentation update
+
+Minor Changes
+-------------
+
+- Documentation update for module host_info
+
 v2.0.0
 ======
 

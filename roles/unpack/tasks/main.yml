@@ -26,6 +26,7 @@
 
 - name: Make sure destination folder exists
   ansible.builtin.file:
+    recurse: true
     path: "{{ unpack_destination }}"
     state: directory
     mode: "0755"
