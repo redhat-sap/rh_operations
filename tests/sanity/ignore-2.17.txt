@@ -28,3 +28,5 @@ roles/cloudconnector/LICENSE no-smart-quotes!skip
 roles/prepare_container/LICENSE no-smart-quotes!skip
 plugins/modules/host_info.yml validate-modules!skip
 plugins/modules/host_info.py validate-modules!skip
+roles/sap_operations/LICENSE no-smart-quotes!skip
+roles/subscription_manager/LICENSE no-smart-quotes!skip
