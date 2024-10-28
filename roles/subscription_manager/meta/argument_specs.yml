@@ -1,0 +1,109 @@
+---
+# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-FileCopyrightText: 2024 Red Hat, Project Atmosphere
+#
+# Copyright 2024 Red Hat, Project Atmosphere
+#
+# This program is free software: you can redistribute it and/or modify it under the terms of the GNU
+# General Public License as published by the Free Software Foundation, version 3 of the License.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+# even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU General Public License for more details.
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+# You should have received a copy of the GNU General Public License along with this program.
+# If not, see <https://www.gnu.org/licenses/>.
+
+argument_specs:
+  main: &main
+    short_description: Register host with subscription-manager
+    description:
+      - Register host with subscription-manager
+      - Role is suitable for containers as well
+      - Role expects that ansible_user can sudo to root
+      - Role expects that subscription-manager tool is already present
+    options:
+      subscription_manager_state:
+        description: Final state after role applied
+        type: str
+        default: registered
+        required: false
+        choices:
+          - registered
+          - unregistered
+      subscription_manager_org:
+        description:
+          - Organization to use for registration
+          - Organization and Activation key are both required together - role will fail if one is defined and another is not
+        type: str
+        required: false
+      subscription_manager_activationkey:
+        description:
+          - Activation key to use for registration
+          - Organization and Activation key are both required together - role will fail if one is defined and another is not
+        type: str
+        required: false
+      subscription_manager_username:
+        description:
+          - Username to use for registration
+          - Username and Password are both required together - role will fail if one is defined and another is not
+          - If Username and Password are defined they will be used over org and Activation key
+        type: str
+        required: false
+      subscription_manager_password:
+        description:
+          - Password to use for registration
+          - Username and Password are both required together - role will fail if one is defined and another is not
+          - If Username and Password are defined they will be used over org and Activation key
+        type: str
+        required: false
+      subscription_manager_validate:
+        description: Internal role variable used to validate variables
+        type: bool
+        choices:
+          - true
+        required: true
+  noop:
+    <<: *main
+
+  __limitations__:
+    options: {}
+    short_description: Limitations
+    description:
+      - ""
+
+  __dependencies__:
+    options: {}
+    short_description: Dependencies
+    description: None
+
+  __examples__:
+    options: {}
+    short_description: Example Playbooks
+    description:
+      - "- name: Run role subscription_manager (registered)"
+      - "  ansible.builtin.include_role:"
+      - "  name: sap.sap_operations.subscription_manager"
+      - "- name: Run role subscription_manager (unregistered)"
+      - "  ansible.builtin.include_role:"
+      - "  name: sap.sap_operations.subscription_manager"
+      - "  vars:"
+      - "    subscription_manager_state: unregistered"
+
+  __license__:
+    options: {}
+    short_description: License
+    description:
+      - GPL-3.0-only
+
+  __author__:
+    options: {}
+    short_description: Author Information
+    description:
+      - Kirill Satarin (@kksat)
