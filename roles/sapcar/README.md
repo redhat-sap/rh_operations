@@ -81,6 +81,10 @@ _Required:_ `False`
 _Description:_
 Path to sapcar executable file
 Default value is from collection variable sap_operations_sapcar_exe_path
+All parent directories to directory where sapcar executable should be located should exists and be writable for ansible user
+Role will not create /usr/sap directory and will not set owner and mode for this
+Default path is in /usr/sap, role expects that /usr/sap is present and writable for user the role is executed with, otherwise role will fail
+As part of the role execution parent directory for sapcar_exe_path will be created
 
  
 

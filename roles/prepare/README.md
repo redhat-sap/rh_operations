@@ -1,8 +1,8 @@
 <!--
 SPDX-License-Identifier: GPL-3.0-only
-SPDX-FileCopyrightText: 2023 Red Hat, Project Atmosphere
+SPDX-FileCopyrightText: 2023-2024 Red Hat, Project Atmosphere
 
-Copyright 2023 Red Hat, Project Atmosphere
+Copyright 2023-2024 Red Hat, Project Atmosphere
 
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU
 General Public License as published by the Free Software Foundation, version 3 of the License.
@@ -25,50 +25,48 @@ If not, see <https://www.gnu.org/licenses/>.
 
 Prepare RHEL managed host to run content from sap.sap_operations
 
+
 Role ensures that all collection sap.sap_operations prerequisites are met.
-
 Role works in two modes - normal and assert.
-
 In normal mode it ensures that all prerequisites to run content from collection sap.sap_operations are met.
-
 In assert mode it fails if collection prerequisites are not met on the host.
-
 Role will only collect facts if OS distribution is not RedHat.
+
+
+
+## Role Variables
+
+### Required parameters:
+
+ 
+
+#### prepare_assert
+
+
+_Type:_ `bool`
+
+_Default:_ `False`
+
+_Required:_ `False`
+_Description:_
+If set to True role will only assert that all sap.sap_operations collection prerequisites are met.
+Is set to False (default) will ensure that all sap.sap_operations collection prerequisites are met (root access required)
+
+ 
+ 
 
 ## Requirements
 
 Role requires root access in order to install necessary packages and other sap.sap_operations collection prerequisites (normal mode).
 
+## Playbook examples
 
-
-<!-- BEGIN: Role Input Parameters -->
-
-## Role Variables
-
-Required parameters:
-
-### prepare_assert
-
-- _Type:_ `bool`
-- _Default:_ `False`
-- _Required:_ `False`
-
-If set to True role will only assert that all sap.sap_operations collection prerequisites are met.
-Is set to False (default) will ensure that all sap.sap_operations collection prerequisites are met (root access required)
-
-<!-- END: Role Input Parameters -->
-
-## Example Playbooks
 
 ```ansible
 - hosts: all
   roles:
     - role: sap.sap_operations.prepare
 ```
-
-'unpack_source' can be list of paths to folders and/or files.
-
-Another options is to set 'unpack_source' value to file or folder.
 
 ```ansible
 - hosts: all
@@ -77,6 +75,7 @@ Another options is to set 'unpack_source' value to file or folder.
   roles:
     - role: sap.sap_operations.prepare
 ```
+
 
 ## License
 

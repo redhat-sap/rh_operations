@@ -32,9 +32,7 @@ For each file downloaded there is SHA256 checksum available on SAP SWDC, this ch
 This is ensure that bits are downloaded correctly and were not tampered with.
 Checksum and filename will be used to skip files with same filename and sha256 checksum if they are already available in downloadbasket_destination
 
-
 Role return variables:
-======================
 **downloadbasket_register**
 Variable is set (using set_fact) by the role and and available after role has been executed.
 Variable contains information about last downloaded content from SAP SWDC download basket
