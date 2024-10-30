@@ -54,9 +54,10 @@ How reboot has to be handled
 none - no reboot will be be required after role applied,
 role will not install packages that might require reboot. Not all requirements can be fulfilled that way.
 List of packages to be skipped see <https://access.redhat.com/solutions/27943>
-postpone - (default behavior) reboot might be required after packages installation by the role,
-role will not reboot machine, role will not notify reboot action, in this case reboot has to be handled separately by the user.
-now - role will force reboot of the host at the end of the execution - this is not idempotent and reboot will be forced each time role is executed.
+postpone - (default behavior) role will not flush handlers at the end of execution, but reboot handler will be notified,
+in this case this is a user obligation to flush handlers (and thus reboot the host).
+now - role will flush handlers at the end of the execution - this is might not be desirable,
+in situations when another role that requires reboot will run after.
 
 
  
@@ -71,6 +72,19 @@ _Default:_ `{{ ((0.75 * (ansible_facts['memtotal_mb'] + ansible_facts['swaptotal
 _Required:_ `False`
 _Description:_
 Size of tmpfs to configure (in gigabytes)
+
+ 
+
+#### general_preconfigure_reboot_timeout
+
+
+_Type:_ `int`
+
+_Default:_ `3600`
+
+_Required:_ `False`
+_Description:_
+Timeout for reboot handler, see how reboot is handled in general_preconfigure_reboot parameter description
 
  
  

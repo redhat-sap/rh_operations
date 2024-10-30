@@ -43,7 +43,8 @@ A lot of checks are skipped and not executed on the host based on following rule
 7. only checks for FencingAgent as high availability agent are executed
 8. checks are executed if one of the following is true
 a. check.role contains 'db' and respective database is detected by sap hostagent
-b. check.role contains instance types that are detected by sap hostagent. Instance types (ASCS, ERS) are determined using processes detected by sap hostagent
+b. check.role contains instance types that are detected by sap hostagent.
+Instance types (ASCS, ERS) are determined using processes detected by sap hostagent
 
 Limitations
 Role tested only on single instance

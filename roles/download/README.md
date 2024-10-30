@@ -32,10 +32,12 @@ Role is idemponent - bits that are already downloaded will not be downloaded aga
 Idempotency is working by comparing SHA256 checksum for local files and files to be downloaded.
 Role is checking if there is sufficient space available in destination folder.
 Destination folder (variable `download_destination`) should already exist.
+If destination folder does not exist, not directory or not writeable role will fail
 For each file downloaded there is SHA256 checksum available on SAP SWDC, this checksum will be validated.
 This is ensure that bits are downloaded correctly and were not tampered with.
 SSL certificate is also checked when bits are downloaded, see download_validate_certs variable below.
 
+By default role will download only one file with latest ReleaseDate, see parameters download_sort_attribute and download_one_file
 Role return variables
 **download_register_last**
 Variable is set by the role and and available after role has been executed.
@@ -150,6 +152,12 @@ Should exists before role execution.
 Ansible user should have write permission to this destination folder.
 Role will check if there is sufficient space available on device.
 If not role will fail with information about space requirements.
+Ansible module ansible.builtin.uri is used to download SAP software from SWDC
+This module downloads temp files to ansible_remote_tmp folder,
+this folder has to have space to download largest file, if not - not enough space
+error will be raised by Ansible.
+See https://docs.ansible.com/ansible/latest/collections/ansible/builtin/sh_shell.html#parameter-remote_tmp
+and https://docs.ansible.com/ansible/latest/collections/ansible/builtin/sh_shell.html#parameter-system_tmpdirs
 
 
  
@@ -255,6 +263,7 @@ _Required:_ `False`
 _Choices:_
 - x86_64
 - ppc64le
+- arm64
 _Description:_
 Architecture for which SAP software will be downloaded.
 Not required, if not set will be set to architecture from `ansible_facts['architecture']`
@@ -320,6 +329,35 @@ _Default:_ `0755`
 _Required:_ `False`
 _Description:_
 Permissions that will be set for downloaded files.
+
+ 
+
+#### download_sort_attribute
+
+
+_Type:_ `str`
+
+_Default:_ `ReleaseDate`
+
+_Required:_ `False`
+_Choices:_
+- ReleaseDate
+- ChangeDate
+_Description:_
+Attribute used to sort list of items to download
+
+ 
+
+#### download_one_file
+
+
+_Type:_ `bool`
+
+_Default:_ `True`
+
+_Required:_ `False`
+_Description:_
+If at most one file has to be downloaded
 
  
  
