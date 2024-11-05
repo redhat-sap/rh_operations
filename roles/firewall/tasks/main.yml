@@ -1,0 +1,46 @@
+# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-FileCopyrightText: 2024 Red Hat, Project Atmosphere
+#
+# Copyright 2024 Red Hat, Project Atmosphere
+#
+# This program is free software: you can redistribute it and/or modify it under the terms of the GNU
+# General Public License as published by the Free Software Foundation, version 3 of the License.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+# even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU General Public License for more details.
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+# You should have received a copy of the GNU General Public License along with this program.
+# If not, see <https://www.gnu.org/licenses/>.
+
+---
+- name: Fail if firewalld service does not exist or is not running
+  ansible.builtin.service_facts:
+  failed_when:
+    - ansible_facts.services | default([]) | selectattr('name', 'firewalld') | length == 0
+    - ansible_facts.services | default([]) | selectattr('name', 'firewalld') | selectattr('state','running') | length == 0
+
+- name: Get list of instances on the host
+  sap.sap_operations.host_info:
+  become: true
+  become_user: root
+  register: firewall_host_info
+
+- name: Update firewalld configuration
+  ansible.posix.firewalld:
+    zone: "{{ firewall_zone }}"
+    port: "{{ port }}/{{ firewall_protocol }}"
+    permanent: "{{ firewall_permanent }}"
+    immediate: "{{ firewall_immediate }}"
+    state: "{{ firewall_state }}"
+  loop: "{{ firewall_ports }}"
+  loop_control:
+    loop_var: port
+  become: true
+  become_user: root

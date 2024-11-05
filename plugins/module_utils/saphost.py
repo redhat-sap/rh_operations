@@ -53,13 +53,22 @@ try:
     from suds.client import Client
     from suds.transport.http import HttpAuthenticated, HttpTransport
 except (ImportError, NameError):
-    # To avoid import error
-    HttpAuthenticated = object
-    HttpTransport = object
-    HAS_SUDS_LIBRARY = False
-    SUDS_LIBRARY_IMPORT_ERROR = traceback.format_exc()
+    try:
+        from virtwho.virt.esx.suds.client import Client
+        from virtwho.virt.esx.suds.transport.http import (
+            HttpAuthenticated,
+            HttpTransport,
+        )
+    except (ImportError, NameError):
+        HttpAuthenticated = object
+        HttpTransport = object
+        HAS_SUDS_LIBRARY = False
+        SUDS_LIBRARY_IMPORT_ERROR = traceback.format_exc()
+    else:
+        SUDS_LIBRARY_IMPORT_ERROR = None
+        HAS_SUDS_LIBRARY = True
+        SUDS_LIBRARY_IMPORT_ERROR = None
 else:
-    SUDS_LIBRARY_IMPORT_ERROR = None
     HAS_SUDS_LIBRARY = True
     SUDS_LIBRARY_IMPORT_ERROR = None
 
@@ -194,7 +203,8 @@ class SAPHostSOAPClient(object):
         )
         if self.local:
             if binary == C.SAPHOSTCTRL:
-                self.url = "http://localhost:{0}/SAPHostControl/?wsdl".format(self.port)
+                self.url = "http://localhost:{0}/SAPHostControl/?wsdl".format(
+                    self.port)
             else:
                 self.url = "http://localhost/sapcontrol?wsdl"
         else:
@@ -234,10 +244,12 @@ class SAPHostSOAPClient(object):
         elif self.security == SAPHostSecurity.CUSTOM:
             if self.ca_file is not None:
                 ssl._create_default_https_context = (
-                    lambda: ssl._create_unverified_context(cafile=self.ca_file)  # nosec B323
+                    lambda: ssl._create_unverified_context(
+                        cafile=self.ca_file)  # nosec B323
                 )
         try:
-            client = Client(self.url, username=self.username, password=self.password)
+            client = Client(self.url, username=self.username,
+                            password=self.password)
         except Exception as e:
             raise Exception(str(e) + self.url)
 
@@ -258,7 +270,6 @@ class AnsibleModuleSAPHostAgent(AnsibleModule):
         required_if=None,
         required_by=None,
     ):
-
         saphostagent_argument_spec = dict(
             hostname=dict(type="str", required=False),
             username=dict(type="str", required=False),
@@ -301,7 +312,8 @@ class AnsibleModuleSAPHostAgent(AnsibleModule):
             required_by = saphostagent_required_by
 
         super(AnsibleModuleSAPHostAgent, self).__init__(
-            argument_spec=dict_union(saphostagent_argument_spec, argument_spec),
+            argument_spec=dict_union(
+                saphostagent_argument_spec, argument_spec),
             bypass_checks=bypass_checks,
             no_log=no_log,
             mutually_exclusive=mutually_exclusive,
