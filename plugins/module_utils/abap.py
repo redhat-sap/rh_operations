@@ -62,11 +62,17 @@ else:
 try:
     from suds.client import Client
 except ImportError:
-    HAS_SUDS_LIBRARY = False
-    SUDS_LIBRARY_IMPORT_ERROR = traceback.format_exc()
-    Client = None
-    HttpAuthenticated = None
-    HttpTransport = None
+    try:
+        from virtwho.virt.esx.suds.client import Client
+    except ImportError:
+        HAS_SUDS_LIBRARY = False
+        SUDS_LIBRARY_IMPORT_ERROR = traceback.format_exc()
+        Client = None
+        HttpAuthenticated = None
+        HttpTransport = None
+    else:
+        HAS_SUDS_LIBRARY = True
+        SUDS_LIBRARY_IMPORT_ERROR = None
 else:
     HAS_SUDS_LIBRARY = True
     SUDS_LIBRARY_IMPORT_ERROR = None
@@ -931,7 +937,8 @@ class AnsibleModuleABAP(AnsibleModule):
                     self.exit_json(**exc_value.kwargs)
             else:
                 self.fail_json(
-                    msg="Exception {0} occurred.".format(exc_type.__class__.__name__),
+                    msg="Exception {0} occurred.".format(
+                        exc_type.__class__.__name__),
                     exception=str(exc_value),
                     traceback=traceback.format_tb(exc_tb),
                 )
@@ -945,7 +952,8 @@ class AnsibleModuleABAP(AnsibleModule):
                     result
                 )  # Decimal is not supported by Ansible, converted to string
             if isinstance(result, bytes):
-                return result.decode(encoding="utf-8")  # Bytes are decoded to strings
+                # Bytes are decoded to strings
+                return result.decode(encoding="utf-8")
         else:
             for k, v in result.items():
                 result[k] = self.convert2ansible(v)

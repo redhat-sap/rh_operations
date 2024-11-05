@@ -1,0 +1,90 @@
+# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-FileCopyrightText: 2024 Red Hat, Project Atmosphere
+#
+# Copyright 2024 Red Hat, Project Atmosphere
+#
+# This program is free software: you can redistribute it and/or modify it under the terms of the GNU
+# General Public License as published by the Free Software Foundation, version 3 of the License.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+# even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU General Public License for more details.
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+# You should have received a copy of the GNU General Public License along with this program.
+# If not, see <https://www.gnu.org/licenses/>.
+
+---
+cluster_preconfigure_packages_mapping:
+  x86_64: &x86_64_packages
+    RedHat:
+      "8.2":
+        - pacemaker>=2.0.5
+        - resource-agents>=4.1.1
+        - pcs
+        - pacemaker
+        - fence-agents-all
+        - nmap-ncat
+      "8.4":
+        - pacemaker>=2.0.5
+        - resource-agents>=4.1.1
+        - pcs
+        - pacemaker
+        - fence-agents-all
+        - nmap-ncat
+      "8.6":
+        - pacemaker>=2.0.5
+        - resource-agents>=4.9.0
+        - pcs
+        - pacemaker
+        - fence-agents-all
+        - nmap-ncat
+      "8.8":
+        - pacemaker>=2.0.5
+        - resource-agents>=4.9.0
+        - pcs
+        - pacemaker
+        - fence-agents-all
+        - nmap-ncat
+      "8.10":
+        - pacemaker>=2.0.5
+        - resource-agents>=4.9.0
+        - pcs
+        - pacemaker
+        - fence-agents-all
+        - nmap-ncat
+      "9.0":
+        - pacemaker>=2.0.5
+        - resource-agents-cloud>=4.10.0
+        - pcs
+        - pacemaker
+        - fence-agents-all
+        - nmap-ncat
+      "9.2":
+        - pacemaker>=2.0.5
+        - resource-agents-cloud>=4.10.0
+        - pcs
+        - pacemaker
+        - fence-agents-all
+        - nmap-ncat
+      "9.4":
+        - pacemaker>=2.0.5
+        - resource-agents-cloud>=4.10.0
+        - pcs
+        - pacemaker
+        - fence-agents-all
+        - nmap-ncat
+  ppc64le:
+  <<: *x86_64_packages
+
+cluster_preconfigure_packages: "{{ \
+  cluster_preconfigure_packages_mapping\
+  [ansible_facts['architecture'] | default('failed')]\
+  [ansible_facts['os_family'] | default('failed')]\
+  [ansible_facts['distribution_version'] | default('failed')] \
+  }}"

@@ -1,0 +1,111 @@
+# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-FileCopyrightText: 2024 Red Hat, Project Atmosphere
+#
+# Copyright 2024 Red Hat, Project Atmosphere
+#
+# This program is free software: you can redistribute it and/or modify it under the terms of the GNU
+# General Public License as published by the Free Software Foundation, version 3 of the License.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+# even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU General Public License for more details.
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+# You should have received a copy of the GNU General Public License along with this program.
+# If not, see <https://www.gnu.org/licenses/>.
+
+---
+argument_specs:
+  main:
+    short_description: Configure firewall for SAP instances
+    description:
+      - Role will fail if no firewalld service exist and running
+      - Role requires root access
+      - |
+        Role will list all SAP instances on the host and enable/disable
+        firewalld configuration for ports exposed in AccessPointList for the instance
+      - Only SAP instances are taken into account, not installed databases
+      - Role is idempotent
+    options:
+      firewall_zone:
+        description: Firewall zone to configure
+        type: str
+        required: false
+        default: public
+        choices:
+          - drop
+          - block
+          - public
+          - external
+          - dmz
+          - work
+          - home
+          - internal
+          - trusted
+      firewall_protocol:
+        description: Firewall protocol to configure
+        type: str
+        required: false
+        default: tcp
+        choices:
+          - tcp
+          - udp
+          - sctp
+          - dccp
+      firewall_permanent:
+        description: If set to true firewall configuration will be permanent
+        type: bool
+        required: false
+        default: true
+      firewall_immediate:
+        description: If set to true firewall configuration will be immediate
+        type: bool
+        required: false
+        default: true
+      firewall_state:
+        description: Enable or disable specified firewalld configuration
+        type: str
+        required: false
+        default: enabled
+        choices:
+          - enabled
+          - disabled
+
+  __limitations__:
+    options: {}
+    short_description: Limitations
+    description:
+      - Only takes into account SAP instances, not databases
+
+  __dependencies__:
+    options: {}
+    short_description: Dependencies
+    description:
+      - Role has no dependencies to other roles.
+
+  __examples__:
+    options: {}
+    short_description: Example Playbooks
+    description:
+      - ""
+      - "- name: Configure firewall for SAP instances"
+      - "  ansible.builtin.include_role:"
+      - "    name: sap.sap_operations.firewall"
+      - ""
+
+  __license__:
+    options: {}
+    short_description: License
+    description:
+      - GPL-3.0-only
+
+  __author__:
+    options: {}
+    short_description: Author Information
+    description:
+      - Kirill Satarin (@kksat)

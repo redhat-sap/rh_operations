@@ -50,13 +50,22 @@ try:
     from suds.client import Client
     from suds.transport.http import HttpAuthenticated, HttpTransport
 except (ImportError, NameError):
-    # To avoid import error
-    HttpAuthenticated = object
-    HttpTransport = object
-    HAS_SUDS_LIBRARY = False
-    SUDS_LIBRARY_IMPORT_ERROR = traceback.format_exc()
+    try:
+        from virtwho.virt.esx.suds.client import Client
+        from virtwho.virt.esx.suds.transport.http import (
+            HttpAuthenticated,
+            HttpTransport,
+        )
+    except (ImportError, NameError):
+        HttpAuthenticated = object
+        HttpTransport = object
+        HAS_SUDS_LIBRARY = False
+        SUDS_LIBRARY_IMPORT_ERROR = traceback.format_exc()
+    else:
+        SUDS_LIBRARY_IMPORT_ERROR = None
+        HAS_SUDS_LIBRARY = True
+        SUDS_LIBRARY_IMPORT_ERROR = None
 else:
-    SUDS_LIBRARY_IMPORT_ERROR = None
     HAS_SUDS_LIBRARY = True
     SUDS_LIBRARY_IMPORT_ERROR = None
 
@@ -172,7 +181,8 @@ class SAPClient(object):
                 )
 
         try:
-            client = Client(url, username=self.username, password=self.password)
+            client = Client(url, username=self.username,
+                            password=self.password)
         except Exception as e:
             raise Exception(str(e) + url)
 

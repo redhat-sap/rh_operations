@@ -25,17 +25,20 @@ __metaclass__ = type
 
 import traceback
 
+HAS_SUDS_LIBRARY = True
+SUDS_LIBRARY_IMPORT_ERROR = None
 try:
     from suds.sudsobject import items
     from suds.sudsobject import Object as sudsobject
 except ImportError:
-    HAS_SUDS_LIBRARY = False
-    SUDS_LIBRARY_IMPORT_ERROR = traceback.format_exc()
-    items = None
-    sudsobject = None
-else:
-    HAS_SUDS_LIBRARY = True
-    SUDS_LIBRARY_IMPORT_ERROR = None
+    try:
+        from virtwho.virt.esx.suds.sudsobject import items
+        from virtwho.virt.esx.suds.sudsobject import Object as sudsobject
+    except ImportError:
+        HAS_SUDS_LIBRARY = False
+        SUDS_LIBRARY_IMPORT_ERROR = traceback.format_exc()
+        items = None
+        sudsobject = None
 
 
 def deep_asdict2(obj):
