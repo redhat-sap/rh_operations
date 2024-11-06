@@ -1,0 +1,57 @@
+# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-FileCopyrightText: 2024 Red Hat, Project Atmosphere
+#
+# Copyright 2024 Red Hat, Project Atmosphere
+#
+# This program is free software: you can redistribute it and/or modify it under the terms of the GNU
+# General Public License as published by the Free Software Foundation, version 3 of the License.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+# even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU General Public License for more details.
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+# You should have received a copy of the GNU General Public License along with this program.
+# If not, see <https://www.gnu.org/licenses/>.
+
+---
+- name: Get information about all instances
+  sap.sap_operations.host_info:
+  become: true
+  become_user: root
+  register: ssfs_sync_host_info
+
+- name: Find all SSFS files
+  ansible.builtin.find:
+    paths:
+      - "/usr/sap/{{ sid }}/SYS/global/security/rsecssfs/data/"
+      - "/usr/sap/{{ sid }}/SYS/global/xsa/security/ssfs/data/"
+    file_type: file
+    patterns:
+      - "SSFS_{{ sid }}.DAT"
+      - "SSFS_{{ sid }}.KEY"
+  loop: "{{ ssfs_sync_host_info.instances | map(attribute='mSid') | select('sap.sap_operations.hana_instance') }}"
+  loop_control:
+    loop_var: sid
+  become: true
+  become_user: "{{ sid | lower }}adm"
+  register: ssfs_sync_files
+
+- name: Sync all SSFS files for all instances
+  ansible.posix.synchronize:
+    src: "{{ file_to_sync.path }}"
+    dest: "{{ file_to_sync.path }}"
+    existing_only: true
+    set_remote_user: false
+  loop: "{{ ssfs_sync_files.results | map(attribute='files') | flatten }}"
+  loop_control:
+    loop_var: file_to_sync
+    label: "{{ file_to_sync.path }}"
+  delegate_to: "{{ ssfs_sync_source_host }}"
+  become: true
+  become_user: root
