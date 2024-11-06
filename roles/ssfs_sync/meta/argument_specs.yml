@@ -1,0 +1,84 @@
+---
+# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-FileCopyrightText: 2024 Red Hat, Project Atmosphere
+#
+# Copyright 2024 Red Hat, Project Atmosphere
+#
+# This program is free software: you can redistribute it and/or modify it under the terms of the GNU
+# General Public License as published by the Free Software Foundation, version 3 of the License.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+# even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU General Public License for more details.
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+# You should have received a copy of the GNU General Public License along with this program.
+# If not, see <https://www.gnu.org/licenses/>.
+
+argument_specs:
+  main:
+    short_description: Sync SAP HANA SSFS keys (for HSR)
+    description:
+      - Sync SAP HANA SSFS keys (for HSR)
+      - |
+        Role will find all the SAP instances on source host (see role variables)
+        and make sure that SSFS *.KEY and *.DAT files and synced from source host
+        to destination hosts (see role variables).
+      - Files will be synced to destination hosts only if they exist on destination hosts.
+      - Role requires that ansible_user can sudo to root.
+      - |
+        Role uses ansible.posix.synchronize to sync files and this implies that there should be host to hosts communication established.
+        How to generate ssh keys for ansible host to host communication see role sap.sap_operations.ssh_keys_distribute
+    options:
+      ssfs_sync_source_host:
+        description: Host that will be sources for SSFS files sync
+        type: str
+        required: true
+      ssfs_sync_destination_hosts:
+        description: |
+          Host of list of hosts that will be destination for SSFS files sync.
+          By default - all hosts in the play (magic variable ansible_play_hosts)
+        type: list
+        elements: str
+        required: false
+
+  __limitations__:
+    options: {}
+    short_description: Limitations
+    description:
+      - Not tested with scaleout systems
+      - Not tested in case when several SAP HANA systems are installed on single host
+
+  __dependencies__:
+    options: {}
+    short_description: Dependencies
+    description:
+      - Role has no dependencies to other roles.
+
+  __examples__:
+    options: {}
+    short_description: Example Playbooks
+    description:
+      - " name: Sync SSFS"
+      - " ansible.builtin.include_role:"
+      - "   name: sap.sap_operations.ssfs_sync"
+      - " vars:"
+      - "   ssfs_sync_source_host: hsr1"
+      - "   ssfs_sync_destination_hosts: hsr2"
+
+  __license__:
+    options: {}
+    short_description: License
+    description:
+      - GPL-3.0-only
+
+  __author__:
+    options: {}
+    short_description: Author Information
+    description:
+      - Kirill Satarin (@kksat)
