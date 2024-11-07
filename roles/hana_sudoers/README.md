@@ -21,21 +21,14 @@ You should have received a copy of the GNU General Public License along with thi
 If not, see <https://www.gnu.org/licenses/>.
 -->
 
-# ssfs_sync
+# hana_sudoers
 
-Sync SAP HANA SSFS keys (for HSR)
+Manage SAP HANA sudoers records
 
 
-Sync SAP HANA SSFS keys (for HSR)
-Role will find all the SAP instances on source host (see role variables)
-and make sure that SSFS *.KEY and *.DAT files and synced from source host
-to destination hosts (see role variables).
-
-Files will be synced to destination hosts only if they exist on destination hosts.
-Role requires that ansible_user can sudo to root.
-Role uses ansible.posix.synchronize to sync files and this implies that there should be host to hosts communication established.
-How to generate ssh keys for ansible host to host communication see role sap.sap_operations.ssh_keys_distribute
-
+Manage SAP HANA sudoers records
+See https://access.redhat.com/articles/6093611
+Role requires root access
 
 
 
@@ -43,41 +36,57 @@ How to generate ssh keys for ansible host to host communication see role sap.sap
 
 ### Required parameters:
 
-
-- [ssfs_sync_source_host](#ssfs_sync_source_host)
  
 
-#### ssfs_sync_source_host
-
-
-_Type:_ `str`
-
-
-_Required:_ `True`
-_Description:_
-Host that will be sources for SSFS files sync
-
- 
-
-#### ssfs_sync_destination_hosts
+#### hana_sudoers_sids
 
 
 _Type:_ `list`
 
+_Default:_ `[]`
 
 _Required:_ `False`
 _Description:_
-Host of list of hosts that will be destination for SSFS files sync.
-By default - all hosts in the play (magic variable ansible_play_hosts)
+SAP HANA sid (system id) to configure sudoers file
+Can be list of single value
+If not defined or is empty list, list of installed SAP HANA instances will be determined by the role
 
+ 
+
+#### hana_sudoers_state
+
+
+_Type:_ `str`
+
+_Default:_ `present`
+
+_Required:_ `False`
+_Choices:_
+- present
+- absent
+_Description:_
+Ensure records are present or absent in sudoers file
+
+ 
+
+#### hana_sudoers_data_centers
+
+
+_Type:_ `str`
+
+_Default:_ `['*']`
+
+_Required:_ `False`
+_Description:_
+List of data centers to create records for. By default records will not be limited to datacenter (see default value)
 
  
  
 
 ## Limitations
 
-Not tested with scaleout systems
-Not tested in case when several SAP HANA systems are installed on single host
+Role was tested only on x86_64 architecture
+Role tested only for scaleup systems
 
 ## Dependencies
 
@@ -85,12 +94,7 @@ Role has no dependencies to other roles.
 
 ## Example Playbooks
 
- name: Sync SSFS
- ansible.builtin.include_role:
-   name: sap.sap_operations.ssfs_sync
- vars:
-   ssfs_sync_source_host: hsr1
-   ssfs_sync_destination_hosts: hsr2
+
 
 ## License
 
