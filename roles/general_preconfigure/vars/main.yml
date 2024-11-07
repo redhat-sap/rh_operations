@@ -141,6 +141,7 @@ general_preconfigure_packages_mapping:
       - compat-sap-c++-9
       - compat-sap-c++-10
       - compat-sap-c++-11
+      - libxcrypt-compat
     ppc64le:
       - uuidd
       - libnsl
@@ -152,6 +153,7 @@ general_preconfigure_packages_mapping:
       - compat-sap-c++-10
       - compat-sap-c++-11
       - ibm-power-managed-rhel8
+      - libxcrypt-compat
     s390x:
       - uuidd
       - libnsl

@@ -1,0 +1,85 @@
+# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-FileCopyrightText: 2024 Red Hat, Project Atmosphere
+#
+# Copyright 2024 Red Hat, Project Atmosphere
+#
+# This program is free software: you can redistribute it and/or modify it under the terms of the GNU
+# General Public License as published by the Free Software Foundation, version 3 of the License.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+# even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU General Public License for more details.
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+# You should have received a copy of the GNU General Public License along with this program.
+# If not, see <https://www.gnu.org/licenses/>.
+
+---
+argument_specs:
+  main:
+    short_description: Manage SAP HANA sudoers records
+    description:
+      - Manage SAP HANA sudoers records
+      - See https://access.redhat.com/articles/6093611
+      - Role requires root access
+    options:
+      hana_sudoers_sids:
+        description:
+          - SAP HANA sid (system id) to configure sudoers file
+          - Can be list of single value
+          - If not defined or is empty list, list of installed SAP HANA instances will be determined by the role
+        type: list
+        elements: str
+        required: false
+        default: []
+
+      hana_sudoers_state:
+        description: Ensure records are present or absent in sudoers file
+        type: str
+        choices:
+          - present
+          - absent
+        required: false
+        default: present
+
+      hana_sudoers_data_centers:
+        description: List of data centers to create records for. By default records will not be limited to datacenter (see default value)
+        type: str
+        required: false
+        default: "['*']"
+
+  __limitations__:
+    options: {}
+    short_description: Limitations
+    description:
+      - Role was tested only on x86_64 architecture
+      - Role tested only for scaleup systems
+
+  __dependencies__:
+    options: {}
+    short_description: Dependencies
+    description:
+      - Role has no dependencies to other roles.
+
+  __examples__:
+    options: {}
+    short_description: Example Playbooks
+    description:
+      - ""
+
+  __license__:
+    options: {}
+    short_description: License
+    description:
+      - GPL-3.0-only
+
+  __author__:
+    options: {}
+    short_description: Author Information
+    description:
+      - Kirill Satarin (@kksat)
