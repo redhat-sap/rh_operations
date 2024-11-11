@@ -24,7 +24,7 @@ namespace: sap
 
 name: sap_operations
 
-version: 2.10.0
+version: 2.10.1
 
 readme: README.md
 
@@ -82,7 +82,6 @@ build_ignore:
   - plugins/test/__init__.py
   - galaxy-aap.yml
   - galaxy-galaxy.yml
-  - roles/pcs_group_check
 
   - tests/sanity-ignore-galaxy
   - tests/sanity-ignore-aap

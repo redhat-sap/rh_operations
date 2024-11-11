@@ -33,3 +33,9 @@ roles/subscription_manager/LICENSE no-smart-quotes!skip
 roles/hana_sudoers/LICENSE no-smart-quotes!skip
 roles/sapinst/LICENSE no-smart-quotes!skip
 roles/swpm_download_service/LICENSE no-smart-quotes!skip
+roles/cluster_preconfigure/LICENSE no-smart-quotes!skip
+roles/firewall/LICENSE no-smart-quotes!skip
+roles/ssfs_sync/LICENSE no-smart-quotes!skip
+roles/ssh_keys_distribute/LICENSE no-smart-quotes!skip
+roles/swpm/LICENSE no-smart-quotes!skip
+plugins/action/LICENSE no-smart-quotes!skip
