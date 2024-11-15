@@ -26,6 +26,9 @@ __metaclass__ = type
 
 
 from ansible.module_utils.basic import AnsibleModule
+from ansible_collections.sap.sap_operations.plugins.module_utils.common import (  # noqa: E501
+    convert_string2bool,
+)
 
 
 class AnsibleModuleEnqAdmin(AnsibleModule):
@@ -103,14 +106,6 @@ def run_enq_admin(args, module=None):
         ]
 
     return module.run_command(default_args + args)
-
-
-def convert_string2bool(value):
-    if value.lower() == "true":
-        return True
-    if value.lower() == "false":
-        return False
-    return value
 
 
 def get_table_from_csv_data(data):

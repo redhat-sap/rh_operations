@@ -23,14 +23,16 @@
 # If not, see <https://www.gnu.org/licenses/>.
 
 from __future__ import absolute_import, division, print_function
-
 __metaclass__ = type
 
-DOCUMENTATION = r"""
+DOCUMENTATION = """
+---
 module: hdbuserstore_info
 
 author:
   - Ondra Machacek (@machacekondra)
+extends_documentation_fragment:
+  - sap.sap_operations.hana
 
 short_description: Get information from HANA user store (HANA command hdbsuserstore)
 
@@ -41,40 +43,44 @@ description: |
 version_added: 1.0.0
 
 notes:
-  - "See NOTE in documentation for I(hdbuserstore) module in regards to running ansible modules when becoming <hanasid>adm user with '-i'
-     flag. Otherwise you might face issues with ansible module executions in SAP HANA environments."
+  - See NOTE in documentation for I(hdbuserstore) module in regards to running ansible modules when becoming <hanasid>adm user with '-i' \
+    flag. Otherwise you might face issues with ansible module executions in SAP HANA environments."
 
 options:
   binary_path:
     description:
-      - "Custom path of the I(hdbuserstore) binary."
+      - Custom path of the I(hdbuserstore) binary.
     type: str
     required: false
     default: ''
   key:
     description:
-      - "Get info about the I(key)."
+      - Get info about the I(key)
     type: str
-requirements:
-  - python >= 3.6
 """
 
-EXAMPLES = r"""
-- name: Get info about the key mykey from HDB user store
+EXAMPLES = """
+---
+- name: Get info about the key mykey from HDB user store (recommended way, see notes)
   sap.sap_operations.hdbuserstore_info:
     key: mykey
+  become: true
+  become_user: <hanasid>adm
+  become_flags: -i
+  vars:
+    ansible_python_interpreter: "/usr/libexec/platform-python -E"
 """
 
-RETURN = r"""
+RETURN = """
+---
 stdout:
     description: HDB key info
     type: str
     returned: always
 """
 
-import os
-
 from ansible.module_utils.basic import AnsibleModule
+import os
 
 
 def main():
