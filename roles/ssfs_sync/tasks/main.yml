@@ -35,7 +35,7 @@
     patterns:
       - "SSFS_{{ sid }}.DAT"
       - "SSFS_{{ sid }}.KEY"
-  loop: "{{ ssfs_sync_host_info.instances | map(attribute='mSid') | select('sap.sap_operations.hana_instance') }}"
+  loop: "{{ ssfs_sync_host_info.instances | select('sap.sap_operations.hana_instance') | map(attribute='mSid') }}"
   loop_control:
     loop_var: sid
   become: true

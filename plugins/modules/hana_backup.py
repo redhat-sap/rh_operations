@@ -23,11 +23,11 @@
 # If not, see <https://www.gnu.org/licenses/>.
 
 from __future__ import absolute_import, division, print_function
-
 __metaclass__ = type
 
 
-DOCUMENTATION = r"""
+DOCUMENTATION = """
+---
 module: hana_backup
 
 author:
@@ -126,7 +126,8 @@ options:
     type: str
 """
 
-EXAMPLES = r"""
+EXAMPLES = """
+---
 - name: Fetch the binary path of the hdbsql
   sap.sap_operations.parameter_info:
     instance_number: "00"
@@ -157,12 +158,11 @@ EXAMPLES = r"""
     wait: false
 """
 
-RETURN = r""" # """
+RETURN = """ # """
 
-
-import os
 
 from ansible.module_utils.basic import AnsibleModule
+import os
 
 
 def get_sql(module):

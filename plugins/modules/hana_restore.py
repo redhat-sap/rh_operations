@@ -22,11 +22,11 @@
 # If not, see <https://www.gnu.org/licenses/>
 
 from __future__ import absolute_import, division, print_function
-
 __metaclass__ = type
 
 
-DOCUMENTATION = r"""
+DOCUMENTATION = """
+---
 module: hana_restore
 
 extends_documentation_fragment: sap.sap_operations.community
@@ -129,7 +129,8 @@ options:
 
 """  # noqa E501
 
-EXAMPLES = r"""
+EXAMPLES = """
+---
 - name: Fetch the binary path of the hdbsql
   sap.sap_operations.parameter_info:
     instance_number: "00"
@@ -182,11 +183,10 @@ EXAMPLES = r"""
   become_user: rheadm
 """
 
-RETURN = r""" # """
-
-import os
+RETURN = """ # """
 
 from ansible.module_utils.basic import AnsibleModule
+import os
 
 
 def get_path_sql(module, key):
