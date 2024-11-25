@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: GPL-3.0-only
-# SPDX-FileCopyrightText: 2023 Red Hat, Project Atmosphere
+# SPDX-FileCopyrightText: 2023 Kirill Satarin (@kksat)
 #
-# Copyright 2023 Red Hat, Project Atmosphere
+# Copyright 2023 Kirill Satarin (@kksat)
 #
 # This program is free software: you can redistribute it and/or modify it under the terms of the GNU
 # General Public License as published by the Free Software Foundation, version 3 of the License.
@@ -24,7 +24,7 @@ namespace: sap
 
 name: sap_operations
 
-version: 2.0.1
+version: 2.1.0
 
 readme: README.md
 
@@ -113,7 +113,6 @@ build_ignore:
   - plugins/test/me_valid_alias.py
 
   - roles/pcs_config_checks
-  - roles/pcs_group_check
   - plugins/filter/combine_default.py
 
   - plugins/modules/hana_restore.py
@@ -220,3 +219,30 @@ build_ignore:
 
   - roles/prepare_container
   - roles/prepare_container/*
+
+  - roles/subscription_manager
+  - roles/subscription_manager/*
+
+  - roles/sap_operations
+  - roles/sap_operations/*
+
+  - plugins/filter/inifile_params.py
+
+  - roles/ssfs_sync
+  - roles/ssfs_sync/*
+
+  - roles/cluster_preconfigure
+  - roles/cluster_preconfigure/*
+
+  - roles/firewall
+  - roles/firewall/*
+
+  - roles/hana_sudoers
+  - roles/hana_sudoers/*
+  - roles/sapinst
+  - roles/sapinst/*
+
+  - roles/swpm_download_service
+  - roles/swpm_download_service/*
+
+  - plugins/modules/hana_system_replication_info.py

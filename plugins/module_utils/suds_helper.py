@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: GPL-3.0-only
-# SPDX-FileCopyrightText: 2023 Red Hat, Project Atmosphere
+# SPDX-FileCopyrightText: 2023 Kirill Satarin (@kksat)
 #
-# Copyright 2023 Red Hat, Project Atmosphere
+# Copyright 2023 Kirill Satarin (@kksat)
 #
 # This program is free software: you can redistribute it and/or modify it under the terms of the GNU
 # General Public License as published by the Free Software Foundation, version 3 of the License.
@@ -25,17 +25,20 @@ __metaclass__ = type
 
 import traceback
 
+HAS_SUDS_LIBRARY = True
+SUDS_LIBRARY_IMPORT_ERROR = None
 try:
     from suds.sudsobject import items
     from suds.sudsobject import Object as sudsobject
 except ImportError:
-    HAS_SUDS_LIBRARY = False
-    SUDS_LIBRARY_IMPORT_ERROR = traceback.format_exc()
-    items = None
-    sudsobject = None
-else:
-    HAS_SUDS_LIBRARY = True
-    SUDS_LIBRARY_IMPORT_ERROR = None
+    try:
+        from virtwho.virt.esx.suds.sudsobject import items
+        from virtwho.virt.esx.suds.sudsobject import Object as sudsobject
+    except ImportError:
+        HAS_SUDS_LIBRARY = False
+        SUDS_LIBRARY_IMPORT_ERROR = traceback.format_exc()
+        items = None
+        sudsobject = None
 
 
 def deep_asdict2(obj):

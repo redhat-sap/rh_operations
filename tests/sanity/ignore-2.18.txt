@@ -8,3 +8,9 @@ plugins/test/LICENSE no-smart-quotes!skip
 roles/hana_update/LICENSE no-smart-quotes!skip
 roles/prepare/LICENSE no-smart-quotes!skip
 roles/sap_kernel_update/LICENSE no-smart-quotes!skip
+roles/unpack/LICENSE no-smart-quotes!skip
+roles/sapjvm/LICENSE no-smart-quotes!skip
+roles/cf/LICENSE no-smart-quotes!skip
+plugins/modules/host_info.yml validate-modules!skip
+plugins/modules/host_info.py validate-modules!skip
+plugins/action/LICENSE no-smart-quotes!skip
