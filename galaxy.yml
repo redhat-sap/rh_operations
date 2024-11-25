@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: GPL-3.0-only
-# SPDX-FileCopyrightText: 2023 Red Hat, Project Atmosphere
+# SPDX-FileCopyrightText: 2023 Kirill Satarin (@kksat)
 #
-# Copyright 2023 Red Hat, Project Atmosphere
+# Copyright 2023 Kirill Satarin (@kksat)
 #
 # This program is free software: you can redistribute it and/or modify it under the terms of the GNU
 # General Public License as published by the Free Software Foundation, version 3 of the License.
@@ -24,7 +24,7 @@ namespace: sap
 
 name: sap_operations
 
-version: 2.11.0
+version: 2.12.0
 
 readme: README.md
 
