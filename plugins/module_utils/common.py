@@ -19,12 +19,15 @@
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>.
 
----
-- name: Collect required ansible facts
-  ansible.builtin.setup:
-    gather_subset:
-      - os_family
+from __future__ import absolute_import, division, print_function
 
-- name: Include tasks depending on state
-  ansible.builtin.include_tasks:
-    file: "{{ sapjvm_state }}.yml"
+
+__metaclass__ = type
+
+
+def convert_string2bool(value):
+    if value.lower() == "true":
+        return True
+    if value.lower() == "false":
+        return False
+    return value

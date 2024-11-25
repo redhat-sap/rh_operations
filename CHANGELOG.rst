@@ -4,6 +4,19 @@ SAP Operations Collection Release Notes
 
 .. contents:: Topics
 
+v2.1.0
+======
+
+Release Summary
+---------------
+
+Lifecycle release
+
+Minor Changes
+-------------
+
+- clarify copyright information in license notice for some files
+
 v2.0.1
 ======
 

@@ -26,11 +26,15 @@ from __future__ import absolute_import, division, print_function
 
 __metaclass__ = type
 
-DOCUMENTATION = r"""
+DOCUMENTATION = """
+---
 module: hdbuserstore
 
 author:
   - Ondra Machacek (@machacekondra)
+extends_documentation_fragment:
+  - sap.sap_operations.hana
+  - action_common_attributes
 
 short_description: Manage the HANA user store (HANA command hdbuserstore)
 
@@ -82,7 +86,6 @@ options:
     default: false
 requirements:
   - python >= 3.6
-extends_documentation_fragment: action_common_attributes
 attributes:
   check_mode:
     support: full
@@ -92,28 +95,9 @@ attributes:
     platforms: posix
 """
 
-EXAMPLES = r"""
-- name: Set the key mykey
-  sap.sap_operations.hdbuserstore:
-    key: mykey
-    env: "localhost:30113"
-    username: myuser
-    password: mypassword
-
-# NOTES:
-# Variable binary_path is required if hdbuserstore command cannot be found in PATH environment variable.
-# If running ansible module using become directive with <hanasid>adm user and flag '-i' (interactive - meaning load all environment for the user)
-# ansible modules fail. This is due to the fact that <hanasid>adm user sets environment variables PYTHONHOME and PYTHONPATH (to use HANA python,
-# not platform python) that confuse ansible.
-#
-# In that case hdbuserstore command will not be in PATH environment variable for <hanasid>adm user and I(binary_path) has to be provided.
-#
-# There are several workaround around this unpleasant situation. One is recommended.
-#
-# Workaround 1 (recommended)
-#
-# Run hdbsuserstore module with <hanasid>adm user with '-i' (interactive) flag like so
-- name: Set the key mykey
+EXAMPLES = """
+---
+- name: Set the key mykey (recommended way, see notes)
   sap.sap_operations.hdbuserstore:
     key: mykey
     env: "localhost:30113"
@@ -124,87 +108,29 @@ EXAMPLES = r"""
   become_flags: -i
   vars:
     ansible_python_interpreter: "/usr/libexec/platform-python -E"
-
-# Option '-E' for python interpreter will ignore all PYTHON\* environment variables, so ansible will run platform python without any problems.
-# Variable I(ansible_python_interpreter) have to be set to value "/usr/libexec/platform-python -E" on all RHEL versions for any ansible module
-# execution when becoming <hanasid>adm user with flag '-i'.
-#
-# ansible_python_interpreter: "/usr/libexec/platform-python -E" can be set at task level (as above), at play level like so
-# Or be set as host variable either in inventory file or as task in playbook:
-- name: Converge
-  hosts: all
-  gather_facts: false
-  become: true
-  become_user: hanadm
-  become_flags: -i
-  vars:
-    ansible_python_interpreter: python -E
-
-  tasks:
-    - name: Environment for SAP HANA
-      set_fact:
-        ansible_python_interpreter: "/usr/libexec/platform-python -E"
-
-# Workaround 2
-#
-# Do not use interactive flag when becoming <hanasid>adm user.
-- name: Set the key mykey
-  sap.sap_operations.hdbuserstore:
-    key: mykey
-    env: "localhost:30113"
-    username: myuser
-    password: mypassword
-    binary_path: "/usr/sap/HAN/SYS/exe/hdb"
-  become: true
-  become_user: <hanasid>adm
-
-# In that case hdbuserstore command will not be in PATH environment variable for <hanasid>adm user and I(binary_path) has to be provided.
-#
-# Workaround 3
-#
-# Do not use interactive flag when becoming <hanasid>adm user. But do not want to provide value for variable I(binary_path).
-#
-# In that case value for I(binary_path) can be extracted from HANA parameter DIR_EXECUTABLE that one can get with I(parameter_info) module:
-- name: Get DIR_EXECUTABLE
-  sap.sap_operations.parameter_info:
-    instance_number: "00"
-    name: DIR_EXECUTABLE
-  become: true
-  become_user: <hanasid>adm
-  register: __DIR_EXECUTABLE
-
-- name: Set the key mykey
-  sap.sap_operations.hdbuserstore:
-    key: mykey
-    env: "localhost:30113"
-    username: myuser
-    password: mypassword
-    binary_path: "{{ __DIR_EXECUTABLE.parameter_value[0] }}"
-  become: true
-  become_user: <hanasid>adm
 """
 
-RETURN = r"""
+RETURN = """
+---
 key:
-    description: HDB key name
-    type: str
-    returned: always
-    sample: mykey
+  description: HDB key name
+  type: str
+  returned: always
+  sample: mykey
 env:
-    description: HDB env name
-    type: str
-    returned: When state is C(present)
-    sample: myenv
+  description: HDB env name
+  type: str
+  returned: When state is C(present)
+  sample: myenv
 username:
-    description: HDB username for key
-    type: str
-    returned: When state is C(present)
-    sample: myusername
+  description: HDB username for key
+  type: str
+  returned: When state is C(present)
+  sample: myusername
 """
-
-import os
 
 from ansible.module_utils.basic import AnsibleModule
+import os
 
 
 def ensure_created(module):
