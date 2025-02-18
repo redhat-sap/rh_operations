@@ -61,6 +61,8 @@ class CFClient:
             return {
                 "failed": True,
                 "msg": "Error while authorizing cf cli",
+                "stderr": rc.stderr.decode("utf-8"),
+                "stdout": rc.stdout.decode("utf-8"),
             }
         else:
             return {"failed": False}

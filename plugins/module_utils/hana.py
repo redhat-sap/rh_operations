@@ -20,6 +20,9 @@
 # If not, see <https://www.gnu.org/licenses/>.
 
 from __future__ import absolute_import, division, print_function
+
+__metaclass__ = type
+
 from ansible_collections.sap.sap_operations.plugins.module_utils.common import (  # noqa: E501
     convert_string2bool,
 )

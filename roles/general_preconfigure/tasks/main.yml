@@ -37,6 +37,7 @@
     path: /dev/shm
     src: tmpfs
     state: mounted
+  when: general_preconfigure_tmpfs_size_gb | int > 0
   become: true
   become_user: root
 
