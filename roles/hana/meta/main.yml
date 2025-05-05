@@ -22,22 +22,15 @@
 ---
 
 galaxy_info:
-
   author: Kirill Satarin (@kksat)
-
   description: Manage SAP HANA instance
-
   license: GPL-3.0-only
-
   min_ansible_version: "2.14"
-
   platforms:
     - name: EL
       versions:
-        - "7"
         - "8"
         - "9"
-
+        - "10"
   galaxy_tags: []
-
 dependencies: []

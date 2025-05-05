@@ -24,17 +24,14 @@ galaxy_info:
   author: kksat
   description: hana_update
   company: Red Hat
-
   license: GPL-3.0-only
-
   min_ansible_version: "2.1"
-
   platforms:
     - name: EL
       versions:
-        - "7"
         - "8"
         - "9"
+        - "10"
 
   galaxy_tags: []
 dependencies: []

@@ -22,20 +22,16 @@
 # If not, see <https://www.gnu.org/licenses/>.
 
 galaxy_info:
-
   author: Kirill Satarin (@kksat)
   description: Prepare RHEL managed host to run content from sap.sap_operations
-
   license: GPL-3.0-only
-
-  min_ansible_version: "2.1"
-
+  min_ansible_version: "2.15"
   platforms:
     - name: EL
       versions:
-        - "7"
         - "8"
         - "9"
+        - "10"
 
   galaxy_tags: []
 dependencies: []
