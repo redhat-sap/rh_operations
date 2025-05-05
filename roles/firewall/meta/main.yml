@@ -30,5 +30,6 @@ galaxy_info:
       versions:
         - "8"
         - "9"
+        - "10"
   galaxy_tags: []
 dependencies: []

@@ -25,17 +25,13 @@ galaxy_info:
   author: Kirill Satarin (@kksat)
   description: Unpack *.zip and *.sar files
   namespace: sap
-
   license: Apache-2.0
-
   min_ansible_version: "2.1"
-
   platforms:
     - name: EL
       versions:
-        - "7"
         - "8"
         - "9"
-
+        - "9"
   galaxy_tags: []
 dependencies: []

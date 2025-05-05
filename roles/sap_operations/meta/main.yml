@@ -22,7 +22,6 @@
 ---
 galaxy_info:
   author: Kirill Satarin (@kksat)
-  namespace: sap
   description: Load sap_operations collection variables
   license: GPL-3.0-only
   min_ansible_version: "2.15"
@@ -31,5 +30,6 @@ galaxy_info:
       versions:
         - "8"
         - "9"
+        - "10"
   galaxy_tags: []
 dependencies: []

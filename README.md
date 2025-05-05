@@ -21,14 +21,6 @@ You should have received a copy of the GNU General Public License along with thi
 If not, see <https://www.gnu.org/licenses/>.
 -->
 
-# FEEDBACK
-
-Development team is open to discuss any feedback from users of the collection.
-
-If you can share how do you use this collection, what can be added, what is missing, please share your contact information in the form below.
-
-<https://forms.gle/PNj4SXP6ifr7svfo6>
-
 # RECENT UPDATES
 
 RHEL 7 is no longer supported as managed host.
@@ -117,7 +109,7 @@ Collection tested automatically using ansible molecule and Azure molecule driver
 
 Ansible plugins and modules are covered with python unit and integration tests.
 
-Test cover RHEL 7, RHEL 8 and RHEL 9 - supported versions.
+Test cover RHEL 8, RHEL 9 and RHEL 10 - supported versions.
 
 Supported (and thus tested) ansible-core and python versions on controller and managed hosts see below.
 
@@ -132,6 +124,8 @@ ansible-core 2.15
 ansible-core 2.16
 
 ansible-core 2.17
+
+ansible-core 2.18
 
 ## Contributing
 
@@ -191,7 +185,7 @@ GNU General Public License v3.0
 
 See <https://www.gnu.org/licenses/gpl-3.0.txt> for details
 
-2022 - 2024 (c) Project Atmosphere
+2022 - 2025 (c) Project Atmosphere
 
 ## Python supported versions
 
@@ -207,6 +201,8 @@ python 3.11
 
 python 3.12
 
+python 3.13
+
 Ansible collection is designed to work with following python versions on managed host
 
 python 3.8
@@ -218,6 +214,8 @@ python 3.10
 python 3.11
 
 python 3.12
+
+python 3.13
 
 With one exception NW RFC modules to not work on python 2.7. This is because SAP PyRFC does not support python 2.7 see <https://github.com/SAP/PyRFC>
 
