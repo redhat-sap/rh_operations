@@ -83,7 +83,7 @@ Collection tested automatically using ansible molecule and Azure molecule driver
 
 Ansible plugins and modules are covered with python unit and integration tests.
 
-Test cover RHEL 7, RHEL 8 and RHEL 9 - supported versions.
+Test cover RHEL 8, RHEL 9 and RHEL 10 - supported versions.
 
 Supported (and thus tested) ansible-core and python versions on controller and managed hosts see below.
 
@@ -99,6 +99,8 @@ ansible-core 2.16
 
 ansible-core 2.17
 
+ansible-core 2.18
+
 ## Python
 
 Ansible collection is designed to work with following python versions on controller host
@@ -113,6 +115,8 @@ python 3.11
 
 python 3.12
 
+python 3.13
+
 Ansible collection is designed to work with following python versions on managed host
 
 python 3.8
@@ -124,6 +128,8 @@ python 3.10
 python 3.11
 
 python 3.12
+
+python 3.13
 
 Not all python and ansible version combination are expected to work. Please use python version supported by respective ansible version.
 
@@ -185,4 +191,4 @@ GNU General Public License v3.0
 
 See <https://www.gnu.org/licenses/gpl-3.0.txt> for details
 
-2022 - 2024 (c) Project Atmosphere
+2022 - 2025 (c) Project Atmosphere

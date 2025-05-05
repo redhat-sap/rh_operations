@@ -4,6 +4,19 @@ SAP Operations Collection Release Notes
 
 .. contents:: Topics
 
+v2.2.0
+======
+
+Release Summary
+---------------
+
+Lifecycle release
+
+Major Changes
+-------------
+
+- Add support for RHEL 10 as controller and managed node
+
 v2.1.0
 ======
 
