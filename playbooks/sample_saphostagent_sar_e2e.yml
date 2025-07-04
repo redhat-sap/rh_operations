@@ -1,0 +1,95 @@
+# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-FileCopyrightText: 2025 Kirill Satarin (@kksat)
+#
+# Copyright 2025 Kirill Satarin (@kksat)
+#
+# This program is free software: you can redistribute it and/or modify it under the terms of the GNU
+# General Public License as published by the Free Software Foundation, version 3 of the License.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+# even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU General Public License for more details.
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+# You should have received a copy of the GNU General Public License along with this program.
+# If not, see <https://www.gnu.org/licenses/>.
+
+---
+- name: Make sure saphostagent (SAR) is downloaded and installed
+  hosts: all
+  gather_facts: false
+  vars:
+    saphostagent_sar_version: saphostagent-7.22
+    saphostagent_sar_sp_version: ''
+    saphostagent_sar_download_destination: /software/downloaded/saphostagent
+    sap_operations_download_username: "{{ lookup('ansible.builtin.env','SAP_OPERATIONS_DOWNLOAD_USERNAME')}}"
+    sap_operations_download_password: "{{ lookup('ansible.builtin.env','SAP_OPERATIONS_DOWNLOAD_PASSWORD')}}"
+  tasks:
+    - name: Validate that all required variables are set
+      ansible.builtin.validate_argument_spec:
+        argument_spec:
+          DOCUMENTATION:
+            required: false
+            description:
+              - This playbook will download and install saphostagent
+              - sapcar will be downloaded and installed as well (required to unpack SAR files)
+              - See role sap.sap_operations.sapcar - on how sapcar is downloaded and installed
+              - This playbook assumes that hosts it is running against are prepared for saphostagent installation
+              - This playbook assumes that there is sufficient space on the hosts to download, unpack and install saphostagent and sapcar
+              - This playbook assumes that folder /usr/sap exist and writable
+              - See required parameters below
+              - See sample values for parameters above (in the comment)
+              - See how this playbook can be used directly https://docs.ansible.com/ansible/latest/collections/ansible/builtin/import_playbook_module.html
+          saphostagent_sar_version:
+            required: true
+            type: str
+            description: saphostagent version, if not provided latest will be downloaded (not idempotent!)
+            default: saphostagent-7.22
+            choice: "{{ '' | sap.sap_operations.me_aliases | select('contains', 'saphostagent') }}"
+          saphostagent_sar_sp_version:
+            required: true
+            type: str
+            description: saphostagent SP version, if not provided latest will be downloaded (not idempotent!)
+            default: ''
+          saphostagent_sar_download_destination:
+            required: true
+            type: path
+            description: Path where saphostgent (SAR) binaries will be downloaded, will be created
+          sap_operations_download_password:
+            required: true
+            description: SAP for me password
+          sap_operations_download_username:
+            required: true
+            description: SAP for me username
+
+    - name: Make sure saphostagent_sar_download_destination exists
+      ansible.builtin.file:
+        recurse: true
+        name: "{{ saphostagent_sar_download_destination }}"
+        state: directory
+        mode: "0777"
+
+    - name: Make sure sapcar exe is installed
+      ansible.builtin.include_role:
+        name: sap.sap_operations.sapcar
+
+    - name: Make sure saphostagent (SAR) binaries are downloaded
+      ansible.builtin.include_role:
+        name: sap.sap_operations.download
+      vars:
+        download_alias: "{{ saphostagent_sar_version }}"
+        download_description: "{{ saphostagent_sar_sp_version }}"
+        download_title: SAR
+        download_destination: "{{ saphostagent_sar_download_destination }}"
+
+    - name: Make sure SAP saphostagent (SAR) is installed
+      ansible.builtin.include_role:
+        name: sap.sap_operations.saphostagent_sar
+      vars:
+        saphostagent_sar_source: >
+          {{ (download_register_last.files | first)['filepath'] }}
