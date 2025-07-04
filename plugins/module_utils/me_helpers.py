@@ -89,6 +89,7 @@ PECGRSC1_from_architecture_and_os_family = {
     },
     "arm64": {
         "Darwin": "MACOSARM64",
+        "Linux": "MACOSARM64",
     },
     # 'AIX_64': 'AIX_64',
     # 'HPIA_64': 'HPIA_64',

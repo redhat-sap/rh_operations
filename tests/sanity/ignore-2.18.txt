@@ -37,3 +37,11 @@ roles/ssfs_sync/LICENSE no-smart-quotes!skip
 roles/ssh_keys_distribute/LICENSE no-smart-quotes!skip
 roles/swpm/LICENSE no-smart-quotes!skip
 plugins/action/LICENSE no-smart-quotes!skip
+plugins/module_utils/hostname.py pylint!skip
+plugins/module_utils/hostname.py import-3.8!skip
+plugins/module_utils/hostname.py import-3.9!skip
+plugins/module_utils/hostname.py import-3.10!skip
+plugins/module_utils/hostname.py import-3.11!skip
+plugins/module_utils/hostname.py import-3.12!skip
+plugins/module_utils/hostname.py import-3.13!skip
+roles/saphostagent_sar/LICENSE no-smart-quotes!skip

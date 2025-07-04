@@ -25,6 +25,7 @@ prepare_container_packages_present:
 
 prepare_container_packages_absent:
   - coreutils-single
+  - curl-minimal
 
 prepare_container_setup_gather_subset:
   - min

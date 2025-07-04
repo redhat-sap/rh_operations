@@ -1,0 +1,51 @@
+# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-FileCopyrightText: 2024 Kirill Satarin (@kksat)
+#
+# Copyright 2024 Kirill Satarin (@kksat)
+#
+# This program is free software: you can redistribute it and/or modify it under the terms of the GNU
+# General Public License as published by the Free Software Foundation, version 3 of the License.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+# even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU General Public License for more details.
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+# You should have received a copy of the GNU General Public License along with this program.
+# If not, see <https://www.gnu.org/licenses/>.
+
+---
+- name: Make sure that temp folder for unpacking exists
+  ansible.builtin.file:
+    path: "{{ saphostagent_sar_tmp_destination }}"
+    state: directory
+    recurse: true
+    owner: "{{ omit }}"
+    group: "{{ omit }}"
+    mode: "{{ omit }}"
+
+- name: Unpack SAR saphostagent archive
+  ansible.builtin.include_role:
+    name: sap.sap_operations.unpack
+  vars:
+    unpack_destination: "{{ saphostagent_sar_tmp_destination }}"
+    unpack_source: "{{ saphostagent_sar_source }}"
+
+- name: Install saphostagent
+  ansible.builtin.command:
+    argv:
+      - "{{ (saphostagent_sar_tmp_destination, 'saphostexec') | ansible.builtin.path_join }}"
+      - '-install'
+    chdir: "{{ saphostagent_sar_tmp_destination }}"
+  register: saphostagent_install_command
+  failed_when:
+    - saphostagent_install_command.rc != 0
+    - saphostagent_install_command.stderr_lines | length > 0
+  changed_when: true
+  become: true
+  become_user: root
