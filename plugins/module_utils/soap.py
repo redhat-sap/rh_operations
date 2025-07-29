@@ -229,8 +229,26 @@ class SystemClient(SAPClient):
         )
 
         if self.wait:
-            # TODO: how to wait?
-            pass
+            # Check every poll_interval seconds until update list is empty = update complete
+            for _i in range(0, self.wait_timeout, self.poll_interval):
+                time.sleep(self.poll_interval)
+                try:
+                    update_list = self.client.GetSystemUpdateList()
+
+                    # Empty update list means the update is complete
+                    if not update_list or len(update_list) == 0:
+                        return
+
+                    # YELLOW state = status of the update (different than instance status)
+                    instances = [dict(i) for i in update_list[0]]
+                    if all(i['dispstatus'] != YELLOW for i in instances):
+                        return
+
+                except Exception:
+                    # Some API errors can occur during transitions - just continue waiting
+                    pass
+
+            raise Exception(f"Timeout waiting for system update after {self.wait_timeout} seconds")
 
     def start_system(self, instance):
         self.client.StartSystem(
