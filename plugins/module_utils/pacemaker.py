@@ -373,4 +373,16 @@ def get_pcs_resource_agent_provider_from_cib(pcs_resource):
 
 
 def get_pcs_resource_agent_type_from_cib(pcs_resource):
-    return pcs_resource.get('type')
+    return pcs_resource.get("type")
+
+
+def get_pcs_nodes_from_status(pcs_status_tree):
+    """Returns a list of XML elements representing nodes.
+
+    Args:
+        pcs_status_tree (ElementTree): The parsed XML tree of the PCS status output.
+
+    Returns:
+        List[Element]: A list of XML elements representing nodes.
+    """
+    return pcs_status_tree.findall(".//nodes/node")
