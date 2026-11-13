@@ -23,223 +23,62 @@ If not, see <https://www.gnu.org/licenses/>.
 
 # sapjvm
 
-Manage SAP JVM (download / install / uninstall)
-
-
-Manage SAP JVM
-Role will download SAP JVM binary from tools.hana.ondemand.com
-Role can install both rpm and portable versions of SAP JVM, see role documentation
-Portable version is installed via copy of downloaded archive content, removed via removing installation directory
-RPM version installation requires root access
-Role will use ansible_facts to determine current host os system and architecture to download correct SAP JVM binary
-By using this role and downloading SAP software from tools.hana.ondemand.com you accept SAP developer license agreement
-One can find more details on tools.hana.ondemand.com
-
-
-
-## Role Variables
-
-### Required parameters:
-
-
-- [sapjvm_version](#sapjvm_version)
- 
-
-#### sapjvm_version
-
-
-_Type:_ `str`
-
-
-_Required:_ `True`
-_Description:_
-Version of SAP JVM to download and install
-This version must exists on tools.hana.ondemand.com, it does not role will fail
-
- 
-
-#### sapjvm_state
-
-
-_Type:_ `str`
-
-_Default:_ `present`
-
-_Required:_ `False`
-_Choices:_
-- present
-- absent
-_Description:_
-SAP JVM state
-
- 
-
-#### sapjvm_download_destination
-
-
-_Type:_ `path`
-
-_Default:_ `/tmp/sapjvm`
-
-_Required:_ `False`
-_Description:_
-Folder where SAP JVM binary will be downloaded
-
- 
-
-#### sapjvm_download_filename
-
-
-_Type:_ `str`
-
-
-_Required:_ `False`
-_Description:_
-Filename of downloaded SAP JVM binaries,
-By default Filename is sapjvm-{{ sapjvm_version }}-{{ sapjvm_system }}-{{ sapjvm_architecture }}.{{ sapjvm_archive_extension }}
-See definition of variables in defaults/main.yml and vars/main.yml
-
- 
-
-#### sapjvm_download_filepath
-
-
-_Type:_ `path`
-
-
-_Required:_ `False`
-_Description:_
-Complete path to file where SAP JVM binary will be downloaded
-by default is {{ sapjvm_download_destination }}/{{ sapjvm_download_filename }}, see other variables
-If this is set it will overwrite sapjvm_download_destination and sapjvm_download_filename variable values
-
- 
-
-#### sapjvm_download_timeout_seconds
-
-
-_Type:_ `int`
-
-_Default:_ `3600`
-
-_Required:_ `False`
-_Description:_
-Timeout set for download SAP JVM task
-
- 
-
-#### sapjvm_unpack_destination
-
-
-_Type:_ `path`
-
-_Default:_ `/tmp/sapjvm_unpacked`
-
-_Required:_ `False`
-_Description:_
-Folder where SAP JVM binary will be unpacked
-
- 
-
-#### sapjvm_portable_install_destination
-
-
-_Type:_ `path`
-
-_Default:_ `/opt/`
-
-_Required:_ `False`
-_Description:_
-Folder where SAP JVM binary will be installed, only relevant for portable installations
-
- 
-
-#### sapjvm_portable_uninstall_destination
-
-
-_Type:_ `path`
-
-_Default:_ `/opt/sapjvm_8`
-
-_Required:_ `False`
-_Description:_
-Folder that will be deleted, if SAP JVM portable version is uninstalled
-
- 
-
-#### sapjvm_system
-
-
-_Type:_ `path`
-
-_Default:_ `linux`
-
-_Required:_ `False`
-_Choices:_
-- linux
-- darwin
-_Description:_
-SAP JVM is supported on linux, macos, windows. By default role will determine system using ansible_facts.
-This variable to overwrite system determined by ansible_facts
-
- 
-
-#### sapjvm_architecture
-
-
-_Type:_ `str`
-
-_Default:_ `x64`
-
-_Required:_ `False`
-_Choices:_
-- x64
-- ppc64le
-- aarch64
-_Description:_
-Architecture that for what SAP JVM will be installed
-By default will be determined from ansible_facts
-
- 
-
-#### sapjvm_portable
-
-
-_Type:_ `bool`
-
-_Default:_ `False`
-
-_Required:_ `False`
-_Description:_
-If portable version of SAP JVM has to be downloaded and installed / removed
-
- 
-
-#### sapjvm_eula
-
-
-_Type:_ `str`
-
-_Default:_ `eula_3_2_agreed=tools.hana.ondemand.com/developer-license-3_2.txt`
-
-_Required:_ `False`
-_Description:_
-Confirms that you are agree to SAP developer license
-
- 
- 
-
-## Limitations
-
-Only supported on linux and darwin (macos) systems
-root access required if rpm version is installed, sudo package has to be installed
-packages required zip, tar (to unpack downloaded archives)
-
-## Dependencies
-
-Role has no dependencies to other roles.
-
-## Example Playbooks
+<!-- ANSIBLE DOCSMITH MAIN START -->
+
+* [Role overview](#role-overview)
+* [Role variables](#variables)
+  * [`sapjvm_version`](#parameter-sapjvm_version)
+  * [`sapjvm_state`](#parameter-sapjvm_state)
+  * [`sapjvm_download_destination`](#parameter-sapjvm_download_destination)
+  * [`sapjvm_download_filename`](#parameter-sapjvm_download_filename)
+  * [`sapjvm_download_filepath`](#parameter-sapjvm_download_filepath)
+  * [`sapjvm_download_timeout_seconds`](#parameter-sapjvm_download_timeout_seconds)
+  * [`sapjvm_unpack_destination`](#parameter-sapjvm_unpack_destination)
+  * [`sapjvm_portable_install_destination`](#parameter-sapjvm_portable_install_destination)
+  * [`sapjvm_portable_uninstall_destination`](#parameter-sapjvm_portable_uninstall_destination)
+  * [`sapjvm_system`](#parameter-sapjvm_system)
+  * [`sapjvm_architecture`](#parameter-sapjvm_architecture)
+  * [`sapjvm_portable`](#parameter-sapjvm_portable)
+  * [`sapjvm_eula`](#parameter-sapjvm_eula)
+* [Example Playbooks](#examples)
+* [Dependencies](#dependencies)
+* [Limitations](#limitations)
+* [License](#license)
+* [Author Information](#author)
+
+## Role overview<a id="role-overview"></a>
+
+> Manage SAP JVM (download / install / uninstall)
+> Manage SAP JVM
+> Role will download SAP JVM binary from tools.hana.ondemand.com
+> Role can install both rpm and portable versions of SAP JVM, see role documentation
+> Portable version is installed via copy of downloaded archive content, removed via removing installation directory
+> RPM version installation requires root access
+> Role will use ansible_facts to determine current host os system and architecture to download correct SAP JVM binary
+> By using this role and downloading SAP software from tools.hana.ondemand.com you accept SAP developer license agreement
+> One can find more details on tools.hana.ondemand.com
+
+## Role variables<a id="variables"></a>
+
+The following variables can be configured for this role:
+
+| Variable | Type | Required | Default | Description |
+|----------|------|----------|---------|-------------|
+| <a id="parameter-sapjvm_version"></a>`sapjvm_version` | `str` | Yes | N/A | Version of SAP JVM to download and install<br><br>This version must exists on tools.hana.ondemand.com, it does not role will fail |
+| <a id="parameter-sapjvm_state"></a>`sapjvm_state` | `str` | No | `"present"` | SAP JVM state<br>*Choices:* present, absent |
+| <a id="parameter-sapjvm_download_destination"></a>`sapjvm_download_destination` | `path` | No | `"/tmp/sapjvm"` | Folder where SAP JVM binary will be downloaded |
+| <a id="parameter-sapjvm_download_filename"></a>`sapjvm_download_filename` | `str` | No | N/A | Filename of downloaded SAP JVM binaries,<br><br>By default Filename is {% raw %}sapjvm-{{ sapjvm_version }}-{{ sapjvm_system }}-{{ sapjvm_architecture }}.{{ sapjvm_archive_extension }}{% endraw %}<br><br>See definition of variables in […] |
+| <a id="parameter-sapjvm_download_filepath"></a>`sapjvm_download_filepath` | `path` | No | N/A | Complete path to file where SAP JVM binary will be downloaded<br><br>by default is {% raw %}{{ sapjvm_download_destination }}/{{ sapjvm_download_filename }}{% endraw %}, see other variables<br><br>If this is set it will overwrite […] |
+| <a id="parameter-sapjvm_download_timeout_seconds"></a>`sapjvm_download_timeout_seconds` | `int` | No | `3600` | Timeout set for download SAP JVM task |
+| <a id="parameter-sapjvm_unpack_destination"></a>`sapjvm_unpack_destination` | `path` | No | `"/tmp/sapjvm_unpacked"` | Folder where SAP JVM binary will be unpacked |
+| <a id="parameter-sapjvm_portable_install_destination"></a>`sapjvm_portable_install_destination` | `path` | No | `"/opt/"` | Folder where SAP JVM binary will be installed, only relevant for portable installations |
+| <a id="parameter-sapjvm_portable_uninstall_destination"></a>`sapjvm_portable_uninstall_destination` | `path` | No | `"/opt/sapjvm_8"` | Folder that will be deleted, if SAP JVM portable version is uninstalled |
+| <a id="parameter-sapjvm_system"></a>`sapjvm_system` | `path` | No | `"linux"` | SAP JVM is supported on linux, macos, windows. By default role will determine system using ansible_facts.<br><br>This variable to overwrite system determined by ansible_facts<br>*Choices:* linux, darwin |
+| <a id="parameter-sapjvm_architecture"></a>`sapjvm_architecture` | `str` | No | `"x64"` | Architecture that for what SAP JVM will be installed<br><br>By default will be determined from ansible_facts<br>*Choices:* x64, ppc64le, aarch64 |
+| <a id="parameter-sapjvm_portable"></a>`sapjvm_portable` | `bool` | No | `false` | If portable version of SAP JVM has to be downloaded and installed / removed |
+| <a id="parameter-sapjvm_eula"></a>`sapjvm_eula` | `str` | No | `"eula_3_2_agreed=tools.hana.ondemand.com/developer-license-3_2.txt"` | Confirms that you are agree to SAP developer license |
+
+## Example Playbooks<a id="examples"></a>
 
 - name: Test SAP JVM portable installation
   hosts: all
@@ -252,10 +91,25 @@ Role has no dependencies to other roles.
         sapjvm_version: 8.1.097
         sapjvm_portable: true
 
-## License
+## Dependencies<a id="dependencies"></a>
+
+Role has no dependencies to other roles.
+
+## Limitations<a id="limitations"></a>
+
+Only supported on linux and darwin (macos) systems
+
+root access required if rpm version is installed, sudo package has to be installed
+
+packages required zip, tar (to unpack downloaded archives)
+
+## License<a id="license"></a>
 
 GPL-3.0-only
 
-## Author Information
+## Author Information<a id="author"></a>
 
 Kirill Satarin (@kksat)
+
+
+<!-- ANSIBLE DOCSMITH MAIN END -->

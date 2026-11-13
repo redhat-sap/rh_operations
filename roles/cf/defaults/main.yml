@@ -20,4 +20,5 @@
 # If not, see <https://www.gnu.org/licenses/>.
 
 ---
+cf_state: present
 cf_package_name: cf8-cli

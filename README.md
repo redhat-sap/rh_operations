@@ -21,17 +21,9 @@ You should have received a copy of the GNU General Public License along with thi
 If not, see <https://www.gnu.org/licenses/>.
 -->
 
-# RECENT UPDATES
-
-RHEL 7 is no longer supported as managed host.
-
-Added link to collection documentation
-
-<https://catalog.redhat.com/software/collection/sap/sap_operations>
-
 # sap.sap_operations
 
-Ansible collection to automate SAP operations
+Ansible collection to automate SAP daily operations
 
 ## Description
 
@@ -161,25 +153,7 @@ This collection aims to provide support for more RHEL version that it is mention
 
 This collection aims to provide support for RHEL for SAP versions that are currently supported, where it is possible and technically feasible.
 
-See <https://access.redhat.com/support/policy/updates/errata> for RHEL for SAP support policy.
-
-Extract from RHEL for SAP support policy:
-
-For Red Hat Enterprise Linux for SAP Solutions on RHEL 8, Update Services for SAP Solutions is currently available for the following releases:
-
-8.4 (ends May 31, 2025)
-
-8.6 (ends May 31, 2026)
-
-8.8 (ends May 31, 2027)
-
-For Red Hat Enterprise Linux for SAP Solutions on RHEL 9, Update Services for SAP Solutions is currently available for the following releases:
-
-9.0 (ends May 31, 2026)
-
-9.2 (ends May 31, 2027)
-
-9.4 (ends April 30, 2028)
+See <https://access.redhat.com/support/policy/updates/errata> for RHEL for SAP support policy detailed information.
 
 ## Related Information
 
@@ -191,4 +165,4 @@ GNU General Public License v3.0
 
 See <https://www.gnu.org/licenses/gpl-3.0.txt> for details
 
-2022 - 2025 (c) Project Atmosphere
+2022 - 2026 (c) Project Atmosphere

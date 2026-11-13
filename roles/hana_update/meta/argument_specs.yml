@@ -82,6 +82,17 @@ argument_specs:
         type: bool
         required: false
         default: true
+      hana_update_hdb_installer_trace_file_default:
+        description:
+          - Default location of the trace file for the SAP HANA hdblcm installer.
+        type: path
+        required: false
+        default: /tmp/hdb_installer_trace_file.trc
+      hana_update_mapping:
+        description:
+          - Mapping of SAP component numbers to SAP HANA component names.
+        type: dict
+        required: false
       hana_update_options:
         description:
           - Optional arguments for SAP HANA update

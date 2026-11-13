@@ -24,7 +24,7 @@ namespace: sap
 
 name: sap_operations
 
-version: 2.2.0
+version: 2.2.1
 
 readme: README.md
 
@@ -87,6 +87,7 @@ build_ignore:
   - plugins/filter/pcs_resources.py
   - plugins/filter/pcs_resources_from_cib.py
   - plugins/filter/pcs_resources_from_status.py
+  - plugins/filter/pcs_status_from_xml.py
   - plugins/filter/all.py
   - plugins/filter/any.py
   - plugins/test/all.py
@@ -246,3 +247,20 @@ build_ignore:
   - roles/swpm_download_service/*
 
   - plugins/modules/hana_system_replication_info.py
+
+  - plugins/test/valid_hostname.py
+  - plugins/filter/valid_hostname.py
+  - plugins/doc_fragments/hostname.py
+  - plugins/module_utils/hostname.py
+
+  - plugins/test/valid_fqdn.py
+  - plugins/filter/valid_fqdn.py
+  - plugins/doc_fragments/fqdn.py
+
+  - roles/saphostagent_sar
+  - roles/saphostagent_sar/*
+  - playbooks/sample_saphostagent_sar_e2e.yml
+
+  - roles/sapinst_crl
+  - roles/sapinst_crl/*
+  - plugins/filter/pcs_nodes_from_status.py

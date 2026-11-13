@@ -42,6 +42,18 @@ argument_specs:
         required: false
         default: false
 
+  __limitations__:
+    options: {}
+    short_description: Limitations
+    description:
+      - None
+
+  __dependencies__:
+    options: {}
+    short_description: Dependencies
+    description:
+      - Role has no dependencies to other roles.
+
   __requirements__:
     options: {}
     short_description: Requirements

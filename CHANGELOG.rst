@@ -4,6 +4,19 @@ SAP Operations Collection Release Notes
 
 .. contents:: Topics
 
+v2.2.1
+======
+
+Release Summary
+---------------
+
+Documentation update
+
+Minor Changes
+-------------
+
+- Update README with current RHEL for SAP support policy information
+
 v2.2.0
 ======
 

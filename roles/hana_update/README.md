@@ -23,155 +23,83 @@ If not, see <https://www.gnu.org/licenses/>.
 
 # hana_update
 
-Role updates a SAP HANA system or instance on a given host.
+<!-- ANSIBLE DOCSMITH MAIN START -->
 
-A path to new HANA version installation is required.
+* [Role overview](#role-overview)
+* [Role variables](#variables)
+  * [`hana_update_sid`](#parameter-hana_update_sid)
+  * [`hana_update_component_medium`](#parameter-hana_update_component_medium)
+  * [`hana_update_master_password`](#parameter-hana_update_master_password)
+  * [`hana_update_password`](#parameter-hana_update_password)
+  * [`hana_update_sapadm_password`](#parameter-hana_update_sapadm_password)
+  * [`hana_update_system_user_password`](#parameter-hana_update_system_user_password)
+  * [`hana_update_root_password`](#parameter-hana_update_root_password)
+  * [`hana_update_cleanup`](#parameter-hana_update_cleanup)
+  * [`hana_update_hdb_installer_trace_file_default`](#parameter-hana_update_hdb_installer_trace_file_default)
+  * [`hana_update_mapping`](#parameter-hana_update_mapping)
+  * [`hana_update_options`](#parameter-hana_update_options)
+    * [`hana_update_options['prepare_update']`](#parameter-hana_update_options/prepare_update)
+    * [`hana_update_options['components']`](#parameter-hana_update_options/components)
+    * [`hana_update_options['install_hostagent']`](#parameter-hana_update_options/install_hostagent)
+    * [`hana_update_options['check_only']`](#parameter-hana_update_options/check_only)
+    * [`hana_update_options['verify_signature']`](#parameter-hana_update_options/verify_signature)
+    * [`hana_update_options['update_execution_mode']`](#parameter-hana_update_options/update_execution_mode)
+    * [`hana_update_options['configure_python']`](#parameter-hana_update_options/configure_python)
+    * [`hana_update_options['scope']`](#parameter-hana_update_options/scope)
+    * [`hana_update_options['hana_update_hdb_installer_trace_file']`](#parameter-hana_update_options/hana_update_hdb_installer_trace_file)
+    * [`hana_update_options['hdblcm_logdir_copy']`](#parameter-hana_update_options/hdblcm_logdir_copy)
+    * [`hana_update_options['component_dirs']`](#parameter-hana_update_options/component_dirs)
+    * [`hana_update_options['ignore']`](#parameter-hana_update_options/ignore)
+* [Example Playbooks](#examples)
+* [Dependencies](#dependencies)
+* [Limitations](#limitations)
+* [License](#license)
+* [Author Information](#author)
 
-It can be specified by variable hana_update_component_medium
+## Role overview<a id="role-overview"></a>
 
-## Requirements
+> Role updates a SAP HANA system or instance on a given host.
+> A path to new HANA version installation is required. It can be specified by variable hana_update_component_medium
+> Limitations:
+> - Role was tested only on single host.
+> - During upgrade hdblcm is configured to use SSH (not saphostagent) to connect to the host.
+> - Role only works on X86_64
+> - Role is not idempotent. It will always try to update SAP HANA system.
+> - Expected that hdblcm tool will take care of any issues (like updating to previous version)
 
-Role requires 'unzip' command to be installed. Role uses module 'ansible.builtin.unarchive', see documentation for that module.
+## Role variables<a id="variables"></a>
 
-SAPCAR should be installed in location 'unpack_sapcar_exe_path' (collection variable 'sap_operations_sapcar_exe_path'). Variable 'unpack_sapcar_exe_path' has precedence over 'sap_operations_sapcar_exe_path', if variable 'unpack_sapcar_exe_path' is set, value of variable 'sap_operations_sapcar_exe_path' is ignored.
+The following variables can be configured for this role:
 
-## Limitations
+| Variable | Type | Required | Default | Description |
+|----------|------|----------|---------|-------------|
+| <a id="parameter-hana_update_sid"></a>`hana_update_sid` | `str` | Yes | N/A | SAP HANA System ID. |
+| <a id="parameter-hana_update_component_medium"></a>`hana_update_component_medium` | `str` | Yes | N/A | Location of Installation Medium |
+| <a id="parameter-hana_update_master_password"></a>`hana_update_master_password` | `str` | No | N/A | SAP HANA update master password.<br><br>Master password is not required when all other passwords are set.<br><br>If any other password is not set it will default to master password. |
+| <a id="parameter-hana_update_password"></a>`hana_update_password` | `str` | No | N/A | System Administrator Password (adm). If not set will default to hana_update_master_password variable. |
+| <a id="parameter-hana_update_sapadm_password"></a>`hana_update_sapadm_password` | `str` | No | N/A | SAP Host Agent User (sapadm) password. If not set will default to hana_update_master_password variable. |
+| <a id="parameter-hana_update_system_user_password"></a>`hana_update_system_user_password` | `str` | No | N/A | Database User Password. If not set will default to hana_update_master_password variable. |
+| <a id="parameter-hana_update_root_password"></a>`hana_update_root_password` | `str` | No | N/A | Root User Password For Remote Hosts. If not set will default to hana_update_master_password variable. |
+| <a id="parameter-hana_update_cleanup"></a>`hana_update_cleanup` | `bool` | No | `true` | If set to `true` xml file with passwords will be removed after installation (failed or successful).<br><br>Recommendation is always keep default value for this parameter `true` to avoid having passwords in plain text. |
+| <a id="parameter-hana_update_hdb_installer_trace_file_default"></a>`hana_update_hdb_installer_trace_file_default` | `path` | No | `"/tmp/hdb_installer_trace_file.trc"` | Default location of the trace file for the SAP HANA hdblcm installer. |
+| <a id="parameter-hana_update_mapping"></a>`hana_update_mapping` | `dict` | No | N/A | Mapping of SAP component numbers to SAP HANA component names. |
+| <a id="parameter-hana_update_options"></a>`hana_update_options` | `dict` | No | N/A | Optional arguments for SAP HANA update |
+| <a id="parameter-hana_update_options/prepare_update"></a>`hana_update_options['prepare_update']` | `bool` | No | N/A | Stop update before software version switch, resumable ( Default n=false ) |
+| <a id="parameter-hana_update_options/components"></a>`hana_update_options['components']` | `str` | No | N/A | Components ( Valid values: all \| client \| es \| ets \| lcapps \| server \| smartda \| streaming \| rdsync \| xs \| studio \| afl \| sca \| sop \| eml \| rme \| rtl \| trp )<br>*Choices:* all, client, es, ets, lcapps, server, smartda, streaming, rdsync, xs, studio, afl, sca, sop, eml, rme, rtl, trp |
+| <a id="parameter-hana_update_options/install_hostagent"></a>`hana_update_options['install_hostagent']` | `bool` | No | N/A | Enable the installation or upgrade of the SAP Host Agent ( Default y = true) |
+| <a id="parameter-hana_update_options/check_only"></a>`hana_update_options['check_only']` | `bool` | No | N/A | Execute checks, do not update SAP HANA System ( Default n = false) |
+| <a id="parameter-hana_update_options/verify_signature"></a>`hana_update_options['verify_signature']` | `bool` | No | N/A | Verify the authenticity of SAP HANA components ( Default: n = false) |
+| <a id="parameter-hana_update_options/update_execution_mode"></a>`hana_update_options['update_execution_mode']` | `str` | No | N/A | Update Execution Mode ( Default: standard; Valid values: standard \| optimized )<br>*Choices:* standard, optimized |
+| <a id="parameter-hana_update_options/configure_python"></a>`hana_update_options['configure_python']` | `str` | No | N/A | Configure Python version ( Default: python2; Valid values: python2 \| python3 )<br>*Choices:* python2, python3 |
+| <a id="parameter-hana_update_options/scope"></a>`hana_update_options['scope']` | `str` | No | N/A | Execution Scope ( Default: system; Valid values: instance \| system )<br>*Choices:* instance, system |
+| <a id="parameter-hana_update_options/hana_update_hdb_installer_trace_file"></a>`hana_update_options['hana_update_hdb_installer_trace_file']` | `path` | No | `""` | Sets environment variable HDB_INSTALLER_TRACE_FILE to enable SAP HANA hdblcm trace. The environment variable 'HDB_INSTALLER_TRACE_FILE=' enables the trace. |
+| <a id="parameter-hana_update_options/hdblcm_logdir_copy"></a>`hana_update_options['hdblcm_logdir_copy']` | `path` | No | `""` | Sets environment variable HDBLCM_LOGDIR_COPY to enable SAP HANA logs copy. The environment variable HDBLCM_LOGDIR_COPY= creates a copy of the log directory. |
+| <a id="parameter-hana_update_options/component_dirs"></a>`hana_update_options['component_dirs']` | `list` | No | N/A | List of component directories |
+| <a id="parameter-hana_update_options/ignore"></a>`hana_update_options['ignore']` | `list` | No | N/A | Specifies failing prerequisite checks that the SAP HANA platform lifecycle management tools should ignore.<br>*Choices:* check_busy_files, check_component_dependencies, check_diskspace, check_min_mem, check_pending_upgrade, check_platform, check_resume_hostname, check_signature_file, check_version, verify_signature |
 
-Role was tested only on single host.
+## Example Playbooks<a id="examples"></a>
 
-During upgrade hdblcm is configured to use SSH (not saphostagent) to connect to the host.
-
-Role only works on X86_64
-
-Role is not idempotent. It will always try to update SAP HANA system.
-Expected that hdblcm tool will take care of any issues (like updating to previous version)
-
-<!-- BEGIN: Role Input Parameters -->
-
-## Role Variables
-
-Required parameters:
-
-- [hana_update_component_medium](#hana_update_component_medium)
-
-- [hana_update_sid](#hana_update_sid)
-
-### hana_update_component_medium
-
-- _Type:_ `str`
-- _Required:_ `True`
-
-Location of Installation Medium
-
-### hana_update_sid
-
-- _Type:_ `str`
-- _Required:_ `True`
-
-SAP HANA System ID.
-
-### hana_update_cleanup
-
-- _Type:_ `bool`
-- _Default:_ `True`
-- _Required:_ `False`
-
-If set to true xml file with passwords will be removed after installation (failed or successful).
-Recommendation is always keep default value for this parameter (true) to avoid having passwords in plain text.
-
-### hana_update_master_password
-
-- _Type:_ `str`
-- _Required:_ `False`
-
-SAP HANA update master password.
-Master password is not required when all other passwords are set.
-If any other password is not set it will default to master password.
-
-### hana_update_options
-
-- _Type:_ `dict`
-- _Required:_ `False`
-
-Optional arguments for SAP HANA update
-
-  - **check_only**<br>
-            Execute checks, do not update SAP HANA System ( Default: n = false)
-
-      - **component_dirs**<br>
-            List of component directories
-
-      - **components**<br>
-            Components ( Valid values: all | client | es | ets | lcapps | server | smartda | streaming | rdsync | xs | studio | afl | sca | sop | eml | rme | rtl | trp )
-
-      - **configure_python**<br>
-            Configure Python version ( Default: python2; Valid values: python2 | python3 )
-
-      - **hana_update_hdb_installer_trace_file**<br>
-        _Default:_ ``<br>
-            Sets environment variable HDB_INSTALLER_TRACE_FILE to enable SAP HANA hdblcm trace.
-The environment variable 'HDB_INSTALLER_TRACE_FILE=<file>' enables the trace.
-
-      - **hdblcm_logdir_copy**<br>
-        _Default:_ ``<br>
-            Sets environment variable HDBLCM_LOGDIR_COPY to enable SAP HANA logs copy.
-The environment variable HDBLCM_LOGDIR_COPY=<target directory> creates a copy of the log directory.
-
-      - **ignore**<br>
-            Specifies failing prerequisite checks that the SAP HANA platform lifecycle management tools should ignore.
-
-      - **install_hostagent**<br>
-            Enable the installation or upgrade of the SAP Host Agent ( Default: y = true)
-
-      - **prepare_update**<br>
-            Stop update before software version switch, resumable ( Default: n=false )
-
-      - **scope**<br>
-            Execution Scope ( Default: system; Valid values: instance | system )
-
-      - **update_execution_mode**<br>
-            Update Execution Mode ( Default: standard; Valid values: standard | optimized )
-
-      - **verify_signature**<br>
-            Verify the authenticity of SAP HANA components ( Default: n = false)
-
-    
-### hana_update_password
-
-- _Type:_ `str`
-- _Required:_ `False`
-
-System Administrator Password (<sid>adm). If not set will default to hana_update_master_password variable.
-
-### hana_update_root_password
-
-- _Type:_ `str`
-- _Required:_ `False`
-
-Root User Password For Remote Hosts. If not set will default to hana_update_master_password variable.
-
-### hana_update_sapadm_password
-
-- _Type:_ `str`
-- _Required:_ `False`
-
-SAP Host Agent User (sapadm) password. If not set will default to hana_update_master_password variable.
-
-### hana_update_system_user_password
-
-- _Type:_ `str`
-- _Required:_ `False`
-
-Database User Password. If not set will default to hana_update_master_password variable.
-
-<!-- END: Role Input Parameters -->
-
-## Dependencies
-
-Role has no dependencies to other roles.
-
-## Example Playbook
-
+q""q
 ```ansible
 - hosts: all
   tasks:
@@ -196,10 +124,23 @@ Role has no dependencies to other roles.
           scope: system
 ```
 
-## License
+## Dependencies<a id="dependencies"></a>
+
+Role has no dependencies to other roles.
+
+## Limitations<a id="limitations"></a>
+
+Role was tested only on single host.
+
+During upgrade hdblcm is configured to use SSH (not saphostagent) to connect to the host.
+
+## License<a id="license"></a>
 
 GPL-3.0-only
 
-## Author Information
+## Author Information<a id="author"></a>
 
 Kirill Satarin (@kksat)
+
+
+<!-- ANSIBLE DOCSMITH MAIN END -->
