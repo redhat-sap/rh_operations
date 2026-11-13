@@ -22,6 +22,8 @@
 ---
 sapjvm_state: present
 
+sapjvm_portable: false
+
 sapjvm_download_filename: "{{ sapjvm_url_filename }}"
 
 sapjvm_download_destination: /tmp/sapjvm

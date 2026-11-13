@@ -1,0 +1,192 @@
+# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-FileCopyrightText: 2026 Kirill Satarin (@kksat)
+#
+# SAP HA HANA cluster health checks - ported from sap-ha-check project.
+# These checks rely on the role execution context variables:
+#   - cluster_properties (from CIB cib-bootstrap-options)
+#   - cluster_resources  (primitives/clones with meta + instance attributes)
+#   - cluster_constraints (list of {_kind, rsc, node, score, ...})
+#   - cluster_alerts     (list of alert dicts from CIB)
+#   - pacemaker_status   (dict parsed from pcs status xml)
+#   - host_info_instances (list from sap.sap_operations.host_info)
+#   - corosync_conf_text  (full /etc/corosync/corosync.conf as a string)
+#   - hana_global_ini_text (full HANA global.ini as a string)
+#
+# Include this file to consume these checks:
+#   vars:
+#     pcs_config_checks_custom: "{{ sap_ha_hana_checks }}"
+#     pcs_config_checks_custom_only: true
+
+---
+
+sap_ha_hana_checks:
+  # -------------------- cluster-wide CIB properties --------------------
+
+  - name: "CHK_STONITH_CONFIG - STONITH is enabled"
+    condition:
+      - cluster_properties.get('stonith-enabled', 'true') != 'false'
+      - (cluster_resources | selectattr('primitive.class', 'defined')
+         | selectattr('primitive.class', 'eq', 'stonith') | list) | length > 0
+    severity: error
+    priority: high
+    fail_msg: "STONITH disabled or no stonith resource configured - split-brain risk"
+    success_msg: "STONITH enabled and stonith resource present"
+    tags: [cluster, pcs, hana]
+
+  - name: "CHK_SETUP_VALIDATION - cluster not in maintenance mode"
+    condition: >-
+      (cluster_properties.get('maintenance-mode') is not defined) or
+      (cluster_properties.get('maintenance-mode') == 'false')
+    severity: error
+    priority: high
+    fail_msg: "Cluster is in maintenance mode"
+    success_msg: "Cluster is not in maintenance mode"
+    tags: [cluster, pcs, hana]
+
+  - name: "CHK_SETUP_VALIDATION - cluster has watchdog or stonith configured"
+    condition:
+      - (cluster_properties.get('have-watchdog') != 'true') or
+        (cluster_properties.get('stonith-enabled', 'true') != 'false')
+    severity: warning
+    priority: medium
+    fail_msg: "Watchdog enabled but stonith disabled - unexpected combination"
+    tags: [cluster, pcs, hana]
+
+  # -------------------- clone / promotable config --------------------
+
+  - name: "CHK_CLONE_CONFIG - SAPHanaController / SAPHana clone has clone-node-max=1"
+    # SAPHana* / SAPHanaController resources that declare clone-node-max must set it to 1.
+    # The pcs_resources_from_cib filter flattens clones into primitives, so we filter by resource type.
+    condition:
+      - ((cluster_resources | selectattr('primitive.type', 'defined')
+          | selectattr('primitive.type', 'match', '^SAPHana(Controller)?$') | list
+          | map(attribute='primitive.meta_attributes', default=[]) | list | sum(start=[])
+          | selectattr('nvpair.name', 'eq', 'clone-node-max')
+          | map(attribute='nvpair.value') | list
+          | reject('equalto', '1') | list | length) == 0)
+    severity: error
+    priority: high
+    fail_msg: "A SAPHana*/SAPHanaController resource has clone-node-max != 1"
+    tags: [cluster, pcs, hana]
+
+  # -------------------- runtime state (pacemaker_status) --------------------
+
+  - name: "CHK_CLUSTER_QUORUM - cluster has quorum"
+    condition:
+      - (pacemaker_status.get('crm_mon') is not defined) or
+        (pacemaker_status.get('crm_mon', {}).get('summary', {}).get('current_dc', {}).get('with_quorum', 'true') == 'true')
+    severity: error
+    priority: high
+    fail_msg: "Cluster does not have quorum - split-brain risk"
+    success_msg: "Cluster is quorate"
+    tags: [cluster, pcs, hana]
+
+  - name: "CHK_CIB_TIME_SYNC - Designated Controller is present"
+    condition:
+      - (pacemaker_status.get('crm_mon') is not defined) or
+        (pacemaker_status.get('crm_mon', {}).get('summary', {}).get('current_dc', {}).get('present', 'true') == 'true')
+    severity: error
+    priority: high
+    fail_msg: "No Designated Controller - cluster may have communication issues"
+    tags: [cluster, pcs, hana]
+
+  - name: "CHK_NODE_STATUS - all cluster nodes are online"
+    condition:
+      - (pacemaker_status.get('crm_mon') is not defined) or
+        (((pacemaker_status.get('crm_mon', {}).get('nodes') | default([], true))
+          | map(attribute='node') | selectattr('online', 'eq', 'false') | list) | length == 0)
+    severity: error
+    priority: high
+    fail_msg: "One or more cluster nodes are offline"
+    tags: [cluster, pcs, hana]
+
+  - name: "CHK_RESOURCE_FAILURES - no failed resource actions"
+    condition:
+      - (pacemaker_status.get('crm_mon') is not defined) or
+        ((pacemaker_status.get('crm_mon', {}).get('failures') | default([], true)) | length == 0)
+    severity: warning
+    priority: medium
+    fail_msg: "Failed resource actions reported - inspect and run 'pcs resource cleanup'"
+    tags: [cluster, pcs, hana]
+
+  # -------------------- alerts & constraints --------------------
+
+  - name: "CHK_ALERT_FENCING - SAPHanaSR fencing alert is configured (optional)"
+    condition:
+      - (cluster_alerts
+         | selectattr('path', 'defined')
+         | selectattr('path', 'search', 'SAPHanaSR-alert')
+         | list) | length > 0
+    severity: warning
+    priority: low
+    fail_msg: "No SAPHanaSR-alert-* hook configured in <alerts>"
+    tags: [cluster, pcs, hana, optional]
+
+  # -------------------- SAP host_info driven --------------------
+
+  - name: "CHK_HANA_AUTOSTART - HANA instance profiles have Autostart=0"
+    # Pass when there are no HANA instances on this node (hana_nodes_only semantics)
+    # OR when none of the HANA instance StartProfile.lines contain Autostart=1.
+    condition:
+      - ((host_info_instances | select('sap.sap_operations.hana_instance') | list) | length == 0) or
+        (((host_info_instances | select('sap.sap_operations.hana_instance') | list)
+          | map(attribute='StartProfile.lines', default=[]) | list | sum(start=[])
+          | select('match', '^\\s*Autostart\\s*=\\s*1\\s*$') | list) | length == 0)
+    severity: warning
+    priority: medium
+    fail_msg: "HANA instance profile has Autostart=1 - conflicts with cluster management"
+    success_msg: "HANA autostart disabled (or no HANA instances on this node)"
+    tags: [cluster, pcs, hana]
+
+  - name: "CHK_HANA_INSTALLED - report HANA instance presence (info only)"
+    # Always passes - informational. Log message is produced via debug, this
+    # check is just a marker that the context ran.
+    condition:
+      - true
+    severity: info
+    priority: low
+    success_msg: >-
+      HANA instances detected: {{ host_info_instances | select('sap.sap_operations.hana_instance') | list | length }}
+    tags: [cluster, pcs, hana, info]
+
+  # -------------------- corosync.conf --------------------
+
+  - name: "CHK_QUORUM_CONFIG - corosync.conf has a quorum { } section"
+    condition:
+      - (corosync_conf_text | length == 0) or ('quorum {' in corosync_conf_text)
+    severity: error
+    priority: high
+    fail_msg: "No quorum { } section found in corosync.conf"
+    tags: [cluster, pcs, hana]
+
+  - name: "CHK_QUORUM_CONFIG - 2-node clusters must set two_node: 1"
+    # Only applies when we can count nodes from pacemaker_status and there are exactly 2.
+    condition:
+      - (corosync_conf_text | length == 0) or
+        (((pacemaker_status.get('crm_mon', {}).get('nodes') | default([], true)) | length) != 2) or
+        (corosync_conf_text is search('two_node:\\s*1'))
+    severity: warning
+    priority: medium
+    fail_msg: "2-node cluster detected but corosync.conf is missing 'two_node: 1'"
+    tags: [cluster, pcs, hana]
+
+  # -------------------- HANA global.ini --------------------
+
+  - name: "CHK_HADR_HOOKS - SAPHanaSR HA/DR provider hook configured"
+    condition:
+      - (hana_global_ini_text | length == 0) or
+        (hana_global_ini_text is search('ha_dr_provider_[Ss][AaUu][Pp]?[Hh]?[Aa]?[Nn]?[Aa]?[Ss]?[Rr]?'))
+        or (hana_global_ini_text is search('\\[ha_dr_provider_'))
+    severity: error
+    priority: high
+    fail_msg: "No ha_dr_provider_* section found in HANA global.ini - cluster may miss HANA events"
+    tags: [cluster, pcs, hana]
+
+  - name: "CHK_REPLICATION_MODE - srmode is sync or syncmem, never async"
+    condition:
+      - (hana_global_ini_text | length == 0) or
+        (not (hana_global_ini_text is search('(?m)^\\s*mode\\s*=\\s*async\\b')))
+    severity: error
+    priority: high
+    fail_msg: "HANA system_replication mode = async is NOT supported for HA clusters"
+    tags: [cluster, pcs, hana]

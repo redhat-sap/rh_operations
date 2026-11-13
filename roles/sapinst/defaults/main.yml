@@ -22,6 +22,8 @@
 ---
 sapinst_folder: /usr/sap/swpm
 
+sapinst_allow_direct_usage: false
+
 sapinst_skip_errorstep: false
 sapinst_message_console_threshold: error
 

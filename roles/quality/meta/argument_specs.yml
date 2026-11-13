@@ -51,4 +51,52 @@ argument_specs:
       - Role does not run powershell checks - only OS checks
       - User executing role should be able to sudo to root
       - Role does not yet support RHEL 9
+    options:
+      quality_verbosity:
+        description:
+          - Verbosity level of the checks, maps to the verbosity parameter of ansible.builtin.debug
+        type: int
+        required: false
+        default: 3
+
+  __limitations__:
     options: {}
+    short_description: Limitations
+    description:
+      - Role tested only on single instance
+      - Role tested only with HANA and ASE databases and works only with these databases
+      - Role does not run checks with postprocessing commands
+      - Role does not run powershell checks - only OS checks
+      - User executing role should be able to sudo to root
+      - Role does not yet support RHEL 9
+
+  __dependencies__:
+    options: {}
+    short_description: Dependencies
+    description:
+      - Role has no dependencies to other roles.
+
+  __examples__:
+    options: {}
+    short_description: Example Playbooks
+    description:
+      - |
+        ```ansible
+        - hosts: all
+          tasks:
+            - name: Run SAP quality checks
+              ansible.builtin.include_role:
+                name: sap.sap_operations.quality
+        ```
+
+  __license__:
+    options: {}
+    short_description: License
+    description:
+      - GPL-3.0-only
+
+  __author__:
+    options: {}
+    short_description: Author Information
+    description:
+      - Kirill Satarin (@kksat)

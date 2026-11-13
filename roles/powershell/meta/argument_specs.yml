@@ -35,3 +35,42 @@ argument_specs:
         choices:
           - present
           - absent
+
+  __limitations__:
+    options: {}
+    short_description: Limitations
+    description:
+      - None
+
+  __dependencies__:
+    options: {}
+    short_description: Dependencies
+    description:
+      - Role has no dependencies to other roles.
+
+  __examples__:
+    options: {}
+    short_description: Example Playbooks
+    description:
+      - |
+        ```ansible
+        - hosts: all
+          tasks:
+            - name: Ensure powershell is present
+              ansible.builtin.include_role:
+                name: sap.sap_operations.powershell
+              vars:
+                powershell_state: present
+        ```
+
+  __license__:
+    options: {}
+    short_description: License
+    description:
+      - GPL-3.0-only
+
+  __author__:
+    options: {}
+    short_description: Author Information
+    description:
+      - Kirill Satarin (@kksat)

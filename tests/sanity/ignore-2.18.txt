@@ -1,7 +1,9 @@
+plugins/lookup/LICENSE validate-modules!skip
 plugins/modules/LICENSE validate-modules!skip
 LICENSE.txt no-smart-quotes!skip
 plugins/doc_fragments/LICENSE no-smart-quotes!skip
 plugins/filter/LICENSE no-smart-quotes!skip
+plugins/lookup/LICENSE no-smart-quotes!skip
 plugins/module_utils/LICENSE no-smart-quotes!skip
 plugins/modules/LICENSE no-smart-quotes!skip
 plugins/test/LICENSE no-smart-quotes!skip

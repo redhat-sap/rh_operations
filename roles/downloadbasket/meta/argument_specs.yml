@@ -86,6 +86,22 @@ argument_specs:
         type: path
         required: true
 
+      sap_operations_download_username:
+        description: |
+          Collection variable that provides the username (sap support user, suser) for software downloads.
+          Default value is set to environment variable SAP_OPERATIONS_DOWNLOAD_USERNAME.
+          Role parameter `downloadbasket_username` defaults to this collection variable.
+        type: str
+        required: false
+        # collection_variable: sap_operations_download_username
+      sap_operations_download_password:
+        description: |
+          Collection variable that provides the password of the username for software downloads.
+          Default value is set to environment variable SAP_OPERATIONS_DOWNLOAD_PASSWORD.
+          Role parameter `downloadbasket_password` defaults to this collection variable.
+        type: str
+        required: false
+        # collection_variable: sap_operations_download_password
       downloadbasket_username:
         description: |
           Username (sap support user, suser) that will be used to download software.
@@ -123,3 +139,44 @@ argument_specs:
         type: str
         required: false
         default: "0755"
+
+  __limitations__:
+    options: {}
+    short_description: Limitations
+    description:
+      - None
+
+  __dependencies__:
+    options: {}
+    short_description: Dependencies
+    description:
+      - Role has no dependencies to other roles.
+
+  __examples__:
+    options: {}
+    short_description: Example Playbooks
+    description:
+      - |
+        ```ansible
+        - hosts: all
+          tasks:
+            - name: Download files from SWPM download basket
+              ansible.builtin.include_role:
+                name: sap.sap_operations.downloadbasket
+              vars:
+                downloadbasket_destination: /tmp/downloadbasket_destination
+                downloadbasket_username: "{{ sap_operations_download_username }}"
+                downloadbasket_password: "{{ sap_operations_download_password }}"
+        ```
+
+  __license__:
+    options: {}
+    short_description: License
+    description:
+      - GPL-3.0-only
+
+  __author__:
+    options: {}
+    short_description: Author Information
+    description:
+      - Kirill Satarin (@kksat)

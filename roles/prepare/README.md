@@ -23,43 +23,40 @@ If not, see <https://www.gnu.org/licenses/>.
 
 # prepare
 
-Prepare RHEL managed host to run content from sap.sap_operations
+<!-- ANSIBLE DOCSMITH MAIN START -->
 
+* [Role overview](#role-overview)
+* [Role variables](#variables)
+  * [`prepare_assert`](#parameter-prepare_assert)
+* [Requirements](#requirements)
+* [Playbook examples](#examples)
+* [Dependencies](#dependencies)
+* [Limitations](#limitations)
+* [License](#license)
+* [Author Information](#author)
 
-Role ensures that all collection sap.sap_operations prerequisites are met.
-Role works in two modes - normal and assert.
-In normal mode it ensures that all prerequisites to run content from collection sap.sap_operations are met.
-In assert mode it fails if collection prerequisites are not met on the host.
-Role will only collect facts if OS distribution is not RedHat.
+## Role overview<a id="role-overview"></a>
 
+> Prepare RHEL managed host to run content from sap.sap_operations
+> Role ensures that all collection sap.sap_operations prerequisites are met.
+> Role works in two modes - normal and assert.
+> In normal mode it ensures that all prerequisites to run content from collection sap.sap_operations are met.
+> In assert mode it fails if collection prerequisites are not met on the host.
+> Role will only collect facts if OS distribution is not RedHat.
 
+## Role variables<a id="variables"></a>
 
-## Role Variables
+The following variables can be configured for this role:
 
-### Required parameters:
+| Variable | Type | Required | Default | Description |
+|----------|------|----------|---------|-------------|
+| <a id="parameter-prepare_assert"></a>`prepare_assert` | `bool` | No | `false` | If set to True role will only assert that all sap.sap_operations collection prerequisites are met.<br><br>Is set to False (default) will ensure that all sap.sap_operations collection prerequisites are met (root access required) |
 
- 
-
-#### prepare_assert
-
-
-_Type:_ `bool`
-
-_Default:_ `False`
-
-_Required:_ `False`
-_Description:_
-If set to True role will only assert that all sap.sap_operations collection prerequisites are met.
-Is set to False (default) will ensure that all sap.sap_operations collection prerequisites are met (root access required)
-
- 
- 
-
-## Requirements
+## Requirements<a id="requirements"></a>
 
 Role requires root access in order to install necessary packages and other sap.sap_operations collection prerequisites (normal mode).
 
-## Playbook examples
+## Playbook examples<a id="examples"></a>
 
 
 ```ansible
@@ -77,10 +74,21 @@ Role requires root access in order to install necessary packages and other sap.s
 ```
 
 
-## License
+## Dependencies<a id="dependencies"></a>
+
+Role has no dependencies to other roles.
+
+## Limitations<a id="limitations"></a>
+
+None
+
+## License<a id="license"></a>
 
 GPL-3.0-only
 
-## Author Information
+## Author Information<a id="author"></a>
 
 Kirill Satarin (@kksat)
+
+
+<!-- ANSIBLE DOCSMITH MAIN END -->

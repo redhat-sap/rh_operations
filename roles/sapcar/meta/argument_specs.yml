@@ -26,6 +26,14 @@ argument_specs:
     description:
       - Role to manage sapcar binary
     options:
+      sap_operations_sapcar_exe_path:
+        description:
+          - Collection variable that provides the path to the sapcar executable file.
+          - Role parameter `sapcar_exe_path` defaults to this collection variable.
+        type: path
+        required: false
+        default: /usr/sap/sapcar/sapcar
+        # collection_variable: sap_operations_sapcar_exe_path
       sapcar_exe_path:
         description:
           - Path to sapcar executable file
@@ -94,6 +102,22 @@ argument_specs:
           - By default will be automatically calculated as highest version available among all sapcar versions from sap.sap_operations.me_aliases filter
         type: str
         required: false
+      sap_operations_download_username:
+        description: |
+          Collection variable that provides the username (sap support user, suser) for software downloads.
+          Default value is set to environment variable SAP_OPERATIONS_DOWNLOAD_USERNAME.
+          Role parameter `sapcar_download_username` defaults to this collection variable.
+        type: str
+        required: false
+        # collection_variable: sap_operations_download_username
+      sap_operations_download_password:
+        description: |
+          Collection variable that provides the password of the username for software downloads.
+          Default value is set to environment variable SAP_OPERATIONS_DOWNLOAD_PASSWORD.
+          Role parameter `sapcar_download_password` defaults to this collection variable.
+        type: str
+        required: false
+        # collection_variable: sap_operations_download_password
       sapcar_download_username:
         description: |
           Username (sap support user, suser) that will be used to download software.

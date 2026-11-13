@@ -23,88 +23,53 @@ If not, see <https://www.gnu.org/licenses/>.
 
 # general_preconfigure
 
-Role attempts to prepare host to SAP products installation
+<!-- ANSIBLE DOCSMITH MAIN START -->
+
+* [Role overview](#role-overview)
+* [Role variables](#variables)
+  * [`general_preconfigure_reboot`](#parameter-general_preconfigure_reboot)
+  * [`general_preconfigure_tmpfs_size_gb`](#parameter-general_preconfigure_tmpfs_size_gb)
+  * [`general_preconfigure_reboot_timeout`](#parameter-general_preconfigure_reboot_timeout)
+* [Example Playbooks](#examples)
+* [Dependencies](#dependencies)
+* [Limitations](#limitations)
+* [License](#license)
+* [Author Information](#author)
+
+## Role overview<a id="role-overview"></a>
+
+> Role attempts to prepare host to SAP products installation
+> Role will install packages, configure selinux, configure tmpfs, configured services, configure kernel parameters
+
+## Role variables<a id="variables"></a>
+
+The following variables can be configured for this role:
+
+| Variable | Type | Required | Default | Description |
+|----------|------|----------|---------|-------------|
+| <a id="parameter-general_preconfigure_reboot"></a>`general_preconfigure_reboot` | `str` | No | `"postpone"` | How reboot has to be handled none - no reboot will be be required after role applied, role will not install packages that might require reboot. Not all requirements can be fulfilled that way. List of packages to be skipped see postpone - (default […]<br>*Choices:* none, postpone, now |
+| <a id="parameter-general_preconfigure_tmpfs_size_gb"></a>`general_preconfigure_tmpfs_size_gb` | `str` | No | `"{% raw %}{{ ((0.75 * (ansible_facts['memtotal_mb'] + ansible_facts['swaptotal_mb'])) / 1024) | round | int }}{% endraw %}"` | Size of tmpfs to configure (in gigabytes) |
+| <a id="parameter-general_preconfigure_reboot_timeout"></a>`general_preconfigure_reboot_timeout` | `int` | No | `3600` | Timeout for reboot handler, see how reboot is handled in general_preconfigure_reboot parameter description |
+
+## Example Playbooks<a id="examples"></a>
 
 
-Role attempts to prepare host to SAP products installation
-Role will install packages, configure selinux, configure tmpfs, configured services, configure kernel parameters
 
-
-
-## Role Variables
-
-### Required parameters:
-
- 
-
-#### general_preconfigure_reboot
-
-
-_Type:_ `str`
-
-_Default:_ `postpone`
-
-_Required:_ `False`
-_Choices:_
-- none
-- postpone
-- now
-_Description:_
-How reboot has to be handled
-none - no reboot will be be required after role applied,
-role will not install packages that might require reboot. Not all requirements can be fulfilled that way.
-List of packages to be skipped see <https://access.redhat.com/solutions/27943>
-postpone - (default behavior) role will not flush handlers at the end of execution, but reboot handler will be notified,
-in this case this is a user obligation to flush handlers (and thus reboot the host).
-now - role will flush handlers at the end of the execution - this is might not be desirable,
-in situations when another role that requires reboot will run after.
-
-
- 
-
-#### general_preconfigure_tmpfs_size_gb
-
-
-_Type:_ `str`
-
-_Default:_ `{{ ((0.75 * (ansible_facts['memtotal_mb'] + ansible_facts['swaptotal_mb'])) / 1024) | round | int }}`
-
-_Required:_ `False`
-_Description:_
-Size of tmpfs to configure (in gigabytes)
-
- 
-
-#### general_preconfigure_reboot_timeout
-
-
-_Type:_ `int`
-
-_Default:_ `3600`
-
-_Required:_ `False`
-_Description:_
-Timeout for reboot handler, see how reboot is handled in general_preconfigure_reboot parameter description
-
- 
- 
-
-## Limitations
-
-Role was tested only on x86_64 architecture
-
-## Dependencies
+## Dependencies<a id="dependencies"></a>
 
 Role has no dependencies to other roles.
 
-## Example Playbooks
+## Limitations<a id="limitations"></a>
 
+Role was tested only on x86_64 architecture
 
-
-## License
+## License<a id="license"></a>
 
 GPL-3.0-only
 
-## Author Information
+## Author Information<a id="author"></a>
 
 Kirill Satarin (@kksat)
+
+
+<!-- ANSIBLE DOCSMITH MAIN END -->

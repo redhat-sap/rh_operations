@@ -46,6 +46,14 @@ argument_specs:
           - present
           - downloaded
           - absent
+      sap_operations_swpm_unpack_destination:
+        description:
+          - Collection variable that provides the path where SAP SWPM binary archive will be unpacked.
+          - Role parameter `swpm_unpack_destination` defaults to this collection variable.
+        type: path
+        required: false
+        default: /usr/sap/swpm
+        # collection_variable: sap_operations_swpm_unpack_destination
       swpm_unpack_destination:
         description:
           - Path there SAP SWPM binary archive will be unpacked (in case of swpm_state='present')
@@ -70,6 +78,22 @@ argument_specs:
           - "1.0"
         required: false
         default: "2.0"
+      sap_operations_download_username:
+        description: |
+          Collection variable that provides the username (sap support user, suser) for software downloads.
+          Default value is set to environment variable SAP_OPERATIONS_DOWNLOAD_USERNAME.
+          Role parameter `swpm_download_username` defaults to this collection variable.
+        type: str
+        required: false
+        # collection_variable: sap_operations_download_username
+      sap_operations_download_password:
+        description: |
+          Collection variable that provides the password of the username for software downloads.
+          Default value is set to environment variable SAP_OPERATIONS_DOWNLOAD_PASSWORD.
+          Role parameter `swpm_download_password` defaults to this collection variable.
+        type: str
+        required: false
+        # collection_variable: sap_operations_download_password
       swpm_download_username:
         description: |
           Username (sap support user, suser) that will be used to download software.

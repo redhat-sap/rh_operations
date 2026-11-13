@@ -27,6 +27,10 @@ pcs_config_checks_verbose: false
 
 pcs_config_checks_mode: assert
 
+pcs_config_checks_loop_display: name
+
+pcs_config_checks_preconfigured: []
+
 pcs_config_checks_custom_only: false
 
 pcs_config_checks_priority:

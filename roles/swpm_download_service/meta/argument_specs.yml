@@ -32,6 +32,22 @@ argument_specs:
         For non default locations see role sap.sap_operations.sapinst
       - Role expects that user group 'sapinst' already exists, it will fail if not.
     options:
+      sap_operations_download_username:
+        description: |
+          Collection variable that provides the username (sap support user, suser) for software downloads.
+          Default value is set to environment variable SAP_OPERATIONS_DOWNLOAD_USERNAME.
+          Role parameter `swpm_download_service_username` defaults to this collection variable.
+        type: str
+        required: false
+        # collection_variable: sap_operations_download_username
+      sap_operations_download_password:
+        description: |
+          Collection variable that provides the password of the username for software downloads.
+          Default value is set to environment variable SAP_OPERATIONS_DOWNLOAD_PASSWORD.
+          Role parameter `swpm_download_service_password` defaults to this collection variable.
+        type: str
+        required: false
+        # collection_variable: sap_operations_download_password
       swpm_download_service_username:
         description: |
           Username (sap support user, suser) that will be used to download software.

@@ -23,172 +23,61 @@ If not, see <https://www.gnu.org/licenses/>.
 
 # sapinst
 
-Role to run sapinst to install SAP applications
-
-
-Role to run sapinst to install SAP applications
-This role should not be called directly, but rather from other roles that install SAP products
-(like role smda for Solution Manager Diagnostic Agent installation)
-
-
-
-
-## Role Variables
-
-### Required parameters:
-
-
-- [sapinst_product_id](#sapinst_product_id)
-
-- [sapinst_params](#sapinst_params)
- 
-
-#### sapinst_product_id
-
-
-_Type:_ `str`
-
-
-_Required:_ `True`
-_Choices:_
-- NW_DiagnosticsAgent:GENERIC.IND.PD
-- NW_Uninstall:GENERIC.IND.PD
-- download_service_toplevel:GENERIC.IND.PD
-_Description:_
-Product id
-
- 
-
-#### sapinst_params
-
-
-_Type:_ `dict`
-
-
-_Required:_ `True`
-_Description:_
-Dictionary of sapinst parameters, will be converted to inifile.params for installation
-
- 
-
-#### sapinst_folder
-
-
-_Type:_ `path`
-
-_Default:_ `/usr/sap/swpm`
-
-_Required:_ `False`
-_Description:_
-Folder where sapinst binary is located
-
- 
-
-#### sapinst_allow_direct_usage
-
-
-_Type:_ `bool`
-
-_Default:_ `False`
-
-_Required:_ `False`
-_Description:_
-Set true to allow direct call of this role, not recommended
-
- 
-
-#### sapinst_skip_errorstep
-
-
-_Type:_ `bool`
-
-_Default:_ `False`
-
-_Required:_ `False`
-_Description:_
-If set to 'true', the first step with status ERROR is skipped; step status is set to 'OK'.
-See sapinst documentation for parameter SAPINST_SKIP_ERRORSTEP.
-
-
- 
-
-#### sapinst_message_console_threshold
-
-
-_Type:_ `str`
-
-_Default:_ `error`
-
-_Required:_ `False`
-_Choices:_
-- flow_trace
-- trace
-- info
-- phase
-- warning
-- error
-- external
-_Description:_
-sapinst parameter SAPINST_MESSAGE_CONSOLE_THRESHOLD
-Trace level console
-See sapinst documentation
-SAP default value is warning.
-This role uses default value error to limit sapinst console output
-
-
- 
-
-#### sapinst_directory_path
-
-
-_Type:_ `path`
-
-_Default:_ `/tmp`
-
-_Required:_ `False`
-_Description:_
-Directory where temp sapinst_directory will be created
-
- 
-
-#### sapinst_prefix
-
-
-_Type:_ `str`
-
-_Default:_ `sapinst`
-
-_Required:_ `False`
-_Description:_
-Prefix for temp directory sapinst_directory
-
- 
-
-#### sapinst_suffix
-
-
-_Type:_ `str`
-
-
-_Required:_ `False`
-_Description:_
-Suffix for temp directory sapinst_directory
-
- 
- 
-
-## Limitations
-
-Only tested in certain scenarios
-
-## Dependencies
+<!-- ANSIBLE DOCSMITH MAIN START -->
+
+* [Role overview](#role-overview)
+* [Role variables](#variables)
+  * [`sapinst_product_id`](#parameter-sapinst_product_id)
+  * [`sapinst_params`](#parameter-sapinst_params)
+  * [`sapinst_folder`](#parameter-sapinst_folder)
+  * [`sapinst_allow_direct_usage`](#parameter-sapinst_allow_direct_usage)
+  * [`sapinst_skip_errorstep`](#parameter-sapinst_skip_errorstep)
+  * [`sapinst_message_console_threshold`](#parameter-sapinst_message_console_threshold)
+  * [`sapinst_directory_path`](#parameter-sapinst_directory_path)
+  * [`sapinst_prefix`](#parameter-sapinst_prefix)
+  * [`sapinst_suffix`](#parameter-sapinst_suffix)
+* [Dependencies](#dependencies)
+* [Limitations](#limitations)
+* [License](#license)
+* [Author Information](#author)
+
+## Role overview<a id="role-overview"></a>
+
+> Role to run sapinst to install SAP applications
+> This role should not be called directly, but rather from other roles that install SAP products
+> (like role smda for Solution Manager Diagnostic Agent installation)
+
+## Role variables<a id="variables"></a>
+
+The following variables can be configured for this role:
+
+| Variable | Type | Required | Default | Description |
+|----------|------|----------|---------|-------------|
+| <a id="parameter-sapinst_product_id"></a>`sapinst_product_id` | `str` | Yes | N/A | Product id<br>*Choices:* NW_DiagnosticsAgent:GENERIC.IND.PD, NW_Uninstall:GENERIC.IND.PD, download_service_toplevel:GENERIC.IND.PD |
+| <a id="parameter-sapinst_params"></a>`sapinst_params` | `dict` | Yes | N/A | Dictionary of sapinst parameters, will be converted to inifile.params for installation |
+| <a id="parameter-sapinst_folder"></a>`sapinst_folder` | `path` | No | `"/usr/sap/swpm"` | Folder where sapinst binary is located |
+| <a id="parameter-sapinst_allow_direct_usage"></a>`sapinst_allow_direct_usage` | `bool` | No | `false` | Set true to allow direct call of this role, not recommended |
+| <a id="parameter-sapinst_skip_errorstep"></a>`sapinst_skip_errorstep` | `bool` | No | `false` | If set to 'true', the first step with status ERROR is skipped; step status is set to 'OK'. See sapinst documentation for parameter SAPINST_SKIP_ERRORSTEP. |
+| <a id="parameter-sapinst_message_console_threshold"></a>`sapinst_message_console_threshold` | `str` | No | `"error"` | sapinst parameter SAPINST_MESSAGE_CONSOLE_THRESHOLD Trace level console See sapinst documentation SAP default value is warning. This role uses default value error to limit sapinst console output<br>*Choices:* flow_trace, trace, info, phase, warning, error, external |
+| <a id="parameter-sapinst_directory_path"></a>`sapinst_directory_path` | `path` | No | `"/tmp"` | Directory where temp sapinst_directory will be created |
+| <a id="parameter-sapinst_prefix"></a>`sapinst_prefix` | `str` | No | `"sapinst"` | Prefix for temp directory sapinst_directory |
+| <a id="parameter-sapinst_suffix"></a>`sapinst_suffix` | `str` | No | `""` | Suffix for temp directory sapinst_directory |
+
+## Dependencies<a id="dependencies"></a>
 
 Role has no dependencies to other roles
 
-## License
+## Limitations<a id="limitations"></a>
+
+Only tested in certain scenarios
+
+## License<a id="license"></a>
 
 GPL-3.0-only
 
-## Author Information
+## Author Information<a id="author"></a>
 
 Kirill Satarin (@kksat)
+
+
+<!-- ANSIBLE DOCSMITH MAIN END -->

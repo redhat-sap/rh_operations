@@ -23,103 +23,88 @@ If not, see <https://www.gnu.org/licenses/>.
 
 # unpack
 
-Unpack SAP binaries from \*.zip and \*.sar archives
+<!-- ANSIBLE DOCSMITH MAIN START -->
 
-## Requirements
+* [Role overview](#role-overview)
+* [Role variables](#variables)
+  * [`unpack_source`](#parameter-unpack_source)
+  * [`unpack_destination`](#parameter-unpack_destination)
+  * [`unpack_manifest`](#parameter-unpack_manifest)
+  * [`unpack_sapcar_exe_path`](#parameter-unpack_sapcar_exe_path)
+  * [`sap_operations_sapcar_exe_path`](#parameter-sap_operations_sapcar_exe_path)
+  * [`unpack_sapcar_extension`](#parameter-unpack_sapcar_extension)
+  * [`unpack_zip_extension`](#parameter-unpack_zip_extension)
+* [Requirements](#requirements)
+* [Example Playbooks](#examples)
+* [Dependencies](#dependencies)
+* [Limitations](#limitations)
+* [License](#license)
+* [Author Information](#author)
 
-Role requires 'unzip' command to be installed. Role uses module 'ansible.builtin.unarchive', see documentation for that module.
+## Role overview<a id="role-overview"></a>
 
-SAPCAR should be installed in location 'unpack_sapcar_exe_path' (collection variable 'sap_operations_sapcar_exe_path'). Variable 'unpack_sapcar_exe_path' has precedence over 'sap_operations_sapcar_exe_path', if variable 'unpack_sapcar_exe_path' is set, value of variable 'sap_operations_sapcar_exe_path' is ignored.
+> Role to unpack *.sar and *.zip files.
+> This role is NOT idempotent for *.sar files.
+> Meaning it will unpack all the *.sar files every time role is executed.
+> For unpacking *.zip files Ansible module ansible.builtin.unarchive is used and this module is idempotent.
+> Role prerequisites:
+>   * 'unzip' is installed (will not be installed by this role), if 'unzip' command is missing, role will fail.
+>   * SAPCAR should be installed in 'sap_operations_sapcar_exe_path' (default value /usr/sap/sapcar/sapcar).
+>   If SAPCAR is not installed at 'sap_operations_sapcar_exe_path' role will fail.
+>   Ansible user has to have permissions to execute SAPCAR.
 
-<!-- BEGIN: Role Input Parameters -->
+## Role variables<a id="variables"></a>
 
-## Role Variables
+The following variables can be configured for this role:
 
-Required parameters:
+| Variable | Type | Required | Default | Description |
+|----------|------|----------|---------|-------------|
+| <a id="parameter-unpack_source"></a>`unpack_source` | `list` | Yes | N/A | List or str value - files and/or folders that should be unpacked. Folder and/or files that are missing or cannot be accessed will be ignored. Only files on first level in directory will be processed, role does not look recursively in the directory. |
+| <a id="parameter-unpack_destination"></a>`unpack_destination` | `str` | Yes | N/A | Folder where files will be unpacked. If folder does not exist, it will be created. Ansible user has to have permissions to create the folder and write to the folder if it already exists. |
+| <a id="parameter-unpack_manifest"></a>`unpack_manifest` | `bool` | No | `true` | Flag to unpack SAPCAR archives using option "-manifest SIGNATURE.SMF". If set to true option "-manifest SIGNATURE.SMF" will be used |
+| <a id="parameter-unpack_sapcar_exe_path"></a>`unpack_sapcar_exe_path` | `str` | No | `"/usr/sap/sapcar/sapcar"` | Path to SAPCAR executable file. SAPCAR should be installed as a prerequisite for this role.<br><br>This variable is equivalent to sap_operations collection variable 'sap_operations_sapcar_exe_path'. |
+| <a id="parameter-sap_operations_sapcar_exe_path"></a>`sap_operations_sapcar_exe_path` | `str` | No | `"/usr/sap/sapcar/sapcar"` | Collection variable that provides the path to the SAPCAR executable file. Role parameter `unpack_sapcar_exe_path` defaults to this collection variable. |
+| <a id="parameter-unpack_sapcar_extension"></a>`unpack_sapcar_extension` | `str` | No | `"sar"` | Extension of SAPCAR archive files that will be unpacked. Only files with this extension will be processed as *.sar files. |
+| <a id="parameter-unpack_zip_extension"></a>`unpack_zip_extension` | `str` | No | `"zip"` | Extension of zip archive files that will be unpacked. Only files with this extension will be processed as *.zip files. |
 
-- [unpack_destination](#unpack_destination)
+## Requirements<a id="requirements"></a>
 
-- [unpack_source](#unpack_source)
+unzip is installed (will not be installed by this role), if unzip command is missing, role will fail
 
-### unpack_destination
+SAPCAR should be installed in sap_operations_sapcar_exe_path (default value /usr/sap/sapcar/sapcar)
 
-- _Type:_ `str`
-- _Required:_ `True`
-
-Folder where files will be unpacked.
-If folder does not exist, it will be created.
-Ansible user has to have permissions to create the folder and write to the folder if it already exists.
-
-### unpack_source
-
-- _Type:_ `list`
-- _Required:_ `True`
-
-List or str value - files and/or folders that should be unpacked.
-Folder and/or files that are missing or cannot be accessed will be ignored.
-Only files on first level in directory will be processed, role does not look recursively in the directory.
-
-### unpack_manifest
-
-- _Type:_ `bool`
-- _Default:_ `True`
-- _Required:_ `False`
-
-Flag to unpack SAPCAR archives using option "-manifest SIGNATURE.SMF".
-If set to true option "-manifest SIGNATURE.SMF" will be used
-
-### unpack_sapcar_exe_path
-
-- _Type:_ `str`
-- _Default:_ `/usr/sap/sapcar/sapcar`
-- _Required:_ `False`
-
-Path to SAPCAR executable file. SAPCAR should be installed as a prerequisite for this role.
-
-This variable is equivalent to sap_operations collection variable 'sap_operations_sapcar_exe_path'.
-
-<!-- END: Role Input Parameters -->
-
-## Dependencies
-
-Role has no dependencies to other roles.
-
-## Example Playbook
+## Example Playbooks<a id="examples"></a>
 
 ```ansible
-    - hosts: all
-      roles:
-         - role: sap.sap_operations.unpack
+- hosts: all
+  tasks:
+    - name: Unpack archives
+      ansible.builtin.include_role:
+        name: sap.sap_operations.unpack
       vars:
         unpack_source:
           - /tmp
           - /path/to/file.zip
           - /path/to/file.sar
-          - /this/file/will/be/ignored.xyz
-          - /this/file/will/also/be/ignored
-          - /directories/that/do/not/exist/will/be/ignored
         unpack_destination: /unpacked
-        unpack_sapcar_exe_path: /usr/sap/sapcar/sapcar
 ```
 
-'unpack_source' can be list of paths to folders and/or files.
 
-Another options is to set 'unpack_source' value to file or folder.
+## Dependencies<a id="dependencies"></a>
 
-```ansible
-    - hosts: all
-      roles:
-         - role: sap.sap_operations.unpack
-      vars:
-        unpack_source: /path/to/file.zip
-        unpack_destination: /unpacked
-        unpack_sapcar_exe_path: /usr/sap/sapcar/sapcar
-```
+Role has no dependencies to other roles.
 
-## License
+## Limitations<a id="limitations"></a>
 
-Apache 2
+None
 
-## Author Information
+## License<a id="license"></a>
 
-kksat
+GPL-3.0-only
+
+## Author Information<a id="author"></a>
+
+Kirill Satarin (@kksat)
+
+
+<!-- ANSIBLE DOCSMITH MAIN END -->

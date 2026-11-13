@@ -23,63 +23,35 @@ If not, see <https://www.gnu.org/licenses/>.
 
 # cf
 
-Role to manage Cloud Foundry cli
+<!-- ANSIBLE DOCSMITH MAIN START -->
 
+* [Role overview](#role-overview)
+* [Role variables](#variables)
+  * [`cf_state`](#parameter-cf_state)
+  * [`cf_package_name`](#parameter-cf_package_name)
+* [Example Playbooks](#examples)
+* [Dependencies](#dependencies)
+* [Limitations](#limitations)
+* [License](#license)
+* [Author Information](#author)
 
-Role requires root access, ansible user should be able to sudo
-Role will add Cloud Foundry repo and install cf cli
-If cf_state is absent, cf cli package will be removed.
+## Role overview<a id="role-overview"></a>
 
+> Role to manage Cloud Foundry cli
+> Role requires root access, ansible user should be able to sudo
+> Role will add Cloud Foundry repo and install cf cli
+> If cf_state is absent, cf cli package will be removed.
 
+## Role variables<a id="variables"></a>
 
-## Role Variables
+The following variables can be configured for this role:
 
-### Required parameters:
+| Variable | Type | Required | Default | Description |
+|----------|------|----------|---------|-------------|
+| <a id="parameter-cf_state"></a>`cf_state` | `str` | No | `"present"` | Cloud Foundry cli state<br>*Choices:* present, absent |
+| <a id="parameter-cf_package_name"></a>`cf_package_name` | `str` | No | `"cf8-cli"` | Cloud Foundry cli version, that will be installed, or removed<br>*Choices:* cf8-cli, cf7-cli |
 
- 
-
-#### cf_state
-
-
-_Type:_ `str`
-
-_Default:_ `present`
-
-_Required:_ `False`
-_Choices:_
-- present
-- absent
-_Description:_
-Cloud Foundry cli state
-
- 
-
-#### cf_package_name
-
-
-_Type:_ `str`
-
-_Default:_ `cf8-cli`
-
-_Required:_ `False`
-_Choices:_
-- cf8-cli
-- cf7-cli
-_Description:_
-Cloud Foundry cli version, that will be installed, or removed
-
- 
- 
-
-## Limitations
-
-None
-
-## Dependencies
-
-Role has no dependencies to other roles.
-
-## Example Playbooks
+## Example Playbooks<a id="examples"></a>
 
 ```ansible
 - hosts: all
@@ -97,10 +69,21 @@ Role has no dependencies to other roles.
        cf_state: absent
 ```
 
-## License
+## Dependencies<a id="dependencies"></a>
+
+Role has no dependencies to other roles.
+
+## Limitations<a id="limitations"></a>
+
+None
+
+## License<a id="license"></a>
 
 GPL-3.0-only
 
-## Author Information
+## Author Information<a id="author"></a>
 
 Kirill Satarin (@kksat)
+
+
+<!-- ANSIBLE DOCSMITH MAIN END -->

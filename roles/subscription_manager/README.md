@@ -23,128 +23,43 @@ If not, see <https://www.gnu.org/licenses/>.
 
 # subscription_manager
 
-Register host with subscription-manager
+<!-- ANSIBLE DOCSMITH MAIN START -->
 
+* [Role overview](#role-overview)
+* [Role variables](#variables)
+  * [`subscription_manager_state`](#parameter-subscription_manager_state)
+  * [`subscription_manager_org`](#parameter-subscription_manager_org)
+  * [`subscription_manager_activationkey`](#parameter-subscription_manager_activationkey)
+  * [`subscription_manager_username`](#parameter-subscription_manager_username)
+  * [`subscription_manager_password`](#parameter-subscription_manager_password)
+  * [`subscription_manager_validate`](#parameter-subscription_manager_validate)
+* [Example Playbooks](#examples)
+* [Dependencies](#dependencies)
+* [Limitations](#limitations)
+* [License](#license)
+* [Author Information](#author)
 
-Register host with subscription-manager
-Role is suitable for containers as well
-Role expects that ansible_user can sudo to root
-Role expects that subscription-manager tool is already present
+## Role overview<a id="role-overview"></a>
 
+> Register host with subscription-manager
+> Role is suitable for containers as well
+> Role expects that ansible_user can sudo to root
+> Role expects that subscription-manager tool is already present
 
+## Role variables<a id="variables"></a>
 
-## Role Variables
+The following variables can be configured for this role:
 
-### Required parameters:
+| Variable | Type | Required | Default | Description |
+|----------|------|----------|---------|-------------|
+| <a id="parameter-subscription_manager_state"></a>`subscription_manager_state` | `str` | No | `"registered"` | Final state after role applied<br>*Choices:* registered, unregistered |
+| <a id="parameter-subscription_manager_org"></a>`subscription_manager_org` | `str` | No | N/A | Organization to use for registration<br><br>Organization and Activation key are both required together - role will fail if one is defined and another is not |
+| <a id="parameter-subscription_manager_activationkey"></a>`subscription_manager_activationkey` | `str` | No | N/A | Activation key to use for registration<br><br>Organization and Activation key are both required together - role will fail if one is defined and another is not |
+| <a id="parameter-subscription_manager_username"></a>`subscription_manager_username` | `str` | No | N/A | Username to use for registration<br><br>Username and Password are both required together - role will fail if one is defined and another is not<br><br>If Username and Password are defined they will be used over org and Activation key |
+| <a id="parameter-subscription_manager_password"></a>`subscription_manager_password` | `str` | No | N/A | Password to use for registration<br><br>Username and Password are both required together - role will fail if one is defined and another is not<br><br>If Username and Password are defined they will be used over org and Activation key |
+| <a id="parameter-subscription_manager_validate"></a>`subscription_manager_validate` | `bool` | Yes | N/A | Internal role variable used to validate variables<br>*Choices:* True |
 
-
-- [subscription_manager_validate](#subscription_manager_validate)
- 
-
-#### subscription_manager_validate
-
-
-_Type:_ `bool`
-
-
-_Required:_ `True`
-_Choices:_
-- True
-_Description:_
-Internal role variable used to validate variables
-
- 
-
-#### subscription_manager_state
-
-
-_Type:_ `str`
-
-_Default:_ `registered`
-
-_Required:_ `False`
-_Choices:_
-- registered
-- unregistered
-_Description:_
-Final state after role applied
-
- 
-
-#### subscription_manager_org
-
-
-_Type:_ `str`
-
-
-_Required:_ `False`
-_Description:_
-Organization to use for registration
-Organization and Activation key are both required together - role will fail if one is defined and another is not
-
- 
-
-#### subscription_manager_activationkey
-
-
-_Type:_ `str`
-
-
-_Required:_ `False`
-_Description:_
-Activation key to use for registration
-Organization and Activation key are both required together - role will fail if one is defined and another is not
-
- 
-
-#### subscription_manager_username
-
-
-_Type:_ `str`
-
-
-_Required:_ `False`
-_Description:_
-Username to use for registration
-Username and Password are both required together - role will fail if one is defined and another is not
-If Username and Password are defined they will be used over org and Activation key
-
- 
-
-#### subscription_manager_password
-
-
-_Type:_ `str`
-
-
-_Required:_ `False`
-_Description:_
-Password to use for registration
-Username and Password are both required together - role will fail if one is defined and another is not
-If Username and Password are defined they will be used over org and Activation key
-
- 
- 
-
-## Register host with subscription-manager
-
-Register host with subscription-manager
-Role is suitable for containers as well
-Role expects that ansible_user can sudo to root
-Role expects that subscription-manager tool is already present
-
-## Limitations
-
-
-
-## Dependencies
-
-N
-o
-n
-e
-
-## Example Playbooks
+## Example Playbooks<a id="examples"></a>
 
 - name: Run role subscription_manager (registered)
   ansible.builtin.include_role:
@@ -155,10 +70,21 @@ e
   vars:
     subscription_manager_state: unregistered
 
-## License
+## Dependencies<a id="dependencies"></a>
+
+None
+
+## Limitations<a id="limitations"></a>
+
+
+
+## License<a id="license"></a>
 
 GPL-3.0-only
 
-## Author Information
+## Author Information<a id="author"></a>
 
 Kirill Satarin (@kksat)
+
+
+<!-- ANSIBLE DOCSMITH MAIN END -->

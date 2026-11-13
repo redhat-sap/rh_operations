@@ -20,16 +20,61 @@
 # If not, see <https://www.gnu.org/licenses/>.
 
 ---
+# Collect / accept CIB
 - name: Get pacemaker CIB
   sap.sap_operations.pcs_cib_info:
   register: pcs_config_quality_pcs_cib_info
-  when: pcs_cib_xml_filename is not defined
+  when:
+    - pcs_cib_xml_filename is not defined
+    - pcs_cib_xml_contents is not defined
 
-- name: Get pcs_config_quality_pcs_cib_info
+- name: Build pcs_cib_info from injected CIB filename or contents
   ansible.builtin.set_fact:
     pcs_config_quality_pcs_cib_info:
-      pacemaker_cib_xml: "{{ lookup('ansible.builtin.file', pcs_cib_xml_filename) | default(pcs_cib_xml_contents) }}"
-  when: pcs_cib_xml_filename is defined
+      pacemaker_cib_xml: >-
+        {{ (pcs_cib_xml_contents
+            if pcs_cib_xml_contents is defined
+            else lookup('ansible.builtin.file', pcs_cib_xml_filename)) }}
+  when: pcs_cib_xml_filename is defined or pcs_cib_xml_contents is defined
+
+# Collect / accept pcs status
+- name: Get pacemaker runtime status
+  sap.sap_operations.pcs_status_info:
+  register: pcs_config_checks_pcs_status
+  when:
+    - pcs_status_xml_contents is not defined
+    - pcs_status_xml_filename is not defined
+    - pcs_cib_xml_filename is not defined
+    - pcs_cib_xml_contents is not defined
+  failed_when: false
+
+- name: Build pacemaker_status from injected XML
+  ansible.builtin.set_fact:
+    pcs_config_checks_pcs_status:
+      pacemaker_status_xml: "{{ _injected_pcs_status_xml }}"
+      pacemaker_status: >-
+        {{ _injected_pcs_status_xml | sap.sap_operations.pcs_status_from_xml }}
+  vars:
+    _injected_pcs_status_xml: >-
+      {{ (pcs_status_xml_contents
+          if pcs_status_xml_contents is defined
+          else lookup('ansible.builtin.file', pcs_status_xml_filename)) }}
+  when: pcs_status_xml_contents is defined or pcs_status_xml_filename is defined
+
+# Accept injected host_info (list of SAP instances as returned by sap.sap_operations.host_info)
+- name: Default injected host_info_instances to empty list
+  ansible.builtin.set_fact:
+    pcs_config_checks_host_info_instances: "{{ host_info_instances | default([]) }}"
+
+# Accept injected corosync.conf text
+- name: Default injected corosync_conf_text to empty string
+  ansible.builtin.set_fact:
+    pcs_config_checks_corosync_conf_text: "{{ corosync_conf_text | default('') }}"
+
+# Accept injected HANA global.ini text
+- name: Default injected hana_global_ini_text to empty string
+  ansible.builtin.set_fact:
+    pcs_config_checks_hana_global_ini_text: "{{ hana_global_ini_text | default('') }}"
 
 - name: Gather ansible facts
   ansible.builtin.setup:
@@ -43,6 +88,13 @@
       {{ pcs_config_quality_pcs_cib_info |
       sap.sap_operations.pcs_cluster_property_mapping }}
     cluster_resources: "{{ pcs_config_quality_pcs_cib_info | sap.sap_operations.pcs_resources_from_cib }}"
+    cluster_constraints: "{{ pcs_config_quality_pcs_cib_info | sap.sap_operations.pcs_constraints_from_cib }}"
+    cluster_alerts: "{{ pcs_config_quality_pcs_cib_info | sap.sap_operations.pcs_alerts_from_cib }}"
+    pacemaker_status: "{{ (pcs_config_checks_pcs_status | default({})).pacemaker_status | default({}) }}"
+    pacemaker_status_xml: "{{ (pcs_config_checks_pcs_status | default({})).pacemaker_status_xml | default('') }}"
+    host_info_instances: "{{ pcs_config_checks_host_info_instances }}"
+    corosync_conf_text: "{{ pcs_config_checks_corosync_conf_text }}"
+    hana_global_ini_text: "{{ pcs_config_checks_hana_global_ini_text }}"
     platform: "{{ pcs_config_checks_platform.name | default(pcs_config_checks_platform_mapping[ansible_facts['os_family']]) | default('') }}"
     version: "{{ pcs_config_checks_platform.version | default(ansible_facts['distribution_major_version']) | default('') }}"
     architecture: "{{ pcs_config_checks_architecture | default(ansible_facts['architecture']) }}"

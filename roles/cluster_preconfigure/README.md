@@ -23,31 +23,27 @@ If not, see <https://www.gnu.org/licenses/>.
 
 # cluster_preconfigure
 
-Install packages required for cluster configuration
+<!-- ANSIBLE DOCSMITH MAIN START -->
 
+* [Role overview](#role-overview)
+* [Role variables](#variables)
+* [Example Playbooks](#examples)
+* [Dependencies](#dependencies)
+* [Limitations](#limitations)
+* [License](#license)
+* [Author Information](#author)
 
-Install packages required for cluster configuration
-Role will fail is architecture and os combination is not supported by this role
-Role requires root access to install packages
+## Role overview<a id="role-overview"></a>
 
+> Install packages required for cluster configuration
+> Role will fail is architecture and os combination is not supported by this role
+> Role requires root access to install packages
 
+## Role variables<a id="variables"></a>
 
-## Role Variables
+No variables are defined for this role.
 
-### Required parameters:
-
- 
- 
-
-## Limitations
-
-Role was tested only on x86_64 architecture
-
-## Dependencies
-
-Role has no dependencies to other roles.
-
-## Example Playbooks
+## Example Playbooks<a id="examples"></a>
 
 
 - name: Run role cluster_preconfigure
@@ -55,10 +51,21 @@ Role has no dependencies to other roles.
     name: sap.sap_operations.cluster_preconfigure
 
 
-## License
+## Dependencies<a id="dependencies"></a>
+
+Role has no dependencies to other roles.
+
+## Limitations<a id="limitations"></a>
+
+Role was tested only on x86_64 architecture
+
+## License<a id="license"></a>
 
 GPL-3.0-only
 
-## Author Information
+## Author Information<a id="author"></a>
 
 Kirill Satarin (@kksat)
+
+
+<!-- ANSIBLE DOCSMITH MAIN END -->

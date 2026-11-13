@@ -59,3 +59,58 @@ argument_specs:
         type: str
         default: true
         required: false
+      sap_kernel_update_kernel_backup_suffix:
+        description: |
+          Suffix that will be appended to the backup of the previous kernel.
+        type: str
+        default: backup-{{ ansible_date_time.iso8601_basic_short }}
+        required: false
+
+  __limitations__:
+    options: {}
+    short_description: Limitations
+    description:
+      - None
+
+  __dependencies__:
+    options: {}
+    short_description: Dependencies
+    description:
+      - Role has no dependencies to other roles.
+
+  __requirements__:
+    options: {}
+    short_description: Requirements
+    description:
+      - Most role tasks must be executed under root account. Some tasks are executed under sidadm account.
+      - SAPCAR binary must be installed on the host
+
+  __examples__:
+    options: {}
+    short_description: Example Playbooks
+    description:
+      - |
+        ```ansible
+        - hosts: all
+          tasks:
+            - name: Update SAP kernel
+              ansible.builtin.include_role:
+                name: sap.sap_operations.sap_kernel_update
+              vars:
+                sap_kernel_update_sid: S4H
+                sap_kernel_update_instance: "00"
+                sap_kernel_update_kernel_path: /usr/sap/S4H/SYS/exe/uc/linuxx86_64
+                sap_kernel_update_new_kernel_path: /tmp/new_kernel
+        ```
+
+  __license__:
+    options: {}
+    short_description: License
+    description:
+      - GPL-3.0-only
+
+  __author__:
+    options: {}
+    short_description: Author Information
+    description:
+      - Red Hat, Inc.

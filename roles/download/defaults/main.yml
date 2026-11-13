@@ -26,6 +26,7 @@ download_username: "{{ sap_operations_download_username }}"
 download_password: "{{ sap_operations_download_password }}"
 
 download_architecture: "{{ ansible_facts['architecture'] | default('x86_64') }}"
+download_system: Linux
 download_os_family: "{{ ansible_facts['os_system'] | default('Linux') }}"
 download_validate_certs: true
 download_timeout: 3600

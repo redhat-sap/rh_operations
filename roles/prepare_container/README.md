@@ -23,42 +23,38 @@ If not, see <https://www.gnu.org/licenses/>.
 
 # prepare_container
 
-Prepare container to run content from sap.sap_operations
+<!-- ANSIBLE DOCSMITH MAIN START -->
 
+* [Role overview](#role-overview)
+* [Role variables](#variables)
+  * [`prepare_container_assert`](#parameter-prepare_container_assert)
+* [Playbook examples](#examples)
+* [Dependencies](#dependencies)
+* [Limitations](#limitations)
+* [License](#license)
+* [Author Information](#author)
 
-Role ensures that all collection sap.sap_operations prerequisites are met on containers.
-Role works in two modes - normal and assert.
-In normal mode it ensures that all prerequisites for containers to run content from collection sap.sap_operations are met.
-In assert mode role will fail if any of tasks required are not completed
-In assert mode role will fail if no repos are enabled
-Role will only collect facts if OS distribution is not RedHat.
-Role assumes that container is registered with subscription manager to install packages
-Role will fail if not executed by root user, this is because sudo is not installed in containers
+## Role overview<a id="role-overview"></a>
 
+> Prepare container to run content from sap.sap_operations
+> Role ensures that all collection sap.sap_operations prerequisites are met on containers.
+> Role works in two modes - normal and assert.
+> In normal mode it ensures that all prerequisites for containers to run content from collection sap.sap_operations are met.
+> In assert mode role will fail if any of tasks required are not completed
+> In assert mode role will fail if no repos are enabled
+> Role will only collect facts if OS distribution is not RedHat.
+> Role assumes that container is registered with subscription manager to install packages
+> Role will fail if not executed by root user, this is because sudo is not installed in containers
 
+## Role variables<a id="variables"></a>
 
-## Role Variables
+The following variables can be configured for this role:
 
-### Required parameters:
+| Variable | Type | Required | Default | Description |
+|----------|------|----------|---------|-------------|
+| <a id="parameter-prepare_container_assert"></a>`prepare_container_assert` | `bool` | No | `false` | If set to True role will run in assert mode<br><br>Is set to False (default) will ensure that all prerequisites are met |
 
- 
-
-#### prepare_container_assert
-
-
-_Type:_ `bool`
-
-_Default:_ `False`
-
-_Required:_ `False`
-_Description:_
-If set to True role will run in assert mode
-Is set to False (default) will ensure that all prerequisites are met
-
- 
- 
-
-## Playbook examples
+## Playbook examples<a id="examples"></a>
 
 
  - name: Run role prepare_container in assert mode
@@ -67,10 +63,21 @@ Is set to False (default) will ensure that all prerequisites are met
    vars:
      prepare_container_assert: true
 
-## License
+## Dependencies<a id="dependencies"></a>
+
+Role has no dependencies to other roles.
+
+## Limitations<a id="limitations"></a>
+
+None
+
+## License<a id="license"></a>
 
 GPL-3.0-only
 
-## Author Information
+## Author Information<a id="author"></a>
 
 Kirill Satarin (@kksat)
+
+
+<!-- ANSIBLE DOCSMITH MAIN END -->

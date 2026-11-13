@@ -128,6 +128,22 @@ argument_specs:
           and https://docs.ansible.com/ansible/latest/collections/ansible/builtin/sh_shell.html#parameter-system_tmpdirs
         type: path
         required: true
+      sap_operations_download_username:
+        description: |
+          Collection variable that provides the username (sap support user, suser) for software downloads.
+          Default value is set to environment variable SAP_OPERATIONS_DOWNLOAD_USERNAME.
+          Role parameter `download_username` defaults to this collection variable.
+        type: str
+        required: false
+        # collection_variable: sap_operations_download_username
+      sap_operations_download_password:
+        description: |
+          Collection variable that provides the password of the username for software downloads.
+          Default value is set to environment variable SAP_OPERATIONS_DOWNLOAD_PASSWORD.
+          Role parameter `download_password` defaults to this collection variable.
+        type: str
+        required: false
+        # collection_variable: sap_operations_download_password
       download_username:
         description: |
           Username (sap support user, suser) that will be used to download software.
@@ -169,6 +185,16 @@ argument_specs:
         type: str
         required: false
         default: ""
+      download_release_date:
+        description: All results from SWDC will be filtered "ReleaseDate" should be greater or equal to this value
+        type: str
+        required: false
+        default: "0000000000000"
+      download_change_date:
+        description: All results from SWDC will be filtered "ChangeDate" should be greater or equal to this value
+        type: str
+        required: false
+        default: "0000000000000"
       download_architecture:
         description: |
           Architecture for which SAP software will be downloaded.
@@ -190,6 +216,13 @@ argument_specs:
         required: false
         choices:
           - Linux
+        default: Linux
+      download_os_family:
+        description: |
+          OS family for which SAP software will be downloaded, passed to the SWDC query.
+          If not set will be set to `Linux`.
+        type: str
+        required: false
         default: Linux
       download_validate_certs:
         description: |
@@ -223,3 +256,45 @@ argument_specs:
         required: false
         default: true
 # yamllint enable rule:line-length
+
+  __limitations__:
+    options: {}
+    short_description: Limitations
+    description:
+      - None
+
+  __dependencies__:
+    options: {}
+    short_description: Dependencies
+    description:
+      - Role has no dependencies to other roles.
+
+  __examples__:
+    options: {}
+    short_description: Example Playbooks
+    description:
+      - |
+        ```ansible
+        - hosts: all
+          tasks:
+            - name: Download SAP Host Agent
+              ansible.builtin.include_role:
+                name: sap.sap_operations.download
+              vars:
+                download_alias: S490000
+                download_destination: /tmp/download_destination
+                download_username: "{{ sap_operations_download_username }}"
+                download_password: "{{ sap_operations_download_password }}"
+        ```
+
+  __license__:
+    options: {}
+    short_description: License
+    description:
+      - GPL-3.0-only
+
+  __author__:
+    options: {}
+    short_description: Author Information
+    description:
+      - Kirill Satarin (@kksat)

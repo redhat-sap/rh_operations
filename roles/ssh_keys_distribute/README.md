@@ -23,105 +23,62 @@ If not, see <https://www.gnu.org/licenses/>.
 
 # ssh_keys_distribute
 
-Generate and distribute ssh keys for host to host communication
+<!-- ANSIBLE DOCSMITH MAIN START -->
 
+* [Role overview](#role-overview)
+* [Role variables](#variables)
+  * [`ssh_keys_distribute_state`](#parameter-ssh_keys_distribute_state)
+  * [`ssh_keys_distribute_user`](#parameter-ssh_keys_distribute_user)
+  * [`ssh_keys_distribute_key`](#parameter-ssh_keys_distribute_key)
+  * [`ssh_keys_distribute_hosts`](#parameter-ssh_keys_distribute_hosts)
+* [Example Playbooks](#examples)
+* [Dependencies](#dependencies)
+* [Limitations](#limitations)
+* [License](#license)
+* [Author Information](#author)
 
-Generate and distribute ssh keys for host to host communication
-Role has two modes of operation - present and absent, see variable ssh_keys_distribute_state
-If state=present role will ensure that ssh key (see below about key name)
-is present, key will be generated if absent, key will never be regenerated.
-After that role will distribute this key to other hosts, see how list of hosts defined below.
+## Role overview<a id="role-overview"></a>
 
-If state=absent, role will make sure that key authorization on all hosts is removed.
-ssh key, even if it was generated will not be removed by the role.
+> Generate and distribute ssh keys for host to host communication
+> Role has two modes of operation - present and absent, see variable ssh_keys_distribute_state
+> If state=present role will ensure that ssh key (see below about key name)
+> is present, key will be generated if absent, key will never be regenerated.
+> After that role will distribute this key to other hosts, see how list of hosts defined below.
+> If state=absent, role will make sure that key authorization on all hosts is removed.
+> ssh key, even if it was generated will not be removed by the role.
 
+## Role variables<a id="variables"></a>
 
+The following variables can be configured for this role:
 
+| Variable | Type | Required | Default | Description |
+|----------|------|----------|---------|-------------|
+| <a id="parameter-ssh_keys_distribute_state"></a>`ssh_keys_distribute_state` | `str` | No | `"present"` | State=present - role will ensure that ssh keys are present (generated) State=absent - role will ensure that ssh key with name defined in variable ssh_keys_distribute_key cannot be used to login to hosts (using user defined in […]<br>*Choices:* present, absent |
+| <a id="parameter-ssh_keys_distribute_user"></a>`ssh_keys_distribute_user` | `str` | No | `"root"` | User for which key if be generated (if required) and distributed to all the hosts ansible_user should be able to sudo to this user |
+| <a id="parameter-ssh_keys_distribute_key"></a>`ssh_keys_distribute_key` | `str` | No | `"id_rsa"` | Name of the key to distribute, should not contain '*.pub' |
+| <a id="parameter-ssh_keys_distribute_hosts"></a>`ssh_keys_distribute_hosts` | `list of str` | No | N/A | Lists of hosts, where key will be distributed, default value is ansible magic variable ansible_play_hosts |
 
-## Role Variables
-
-### Required parameters:
-
- 
-
-#### ssh_keys_distribute_state
-
-
-_Type:_ `str`
-
-_Default:_ `present`
-
-_Required:_ `False`
-_Choices:_
-- present
-- absent
-_Description:_
-State=present - role will ensure that ssh keys are present (generated)
-State=absent - role will ensure that ssh key with name defined in variable ssh_keys_distribute_key
-cannot be used to login to hosts (using user defined in ssh_keys_distribute_user)
-
-
- 
-
-#### ssh_keys_distribute_user
-
-
-_Type:_ `str`
-
-_Default:_ `root`
-
-_Required:_ `False`
-_Description:_
-User for which key if be generated (if required) and distributed to all the hosts
-ansible_user should be able to sudo to this user
-
-
- 
-
-#### ssh_keys_distribute_key
-
-
-_Type:_ `str`
-
-_Default:_ `id_rsa`
-
-_Required:_ `False`
-_Description:_
-Name of the key to distribute, should not contain '*.pub'
-
- 
-
-#### ssh_keys_distribute_hosts
-
-
-_Type:_ `list`
-
-
-_Required:_ `False`
-_Description:_
-Lists of hosts, where key will be distributed, default value is ansible magic variable ansible_play_hosts
-
- 
- 
-
-## Limitations
-
-
-
-## Dependencies
-
-Role depend on collection community.crypto
-
-## Example Playbooks
+## Example Playbooks<a id="examples"></a>
 
  - name: Run role ssh_keys_distribute
    ansible.builtin.include_role:
      name: sap.sap_operations.ssh_keys_distribute
 
-## License
+## Dependencies<a id="dependencies"></a>
+
+Role depend on collection community.crypto
+
+## Limitations<a id="limitations"></a>
+
+
+
+## License<a id="license"></a>
 
 GPL-3.0-only
 
-## Author Information
+## Author Information<a id="author"></a>
 
 Kirill Satarin (@kksat)
+
+
+<!-- ANSIBLE DOCSMITH MAIN END -->

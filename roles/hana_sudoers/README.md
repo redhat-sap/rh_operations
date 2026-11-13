@@ -23,83 +23,56 @@ If not, see <https://www.gnu.org/licenses/>.
 
 # hana_sudoers
 
-Manage SAP HANA sudoers records
+<!-- ANSIBLE DOCSMITH MAIN START -->
+
+* [Role overview](#role-overview)
+* [Role variables](#variables)
+  * [`hana_sudoers_sids`](#parameter-hana_sudoers_sids)
+  * [`hana_sudoers_state`](#parameter-hana_sudoers_state)
+  * [`hana_sudoers_data_centers`](#parameter-hana_sudoers_data_centers)
+* [Example Playbooks](#examples)
+* [Dependencies](#dependencies)
+* [Limitations](#limitations)
+* [License](#license)
+* [Author Information](#author)
+
+## Role overview<a id="role-overview"></a>
+
+> Manage SAP HANA sudoers records
+> See https://access.redhat.com/articles/6093611
+> Role requires root access
+
+## Role variables<a id="variables"></a>
+
+The following variables can be configured for this role:
+
+| Variable | Type | Required | Default | Description |
+|----------|------|----------|---------|-------------|
+| <a id="parameter-hana_sudoers_sids"></a>`hana_sudoers_sids` | `list of str` | No | `[]` | SAP HANA sid (system id) to configure sudoers file<br><br>Can be list of single value<br><br>If not defined or is empty list, list of installed SAP HANA instances will be determined by the role |
+| <a id="parameter-hana_sudoers_state"></a>`hana_sudoers_state` | `str` | No | `"present"` | Ensure records are present or absent in sudoers file<br>*Choices:* present, absent |
+| <a id="parameter-hana_sudoers_data_centers"></a>`hana_sudoers_data_centers` | `str` | No | `"['*']"` | List of data centers to create records for. By default records will not be limited to datacenter (see default value) |
+
+## Example Playbooks<a id="examples"></a>
 
 
-Manage SAP HANA sudoers records
-See https://access.redhat.com/articles/6093611
-Role requires root access
 
-
-
-## Role Variables
-
-### Required parameters:
-
- 
-
-#### hana_sudoers_sids
-
-
-_Type:_ `list`
-
-_Default:_ `[]`
-
-_Required:_ `False`
-_Description:_
-SAP HANA sid (system id) to configure sudoers file
-Can be list of single value
-If not defined or is empty list, list of installed SAP HANA instances will be determined by the role
-
- 
-
-#### hana_sudoers_state
-
-
-_Type:_ `str`
-
-_Default:_ `present`
-
-_Required:_ `False`
-_Choices:_
-- present
-- absent
-_Description:_
-Ensure records are present or absent in sudoers file
-
- 
-
-#### hana_sudoers_data_centers
-
-
-_Type:_ `str`
-
-_Default:_ `['*']`
-
-_Required:_ `False`
-_Description:_
-List of data centers to create records for. By default records will not be limited to datacenter (see default value)
-
- 
- 
-
-## Limitations
-
-Role was tested only on x86_64 architecture
-Role tested only for scaleup systems
-
-## Dependencies
+## Dependencies<a id="dependencies"></a>
 
 Role has no dependencies to other roles.
 
-## Example Playbooks
+## Limitations<a id="limitations"></a>
 
+Role was tested only on x86_64 architecture
 
+Role tested only for scaleup systems
 
-## License
+## License<a id="license"></a>
 
 GPL-3.0-only
 
-## Author Information
+## Author Information<a id="author"></a>
 
 Kirill Satarin (@kksat)
+
+
+<!-- ANSIBLE DOCSMITH MAIN END -->

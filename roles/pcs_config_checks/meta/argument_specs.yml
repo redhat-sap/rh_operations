@@ -234,6 +234,30 @@ argument_specs:
         default:
           - skip
 
+      pcs_config_checks_priority:
+        description:
+          - List of check priorities that will be executed
+          - Checks with priority not in this list will be skipped
+        type: list
+        elements: str
+        required: false
+        default:
+          - low
+          - medium
+          - high
+
+      pcs_config_checks_severity:
+        description:
+          - List of check severities that will be executed
+          - Checks with severity not in this list will be skipped
+        type: list
+        elements: str
+        required: false
+        default:
+          - error
+          - warning
+          - info
+
       pcs_config_checks_custom_only:
         description:
           - If this is C(True), only custom checks I(pcs_config_checks_custom) will be executed
@@ -263,3 +287,40 @@ argument_specs:
           - architectures
           - platforms
           - cloud_providers
+
+  __limitations__:
+    options: {}
+    short_description: Limitations
+    description:
+      - Check parameter cloud_providers does not do anything at the moment.
+
+  __dependencies__:
+    options: {}
+    short_description: Dependencies
+    description:
+      - Role has no dependencies to other roles.
+
+  __examples__:
+    options: {}
+    short_description: Example Playbooks
+    description:
+      - |
+        ```ansible
+        - hosts: all
+          tasks:
+            - name: Run pcs cluster checks
+              ansible.builtin.include_role:
+                name: sap.sap_operations.pcs_config_checks
+        ```
+
+  __license__:
+    options: {}
+    short_description: License
+    description:
+      - GPL-3.0-only
+
+  __author__:
+    options: {}
+    short_description: Author Information
+    description:
+      - Kirill Satarin (@kksat)

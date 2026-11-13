@@ -38,8 +38,6 @@ argument_specs:
           If SAPCAR is not installed at 'sap_operations_sapcar_exe_path' role will fail.
           Ansible user has to have permissions to execute SAPCAR.
 
-        ```
-
     options:
       unpack_source:
         description: |
@@ -71,3 +69,75 @@ argument_specs:
         default: /usr/sap/sapcar/sapcar
         required: false
         # collection_variable: sap_operations_sapcar_exe_path
+      sap_operations_sapcar_exe_path:
+        description: |
+          Collection variable that provides the path to the SAPCAR executable file.
+          Role parameter `unpack_sapcar_exe_path` defaults to this collection variable.
+        type: str
+        required: false
+        default: /usr/sap/sapcar/sapcar
+        # collection_variable: sap_operations_sapcar_exe_path
+      unpack_sapcar_extension:
+        description: |
+          Extension of SAPCAR archive files that will be unpacked.
+          Only files with this extension will be processed as *.sar files.
+        type: str
+        required: false
+        default: sar
+      unpack_zip_extension:
+        description: |
+          Extension of zip archive files that will be unpacked.
+          Only files with this extension will be processed as *.zip files.
+        type: str
+        required: false
+        default: zip
+
+  __limitations__:
+    options: {}
+    short_description: Limitations
+    description:
+      - None
+
+  __dependencies__:
+    options: {}
+    short_description: Dependencies
+    description:
+      - Role has no dependencies to other roles.
+
+  __requirements__:
+    options: {}
+    short_description: Requirements
+    description:
+      - unzip is installed (will not be installed by this role), if unzip command is missing, role will fail
+      - SAPCAR should be installed in sap_operations_sapcar_exe_path (default value /usr/sap/sapcar/sapcar)
+
+  __examples__:
+    options: {}
+    short_description: Example Playbooks
+    description:
+      - |
+        ```ansible
+        - hosts: all
+          tasks:
+            - name: Unpack archives
+              ansible.builtin.include_role:
+                name: sap.sap_operations.unpack
+              vars:
+                unpack_source:
+                  - /tmp
+                  - /path/to/file.zip
+                  - /path/to/file.sar
+                unpack_destination: /unpacked
+        ```
+
+  __license__:
+    options: {}
+    short_description: License
+    description:
+      - GPL-3.0-only
+
+  __author__:
+    options: {}
+    short_description: Author Information
+    description:
+      - Kirill Satarin (@kksat)

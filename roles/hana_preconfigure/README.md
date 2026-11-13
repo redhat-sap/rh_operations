@@ -23,37 +23,44 @@ If not, see <https://www.gnu.org/licenses/>.
 
 # hana_preconfigure
 
-Role attempts to prepare host to SAP HANA installation
+<!-- ANSIBLE DOCSMITH MAIN START -->
+
+* [Role overview](#role-overview)
+* [Role variables](#variables)
+* [Example Playbooks](#examples)
+* [Dependencies](#dependencies)
+* [Limitations](#limitations)
+* [License](#license)
+* [Author Information](#author)
+
+## Role overview<a id="role-overview"></a>
+
+> Role attempts to prepare host to SAP HANA installation
+> Role will install packages, configure tuned, configured ulimits, configure services,configure kernel parameters, run version specific configuration
+
+## Role variables<a id="variables"></a>
+
+No variables are defined for this role.
+
+## Example Playbooks<a id="examples"></a>
 
 
-Role attempts to prepare host to SAP HANA installation
-Role will install packages, configure tuned, configured ulimits, configure services,configure kernel parameters, run version specific configuration
 
-
-
-## Role Variables
-
-### Required parameters:
-
- 
- 
-
-## Limitations
-
-Role was tested only on x86_64 architecture
-
-## Dependencies
+## Dependencies<a id="dependencies"></a>
 
 Role has no dependencies to other roles.
 
-## Example Playbooks
+## Limitations<a id="limitations"></a>
 
+Role was tested only on x86_64 architecture
 
-
-## License
+## License<a id="license"></a>
 
 GPL-3.0-only
 
-## Author Information
+## Author Information<a id="author"></a>
 
 Kirill Satarin (@kksat)
+
+
+<!-- ANSIBLE DOCSMITH MAIN END -->

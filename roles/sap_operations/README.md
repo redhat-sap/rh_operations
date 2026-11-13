@@ -23,149 +23,38 @@ If not, see <https://www.gnu.org/licenses/>.
 
 # sap_operations
 
-Load sap_operations collection variables
+<!-- ANSIBLE DOCSMITH MAIN START -->
 
+* [Role overview](#role-overview)
+* [Role variables](#variables)
+* [Dependencies](#dependencies)
+* [Limitations](#limitations)
+* [License](#license)
+* [Author Information](#author)
 
-L
-o
-a
-d
- 
-s
-a
-p
-_
-o
-p
-e
-r
-a
-t
-i
-o
-n
-s
- 
-c
-o
-l
-l
-e
-c
-t
-i
-o
-n
- 
-v
-a
-r
-i
-a
-b
-l
-e
-s
+## Role overview<a id="role-overview"></a>
 
+> Load sap_operations collection variables
 
+## Role variables<a id="variables"></a>
 
-## Role Variables
+No variables are defined for this role.
 
-### Required parameters:
-
- 
- 
-
-## Limitations
-
-D
-e
-f
-a
-u
-l
-t
- 
-s
-a
-p
-_
-o
-p
-e
-r
-a
-t
-i
-o
-n
-s
- 
-c
-o
-l
-l
-e
-c
-t
-i
-o
-n
- 
-v
-a
-r
-i
-a
-b
-l
-e
-s
- 
-w
-i
-l
-l
- 
-b
-e
- 
-a
-v
-a
-i
-l
-a
-b
-l
-e
- 
-t
-o
- 
-t
-h
-e
- 
-w
-h
-o
-l
-e
- 
-p
-l
-a
-y
-
-## Dependencies
+## Dependencies<a id="dependencies"></a>
 
 Role has no dependencies to other roles.
 
-## License
+## Limitations<a id="limitations"></a>
+
+Default sap_operations collection variables will be available to the whole play
+
+## License<a id="license"></a>
 
 GPL-3.0-only
 
-## Author Information
+## Author Information<a id="author"></a>
 
 Kirill Satarin (@kksat)
+
+
+<!-- ANSIBLE DOCSMITH MAIN END -->

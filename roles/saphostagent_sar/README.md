@@ -23,46 +23,32 @@ If not, see <https://www.gnu.org/licenses/>.
 
 # saphostagent_sar
 
-Install SAP hostagent from SAR archive
+<!-- ANSIBLE DOCSMITH MAIN START -->
 
+* [Role overview](#role-overview)
+* [Role variables](#variables)
+  * [`saphostagent_sar_source`](#parameter-saphostagent_sar_source)
+* [Example Playbooks](#examples)
+* [Dependencies](#dependencies)
+* [Limitations](#limitations)
+* [License](#license)
+* [Author Information](#author)
 
-Install SAP hostagent from SAR archive
-Role will unpack SAR archive \ and run saphostagent command to install saphostagent
-Role will check if there is file \ '/usr/sap/hostctrl/exe/saphostexec' \ if this file exists role will do nothing
+## Role overview<a id="role-overview"></a>
 
+> Install SAP hostagent from SAR archive
+> Role will unpack SAR archive \ and run saphostagent command to install saphostagent
+> Role will check if there is file \ '/usr/sap/hostctrl/exe/saphostexec' \ if this file exists role will do nothing
 
+## Role variables<a id="variables"></a>
 
-## Role Variables
+The following variables can be configured for this role:
 
-### Required parameters:
+| Variable | Type | Required | Default | Description |
+|----------|------|----------|---------|-------------|
+| <a id="parameter-saphostagent_sar_source"></a>`saphostagent_sar_source` | `path` | Yes | N/A | Exact path to SAR archive for saphostagent \ not just folder with that archive |
 
-
-- [saphostagent_sar_source](#saphostagent_sar_source)
- 
-
-#### saphostagent_sar_source
-
-
-_Type:_ `path`
-
-
-_Required:_ `True`
-_Description:_
-Exact path to SAR archive for saphostagent \ not just folder with that archive
-
- 
- 
-
-## Limitations
-
-Only supported on linux and darwin (macos) systems
-
-## Dependencies
-
-Role depend on sap.sap_operations.unpack role, \ see requirements and documentation for that role
-Role requires user to be able to become root to run
-
-## Example Playbooks
+## Example Playbooks<a id="examples"></a>
 
 - name: Install saphostagent from SAR file
   hosts: all
@@ -74,10 +60,23 @@ Role requires user to be able to become root to run
       vars:
         saphostagent_sar_source: /software/sap/SAPHOSTAGENT<SP-version>.SAR
 
-## License
+## Dependencies<a id="dependencies"></a>
+
+Role depend on sap.sap_operations.unpack role, \ see requirements and documentation for that role
+
+Role requires user to be able to become root to run
+
+## Limitations<a id="limitations"></a>
+
+Only supported on linux and darwin (macos) systems
+
+## License<a id="license"></a>
 
 GPL-3.0-only
 
-## Author Information
+## Author Information<a id="author"></a>
 
 Kirill Satarin (@kksat)
+
+
+<!-- ANSIBLE DOCSMITH MAIN END -->

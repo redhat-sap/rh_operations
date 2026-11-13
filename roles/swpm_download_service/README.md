@@ -23,101 +23,45 @@ If not, see <https://www.gnu.org/licenses/>.
 
 # swpm_download_service
 
-Use SWPM download service to download binaries for maintenance plan.
+<!-- ANSIBLE DOCSMITH MAIN START -->
 
+* [Role overview](#role-overview)
+* [Role variables](#variables)
+  * [`sap_operations_download_username`](#parameter-sap_operations_download_username)
+  * [`sap_operations_download_password`](#parameter-sap_operations_download_password)
+  * [`swpm_download_service_username`](#parameter-swpm_download_service_username)
+  * [`swpm_download_service_password`](#parameter-swpm_download_service_password)
+  * [`swpm_download_service_plan_id`](#parameter-swpm_download_service_plan_id)
+  * [`swpm_download_service_directory`](#parameter-swpm_download_service_directory)
+* [Example Playbooks](#examples)
+* [Dependencies](#dependencies)
+* [Limitations](#limitations)
+* [License](#license)
+* [Author Information](#author)
 
-Use SWPM download service to download binaries for maintenance plan.
-Role is not idempotent it will call sapinst binary and try to download binaries from Maintenance planner plan id every time it is executed
-Role expects that SAP SWPM already installed in default location. 
-How to install SAP SWPM see role sap.sap_operations.swpm
-For non default locations see role sap.sap_operations.sapinst
+## Role overview<a id="role-overview"></a>
 
-Role expects that user group 'sapinst' already exists, it will fail if not.
+> Use SWPM download service to download binaries for maintenance plan.
+> Role is not idempotent it will call sapinst binary and try to download binaries from Maintenance planner plan id every time it is executed
+> Role expects that SAP SWPM already installed in default location.
+> How to install SAP SWPM see role sap.sap_operations.swpm
+> For non default locations see role sap.sap_operations.sapinst
+> Role expects that user group 'sapinst' already exists, it will fail if not.
 
+## Role variables<a id="variables"></a>
 
+The following variables can be configured for this role:
 
-## Role Variables
+| Variable | Type | Required | Default | Description |
+|----------|------|----------|---------|-------------|
+| <a id="parameter-sap_operations_download_username"></a>`sap_operations_download_username` | `str` | No | N/A | Collection variable that provides the username (sap support user, suser) for software downloads. Default value is set to environment variable SAP_OPERATIONS_DOWNLOAD_USERNAME. Role parameter `swpm_download_service_username` defaults to this […] |
+| <a id="parameter-sap_operations_download_password"></a>`sap_operations_download_password` | `str` | No | N/A | Collection variable that provides the password of the username for software downloads. Default value is set to environment variable SAP_OPERATIONS_DOWNLOAD_PASSWORD. Role parameter `swpm_download_service_password` defaults to this collection […] |
+| <a id="parameter-swpm_download_service_username"></a>`swpm_download_service_username` | `str` | Yes | N/A | Username (sap support user, suser) that will be used to download software. This should be suser id (S000) not email. By default value is from collection variable `sap_operations_download_username`. Collection variable […] |
+| <a id="parameter-swpm_download_service_password"></a>`swpm_download_service_password` | `str` | Yes | N/A | Password of provided username that will be used to download software By default value is from collection variable `sap_operations_download_password`. Collection variable `sap_operations_download_password` default value is set to environment variable […] |
+| <a id="parameter-swpm_download_service_plan_id"></a>`swpm_download_service_plan_id` | `str` | Yes | N/A | Maintenance planner plan id. All binaries in that plan will be downloaded. |
+| <a id="parameter-swpm_download_service_directory"></a>`swpm_download_service_directory` | `path` | Yes | N/A | Directory where all binaries will be downloaded. Should be writable. |
 
-### Required parameters:
-
-
-- [swpm_download_service_username](#swpm_download_service_username)
-
-- [swpm_download_service_password](#swpm_download_service_password)
-
-- [swpm_download_service_plan_id](#swpm_download_service_plan_id)
-
-- [swpm_download_service_directory](#swpm_download_service_directory)
- 
-
-#### swpm_download_service_username
-
-
-_Type:_ `str`
-
-
-_Required:_ `True`
-_Description:_
-Username (sap support user, suser) that will be used to download software.
-This should be suser id (S000) not email.
-By default value is from collection variable `sap_operations_download_username`.
-Collection variable `sap_operations_download_username` default value is set to environment variable SAP_OPERATIONS_DOWNLOAD_USERNAME
-
-
- 
-
-#### swpm_download_service_password
-
-
-_Type:_ `str`
-
-
-_Required:_ `True`
-_Description:_
-Password of provided username that will be used to download software
-By default value is from collection variable `sap_operations_download_password`.
-Collection variable `sap_operations_download_password` default value is set to environment variable SAP_OPERATIONS_DOWNLOAD_PASSWORD
-
-
- 
-
-#### swpm_download_service_plan_id
-
-
-_Type:_ `str`
-
-
-_Required:_ `True`
-_Description:_
-Maintenance planner plan id. All binaries in that plan will be downloaded.
-
-
- 
-
-#### swpm_download_service_directory
-
-
-_Type:_ `path`
-
-
-_Required:_ `True`
-_Description:_
-Directory where all binaries will be downloaded. 
-Should be writable.
-
-
- 
- 
-
-## Limitations
-
-
-## Dependencies
-
-Role executes sap.sap_operations.sapinst role.
-Role expects that SAP SWPM is already installed in default location, see role sap.sap_operations.sapinst and sap.sap_operations.swpm
-
-## Example Playbooks
+## Example Playbooks<a id="examples"></a>
 
 
 - name: Run role swpm_download_service
@@ -128,10 +72,23 @@ Role expects that SAP SWPM is already installed in default location, see role sa
     swpm_download_service_plan_id: '1002099834'
 
 
-## License
+## Dependencies<a id="dependencies"></a>
+
+Role executes sap.sap_operations.sapinst role.
+
+Role expects that SAP SWPM is already installed in default location, see role sap.sap_operations.sapinst and sap.sap_operations.swpm
+
+## Limitations<a id="limitations"></a>
+
+
+
+## License<a id="license"></a>
 
 GPL-3.0-only
 
-## Author Information
+## Author Information<a id="author"></a>
 
 Kirill Satarin (@kksat)
+
+
+<!-- ANSIBLE DOCSMITH MAIN END -->

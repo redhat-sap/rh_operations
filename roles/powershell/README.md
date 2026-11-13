@@ -23,35 +23,59 @@ If not, see <https://www.gnu.org/licenses/>.
 
 # powershell
 
-Manage powershell
+<!-- ANSIBLE DOCSMITH MAIN START -->
+
+* [Role overview](#role-overview)
+* [Role variables](#variables)
+  * [`powershell_state`](#parameter-powershell_state)
+* [Example Playbooks](#examples)
+* [Dependencies](#dependencies)
+* [Limitations](#limitations)
+* [License](#license)
+* [Author Information](#author)
+
+## Role overview<a id="role-overview"></a>
+
+> Manage powershell
+> Install powershell
+> Role is only intended to be called from outside other roles of collection sap_operations.
+
+## Role variables<a id="variables"></a>
+
+The following variables can be configured for this role:
+
+| Variable | Type | Required | Default | Description |
+|----------|------|----------|---------|-------------|
+| <a id="parameter-powershell_state"></a>`powershell_state` | `str` | Yes | N/A | Powershell state. Present / absent<br>*Choices:* present, absent |
+
+## Example Playbooks<a id="examples"></a>
+
+```ansible
+- hosts: all
+  tasks:
+    - name: Ensure powershell is present
+      ansible.builtin.include_role:
+        name: sap.sap_operations.powershell
+      vars:
+        powershell_state: present
+```
 
 
-Install powershell
-Role is only intended to be called from outside other roles of collection sap_operations.
+## Dependencies<a id="dependencies"></a>
+
+Role has no dependencies to other roles.
+
+## Limitations<a id="limitations"></a>
+
+None
+
+## License<a id="license"></a>
+
+GPL-3.0-only
+
+## Author Information<a id="author"></a>
+
+Kirill Satarin (@kksat)
 
 
-
-## Role Variables
-
-### Required parameters:
-
-
-- [powershell_state](#powershell_state)
- 
-
-#### powershell_state
-
-
-_Type:_ `str`
-
-
-_Required:_ `True`
-_Choices:_
-- present
-- absent
-_Description:_
-Powershell state. Present / absent
-
-
- 
- 
+<!-- ANSIBLE DOCSMITH MAIN END -->
